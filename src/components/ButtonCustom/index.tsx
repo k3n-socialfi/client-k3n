@@ -3,13 +3,33 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import { Stack } from "@mui/material";
 
 interface ICustomButtonProps extends ButtonProps {
-  // Định nghĩa các props tùy chỉnh nếu cần
+  colorBt?: string;
+  borderColorBt?: string;
+  boxShadowBt?: string;
 }
 
-const ButtonCustom: React.FC<ICustomButtonProps> = ({ children, ...props }) => {
+const ButtonCustom: React.FC<ICustomButtonProps> = ({
+  colorBt,
+  borderColorBt,
+  boxShadowBt,
+  children,
+  ...props
+}) => {
   return (
     <Stack direction="row" spacing={2}>
-      <Button {...props}>{children}</Button>
+      <Button
+        {...props}
+        sx={{
+          borderRadius: "10px",
+          textTransform: "inherit",
+          fontWeight: "bold",
+          boxShadow: boxShadowBt ?? "0",
+          color: colorBt ?? "#000",
+          borderColor: borderColorBt ?? "#000",
+        }}
+      >
+        {children}
+      </Button>
     </Stack>
   );
 };
