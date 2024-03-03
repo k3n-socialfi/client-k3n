@@ -1,6 +1,8 @@
+"use client";
 import * as React from "react";
-import Button, { ButtonProps } from "@mui/material/Button";
+import { ButtonProps } from "@mui/material/Button";
 import { Stack } from "@mui/material";
+import { StyleButton } from "./style";
 
 interface ICustomButtonProps extends ButtonProps {
   colorBt?: string;
@@ -17,19 +19,14 @@ const ButtonCustom: React.FC<ICustomButtonProps> = ({
 }) => {
   return (
     <Stack direction="row" spacing={2}>
-      <Button
+      <StyleButton
         {...props}
-        sx={{
-          borderRadius: "10px",
-          textTransform: "inherit",
-          fontWeight: "bold",
-          boxShadow: boxShadowBt ?? "0",
-          color: colorBt ?? "#000",
-          borderColor: borderColorBt ?? "#000",
-        }}
+        color={colorBt}
+        borderColorBt={borderColorBt}
+        boxShadow={boxShadowBt}
       >
         {children}
-      </Button>
+      </StyleButton>
     </Stack>
   );
 };
