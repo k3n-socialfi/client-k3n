@@ -21,9 +21,9 @@ const ButtonCustom: React.FC<ICustomButtonProps> = ({
     <Stack direction="row" spacing={2}>
       <StyleButton
         {...props}
-        color={colorBt}
+        colorBt={colorBt}
         borderColorBt={borderColorBt}
-        boxShadow={boxShadowBt}
+        boxShadowBt={boxShadowBt}
       >
         {children}
       </StyleButton>
