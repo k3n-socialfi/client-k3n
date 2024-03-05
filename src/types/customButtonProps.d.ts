@@ -1,5 +1,9 @@
 interface ICustomButtonProps {
-  color?: string;
-  boxShadow?: string;
+  // [_: string]: string;
+  colorBt?: string;
   borderColorBt?: string;
+  backgroundColorBt?: string;
+  colorBtHover?: string;
+  borderColorBtHover?: string;
+  backgroundColorBtHover?: string;
 }

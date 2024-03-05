@@ -3,31 +3,44 @@ import * as React from "react";
 import { ButtonProps } from "@mui/material/Button";
 import { Stack } from "@mui/material";
 import { StyleButton } from "./style";
+import { theme } from "@/assets/styleGlobal";
+import { ThemeProvider } from "styled-components";
 
 interface ICustomButtonProps extends ButtonProps {
   colorBt?: string;
   borderColorBt?: string;
-  boxShadowBt?: string;
+  backgroundColorBt?: string;
+  colorBtHover?: string;
+  borderColorBtHover?: string;
+  backgroundColorBtHover?: string;
 }
 
 const ButtonCustom: React.FC<ICustomButtonProps> = ({
   colorBt,
   borderColorBt,
-  boxShadowBt,
+  backgroundColorBt,
+  colorBtHover,
+  borderColorBtHover,
+  backgroundColorBtHover,
   children,
   ...props
 }) => {
   return (
-    <Stack direction="row" spacing={2}>
-      <StyleButton
-        {...props}
-        color={colorBt}
-        borderColorBt={borderColorBt}
-        boxShadow={boxShadowBt}
-      >
-        {children}
-      </StyleButton>
-    </Stack>
+    <ThemeProvider theme={theme}>
+      <Stack direction="row" spacing={2}>
+        <StyleButton
+          {...props}
+          colorBt={colorBt}
+          borderColorBt={borderColorBt}
+          backgroundColorBt={backgroundColorBt}
+          colorBtHover={colorBtHover}
+          borderColorBtHover={borderColorBtHover}
+          backgroundColorBtHover={backgroundColorBtHover}
+        >
+          {children}
+        </StyleButton>
+      </Stack>
+    </ThemeProvider>
   );
 };
 

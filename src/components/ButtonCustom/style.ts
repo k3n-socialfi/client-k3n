@@ -2,13 +2,44 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 
 export const StyleButton = styled(Button)<ICustomButtonProps>`
-  border-radius: 10px;
+  border-radius: 50px;
   text-transform: inherit;
-  font-weight: bold;
-  color: ${(props) => props.color || "#000"};
-  border-color: ${(props) => props.borderColorBt || "#000"};
-  box-shadow: ${(props) => props.boxShadow || "0"};
+  color: ${(props: any) =>
+    props.theme.colors.button[props.colorBt] ??
+    props.theme.colors.button.white};
+  border-color: ${(props: any) =>
+    props.theme.colors.button[props.borderColorBt] ??
+    props.theme.colors.button.white};
+  background-color: ${(props: any) =>
+    props.theme.backgrounds.button[props.backgroundColorBt] ??
+    props.theme.backgrounds.button.primaryEnabled};
   &:hover {
-    border-color: ${(props) => props.borderColorBt || "#000"};
+    color: ${(props: any) =>
+      props.theme.colors.button[props.colorBtHover] ??
+      props.theme.colors.button.white};
+    border-color: ${(props: any) =>
+      props.theme.colors.button[props.borderColorBtHover] ??
+      props.theme.colors.button.white};
+    background-color: ${(props: any) =>
+      props.theme.backgrounds.button[props.backgroundColorBtHover] ??
+      props.theme.backgrounds.button.primaryEnabled};
+  }
+  &:active {
+    color: ${(props: any) => props.theme.colors.button.white};
+    border-color: ${(props: any) => props.theme.colors.button.pink};
+    background-color: ${(props: any) =>
+      props.theme.backgrounds.button.primaryPressed};
+  }
+  &:disabled {
+    opacity: 0.5;
+    color: ${(props: any) =>
+      props.theme.colors.button[props.colorBt] ??
+      props.theme.colors.button.white};
+    border-color: ${(props: any) =>
+      props.theme.colors.button[props.borderColorBt] ??
+      props.theme.colors.button.white};
+    background-color: ${(props: any) =>
+      props.theme.backgrounds.button[props.backgroundColorBt] ??
+      props.theme.backgrounds.button.primaryEnabled};
   }
 `;
