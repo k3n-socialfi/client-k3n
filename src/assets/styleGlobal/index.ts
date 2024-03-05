@@ -1,0 +1,22 @@
+export const theme = {
+  colors: {
+    whiteText: "#FFFFFF",
+    pinkText: "#F23581",
+    primaryEnabledBt: "#F23581",
+    primaryHoverBt: "#D81B67",
+    primaryPressedBt: "#BF024E",
+    primaryDisabledBt: "#F23581",
+    secondaryEnabledBt: "#FFFFFF1A",
+    secondaryHoverBt: "#FDE6EF",
+    secondaryPressedBt: "#BF024E",
+    secondaryDisabledBt: "#FFFFFF1A",
+    textEnabledBt: "#FFFFFF1A",
+    textHoverBt: "#FDE6EF",
+    textPressedBt: "#BF024E",
+    textDisabledBt: "#FFFFFF1A",
+    elevatedEnabledBt: "#F23581",
+    elevatedHoverBt: "#D81B67",
+    elevatedPressedBt: "#BF024E",
+    elevatedDisabledBt: "#F23581",
+  },
+};
