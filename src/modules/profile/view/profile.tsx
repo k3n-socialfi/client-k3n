@@ -1,5 +1,6 @@
 "use client"
-import { IconDots, IconNFT, IconRight, IconTwitter } from "@/assets/icons";
+import { IconDots, IconNFT, IconRight, IconTwitter, IconStar } from "@/assets/icons";
+import Cards from "@/components/Card";
 import Chips from "@/components/Chip";
 import { Avatar, Button } from "@mui/material";
 import Image from "next/image";
@@ -55,7 +56,9 @@ export default function UserProfile(props: IUserProfileProps) {
             </StyleTags>
             <StyleReview>
             <StyleTitle>Reviews</StyleTitle>
-            
+            <StyleIcon>
+            <IconStar/> 5.0(1.654)
+            </StyleIcon>
             </StyleReview>
           </StyleInfo>
       </StylePersonal>
@@ -123,4 +126,9 @@ const StyleTitle = styled.div`
 const StyleChips = styled.div`
   display: flex;
   gap: 8px;
+`
+const StyleIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `
