@@ -6,6 +6,7 @@ import { Avatar, Button } from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import styled from "styled-components";
+import CustomizedTabs from "../components/Tabs";
 
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -38,31 +39,40 @@ export default function UserProfile(props: IUserProfileProps) {
         </StyleContent>
       </StyleHeader>
       <StylePersonal>
-          <Image style={{ width: '100%'}} width={0} height={293} sizes="100vw" src={IMG_NFT} alt="igs"/>
-          <StyleInfo>
-            <StyleDetails>
-                <StyleTitle>About me</StyleTitle>
-                <StyleSpan>
-                Creating top-tier video content for the leading projects in the NFT space. Clients include major brands like Pudgy Penguins, Magic Eden, RugRadio.
-                </StyleSpan>
-            </StyleDetails>
-            <StyleTags>
+        <Image style={{ width: '100%', borderRadius: '8px' }} width={0} height={293} sizes="100vw" src={IMG_NFT} alt="igs" />
+        <StyleInfo>
+          <StyleDetails>
+            <StyleTitle>About me</StyleTitle>
+            <StyleSpan>
+              Creating top-tier video content for the leading projects in the NFT space. Clients include major brands like Pudgy Penguins, Magic Eden, RugRadio.
+            </StyleSpan>
+          </StyleDetails>
+          <StyleTags>
             <StyleTitle>Tags</StyleTitle>
             <StyleChips>
-              <Chips label="Social Fi" variant="outlined"/>
-              <Chips label="Researcher" color="success"/>
-              <Chips label="Ethereum" color="warning"/>
+              <Chips label="Social Fi" variant="outlined" />
+              <Chips label="Researcher" color="success" />
+              <Chips label="Ethereum" color="warning" />
+              <Chips label="Ethereum" color="warning" />
             </StyleChips>
-            </StyleTags>
-            <StyleReview>
+          </StyleTags>
+          <StyleReview>
             <StyleTitle>Reviews</StyleTitle>
             <StyleIcon>
-            <IconStar/> 5.0(1.654)
+              <IconStar /> 5.0(1.654)
             </StyleIcon>
-            </StyleReview>
-          </StyleInfo>
+          </StyleReview>
+        </StyleInfo>
       </StylePersonal>
-      
+      <StyleFeed>
+        <StyleLeft>aaa</StyleLeft>
+        <StyleRight>
+          <div>
+            <CustomizedTabs />
+          </div>
+        </StyleRight>
+      </StyleFeed>
+      <div style={{ marginTop: "80px" }}></div>
     </StyleContainer>
   )
 }
@@ -125,10 +135,25 @@ const StyleTitle = styled.div`
 `
 const StyleChips = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 `
 const StyleIcon = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+`
+
+const StyleFeed = styled.div`
+  display: flex;
+  color: #FFFFFF; 
+`
+const StyleLeft = styled.div`
+  width: 60%;
+`
+const StyleRight = styled.div`
+  width : 40%;
+`
+const StyleTabs = styled.div`
+  padding: 12px;
 `
