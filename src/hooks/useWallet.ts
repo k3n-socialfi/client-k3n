@@ -8,30 +8,34 @@ export default function useWallet() {
   const provider = getProvider();
 
   const onConnect = async () => {
-    try {
-      if (!provider) {
-        window.open("https://phantom.app/", "_blank");
+    if (typeof window !== "undefined") {
+      try {
+        if (!provider) {
+          window.open("https://phantom.app/", "_blank");
+        }
+        const resp = await provider.connect();
+        setWalletAddress(resp.publicKey.toString());
+        localStorage.setItem("wallet_status", STATUS_WALLET.CONNECTED);
+      } catch (error) {
+        localStorage.setItem("wallet_status", STATUS_WALLET.NOT_CONNECTED);
+        console.error(error);
       }
-      const resp = await provider.connect();
-      setWalletAddress(resp.publicKey.toString());
-      localStorage.setItem("wallet_status", STATUS_WALLET.CONNECTED);
-    } catch (error) {
-      localStorage.setItem("wallet_status", STATUS_WALLET.NOT_CONNECTED);
-      console.error(error);
     }
   };
 
   const onDisconnect = async () => {
-    try {
-      if (!provider) {
-        window.open("https://phantom.app/", "_blank");
+    if (typeof window !== "undefined") {
+      try {
+        if (!provider) {
+          window.open("https://phantom.app/", "_blank");
+        }
+        await provider.disconnect();
+        setWalletAddress(undefined);
+        localStorage.removeItem("wallet_status");
+      } catch (error) {
+        localStorage.setItem("wallet_status", STATUS_WALLET.NOT_CONNECTED);
+        console.error(error);
       }
-      await provider.disconnect();
-      setWalletAddress(undefined);
-      localStorage.removeItem("wallet_status");
-    } catch (error) {
-      localStorage.setItem("wallet_status", STATUS_WALLET.NOT_CONNECTED);
-      console.error(error);
     }
   };
   return { walletAddress, onConnect, onDisconnect };
