@@ -5,3 +5,5 @@ export { default as IconTwitter } from "./IconTwitter";
 export { default as IconNFT } from "./IconNFT";
 export { default as IconStar} from "./IconStar";
 export { default as IconLike} from "./IconLike";
+export { default as IconRightNormal} from "./IconRightNormal";
+export { default as IconAvatar} from "./IconAvatar";
