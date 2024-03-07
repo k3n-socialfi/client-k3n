@@ -23,7 +23,8 @@ export const WalletContext = React.createContext<TWalletContext>(defaultValue);
 
 export default function WalletProvider({ children }: IWalletProviderProps) {
   const { onConnect, walletAddress, onDisconnect } = useWallet();
-  const statusWallet = localStorage.getItem("wallet_status");
+  const statusWallet =
+    typeof window !== "undefined" ? localStorage.getItem("wallet_status") : "";
 
   React.useEffect(() => {
     if (statusWallet && statusWallet.toString() === STATUS_WALLET.CONNECTED) {
