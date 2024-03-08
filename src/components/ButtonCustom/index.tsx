@@ -99,7 +99,7 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
       {...props}
       variant="outlined"
       color="secondary"
-      colorBt="primary.pinkText"
+      colorBt={props.colorBt ?? "primary.pinkText"}
       borderColorBt="primary.enabled"
       backgroundColorBt="secondary.enabled"
       colorBtHover="primary.pinkText"
