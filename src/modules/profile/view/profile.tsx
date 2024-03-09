@@ -46,7 +46,7 @@ const Header = () => {
 const Personal = () => {
   return (
     <StylePersonal>
-      <Image style={{ width: '100%', borderRadius: '8px' }} width={0} height={293} sizes="100vw" src={IMG_NFT} alt="igs" />
+      <Image style={{ width: '100%', borderRadius: '12px' }} width={0} height={293} sizes="100vw" src={IMG_NFT} alt="igs" />
       <StyleInfo>
         <StyleDetails>
           <StyleTitle>About me</StyleTitle>
@@ -165,7 +165,7 @@ const StylePersonal = styled.div`
   background-color: #F23581;
   color: #ffffff;
   margin: 40px 0;
-  border-radius: 8px;
+  border-radius: 12px;
 `
 const StyleInfo = styled.div`
   padding: 12px;
@@ -222,7 +222,7 @@ const StyleInfor = styled.div`
   width: 100%;
   padding: 12px;
   background-color: #353535;
-  border-radius: 8px;
+  border-radius: 12px;
 `
 const StyleUser = styled.div`
   font-size: 12px;

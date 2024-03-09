@@ -58,12 +58,12 @@ const StyleMainCard = styled.div`
    gap: 12px;
    padding: 12px;
    border: 1px solid gray;
-   border-radius: 8px;
+   border-radius: 12px;
 `
 const StylePostImg = styled(Image)`
   width: 100%; 
   height: auto;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-top: 12px;
 `
 
@@ -77,7 +77,7 @@ const StyleUser = styled.div`
 `
 const StyleCardPost = styled.div`
 display: flex;
-border-radius: 8px;
+border-radius: 12px;
 `
 const StyleInforPost = styled.div`
 display: flex;
