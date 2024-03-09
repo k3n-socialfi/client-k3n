@@ -7,3 +7,8 @@ export { default as IconStar} from "./IconStar";
 export { default as IconLike} from "./IconLike";
 export { default as IconRightNormal} from "./IconRightNormal";
 export { default as IconAvatar} from "./IconAvatar";
+export { default as IconShare } from "./IconShare";
+export { default as IconSave } from "./IconSave";
+export { default as IconHeart } from "./IconHeart";
+export { default as IconComment } from "./IconComment";
+export { default as IconSwitch } from "./IconSwitch";

@@ -1,13 +1,14 @@
 "use client"
-import { IconDots, IconNFT, IconRight, IconTwitter, IconStar, IconLike, IconAvatar, IconRightNormal } from "@/assets/icons";
+import * as React from 'react';
+import Image from "next/image";
+import { Avatar, Button } from "@mui/material";
+import styled from "styled-components";
 import Cards from "@/components/Card";
 import Chips from "@/components/Chip";
-import { Avatar, Button } from "@mui/material";
-import Image from "next/image";
-import * as React from "react";
-import styled from "styled-components";
 import CustomizedTabs from "../components/Tabs";
 import { ButtonCustom } from "@/components/ButtonCustom";
+import { IconDots, IconNFT, IconRight, IconTwitter, IconStar, IconLike, IconRightNormal, IconAvatar } from "@/assets/icons";
+import TabsPost from '../components/Post/TabsPost';
 
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -98,7 +99,7 @@ export default function UserProfile(props: IUserProfileProps) {
       <Header />
       <Personal />
       <StyleFeed>
-        <StyleLeft>New Feeds</StyleLeft>
+        <StyleLeft><TabsPost /></StyleLeft>
         <StyleRight>
           <div>
             <CustomizedTabs />
@@ -122,10 +123,10 @@ export default function UserProfile(props: IUserProfileProps) {
           </div>
         </StyleSlideCard>
       </StyleCard>
-      <div style={{ marginTop: "80px" }}></div>
     </StyleContainer>
   )
 }
+
 
 const StyleCard = styled.div`
   padding: 48px 0;
@@ -203,6 +204,7 @@ const StyleFeed = styled.div`
 `
 const StyleLeft = styled.div`
   width: 60%;
+  margin-right: 12px;
 `
 const StyleRight = styled.div`
   width : 40%;
