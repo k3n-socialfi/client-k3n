@@ -6,4 +6,8 @@ interface ICustomButtonProps {
   colorBtHover?: string;
   borderColorBtHover?: string;
   backgroundColorBtHover?: string;
+  colorBtPressed?: string;
+  borderColorBtPressed?: string;
+  backgroundColorBtPressed?: string;
+  backgroundColorBtDisElevated?: string;
 }

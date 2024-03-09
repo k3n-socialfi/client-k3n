@@ -1,4 +1,4 @@
-export default function WalletIcon() {
+export default function IconWallet() {
   return (
     <svg
       width="24"

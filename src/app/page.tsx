@@ -1,7 +1,11 @@
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+import Footer from "@/components/Footer";
+import Home from "@/modules/home/view/home";
 
-    </main>
+export default function HomePage() {
+  return (
+    <>
+      <Home />
+      <Footer />
+    </>
   );
 }

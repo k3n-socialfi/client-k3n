@@ -136,6 +136,7 @@ const StyleCard = styled.div`
 const StyleSlideCard = styled.div`
   width: 100%;
  display: flex;
+ gap: 12px;
 `
 const StyleContainer = styled.div`
   margin: 0 40px;

@@ -1,10 +1,7 @@
 export { default as IconRight } from "./IconRight";
-export { default as WalletIcon } from "./WalletIcon";
 export { default as IconDots } from "./IconDots";
-export { default as IconTwitter } from "./IconTwitter";
 export { default as IconNFT } from "./IconNFT";
 export { default as IconStar} from "./IconStar";
-export { default as IconLike} from "./IconLike";
 export { default as IconRightNormal} from "./IconRightNormal";
 export { default as IconAvatar} from "./IconAvatar";
 export { default as IconShare } from "./IconShare";
@@ -12,3 +9,13 @@ export { default as IconSave } from "./IconSave";
 export { default as IconHeart } from "./IconHeart";
 export { default as IconComment } from "./IconComment";
 export { default as IconSwitch } from "./IconSwitch";
+export { default as IconWallet} from "./IconWallet";
+export { default as IconFire} from "./IconFire";
+export { default as IconLike} from "./IconLike";
+export { default as IconArrowRight} from "./IconArrowRight";
+export { default as IconPersonMultiple} from "./IconPersonMultiple";
+export { default as IconRocket} from "./IconRocket";
+export { default as IconTick} from "./IconTick";
+export { default as IconDiscord} from "./IconDiscord";
+export { default as IconTwitter} from "./IconTwitter";
+
