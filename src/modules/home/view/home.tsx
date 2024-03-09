@@ -5,7 +5,7 @@ import CardKOLs from "@/components/CardKOLs";
 import CardProject from "@/components/CardProjects";
 import CarouselSlide from "@/components/CarouselSlide";
 import TrendingKOLsTop from "@/components/TrendingKOLsTop";
-import { Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import {
   StyleBottom,
   StyleContainer,
@@ -23,9 +23,12 @@ import {
   StyleTrendingTop,
   StyleTrendingTopCard,
 } from "../components/style/styleHome";
-import { IconArrowRight, IconPersonMultiple, IconRocket } from "@/assets/icons";
+import { IconArrowRight, IconLike, IconPersonMultiple, IconRocket } from "@/assets/icons";
+import Chips from "@/components/Chip";
 
 export interface IHomeProps { }
+
+const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
 export default function Home(props: IHomeProps) {
   const slides = [
@@ -58,8 +61,8 @@ export default function Home(props: IHomeProps) {
           </StyleRight>
         </StyleTop>
         <StyleBottom>
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <Cards key={item} KOLs={true} />
+          {[1, 2, 3].map((index) => (
+            <Cards key={index} url={IMG_NFT} title="content" content={<Chips label="Social Fi" variant="outlined" />} actions={<Button sx={{ borderRadius: "14px" }} color="primary" variant="outlined" size="medium" startIcon={<IconLike />}>4.6M</Button>} />
           ))}
         </StyleBottom>
       </StyleFeaturedKOLs>
@@ -76,8 +79,8 @@ export default function Home(props: IHomeProps) {
           </StyleRight>
         </StyleTop>
         <StyleBottom>
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <Cards key={item} />
+          {[1, 2, 3].map((index) => (
+            <Cards key={index} url={IMG_NFT} title="content" content={<Chips label="Social Fi" variant="outlined" />} actions={<Button sx={{ borderRadius: "14px" }} color="primary" variant="outlined" size="medium" startIcon={<IconLike />}>4.6M</Button>} />
           ))}
         </StyleBottom>
       </StyleFeaturedProject>

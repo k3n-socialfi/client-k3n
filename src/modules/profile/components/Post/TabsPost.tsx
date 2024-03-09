@@ -3,13 +3,14 @@ import { styled } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { Button, Typography } from '@mui/material';
-import { Basic } from './basic';
+import { PostUser } from './post';
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
   return (
     <div
+      style={{ margin: "12px 0" }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -23,7 +24,7 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-export default function CustomizedTabs() {
+export default function TabsPost() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -32,30 +33,25 @@ export default function CustomizedTabs() {
 
   return (
     <CustomBox >
-      <Box>
+      <Box sx={{ backgroundColor: "#353535" }}>
         <StyledTabs
           value={value}
           onChange={handleChange}
           aria-label="styled tabs example"
         >
-          <StyledTab label="Basic" />
-          <StyledTab label="Standard" />
-          <StyledTab label="Premium" />
+          <StyledTab label="Post" />
+          <StyledTab label="Experience(7)" />
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Basic />
+        <PostUser />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
     </CustomBox>
   );
 }
-
 
 const StyledTabs = styled((props: StyledTabsProps) => (
   <Tabs
@@ -90,7 +86,5 @@ const StyledTab = styled((props: StyledTabProps) => (
 
 const CustomBox = styled(Box)`
     width: 100%;
-    padding: 0 12px;
-    background-color: #353535;
     border-radius: 12px;
 `

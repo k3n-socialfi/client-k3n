@@ -1,73 +1,52 @@
-"use client";
-import LikeIcon from "@/assets/icons/IconLike";
-import TickIcon from "@/assets/icons/IconTick";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Chips from "../Chip";
-import {
-  StyleChips,
-  StyleContentTitle,
-  StyleSubscribe,
-  StyleTitleLeft,
-  StyleTitleRight,
-} from "./style";
-import TwitterIcon from "@/assets/icons/IconTwitter";
+"use client"
+import React from 'react'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import styled from 'styled-components';
 
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+interface ICards {
+  url: string,
+  title: string,
+  content: any,
+  actions: any
+}
 
-export default function Cards(props: any) {
+export default function Cards({
+  url, title, content, actions
+}: ICards) {
   return (
-    <Card sx={{ minWidth: 300, background: "#252525" }} {...props}>
-      <div style={{ position: "relative" }}>
-        {props.KOLs && (
-          <StyleSubscribe>
-            <Chips
-              label="subscribe"
-              variant="outlined"
-              sx={{
-                color: "#FFF",
-                cursor: "pointer",
-                border: "1px #F23581 solid",
-              }}
-            />
-          </StyleSubscribe>
-        )}
-        <CardMedia sx={{ height: 140 }} image={IMG_NFT} title="green iguana" />
-      </div>
+    <CustomCard>
+      <CardMedia
+        sx={{ height: 202 }}
+        image={url}
+        title="green iguana"
+      />
       <CardContent>
-        <StyleContentTitle>
-          <StyleTitleLeft>
-            Title
-            {props.KOLs && <TickIcon />}
-          </StyleTitleLeft>
-          {props.KOLs && (
-            <StyleTitleRight>
-              <TwitterIcon />
-              87.5K follower
-            </StyleTitleRight>
-          )}
-        </StyleContentTitle>
+        <StyleTitle>{title}</StyleTitle>
         <StyleChips>
-          <Chips label="Social Fi" variant="outlined" />
-          <Chips label="Researcher" color="success" />
-          <Chips label="Ethereum" color="warning" />
+          {content}
         </StyleChips>
       </CardContent>
       <CardActions sx={{ paddingLeft: "16px" }}>
-        <Button
-          sx={{ borderRadius: "14px" }}
-          color="primary"
-          variant="outlined"
-          size="medium"
-          startIcon={<LikeIcon />}
-        >
-          4.6M
-        </Button>
+        {actions}
       </CardActions>
-    </Card>
-  );
+    </CustomCard>
+  )
 }
+
+const CustomCard = styled(Card)`
+    width: 100%;
+    background-color: #252525;
+`
+const StyleTitle = styled.div`
+  font-size: 18px;
+  padding-bottom: 12px;
+  color: #ffffff;
+`
+
+const StyleChips = styled.div`
+  display: flex;
+  gap: 8px;
+`
