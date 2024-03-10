@@ -1,47 +1,16 @@
 "use client"
-import * as React from 'react';
-import Image from "next/image";
-import { Avatar, Button } from "@mui/material";
-import styled from "styled-components";
+import { IconAvatar, IconLike, IconRightNormal, IconStar } from "@/assets/icons";
+import { ButtonCustom } from "@/components/ButtonCustom";
 import Cards from "@/components/Card";
 import Chips from "@/components/Chip";
-import CustomizedTabs from "../components/Tabs";
-import { ButtonCustom } from "@/components/ButtonCustom";
-import { IconDots, IconNFT, IconRight, IconTwitter, IconStar, IconLike, IconRightNormal, IconAvatar } from "@/assets/icons";
+import { Button } from "@mui/material";
+import Image from "next/image";
+import styled from "styled-components";
 import TabsPost from '../components/Post/TabsPost';
+import CustomizedTabs from "../components/Tabs";
 
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-
-const Header = () => {
-  return (
-    <StyleHeader>
-      <StyleContent>
-        <IconRight />
-        <Avatar sx={{ width: 48, height: 48 }} />
-        <div>
-          <StyleName>
-            user name
-          </StyleName>
-          <StyleSocial>
-            <div>
-              240 post
-            </div>
-            <IconDots />
-            <IconTwitter />
-            <div>
-              344.2k followers
-            </div>
-          </StyleSocial>
-        </div>
-      </StyleContent>
-      <StyleContent>
-        <Button sx={{ borderRadius: "14px", color: "#fff" }} variant="outlined">Subscribe</Button>
-        <Button sx={{ borderRadius: "14px" }} color="primary" variant="contained" endIcon={<IconNFT />}>Book</Button>
-      </StyleContent>
-    </StyleHeader>
-  )
-}
 
 const Personal = () => {
   return (
@@ -96,7 +65,6 @@ const InformationSocial = () => {
 export default function UserProfile(props: IUserProfileProps) {
   return (
     <StyleContainer>
-      <Header />
       <Personal />
       <StyleFeed>
         <StyleLeft><TabsPost /></StyleLeft>
@@ -141,27 +109,7 @@ const StyleSlideCard = styled.div`
 const StyleContainer = styled.div`
   margin: 0 40px;
 `
-const StyleHeader = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #FFFFFF;
-`
-const StyleContent = styled.div`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  color: #FFFFFF;
-`
-const StyleName = styled.div`
-  margin-bottom: 6px;
-`
-const StyleSocial = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-`
+
 const StylePersonal = styled.div`
   background-color: #F23581;
   color: #ffffff;
@@ -204,7 +152,7 @@ const StyleFeed = styled.div`
   color: #FFFFFF; 
 `
 const StyleLeft = styled.div`
-  width: 60%;
+  width: 57%;
   margin-right: 12px;
 `
 const StyleRight = styled.div`
@@ -213,9 +161,7 @@ const StyleRight = styled.div`
   flex-direction: column;
   gap: 12px;
 `
-const StyleTabs = styled.div`
-  padding: 12px;
-`
+
 const StyleInfor = styled.div`
   display: flex;
   flex-direction: column;
