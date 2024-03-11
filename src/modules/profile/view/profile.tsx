@@ -1,5 +1,6 @@
 "use client"
-import { IconTwitter } from "@/assets/icons";
+import { IconLike, IconTwitter } from "@/assets/icons";
+import { ButtonCustom } from "@/components/ButtonCustom";
 import { Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
@@ -7,12 +8,39 @@ import styled from "styled-components";
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
-
 const Overview = () => {
   return (
-    <StyleInfor>
-      Overview
-    </StyleInfor>
+    <StyleOverview>
+      <StyleTitle>Overview</StyleTitle>
+      <PrimaryTitle>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+
+      </PrimaryTitle>
+      <PrimaryTitle>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview><StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL Fashion KOL Fashion KOL Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+      </PrimaryTitle>
+    </StyleOverview>
   )
 }
 
@@ -28,28 +56,28 @@ const Personal = () => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
-        <StylePersonalLeft>
-          <StyleImage src={IMG_NFT} alt="avatar profile" width={220} height={220} />
-          <StyleContentUser>
-            <StyleTitle> User Name</StyleTitle>
-            <StyleUserDes>
-              I'm developer software engineer
-            </StyleUserDes>
-            <StyleUserDes>
-              Influencer
-            </StyleUserDes>
-            <StyleUserSocial>Social</StyleUserSocial>
-            <StyleIcons>
-              <IconTwitter />
-              <IconTwitter />
-              <IconTwitter />
-              <IconTwitter />
-            </StyleIcons>
-          </StyleContentUser>
-        </StylePersonalLeft>
+        <StyleImage src={IMG_NFT} alt="avatar profile" width={220} height={220} />
+        <StyleContentUser>
+          <StyleTitle> User Name</StyleTitle>
+          <StyleUserDes>
+            Im developer software engineer
+          </StyleUserDes>
+          <StyleUserDes>
+            Influencer
+          </StyleUserDes>
+          <StyleUserSocial>Social</StyleUserSocial>
+          <StyleIcons>
+            <IconTwitter />
+            <IconTwitter />
+            <IconTwitter />
+            <IconTwitter />
+          </StyleIcons>
+        </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
-        Icons
+        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Edit</ButtonCustom>
+        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Share</ButtonCustom>
+        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Add to watchlist</ButtonCustom>
       </StylePersonalRight>
     </StylePersonal>
   )
@@ -72,9 +100,28 @@ const StyleContainer = styled.div`
   background-color: #000000;
   color: #ffffff;
 `
+const PrimaryTitle = styled.div`
+  display: flex;
+  gap: 60px;
+  padding: 24px 0;
+`
+const StyleDesOverview = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #B9B9B9;
+`
+const StyleContentOverview = styled.div``
+const StyleSubTitle = styled.div`
+  padding-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #82EBFF;
+`
 const StylePersonal = styled.div`
-display: flex;
-  gap:32px;
+  display: flex;
+  align-items: flex-start;
   padding: 24px 14px;
 `
 const StyleImage = styled(Image)`
@@ -82,7 +129,7 @@ border: 2px solid #FFF;
   border-radius: 50%;
 `
 const StylePersonalLeft = styled.div`
-  width: 100%;
+  width: 70%;
  display: flex;
  align-items: center;
  gap: 32px;
@@ -105,6 +152,7 @@ padding: 4px 12px;
   background-color: #393939;
   border-radius: 12px;
   color: #82EBFF;
+  width: fit-content;
 
 `
 const StyleUserSocial = styled.div`
@@ -119,10 +167,12 @@ const StyleIcons = styled.div`
 `
 
 const StylePersonalRight = styled.div`
-  padding: 48px 0;
-  width: 100%;
+  margin-left: 70px;
+  display: flex;
+  gap: 14px;
+  width: 30%;
 `
-const StyleInfor = styled.div`
-
+const StyleOverview = styled.div`
+  padding: 16px 20px;
 `
 
