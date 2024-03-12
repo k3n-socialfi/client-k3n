@@ -22,7 +22,6 @@ const Overview = () => {
           <StyleDesOverview>Primary Job Title</StyleDesOverview>
           <StyleSubTitle>Fashion KOL</StyleSubTitle>
         </StyleContentOverview>
-
       </PrimaryTitle>
       <PrimaryTitle>
         <StyleContentOverview>
@@ -68,9 +67,23 @@ const Personal = () => {
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
-        <Button variant="outlined" sx={{ borderRadius: "8px" }}>Edit</Button>
+        {/* <Button variant="outlined" sx={{ borderRadius: "8px" }}>Edit</Button>
         <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Share</ButtonCustom>
-        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Add to watchlist</ButtonCustom>
+        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Add to watchlist</ButtonCustom> */}
+        <StyleButtons>
+          <StyleButton>
+            <IconLike />Edit
+          </StyleButton>
+        </StyleButtons>
+        <StyleButtons>
+          <StyleButton>
+            <IconLike />Edit
+          </StyleButton>
+        </StyleButtons> <StyleButtons>
+          <StyleButton>
+            <IconLike />Edit
+          </StyleButton>
+        </StyleButtons>
       </StylePersonalRight>
     </StylePersonal >
   )
@@ -88,7 +101,10 @@ export default function UserProfile(props: IUserProfileProps) {
   )
 }
 
-
+const StyleButtons = styled.div`
+`
+const StyleButton = styled.div`
+`
 const StyleContainer = styled.div`
   background-color: #393939;
   color: #ffffff;
@@ -138,7 +154,7 @@ const StyleTitle = styled.div`
   font-weight: 700;
 `
 const StyleUserDes = styled.div`
-padding: 4px 12px;
+  padding: 4px 12px;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
