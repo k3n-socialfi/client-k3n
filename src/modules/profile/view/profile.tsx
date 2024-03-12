@@ -1,9 +1,10 @@
 "use client"
 import { IconLike, IconTwitter } from "@/assets/icons";
-import { ButtonCustom } from "@/components/ButtonCustom";
-import { Divider } from "@mui/material";
+import { ButtonCustom, ButtonSecondary } from "@/components/ButtonCustom";
+import { Button, Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
+import Experience from "../components/experience";
 
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -44,14 +45,6 @@ const Overview = () => {
   )
 }
 
-const Experience = () => {
-  return (
-    <div>
-      aaa
-    </div>
-  )
-}
-
 const Personal = () => {
   return (
     <StylePersonal>
@@ -75,11 +68,11 @@ const Personal = () => {
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
-        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Edit</ButtonCustom>
+        <Button variant="outlined" sx={{ borderRadius: "8px" }}>Edit</Button>
         <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Share</ButtonCustom>
         <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Add to watchlist</ButtonCustom>
       </StylePersonalRight>
-    </StylePersonal>
+    </StylePersonal >
   )
 }
 
@@ -87,9 +80,9 @@ export default function UserProfile(props: IUserProfileProps) {
   return (
     <StyleContainer>
       <Personal />
-      <Divider />
+      <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Overview />
-      <Divider />
+      <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Experience />
     </StyleContainer>
   )
@@ -97,7 +90,7 @@ export default function UserProfile(props: IUserProfileProps) {
 
 
 const StyleContainer = styled.div`
-  background-color: #000000;
+  background-color: #393939;
   color: #ffffff;
 `
 const PrimaryTitle = styled.div`
@@ -149,9 +142,9 @@ padding: 4px 12px;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
-  background-color: #393939;
+  background-color: #9B9AE5;
   border-radius: 12px;
-  color: #82EBFF;
+  color: #FFD7F4;
   width: fit-content;
 
 `

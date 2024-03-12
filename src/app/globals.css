@@ -14,8 +14,8 @@
   }
 }
 
-body {
-  font-family: 'Kode Mono', monospace;
+body, span {
+  font-family: 'Kode Mono', monospace !important;
   margin: 0;
 
 }
