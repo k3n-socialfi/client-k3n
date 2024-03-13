@@ -1,7 +1,6 @@
 "use client"
-import { IconBlue, IconEdit, IconLike, IconLinked, IconStar, IconStarNormal, IconTiktok, IconTwitter, IconVerify, IconYoutube } from "@/assets/icons";
-import { ButtonCustom, ButtonSecondary } from "@/components/ButtonCustom";
-import { Button, Divider } from "@mui/material";
+import { IconBlue, IconEdit, IconLinked, IconStarNormal, IconTiktok, IconTwitter, IconVerify, IconYoutube } from "@/assets/icons";
+import { Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
 import Experience from "../components/experience";

@@ -4,41 +4,75 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 export default function Experience() {
-    return (
-        <StyleBox>
-            <StyleTitle>Experience</StyleTitle>
-            <StyleBorder />
-            <StyleContent>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
-                    <StyleSelection key={index}>
-                        <StyleDots><StyleDot></StyleDot></StyleDots>
-                        <StyleForm >
-                            <StyleUserDes>2023-12</StyleUserDes>
-                            <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
-                            <StyleIcons>
-                                <IconStar />
-                                <IconStar />
-                                <IconStar />
-                                <IconStar />
-                                <IconStar />
-                            </StyleIcons>
-                            <StyleDate>
-                                <StyleKOL>
-                                    <StyleDiv>KOL Booker</StyleDiv>
-                                </StyleKOL>
-                                <StyleKOL>
-                                    <StyleDiv>2024-03 - Present</StyleDiv>
-                                </StyleKOL>
-                            </StyleDate>
-                        </StyleForm>
-                    </StyleSelection>
-                ))}
-            </StyleContent>
-        </StyleBox >
-    );
+  return (
+    <StyleBox>
+      <StyleTitle>Experience</StyleTitle>
+      <StyleBorder />
+      <StyleContent>
+        {[1, 2, 3, 4, 5].map((index) => (
+          <StyleSelection key={index}>
+            <StyleDots><StyleDot></StyleDot></StyleDots>
+            <StyleForm >
+              <StyleUserDes>2023-12</StyleUserDes>
+              <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
+              <StyleIcons>
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+              </StyleIcons>
+              <StyleDate>
+                <StyleKOL>
+                  <StyleDiv>KOL Booker</StyleDiv>
+                </StyleKOL>
+                <StyleKOL>
+                  <StyleDiv>2024-03 - Present</StyleDiv>
+                </StyleKOL>
+              </StyleDate>
+            </StyleForm>
+          </StyleSelection>
+        ))}
+      </StyleContent>
+    </StyleBox >
+  );
 }
 
-
+const StyleBox = styled.div`
+    padding: 24px 14px;
+    width: 100%;
+    overflow-x: hidden;
+`
+const StyleForm = styled.div`
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #B9B9B9;
+    padding: 12px;
+    border-radius: 8px;
+`
+const StyleContent = styled.div`
+    display:flex;
+    overflow:hidden;
+    position:relative;
+    gap: 12px;
+    overflow-x: auto ;
+    padding-bottom: 24px;
+`
+const StyleSelection = styled.div`
+    width: 220px;
+`
+const StyleUserDes = styled.div`
+  padding: 4px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: #393939;
+  border-radius: 12px;
+  color: #FFD7F4;
+  width: fit-content;
+`
 const StyleKOL = styled.div``
 const StyleDiv = styled.div``
 
@@ -62,9 +96,7 @@ const StyleSubTitle = styled.div`
   line-height: 24px;
   color: #82EBFF;
 `
-const StyleBox = styled.div`
-    padding: 24px 14px;
-`
+
 const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
@@ -90,35 +122,4 @@ const StyleDot = styled.div`
     border-radius: 50%;
     background-color: #82EBFF;
   
-`
-const StyleForm = styled.div`
-    width: 190px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border: 1px solid #B9B9B9;
-    padding: 12px;
-    border-radius: 8px;
-
-`
-const StyleContent = styled.div`
-    display: flex;
-    gap: 12px;
-    overflow-x: auto ;
-    padding-bottom: 24px;
-`
-const StyleSelection = styled.div`
-    /* display: flex;
-    flex-direction: column;
-    width: 17%; */
-`
-const StyleUserDes = styled.div`
-  padding: 4px 12px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
-  background-color: #393939;
-  border-radius: 12px;
-  color: #FFD7F4;
-  width: fit-content;
 `
