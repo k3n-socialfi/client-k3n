@@ -6,8 +6,8 @@ import theme from "@/assets/style/theme";
 import WalletProvider from "@/layout/WalletProvider";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
-import SideBar from "@/components/SideBar";
 import styled from "styled-components";
+import SideBar from "@/components/sideBar";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
