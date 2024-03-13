@@ -8,7 +8,7 @@ import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 interface IPropPopup {
   handleShowHeader: () => void;
 }
-const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
+export const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
   return (
     <>
       <WrapperPopup>
@@ -38,7 +38,7 @@ const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
               <ProfileItem
                 className="profile-list__item"
                 key={item.name}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <LinkCustom
                   href={item.href}
@@ -146,4 +146,3 @@ const LinkCustom = styled(Link)`
   text-decoration: none;
   color: #fff;
 `;
-export default PopupProfile;

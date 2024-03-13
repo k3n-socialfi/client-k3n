@@ -1,6 +1,6 @@
 import React from "react";
 
-const DashboardIcon = () => {
+export default function IconDashboard() {
   return (
     <svg
       width={24}
@@ -27,6 +27,4 @@ const DashboardIcon = () => {
       />
     </svg>
   );
-};
-
-export default DashboardIcon;
+}

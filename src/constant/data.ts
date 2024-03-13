@@ -3,7 +3,7 @@ import {
   IconDashboard,
   IconSetting,
   IconUser,
-  IconUserList,
+  IconFriends,
 } from "@/assets/icons";
 
 // import UserListIcon from "@/assets/icons/UserListIcon";
@@ -31,7 +31,7 @@ export const LIST_POPUPITEM: PopupItem[] = [
   },
   {
     name: " Invite Friends",
-    icon: IconUserList,
+    icon: IconFriends,
     href: "/",
   },
   {

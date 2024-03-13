@@ -1,6 +1,5 @@
 import React from "react";
-
-const NotificationIcon = () => {
+export default function IconNotification() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +17,4 @@ const NotificationIcon = () => {
       ></path>
     </svg>
   );
-};
-
-export default NotificationIcon;
+}

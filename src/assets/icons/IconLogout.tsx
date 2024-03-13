@@ -1,6 +1,6 @@
 import React from "react";
 
-const LogoutIcon = () => {
+export default function IconLogout() {
   return (
     <svg
       width={24}
@@ -15,6 +15,4 @@ const LogoutIcon = () => {
       />
     </svg>
   );
-};
-
-export default LogoutIcon;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SettingIcon = () => {
+export default function IconSetting() {
   return (
     <svg
       width={24}
@@ -15,6 +15,4 @@ const SettingIcon = () => {
       />
     </svg>
   );
-};
-
-export default SettingIcon;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CrileInfoIcon = () => {
+export default function IconCrileInfo() {
   return (
     <svg
       width={24}
@@ -15,6 +15,4 @@ const CrileInfoIcon = () => {
       />
     </svg>
   );
-};
-
-export default CrileInfoIcon;
+}

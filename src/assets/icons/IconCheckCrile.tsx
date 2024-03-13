@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckCrile = () => {
+export default function IconCheckCrile() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,6 +14,4 @@ const CheckCrile = () => {
       ></path>
     </svg>
   );
-};
-
-export default CheckCrile;
+}

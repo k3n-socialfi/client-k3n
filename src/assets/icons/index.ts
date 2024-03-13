@@ -18,8 +18,7 @@ export { default as IconRocket } from "./IconRocket";
 export { default as IconTick } from "./IconTick";
 export { default as IconDiscord } from "./IconDiscord";
 export { default as IconTwitter } from "./IconTwitter";
-
-export { default as IconUserList } from "./IconUserList";
+export { default as IconFriends } from "./IconFriends";
 export { default as IconSearch } from "./IconSearch";
 export { default as IconChevronDown } from "./IconChevronDown";
 export { default as IconNotification } from "./IconNotification";

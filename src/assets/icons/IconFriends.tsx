@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserListIcon = () => {
+export default function IconFriends() {
   return (
     <svg
       width={24}
@@ -15,6 +15,4 @@ const UserListIcon = () => {
       />
     </svg>
   );
-};
-
-export default UserListIcon;
+}

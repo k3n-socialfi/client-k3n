@@ -6,7 +6,6 @@ import theme from "@/assets/style/theme";
 import WalletProvider from "@/layout/WalletProvider";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
-import HeaderCustom from "@/components/HeaderCustom";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -19,7 +18,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
         <WalletProvider>
-          <HeaderCustom />
+          <Header />
           <Divider />
           {children}
           <Divider />

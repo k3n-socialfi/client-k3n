@@ -1,6 +1,6 @@
 import React from "react";
 
-const IconThunder = () => {
+export default function IconThunder() {
   return (
     <svg
       width={12}
@@ -15,6 +15,4 @@ const IconThunder = () => {
       />
     </svg>
   );
-};
-
-export default IconThunder;
+}
