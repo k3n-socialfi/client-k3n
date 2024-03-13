@@ -43,11 +43,11 @@ const StyleKOL = styled.div``
 const StyleDiv = styled.div``
 
 const StyleDate = styled.div`
-    background-color: #9B9AE5;
+    background-color:#9b9ae526;
     padding: 4px 8px;
     border-radius: 8px;
     margin-top: 4px;
-    color: #FFF;
+    color: #B9B9B9;
 `
 const StyleIcons = styled.div`
     display: flex;
@@ -117,7 +117,7 @@ const StyleUserDes = styled.div`
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
-  background-color: #9B9AE5;
+  background-color: #393939;
   border-radius: 12px;
   color: #FFD7F4;
   width: fit-content;

@@ -1,5 +1,5 @@
 "use client"
-import { IconLike, IconStar, IconTwitter } from "@/assets/icons";
+import { IconBlue, IconEdit, IconLike, IconLinked, IconStar, IconStarNormal, IconTiktok, IconTwitter, IconVerify, IconYoutube } from "@/assets/icons";
 import { ButtonCustom, ButtonSecondary } from "@/components/ButtonCustom";
 import { Button, Divider } from "@mui/material";
 import Image from "next/image";
@@ -50,7 +50,7 @@ const Personal = () => {
       <StylePersonalLeft>
         <StyleImage src={IMG_NFT} alt="avatar profile" width={220} height={220} />
         <StyleContentUser>
-          <StyleTitle> User Name</StyleTitle>
+          <StyleTitle> User Name <IconVerify /></StyleTitle>
           <StyleUserDes>
             Im developer software engineer
           </StyleUserDes>
@@ -59,17 +59,18 @@ const Personal = () => {
           </StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
+            <IconTiktok />
             <IconTwitter />
-            <IconTwitter />
-            <IconTwitter />
-            <IconTwitter />
+            <IconYoutube />
+            <IconLinked />
           </StyleIcons>
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
         <StyleButtons>
-          <StyleButtonTitle><IconStar /><div>Button</div></StyleButtonTitle>
-          <StyleButtonTitle><IconStar />Button</StyleButtonTitle>
+          <StyleButtonTitle><IconEdit /><div>Edit</div></StyleButtonTitle>
+          <StyleButtonTitle><IconBlue />Share</StyleButtonTitle>
+          <StyleButtonTitle><IconStarNormal />Add to watchlist</StyleButtonTitle>
         </StyleButtons>
       </StylePersonalRight>
     </StylePersonal >
@@ -97,12 +98,13 @@ const StyleButtonTitle = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #000000;
-    color: #FFFFFF;
+    background-color: #393939;
+
+    color: #B9B9B9;
     border-radius: 6px;
 `
 const StyleContainer = styled.div`
-  background-color: #393939;
+  background-color: #292D32;
   color: #ffffff;
 `
 const PrimaryTitle = styled.div`
@@ -134,7 +136,7 @@ border: 2px solid #FFF;
   border-radius: 50%;
 `
 const StylePersonalLeft = styled.div`
-  width: 70%;
+  width: 60%;
  display: flex;
  align-items: center;
  gap: 32px;
@@ -154,7 +156,7 @@ const StyleUserDes = styled.div`
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
-  background-color: #9B9AE5;
+  background-color: #393939;
   border-radius: 12px;
   color: #FFD7F4;
   width: fit-content;
@@ -168,14 +170,15 @@ const StyleUserSocial = styled.div`
 `
 const StyleIcons = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
 `
 
 const StylePersonalRight = styled.div`
-  margin-left: 70px;
+  margin-left: 50px;
   display: flex;
   gap: 14px;
-  width: 30%;
+  width: 40%;
 `
 const StyleOverview = styled.div`
   padding: 16px 20px;

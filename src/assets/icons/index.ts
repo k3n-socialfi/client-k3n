@@ -18,4 +18,15 @@ export { default as IconRocket} from "./IconRocket";
 export { default as IconTick} from "./IconTick";
 export { default as IconDiscord} from "./IconDiscord";
 export { default as IconTwitter} from "./IconTwitter";
+export { default as IconBlue} from "./IconBlue";
+export { default as IconEdit} from "./IconEdit";
+export { default as IconLinked} from "./IconLinked";
+export { default as IconStarNormal} from "./IconStarNormal";
+export { default as IconTiktok} from "./IconTiktok";
+export { default as IconVerify} from "./IconVerify";
+export { default as IconYoutube} from "./IconYoutube";
+// export { default as IconVerify} from "./IconTwitter";
+// export { default as IconVerify} from "./IconTwitter";
+
+
 
