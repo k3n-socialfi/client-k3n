@@ -7,37 +7,37 @@ export default function Experience() {
     return (
         <StyleBox>
             <StyleTitle>Experience</StyleTitle>
-            <StyleBorder>
-            </StyleBorder>
-            <StyleDots>
-                {[1, 2, 3, 4, 5].map((index) => (<StyleDot key={index}></StyleDot>))}
-            </StyleDots>
+            <StyleBorder />
             <StyleContent>
-                {[1, 2, 3, 4, 5, 6].map((index) => (
-                    <StyleForm key={index}>
-                        <StyleUserDes>2023-12</StyleUserDes>
-                        <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
-                        <StyleIcons>
-                            <IconStar />
-                            <IconStar />
-                            <IconStar />
-                            <IconStar />
-                            <IconStar />
-                        </StyleIcons>
-                        <StyleDate>
-                            <StyleKOL>
-                                <StyleDiv>KOL Booker</StyleDiv>
-                            </StyleKOL>
-                            <StyleKOL>
-                                <StyleDiv>2024-03 - Present</StyleDiv>
-                            </StyleKOL>
-                        </StyleDate>
-                    </StyleForm>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
+                    <StyleSelection key={index}>
+                        <StyleDots><StyleDot></StyleDot></StyleDots>
+                        <StyleForm >
+                            <StyleUserDes>2023-12</StyleUserDes>
+                            <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
+                            <StyleIcons>
+                                <IconStar />
+                                <IconStar />
+                                <IconStar />
+                                <IconStar />
+                                <IconStar />
+                            </StyleIcons>
+                            <StyleDate>
+                                <StyleKOL>
+                                    <StyleDiv>KOL Booker</StyleDiv>
+                                </StyleKOL>
+                                <StyleKOL>
+                                    <StyleDiv>2024-03 - Present</StyleDiv>
+                                </StyleKOL>
+                            </StyleDate>
+                        </StyleForm>
+                    </StyleSelection>
                 ))}
             </StyleContent>
         </StyleBox >
     );
 }
+
 
 const StyleKOL = styled.div``
 const StyleDiv = styled.div``
@@ -62,7 +62,6 @@ const StyleSubTitle = styled.div`
   line-height: 24px;
   color: #82EBFF;
 `
-
 const StyleBox = styled.div`
     padding: 24px 14px;
 `
@@ -73,34 +72,48 @@ const StyleTitle = styled.div`
   padding-bottom: 24px;
 `
 const StyleBorder = styled.div`
+    position: absolute;
+    width: 78%;
+    margin-top: 7px;
     display: flex;
     border-top: 2px solid #82EBFF;
     margin-bottom: 24px;
 `
 const StyleDots = styled.div`
+    position: relative;
     display: flex;
+    padding-bottom: 24px;
 `
 const StyleDot = styled.div`
     width: 16px;
     height: 16px;
     border-radius: 50%;
     background-color: #82EBFF;
-    margin-right: 18%;
-    margin-top: -4.3%;
+  
 `
 const StyleForm = styled.div`
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     border: 1px solid #B9B9B9;
     padding: 12px;
     border-radius: 8px;
-    width: 15.5%;
+
 `
 const StyleContent = styled.div`
     display: flex;
     gap: 12px;
-    overflow-x:auto 
+    overflow-x: auto ;
+    padding-bottom: 24px;
+`
+const StyleSelection = styled.div`
+    /* display: flex;
+    flex-direction: column;
+    width: 17%; */
 `
 const StyleUserDes = styled.div`
-padding: 4px 12px;
+  padding: 4px 12px;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;

@@ -1,5 +1,5 @@
 "use client"
-import { IconLike, IconTwitter } from "@/assets/icons";
+import { IconLike, IconStar, IconTwitter } from "@/assets/icons";
 import { ButtonCustom, ButtonSecondary } from "@/components/ButtonCustom";
 import { Button, Divider } from "@mui/material";
 import Image from "next/image";
@@ -67,22 +67,9 @@ const Personal = () => {
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
-        {/* <Button variant="outlined" sx={{ borderRadius: "8px" }}>Edit</Button>
-        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Share</ButtonCustom>
-        <ButtonCustom backgroundColorBt="#82EBFF" startIcon={<IconLike />}>Add to watchlist</ButtonCustom> */}
         <StyleButtons>
-          <StyleButton>
-            <IconLike />Edit
-          </StyleButton>
-        </StyleButtons>
-        <StyleButtons>
-          <StyleButton>
-            <IconLike />Edit
-          </StyleButton>
-        </StyleButtons> <StyleButtons>
-          <StyleButton>
-            <IconLike />Edit
-          </StyleButton>
+          <StyleButtonTitle><IconStar /><div>Button</div></StyleButtonTitle>
+          <StyleButtonTitle><IconStar />Button</StyleButtonTitle>
         </StyleButtons>
       </StylePersonalRight>
     </StylePersonal >
@@ -102,8 +89,17 @@ export default function UserProfile(props: IUserProfileProps) {
 }
 
 const StyleButtons = styled.div`
+    display: flex;
+    gap: 24px;
 `
-const StyleButton = styled.div`
+const StyleButtonTitle = styled.div`
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 6px;
 `
 const StyleContainer = styled.div`
   background-color: #393939;
