@@ -1,8 +1,8 @@
 "use client";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "@/assets/images/Logo.png";
+// import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
@@ -24,7 +24,7 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderLogo>
-        <Image width={114} height={33} alt="logo" src={logo} />
+        {/* <Image width={114} height={33} alt="logo" src={logo} /> */}
         <HeaderSearch>
           <HeaderIcon>
             <IconSearch />
@@ -139,7 +139,7 @@ const HeaderUserInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
   background: #3d3d3d;
   border-radius: 10px;
   padding: 0 5px;

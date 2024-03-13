@@ -6,6 +6,8 @@ import theme from "@/assets/style/theme";
 import WalletProvider from "@/layout/WalletProvider";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
+import styled from "styled-components";
+import SideBar from "@/components/sideBar";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -18,13 +20,28 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
         <WalletProvider>
-          <Header />
-          <Divider />
-          {children}
-          <Divider />
-          <Footer />
+          <StyleContent>
+            <SideBar />
+            <StyleMain>
+              <Header />
+              <Divider />
+              {children}
+              <Divider />
+              <Footer />
+            </StyleMain>
+          </StyleContent>
         </WalletProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
 }
+
+const StyleContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+const StyleMain = styled.div`
+  width: 100%;
+`;
