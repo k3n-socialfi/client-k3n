@@ -27,6 +27,9 @@ declare module "@mui/material/Button" {
 }
 
 const theme = createTheme({
+  typography: {
+    fontFamily: `'Kode Mono', monospace`,
+  },
   palette: {
     primary: {
       main: "#F23581",
