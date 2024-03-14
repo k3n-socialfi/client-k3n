@@ -1,8 +1,8 @@
 "use client";
-// import Image from "next/image";
+import Image from "next/image";
 import React, { useState } from "react";
 import styled from "styled-components";
-// import logo from "@/assets/images/Logo.png";
+import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
@@ -24,7 +24,7 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderLogo>
-        {/* <Image width={114} height={33} alt="logo" src={logo} /> */}
+        <Image width={150} height={50} alt="logo" src={logo} />
         <HeaderSearch>
           <HeaderIcon>
             <IconSearch />
@@ -58,7 +58,7 @@ export const Header = () => {
         </HeaderUser>
       ) : (
         <HeaderButton className="header-button">
-          <ButtonSecondary size="large">Signup</ButtonSecondary>
+          {/* <ButtonSecondary size="large">Signup</ButtonSecondary> */}
           <ButtonPrimary size="large" onClick={handleShowHeader}>
             Connect Wallet
           </ButtonPrimary>
@@ -69,6 +69,9 @@ export const Header = () => {
 };
 
 const HeaderWrapper = styled.div`
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
   padding: 15px 20px;
   background: #393939;
   display: flex;

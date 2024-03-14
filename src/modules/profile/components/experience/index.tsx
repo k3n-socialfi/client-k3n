@@ -9,7 +9,7 @@ export default function Experience() {
       <StyleTitle>Experience</StyleTitle>
       <StyleBorder />
       <StyleContent>
-        {[1, 2, 3, 4, 5].map((index) => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
           <StyleSelection key={index}>
             <StyleDots><StyleDot></StyleDot></StyleDots>
             <StyleForm >
@@ -54,11 +54,10 @@ const StyleForm = styled.div`
 `
 const StyleContent = styled.div`
     display:flex;
-    overflow:hidden;
-    position:relative;
     gap: 12px;
     overflow-x: auto ;
     padding-bottom: 24px;
+    margin-right: 40px;
 `
 const StyleSelection = styled.div`
     width: 220px;
@@ -105,7 +104,7 @@ const StyleTitle = styled.div`
 `
 const StyleBorder = styled.div`
     position: absolute;
-    width: 78%;
+    width: 75%;
     margin-top: 7px;
     display: flex;
     border-top: 2px solid #82EBFF;
