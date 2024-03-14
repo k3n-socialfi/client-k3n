@@ -14,7 +14,6 @@ export interface ILayoutProvidesProps {
 export const CartContext = createContext<any>(null);
 
 export default function LayoutProvides({ children }: ILayoutProvidesProps) {
-
   return (
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
