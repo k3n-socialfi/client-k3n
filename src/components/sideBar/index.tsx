@@ -1,7 +1,7 @@
 "use client";
 import { IconArrowDown, IconArrowUp } from "@/assets/icons";
 import logoK3N from "@/assets/images/Logo.png";
-import { DATASIDEBAR, DATASIDEBARBOTTOM } from "@/constant/datamockupSidebar";
+import { DATASIDEBAR, DATASIDEBARBOTTOM } from "@/constant/dataMockupSidebar";
 import { Collapse } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,9 +14,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 
 export default function SideBar() {
+  const router = useRouter();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [expanded, setExpanded] = React.useState(DATASIDEBAR.map(() => true));
@@ -97,6 +99,7 @@ export default function SideBar() {
                                 pl: 4,
                                 gap: 2,
                               }}
+                              onClick={() => router.push(itemChild.link)}
                             >
                               {itemChild.icon}
                               <ListItemText primary={itemChild.label} />
