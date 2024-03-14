@@ -16,7 +16,7 @@ export interface ITableTopRankingProps {
 
 export default function TableTopRanking(props: ITableTopRankingProps) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ width: "100%" }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyleTableRow>

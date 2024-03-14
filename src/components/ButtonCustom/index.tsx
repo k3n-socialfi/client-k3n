@@ -53,8 +53,9 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
           opacity: 0.5,
           color: `${colorBt}`,
           borderColor: `${borderColorBt}`,
-          backgroundColor: `${backgroundColorBtDisElevated ?? backgroundColorBt
-            }`,
+          backgroundColor: `${
+            backgroundColorBtDisElevated ?? backgroundColorBt
+          }`,
         },
       }}
     >
@@ -88,6 +89,7 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
 };
 
 export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
+  backgroundColorBt,
   children,
   ...props
 }) => {
@@ -98,7 +100,7 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
       color="secondary"
       colorBt={props.colorBt ?? "primary.pinkText"}
       borderColorBt="primary.enabled"
-      backgroundColorBt="secondary.enabled"
+      backgroundColorBt={backgroundColorBt}
       colorBtHover="primary.pinkText"
       borderColorBtHover="primary.hover"
       backgroundColorBtHover="secondary.hover"
