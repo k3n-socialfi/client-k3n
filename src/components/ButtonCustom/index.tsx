@@ -31,38 +31,35 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
   ...props
 }) => {
   return (
-    <Stack direction="row" spacing={2}>
-      <Button
-        {...props}
-        sx={{
-          borderRadius: "50px",
-          textTransform: "inherit",
+    <Button
+      {...props}
+      sx={{
+        borderRadius: "50px",
+        textTransform: "inherit",
+        color: `${colorBt}`,
+        borderColor: `${borderColorBt}`,
+        backgroundColor: `${backgroundColorBt}`,
+        ":hover": {
+          color: `${colorBtHover}`,
+          borderColor: `${borderColorBtHover}`,
+          backgroundColor: `${backgroundColorBtHover}`,
+        },
+        ":active": {
+          color: `${colorBtPressed}`,
+          borderColor: `${borderColorBtPressed}`,
+          backgroundColor: `${backgroundColorBtPressed}`,
+        },
+        ":disabled": {
+          opacity: 0.5,
           color: `${colorBt}`,
           borderColor: `${borderColorBt}`,
-          backgroundColor: `${backgroundColorBt}`,
-          ":hover": {
-            color: `${colorBtHover}`,
-            borderColor: `${borderColorBtHover}`,
-            backgroundColor: `${backgroundColorBtHover}`,
-          },
-          ":active": {
-            color: `${colorBtPressed}`,
-            borderColor: `${borderColorBtPressed}`,
-            backgroundColor: `${backgroundColorBtPressed}`,
-          },
-          ":disabled": {
-            opacity: 0.5,
-            color: `${colorBt}`,
-            borderColor: `${borderColorBt}`,
-            backgroundColor: `${
-              backgroundColorBtDisElevated ?? backgroundColorBt
+          backgroundColor: `${backgroundColorBtDisElevated ?? backgroundColorBt
             }`,
-          },
-        }}
-      >
-        {children}
-      </Button>
-    </Stack>
+        },
+      }}
+    >
+      {children}
+    </Button>
   );
 };
 

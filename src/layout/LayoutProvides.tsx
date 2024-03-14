@@ -24,7 +24,6 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
             <SideBar />
             <StyleMain>
               <Header />
-              <Divider />
               {children}
               <Divider />
               <Footer />
