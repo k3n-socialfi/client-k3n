@@ -1,39 +1,38 @@
 "use client";
-import useWallet from "@/hooks/useWallet";
-import { STATUS_WALLET } from "@/utils/enumData";
-import * as React from "react";
+import { WagmiConfig, createConfig } from "wagmi";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { ReactNode } from "react";
+import { mainnet, goerli } from "wagmi/chains";
 
-export interface IWalletProviderProps {
-  children: React.ReactNode;
-}
+const config = createConfig(
+  getDefaultConfig({
+    alchemyId: process.env.ALCHEMY_ID,
+    walletConnectProjectId:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
+    chains: [goerli],
 
-type TWalletContext = {
-  walletAddress?: string;
-  onConnect: () => void;
-  onDisconnect: () => void;
-};
+    // Required
+    appName: "Jayden Application",
 
-const defaultValue: TWalletContext = {
-  onConnect: () => {},
-  onDisconnect: () => {},
-  walletAddress: undefined,
-};
+    // Optional
+    appDescription: "Jayden Application - For Teaching",
+  } as any)
+);
 
-export const WalletContext = React.createContext<TWalletContext>(defaultValue);
-
-export default function WalletProvider({ children }: IWalletProviderProps) {
-  const { onConnect, walletAddress, onDisconnect } = useWallet();
-  const statusWallet =
-    typeof window !== "undefined" ? localStorage.getItem("wallet_status") : "";
-
-  React.useEffect(() => {
-    if (statusWallet && statusWallet.toString() === STATUS_WALLET.CONNECTED) {
-      onConnect();
-    }
-  }, [statusWallet]);
+const WalletProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <WalletContext.Provider value={{ walletAddress, onConnect, onDisconnect }}>
-      {children}
-    </WalletContext.Provider>
+    <WagmiConfig config={config}>
+      <ConnectKitProvider theme="retro" mode="dark">
+        {children}
+      </ConnectKitProvider>
+    </WagmiConfig>
   );
+};
+
+declare module "wagmi" {
+  interface Register {
+    config: typeof config;
+  }
 }
+
+export default WalletProvider;
