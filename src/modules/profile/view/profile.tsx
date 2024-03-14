@@ -1,64 +1,78 @@
 "use client"
-import { IconAvatar, IconLike, IconRightNormal, IconStar } from "@/assets/icons";
-import { ButtonCustom } from "@/components/ButtonCustom";
-import Cards from "@/components/Card";
-import Chips from "@/components/Chip";
-import { Button } from "@mui/material";
+import { IconBlue, IconEdit, IconLinked, IconStarNormal, IconTiktok, IconTwitter, IconVerify, IconYoutube } from "@/assets/icons";
+import { Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
-import TabsPost from '../components/Post/TabsPost';
-import CustomizedTabs from "../components/Tabs";
+import Experience from "../components/experience";
 
 export interface IUserProfileProps { }
 const IMG_NFT = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
-const Personal = () => {
+const Overview = () => {
   return (
-    <StylePersonal>
-      <Image style={{ width: '100%', borderRadius: '12px' }} width={0} height={293} sizes="100vw" src={IMG_NFT} alt="igs" />
-      <StyleInfo>
-        <StyleDetails>
-          <StyleTitle>About me</StyleTitle>
-          <StyleSpan>
-            Creating top-tier video content for the leading projects in the NFT space. Clients include major brands like Pudgy Penguins, Magic Eden, RugRadio.
-          </StyleSpan>
-        </StyleDetails>
-        <StyleTags>
-          <StyleTitle>Tags</StyleTitle>
-          <StyleChips>
-            <Chips label="Social Fi" variant="outlined" />
-            <Chips label="Researcher" color="success" />
-            <Chips label="Ethereum" color="warning" />
-            <Chips label="Ethereum" color="warning" />
-          </StyleChips>
-        </StyleTags>
-        <StyleReview>
-          <StyleTitle>Reviews</StyleTitle>
-          <StyleIcon>
-            <IconStar /> 5.0(1.654)
-          </StyleIcon>
-        </StyleReview>
-      </StyleInfo>
-    </StylePersonal>
+    <StyleOverview>
+      <StyleTitle>Overview</StyleTitle>
+      <PrimaryTitle>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+      </PrimaryTitle>
+      <PrimaryTitle>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+        <StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL</StyleSubTitle>
+        </StyleContentOverview><StyleContentOverview>
+          <StyleDesOverview>Primary Job Title</StyleDesOverview>
+          <StyleSubTitle>Fashion KOL Fashion KOL Fashion KOL Fashion KOL</StyleSubTitle>
+        </StyleContentOverview>
+      </PrimaryTitle>
+    </StyleOverview>
   )
 }
 
-const InformationSocial = () => {
+const Personal = () => {
   return (
-    <StyleInfor>
-      <StyleTitle>You also may like</StyleTitle>
-      <StyleInforSocial>
-        <StyleSocials>
-          <IconAvatar />
-          <div>
-            <StyleTitle>Elena</StyleTitle>
-            <StyleUser>@username</StyleUser>
-          </div>
-        </StyleSocials>
-        <ButtonCustom>Subscribe</ButtonCustom>
-      </StyleInforSocial>
-      <StyleShowMore><div>Show more</div> <IconRightNormal /></StyleShowMore>
-    </StyleInfor>
+    <StylePersonal>
+      <StylePersonalLeft>
+        <StyleImage src={IMG_NFT} alt="avatar profile" width={220} height={220} />
+        <StyleContentUser>
+          <StyleTitle> User Name <IconVerify /></StyleTitle>
+          <StyleUserDes>
+            Im developer software engineer
+          </StyleUserDes>
+          <StyleUserDes>
+            Influencer
+          </StyleUserDes>
+          <StyleUserSocial>Social</StyleUserSocial>
+          <StyleIcons>
+            <IconTiktok />
+            <IconTwitter />
+            <IconYoutube />
+            <IconLinked />
+          </StyleIcons>
+        </StyleContentUser>
+      </StylePersonalLeft>
+      <StylePersonalRight>
+        <StyleButtons>
+          <StyleButtonTitle><IconEdit /><div>Edit</div></StyleButtonTitle>
+          <StyleButtonTitle><IconBlue />Share</StyleButtonTitle>
+          <StyleButtonTitle><IconStarNormal />Add to watchlist</StyleButtonTitle>
+        </StyleButtons>
+      </StylePersonalRight>
+    </StylePersonal >
   )
 }
 
@@ -66,127 +80,106 @@ export default function UserProfile(props: IUserProfileProps) {
   return (
     <StyleContainer>
       <Personal />
-      <StyleFeed>
-        <StyleLeft><TabsPost /></StyleLeft>
-        <StyleRight>
-          <div>
-            <CustomizedTabs />
-          </div>
-          <div>
-            <InformationSocial />
-          </div>
-        </StyleRight>
-      </StyleFeed>
-      <StyleCard>
-        <StyleTitle>People who viewed this project may view</StyleTitle>
-        <StyleSlideCard>
-          <div style={{ width: "33%" }}>
-            <Cards url={IMG_NFT} title="content" content={<Chips label="Social Fi" variant="outlined" />} actions={<Button sx={{ borderRadius: "14px" }} color="primary" variant="outlined" size="medium" startIcon={<IconLike />}>4.6M</Button>} />
-          </div>
-          <div style={{ width: "33%" }}>
-            <Cards url={IMG_NFT} title="content" content={<Chips label="Social Fi" variant="outlined" />} actions={<Button sx={{ borderRadius: "14px" }} color="primary" variant="outlined" size="medium" startIcon={<IconLike />}>4.6M</Button>} />
-          </div>
-          <div style={{ width: "33%" }}>
-            <Cards url={IMG_NFT} title="content" content={<Chips label="Social Fi" variant="outlined" />} actions={<Button sx={{ borderRadius: "14px" }} color="primary" variant="outlined" size="medium" startIcon={<IconLike />}>4.6M</Button>} />
-          </div>
-        </StyleSlideCard>
-      </StyleCard>
+      <Divider sx={{ borderColor: "#B9B9B9 " }} />
+      <Overview />
+      <Divider sx={{ borderColor: "#B9B9B9 " }} />
+      <Experience />
     </StyleContainer>
   )
 }
 
-
-const StyleCard = styled.div`
-  padding: 48px 0;
-  width: 100%;
+const StyleButtons = styled.div`
+    display: flex;
+    gap: 24px;
 `
+const StyleButtonTitle = styled.div`
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #393939;
 
-const StyleSlideCard = styled.div`
-  width: 100%;
- display: flex;
- gap: 12px;
+    color: #B9B9B9;
+    border-radius: 6px;
 `
 const StyleContainer = styled.div`
-  margin: 0 40px;
-`
-
-const StylePersonal = styled.div`
-  background-color: #F23581;
+  background-color: #292D32;
   color: #ffffff;
-  margin: 40px 0;
-  border-radius: 12px;
 `
-const StyleInfo = styled.div`
-  padding: 12px;
+const PrimaryTitle = styled.div`
   display: flex;
+  gap: 60px;
+  padding: 24px 0;
 `
-const StyleDetails = styled.div`
-  width: 50%; 
+const StyleDesOverview = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #B9B9B9;
 `
-const StyleTags = styled.div`
-  width: 25%;
+const StyleContentOverview = styled.div``
+const StyleSubTitle = styled.div`
+  padding-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #82EBFF;
 `
-const StyleReview = styled.div`
-  width: 25%;
+const StylePersonal = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 24px 14px;
 `
-const StyleSpan = styled.div`
-  font-size: 12px;
+const StyleImage = styled(Image)`
+border: 2px solid #FFF;
+  border-radius: 50%;
+`
+const StylePersonalLeft = styled.div`
+  width: 60%;
+ display: flex;
+ align-items: center;
+ gap: 32px;
+`
+const StyleContentUser = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `
 const StyleTitle = styled.div`
+  font-size: 40px;
+  line-height: 51px;
+  font-weight: 700;
+`
+const StyleUserDes = styled.div`
+  padding: 4px 12px;
   font-size: 16px;
-  padding-bottom: 12px;
-  color: #FFFFFF;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: #393939;
+  border-radius: 12px;
+  color: #FFD7F4;
+  width: fit-content;
+
 `
-const StyleChips = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+const StyleUserSocial = styled.div`
+    font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #B9B9B9;
 `
-const StyleIcon = styled.div`
+const StyleIcons = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
-`
-const StyleFeed = styled.div`
-  display: flex;
-  color: #FFFFFF; 
-`
-const StyleLeft = styled.div`
-  width: 57%;
-  margin-right: 12px;
-`
-const StyleRight = styled.div`
-  width : 40%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 `
 
-const StyleInfor = styled.div`
+const StylePersonalRight = styled.div`
+  margin-left: 50px;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  padding: 12px;
-  background-color: #353535;
-  border-radius: 12px;
+  gap: 14px;
+  width: 40%;
 `
-const StyleUser = styled.div`
-  font-size: 12px;
-  color: #949292;
+const StyleOverview = styled.div`
+  padding: 16px 20px;
 `
-const StyleInforSocial = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-const StyleSocials = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`
-const StyleShowMore = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #E92A77;
-`
+
