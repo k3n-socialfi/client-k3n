@@ -13,6 +13,7 @@ import { Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
 import Experience from "../components/experience";
+import ConnectButton from "../components/connectContract/Wallet";
 
 export interface IUserProfileProps { }
 const IMG_NFT =
@@ -52,6 +53,7 @@ const Overview = () => {
           </StyleSubTitle>
         </StyleContentOverview>
       </PrimaryTitle>
+      <ConnectButton />
     </StyleOverview>
   );
 };
