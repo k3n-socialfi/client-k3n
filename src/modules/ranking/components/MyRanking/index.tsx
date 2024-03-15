@@ -1,4 +1,4 @@
-import { IconIconCertification, IconLightning } from "@/assets/icons";
+import { IconCertification, IconLightning } from "@/assets/icons";
 import { ButtonSecondary } from "@/components/ButtonCustom";
 import { Avatar, Stack, Typography } from "@mui/material";
 import * as React from "react";
@@ -18,7 +18,7 @@ export default function MyRanking(props: IMyRankingProps) {
             <Account>
               <Name>
                 <Typography color={"#FFF"}>jayden Dang</Typography>
-                <IconIconCertification />
+                <IconCertification />
               </Name>
               <Typography variant="body2" color={"#82EBFF"}>
                 Tiktok KOLs
