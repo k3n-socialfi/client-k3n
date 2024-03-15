@@ -14,7 +14,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import Experience from "../components/experience";
 
-export interface IUserProfileProps {}
+export interface IUserProfileProps { }
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -115,9 +115,10 @@ export default function UserProfile(props: IUserProfileProps) {
 }
 
 const StyleButtons = styled.div`
-  display: flex;
-  gap: 24px;
-`;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+`
 const StyleButtonTitle = styled.div`
   padding: 4px 8px;
   display: flex;
@@ -134,6 +135,7 @@ const StyleContainer = styled.div`
 `;
 const PrimaryTitle = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 60px;
   padding: 24px 0;
 `;
@@ -205,5 +207,6 @@ const StylePersonalRight = styled.div`
   width: 40%;
 `;
 const StyleOverview = styled.div`
-  padding: 16px 20px;
-`;
+  padding: 16px 14px;
+`
+

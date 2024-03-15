@@ -52,7 +52,7 @@ export default function SideBar() {
       <Drawer variant="permanent" open={open}>
         <div>
           <DrawerHeader sx={{ justifyContent: "center" }}>
-            {open && (
+            {/* {open && (
               <Image
                 height={50}
                 width={150}
@@ -60,7 +60,7 @@ export default function SideBar() {
                 title="logo"
                 alt="logo k3n"
               />
-            )}
+            )} */}
             {/* <IconButton onClick={handleDrawerToggle}>
               {theme.direction === "rtl" ? <IconFire /> : <IconFire />}
             </IconButton> */}
@@ -152,7 +152,7 @@ export default function SideBar() {
 const drawerWidth = 250;
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
+  width: "20%",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,

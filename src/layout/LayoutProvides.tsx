@@ -20,27 +20,31 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
         <WalletProvider>
-          <StyleContent>
-            <SideBar />
-            <StyleMain>
-              <Header />
+          <Header />
+          <StyleMain>
+            <StyleSideBar>
+              <SideBar />
+            </StyleSideBar>
+            <StyleChildren>
               {children}
-              <Divider />
-              <Footer />
-            </StyleMain>
-          </StyleContent>
+            </StyleChildren>
+          </StyleMain>
+          {/* <Footer /> */}
         </WalletProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
 }
 
-const StyleContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+const StyleSideBar = styled.div`
+  width: 20%;
 `;
+const StyleChildren = styled.div`
+  width: 80%;
+  margin-top: 80px;
+`
 
 const StyleMain = styled.div`
   width: 100%;
+  display: flex;
 `;
