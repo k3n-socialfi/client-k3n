@@ -56,16 +56,16 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
           left: 0,
           right: 0,
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
           transform: "translateY(-50%)",
           paddingX: 2,
         }}
       >
-        <IconButton onClick={goToPreviousSlide}>
-          {/* <ArrowBackIos /> */}
+        {/* <IconButton onClick={goToPreviousSlide}>
+          <ArrowBackIos />
           <FireIcon />
-        </IconButton>
+        </IconButton> */}
         <Stack
           sx={{
             display: "flex",
@@ -84,10 +84,10 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
             {currentSlide + 1} / {slides.length}
           </Typography>
         </Stack>
-        <IconButton onClick={goToNextSlide}>
-          {/* <ArrowForwardIos /> */}
+        {/* <IconButton onClick={goToNextSlide}>
+          <ArrowForwardIos />
           <FireIcon />
-        </IconButton>
+        </IconButton> */}
       </Box>
     </Box>
   );

@@ -2,9 +2,9 @@ import FireIcon from "@/assets/icons/IconFire";
 import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
 import * as React from "react";
 
-export interface ICardKOLsProps { }
+export interface ICardKOLsProps {}
 
-export default function CardKOLs(props: ICardKOLsProps) {
+export default function CardTrendingKOLs(props: ICardKOLsProps) {
   return (
     <Card
       sx={{ width: "100%", background: "#252525", borderRadius: 3 }}

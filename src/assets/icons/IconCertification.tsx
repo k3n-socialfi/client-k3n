@@ -1,4 +1,4 @@
-export default function IconIconCertification() {
+export default function IconCertification() {
   return (
     <svg
       width="20"

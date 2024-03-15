@@ -27,9 +27,9 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
             </StyleSideBar>
             <StyleChildren>
               {children}
+              <Footer />
             </StyleChildren>
           </StyleMain>
-          {/* <Footer /> */}
         </WalletProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
@@ -40,9 +40,12 @@ const StyleSideBar = styled.div`
   width: 20%;
 `;
 const StyleChildren = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 80%;
   margin-top: 80px;
-`
+`;
 
 const StyleMain = styled.div`
   width: 100%;
