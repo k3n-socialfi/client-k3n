@@ -1,4 +1,5 @@
 import LayoutProvides from "@/layout/LayoutProvides";
+import { Web3Modal } from "@/layout/WalletProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LayoutProvides>{children}</LayoutProvides>
+        <Web3Modal>{children}</Web3Modal>
       </body>
     </html>
   );

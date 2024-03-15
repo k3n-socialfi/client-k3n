@@ -1,39 +1,29 @@
-"use client";
-import useWallet from "@/hooks/useWallet";
-import { STATUS_WALLET } from "@/utils/enumData";
-import * as React from "react";
+'use client';
 
-export interface IWalletProviderProps {
-  children: React.ReactNode;
-}
+import React, { ReactNode } from 'react';
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { State, WagmiProvider } from 'wagmi';
+import { projectId, wagmiConfig } from '@/configs/wallet.config';
 
-type TWalletContext = {
-  walletAddress?: string;
-  onConnect: () => void;
-  onDisconnect: () => void;
-};
+const queryClient = new QueryClient();
 
-const defaultValue: TWalletContext = {
-  onConnect: () => {},
-  onDisconnect: () => {},
-  walletAddress: undefined,
-};
+if (!projectId) throw new Error('Project ID is not defined');
 
-export const WalletContext = React.createContext<TWalletContext>(defaultValue);
+createWeb3Modal({
+  wagmiConfig,
+  projectId,
+  themeMode: 'dark',
+  // themeVariables: {
+  //   "--w3m-accent": "cyan",
+  //   "--w3m-border-radius-master": "0px"
+  // }
+});
 
-export default function WalletProvider({ children }: IWalletProviderProps) {
-  const { onConnect, walletAddress, onDisconnect } = useWallet();
-  const statusWallet =
-    typeof window !== "undefined" ? localStorage.getItem("wallet_status") : "";
-
-  React.useEffect(() => {
-    if (statusWallet && statusWallet.toString() === STATUS_WALLET.CONNECTED) {
-      onConnect();
-    }
-  }, [statusWallet]);
+export function Web3Modal({ children, initialState }: { children: ReactNode; initialState?: State }) {
   return (
-    <WalletContext.Provider value={{ walletAddress, onConnect, onDisconnect }}>
-      {children}
-    </WalletContext.Provider>
+    <WagmiProvider config={wagmiConfig} initialState={initialState}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </WagmiProvider>
   );
 }
