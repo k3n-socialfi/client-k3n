@@ -5,7 +5,7 @@ import useNetworkData from './useNetworkData';
 import { useReadContract, useWriteContract } from 'wagmi';
 import type { Config, UseReadContractParameters, UseWriteContractParameters } from 'wagmi';
 import { wagmiConfig } from '@/configs/wallet.config';
-import { contractABI } from '../abis/contact';
+import TokenContract from '../abis/token.json';
 
 type UseContractReadParameters = Omit<UseReadContractParameters, 'abi' | 'address' | 'functionName' | 'args'>;
 
@@ -16,7 +16,7 @@ export function useContractRead<T = unknown>(
 ) {
   const { contract } = useNetworkData();
   return useReadContract<Abi, string, Array<any>, Config, T>({
-    abi: contractABI as Abi,
+    abi: TokenContract as Abi,
     address: contract,
     functionName: functionName,
     args,
@@ -44,7 +44,7 @@ export function useContractWrite(functionName: string, options?: useContractWrit
 
   const write = async (args: Array<any> = []) => {
     await writeContractAsync({
-      abi: contractABI as Abi,
+      abi: TokenContract as Abi,
       address: contract,
       args,
       functionName,
