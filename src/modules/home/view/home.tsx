@@ -33,10 +33,12 @@ import {
   StyleTrendingProjectsCard,
   StyleTrendingTopCard,
 } from "../components/style/styleHome";
+import { useRouter } from "next/navigation";
 
 export interface IHomeProps {}
 
 export default function Home(props: IHomeProps) {
+  const router = useRouter();
   const slides = [
     "https://s3-alpha-sig.figma.com/img/e1cb/18b1/bc2b456ac7d9fbd4cc65af30315f50ae?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OW3LC4lhs1Fm6nvQmBH36AsDUTxrzUAUsGn8UtG5AHYXhKDMRofmUuVfKvlI~rx2uwg5JXcR~jz9E6bnXPyRFe6JrkNdktvkDe3llhMYWUpu0ARnESaqBCGaAKb98r0qUxHCKyJLqPg~Oios9jcZQmAAnoOFt8zH59L3s2JM2fjll8zIRF8vewWzs74Y7hZFTh1KJC~fSbkHppAaJMoh6sXiwS9QUSNgsZh6UFCP55EGW4LaEUZTpB0I0wtuSx-k2VdOJODYCLwG1A2mNPaBzDTveuWcERP24LgUtzlbrLJo5ktx06xr5iJhzhKWIkRCJmrg1lvzIgg~9Jo8cj52ag__",
     "https://tonghop.vn/wp-content/uploads/2019/02/FILE-20170314-1554KQTUND9YYZQQ.png",
@@ -108,6 +110,7 @@ export default function Home(props: IHomeProps) {
                 cursor: "pointer",
               }}
               direction="row"
+              onClick={() => router.push("/top-ranking")}
             >
               <Typography color={"#BB2D66"}>View all</Typography>
               <IconArrowRight />

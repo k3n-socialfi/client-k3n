@@ -1,39 +1,31 @@
 "use client";
-import useWallet from "@/hooks/useWallet";
-import { STATUS_WALLET } from "@/utils/enumData";
-import * as React from "react";
+import { ReactNode } from "react";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { WagmiProvider, createConfig } from "wagmi";
+import { goerli } from "wagmi/chains";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export interface IWalletProviderProps {
-  children: React.ReactNode;
-}
+const config = createConfig(
+  getDefaultConfig({
+    alchemyId: process.env.ALCHEMY_ID,
+    walletConnectProjectId:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
+    chains: [goerli],
+    appName: "Jayden Application",
+    appDescription: "Jayden Application - For Teaching",
+  } as any)
+);
 
-type TWalletContext = {
-  walletAddress?: string;
-  onConnect: () => void;
-  onDisconnect: () => void;
-};
+const queryClient = new QueryClient()
 
-const defaultValue: TWalletContext = {
-  onConnect: () => {},
-  onDisconnect: () => {},
-  walletAddress: undefined,
-};
-
-export const WalletContext = React.createContext<TWalletContext>(defaultValue);
-
-export default function WalletProvider({ children }: IWalletProviderProps) {
-  const { onConnect, walletAddress, onDisconnect } = useWallet();
-  const statusWallet =
-    typeof window !== "undefined" ? localStorage.getItem("wallet_status") : "";
-
-  React.useEffect(() => {
-    if (statusWallet && statusWallet.toString() === STATUS_WALLET.CONNECTED) {
-      onConnect();
-    }
-  }, [statusWallet]);
+const WalletProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <WalletContext.Provider value={{ walletAddress, onConnect, onDisconnect }}>
-      {children}
-    </WalletContext.Provider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ConnectKitProvider>{children}</ConnectKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
-}
+};
+
+export default WalletProvider;
