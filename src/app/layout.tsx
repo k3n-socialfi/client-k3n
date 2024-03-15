@@ -1,6 +1,7 @@
 import LayoutProvides from "@/layout/LayoutProvides";
 import type { Metadata } from "next";
 import "./globals.css";
+import WalletProvider from "@/layout/WalletProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,13 +10,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <LayoutProvides>{children}</LayoutProvides>
+        <LayoutProvides>
+          <WalletProvider>
+            {children}
+          </WalletProvider>
+        </LayoutProvides>
       </body>
     </html>
   );
