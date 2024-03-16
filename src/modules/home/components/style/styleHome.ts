@@ -14,11 +14,12 @@ export const StyleTop = styled.div`
   display: flex;
   justify-content: space-between;
   color: white;
+  margin: 20px 0;
 `;
 
 export const StyleBottom = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 15px;
   overflow-x: auto;
   scrollbar-width: none;
 `;

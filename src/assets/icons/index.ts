@@ -57,6 +57,6 @@ export { default as IconEdit } from "./IconEdit";
 export { default as IconLinked } from "./IconLinked";
 export { default as IconStarNormal } from "./IconStarNormal";
 export { default as IconVerify } from "./IconVerify";
-export { default as IconIconCertification } from "./IconCertification";
+export { default as IconCertification } from "./IconCertification";
 export { default as IconLightning } from "./IconLightning";
 export { default as IconBoxArrowRight } from "./IconBoxArrowRight";
