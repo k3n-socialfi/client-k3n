@@ -1,9 +1,10 @@
 import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
 import Chips from "../Chip";
+import { ButtonText } from "../ButtonCustom";
 
 export interface ICardProjectProps {}
 
-export default function CardProject(props: ICardProjectProps) {
+export default function CardTrendingProjects(props: any) {
   return (
     <Card
       sx={{ width: "100%", background: "#252525", borderRadius: 3 }}
@@ -16,8 +17,8 @@ export default function CardProject(props: ICardProjectProps) {
           sx={{ display: "flex", alignItems: "center" }}
         >
           <Avatar
-            alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            alt={props.name}
+            src={props.avatar}
             sx={{ width: 56, height: 56 }}
           />
 
@@ -28,20 +29,28 @@ export default function CardProject(props: ICardProjectProps) {
               component="div"
               color={"white"}
             >
-              Grass
+              {props.name}
             </Typography>
             <Stack
               sx={{ display: "flex", gap: 1, alignItems: "end" }}
               direction="row"
             >
-              <Chips label="SocialFi" color="warning" />
+              <ButtonText
+                size="small"
+                borderColorBt={"#FFD7F4"}
+                backgroundColorBt={"#FFD7F4"}
+              >
+                <Typography color={"#F23581"} sx={{ padding: "0 5px" }}>
+                  {props.wallet}
+                </Typography>
+              </ButtonText>
               <Typography
                 gutterBottom
                 variant="subtitle2"
                 component="span"
                 color={"gray"}
               >
-                #1234
+                #{props.mention} mentions
               </Typography>
             </Stack>
           </Stack>

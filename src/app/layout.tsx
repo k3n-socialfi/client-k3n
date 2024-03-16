@@ -10,13 +10,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <Web3Modal>{children}</Web3Modal>
+        <LayoutProvides>
+          {children}
+        </LayoutProvides>
       </body>
     </html>
   );

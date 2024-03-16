@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { formatUnits, parseUnits } from 'viem';
 import { useContractRead, useContractWrite } from '@/contract/hooks/useContract';
-import ConnectButton from '@/components/ConnectButton /index';
+// import ConnectButton from '@/components/ConnectButton /index';
 
 export default function Home() {
   const { address } = useAccount();
@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <main className="h-screen w-full flex justify-center items-center bg-black text-white">
       <div className="flex flex-col gap-5 items-center">
-        <ConnectButton />
+        {/* <ConnectButton /> */}
 
         {address ? (
           <div className="">

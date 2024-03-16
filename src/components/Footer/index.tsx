@@ -5,7 +5,7 @@ import logoK3N from "@/assets/images/Logo.png";
 import { IconDiscord, IconTwitter } from "@/assets/icons";
 import styled from "styled-components";
 
-export interface IFooterProps { }
+export interface IFooterProps {}
 
 export default function Footer(props: IFooterProps) {
   return (
@@ -60,5 +60,5 @@ export default function Footer(props: IFooterProps) {
 
 const StyleContainer = styled.div`
   padding: 12px 40px;
-  background-color: #252525;
-`
+  background-color: #000;
+`;

@@ -114,6 +114,8 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
 };
 
 export const ButtonText: React.FC<ICustomButtonProps> = ({
+  backgroundColorBt,
+  borderColorBt,
   children,
   ...props
 }) => {
@@ -123,8 +125,8 @@ export const ButtonText: React.FC<ICustomButtonProps> = ({
       variant="outlined"
       color="textCustom"
       colorBt="primary.pinkText"
-      borderColorBt="textCustom.enabled"
-      backgroundColorBt="textCustom.enabled"
+      borderColorBt={borderColorBt}
+      backgroundColorBt={backgroundColorBt}
       colorBtHover="primary.pinkText"
       borderColorBtHover="textCustom.hover"
       backgroundColorBtHover="textCustom.hover"
