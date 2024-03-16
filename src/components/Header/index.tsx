@@ -59,9 +59,10 @@ export const Header = () => {
       ) : (
         <HeaderButton className="header-button">
           {/* <ButtonSecondary size="large">Signup</ButtonSecondary> */}
-          <ButtonPrimary size="large" onClick={handleShowHeader}>
+          {/* <ButtonPrimary size="large" onClick={handleShowHeader}>
             Connect Wallet
-          </ButtonPrimary>
+          </ButtonPrimary> */}
+          <w3m-button />
         </HeaderButton>
       )}
     </HeaderWrapper>

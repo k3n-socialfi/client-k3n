@@ -1,7 +1,7 @@
 import LayoutProvides from "@/layout/LayoutProvides";
+import { Web3Modal } from "@/layout/WalletProvider";
 import type { Metadata } from "next";
 import "./globals.css";
-import WalletProvider from "@/layout/WalletProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
