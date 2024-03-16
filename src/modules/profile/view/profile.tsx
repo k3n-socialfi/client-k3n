@@ -9,7 +9,7 @@ import {
   IconVerify,
   IconYouTube,
 } from "@/assets/icons";
-import ConnectButton from "@/components/ConnectButton /index";
+import ConnectButton from "@/components/ConnectButton/index";
 import { Divider } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
