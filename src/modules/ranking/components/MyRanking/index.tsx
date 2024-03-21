@@ -10,35 +10,49 @@ export default function MyRanking(props: IMyRankingProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <Container>
+    <Container onClick={() => setIsOpen(!isOpen)}>
       {isOpen ? (
         <>
           <Info>
-            <Avatar />
+            <Avatar alt="" src={""} sx={{ width: 56, height: 56 }} />
             <Account>
               <Name>
-                <Typography color={"#FFF"}>jayden Dang</Typography>
+                <Typography color={"#FFF"}>Elena</Typography>
                 <IconCertification />
               </Name>
               <Typography variant="body2" color={"#82EBFF"}>
-                Tiktok KOLs
+                Researcher - Builder
               </Typography>
             </Account>
           </Info>
           <Point>
-            <Typography variant="h4" color={"#F23581"} fontWeight={"700"}>
-              1,408
-            </Typography>
-            <Typography color={"#B9BDD1"}>
-              of total 1,892 <br /> Land NFT stackers
-            </Typography>
+            <Slider>
+              <StyleTop>
+                <CrossBar></CrossBar>
+                <StyleMilestone></StyleMilestone>
+              </StyleTop>
+              <StyleBottom>
+                <Typography variant="h6" color={"#B9BDD1"} fontWeight={"700"}>
+                  0
+                </Typography>
+                <Typography
+                  variant="h6"
+                  color={"#F23581"}
+                  fontWeight={"700"}
+                  sx={{ marginLeft: "120px" }}
+                >
+                  9,901
+                </Typography>
+              </StyleBottom>
+            </Slider>
+            <Typography color={"#82EBFF"}>You have 9,901 points</Typography>
           </Point>
           <Total>
             <Typography color={"#B9BDD1"}>Total point</Typography>
             <Stack sx={{ display: "flex", gap: "5px", flexDirection: "row" }}>
               <IconLightning />
               <Typography variant="h4" fontWeight={"700"} color={"#FFF"}>
-                250
+                9,901
               </Typography>
             </Stack>
           </Total>
@@ -46,11 +60,8 @@ export default function MyRanking(props: IMyRankingProps) {
       ) : (
         <>
           <Typography color={"#B9BDD1"}>
-            Please sign in to view your ranking...
+            Please connect your wallet to view your ranking.
           </Typography>
-          <ButtonSecondary onClick={() => setIsOpen(true)}>
-            Connect Wallet
-          </ButtonSecondary>
         </>
       )}
     </Container>
@@ -73,15 +84,50 @@ const Info = styled.div`
   flex-direction: row;
   gap: 10px;
 `;
-const Account = styled.div``;
+const Account = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
 const Name = styled.div`
   display: flex;
   gap: 5px;
 `;
 const Point = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 10px;
   align-items: center;
   color: #fff;
 `;
 const Total = styled.div``;
+
+const CrossBar = styled.div`
+  width: 200px;
+  border-radius: 20px;
+  height: 8px;
+  background-image: linear-gradient(to right, #f23581, #a1f0ff);
+`;
+
+const StyleMilestone = styled.div`
+  position: absolute;
+  height: 22px;
+  width: 8px;
+  background-color: #fff;
+  border-radius: 20px;
+  top: -5px;
+  right: 50px;
+`;
+
+const Slider = styled.div`
+  position: relative;
+`;
+
+const StyleBottom = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+`;
+
+const StyleTop = styled.div``;
