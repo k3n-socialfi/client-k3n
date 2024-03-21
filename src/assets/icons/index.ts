@@ -61,3 +61,6 @@ export { default as IconCertification } from "./IconCertification";
 export { default as IconLightning } from "./IconLightning";
 export { default as IconBoxArrowRight } from "./IconBoxArrowRight";
 export { default as IconClose } from "./IconClose";
+export { default as IconFilter } from "./IconFilter";
+export { default as IconReset } from "./IconReset";
+
