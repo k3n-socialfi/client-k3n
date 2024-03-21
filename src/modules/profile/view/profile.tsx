@@ -52,7 +52,7 @@ const IMG_NFT =
 const ModalRequestCollaboration = ({ openHireMe }: any) => {
   const openButton = useBoolean();
   const openGotIt = useBoolean();
-  const { data: hash, error, isPending, writeContract } = useWriteContract()
+  const { data: hash, isPending, writeContract } = useWriteContract()
   const { contract } = useNetworkData();
 
   const [typeOfRequest, setTypeOfRequest] = React.useState("");
@@ -76,6 +76,12 @@ const ModalRequestCollaboration = ({ openHireMe }: any) => {
     resolver: yupResolver(requestCollaborationSchema_),
     mode: "onChange",
   });
+  // const { config, error } = usePrepareContractWrite({
+  //   address: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
+  //   abi: wagmigotchiABI,
+  //   functionName: 'feed',
+  // })
+  // const { write } = useContractWrite(config)
 
   const onSubmitForm = async (data: any, e: any) => {
     e?.preventDefault()
