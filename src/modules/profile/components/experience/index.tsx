@@ -104,7 +104,7 @@ const StyleTitle = styled.div`
 `
 const StyleBorder = styled.div`
     position: absolute;
-    width: 75%;
+    width: 50%;
     margin-top: 7px;
     display: flex;
     border-top: 2px solid #82EBFF;

@@ -44,6 +44,7 @@ import { type BaseError, useWaitForTransactionReceipt, useWriteContract } from "
 import TokenContract from "../../../contract/abis/token.json"
 import { parseAbi } from 'viem'
 import { ConnectButton } from "@/components/ConnectButton";
+import { PostUser } from "../components/post";
 
 export interface IUserProfileProps { }
 const IMG_NFT =
@@ -305,10 +306,6 @@ const Overview = () => {
           </StyleContentOverview>
           <StyleContentOverview>
             <StyleDesOverview>Primary Job Title</StyleDesOverview>
-            <StyleSubTitle>Fashion KOL</StyleSubTitle>
-          </StyleContentOverview>
-          <StyleContentOverview>
-            <StyleDesOverview>Primary Job Title</StyleDesOverview>
             <StyleSubTitle>
               Fashion KOL Fashion KOL Fashion KOL Fashion KOL
             </StyleSubTitle>
@@ -319,7 +316,7 @@ const Overview = () => {
         <PrimaryTitleRight>
           <StyleContentOverview>
             <StyleDesOverview>Twitter</StyleDesOverview>
-            <StyleSubTitle>86,314 Follower</StyleSubTitle>
+            <StyleSubTitle>86,314</StyleSubTitle>
           </StyleContentOverview>
           <StyleContentOverview>
             <StyleDesOverview>Primary per post</StyleDesOverview>
@@ -390,13 +387,32 @@ export default function UserProfile(props: IUserProfileProps) {
     <StyleContainer>
       <Personal />
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
-      <Overview />
-      <Divider sx={{ borderColor: "#B9B9B9 " }} />
-      <Experience />
+      <div style={{ display: "flex", width: "100%" }}>
+        <PostLeft>
+          <StyleTitle>Post</StyleTitle>
+          <PostUser />
+          <PostUser />
+        </PostLeft>
+        <div style={{ width: "70%" }}>
+          <Overview />
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
+          Campaign
+          loading....
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
+          <Experience />
+        </div>
+      </div>
     </StyleContainer>
   );
 }
 
+const PostLeft = styled.div`
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ width: 30%;
+ padding: 12px;
+`
 const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -508,6 +524,7 @@ const StyleLeft = styled.div``;
 const StyleRight = styled.div`
   display: flex;
   flex-direction: column;
+  width: 80%;
 `;
 
 const StyleModalBox = styled(Box)`
