@@ -45,6 +45,7 @@ import TokenContract from "../../../contract/abis/token.json"
 import { parseAbi } from 'viem'
 import { ConnectButton } from "@/components/ConnectButton";
 import { PostUser } from "../components/post";
+import Services from "../components/services";
 
 export interface IUserProfileProps { }
 const IMG_NFT =
@@ -392,12 +393,12 @@ export default function UserProfile(props: IUserProfileProps) {
           <StyleTitle>Post</StyleTitle>
           <PostUser />
           <PostUser />
+          <PostUser />
         </PostLeft>
         <div style={{ width: "70%" }}>
           <Overview />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          Campaign
-          loading....
+          <Services />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Experience />
         </div>

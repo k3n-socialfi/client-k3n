@@ -1,12 +1,19 @@
 "use client"
 import { IconStar } from '@/assets/icons';
+import { ButtonCustom, ButtonSecondary } from '@/components/ButtonCustom';
 import * as React from 'react';
 import styled from 'styled-components';
 
 export default function Experience() {
   return (
     <StyleBox>
-      <StyleTitle>Experience</StyleTitle>
+      <Container>
+        <StyleTitle>Experience</StyleTitle>
+        <ExperienceRight>
+          <SeeAll>See all</SeeAll>
+          <ButtonSecondary variant="outlined" colorBt="#F23581" >Add New Experience</ButtonSecondary>
+        </ExperienceRight>
+      </Container>
       <StyleBorder />
       <StyleContent>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
@@ -38,13 +45,27 @@ export default function Experience() {
   );
 }
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+const ExperienceRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+`
+const SeeAll = styled.div`
+  color: #F23581;
+  font-size: 18px;
+  font-weight: 700;
+`
 const StyleBox = styled.div`
     padding: 24px 14px;
     width: 100%;
     overflow-x: hidden;
 `
 const StyleForm = styled.div`
-    width: 190px;
+    width: 220px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -60,7 +81,7 @@ const StyleContent = styled.div`
     margin-right: 40px;
 `
 const StyleSelection = styled.div`
-    width: 220px;
+    width: 100%;
 `
 const StyleUserDes = styled.div`
   padding: 4px 12px;

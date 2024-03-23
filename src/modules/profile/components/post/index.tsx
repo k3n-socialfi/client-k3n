@@ -59,7 +59,7 @@ const StyleMainCard = styled.div`
    border-radius: 8px;
 `
 const StylePostImg = styled(Image)`
-  width: 100%; 
+  width: 96%; 
   height: auto;
   border-radius: 8px;
   margin-top: 12px;
