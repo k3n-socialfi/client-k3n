@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
@@ -8,10 +8,16 @@ import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
 import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
-import { PopupProfile } from "./PopupProfile";
+import { PopupProfile } from "./components/PopupProfile";
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 export const Header = () => {
   const [isUser, setIsUser] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   const { show, setShow, nodeRef } = useClickOutside();
   const handlePopup = () => {
     setShow(!show);
@@ -62,7 +68,8 @@ export const Header = () => {
           {/* <ButtonPrimary size="large" onClick={handleShowHeader}>
             Connect Wallet
           </ButtonPrimary> */}
-          <w3m-button />
+          {/* <w3m-button /> */}
+         {isClient && <WalletMultiButton />} 
         </HeaderButton>
       )}
     </HeaderWrapper>

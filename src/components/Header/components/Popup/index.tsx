@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { ButtonElevated } from "../ButtonCustom";
+import { ButtonElevated } from "../../../ButtonCustom";
 import { IconClose } from "@/assets/icons";
 
-interface Props {}
+interface Props { }
 
 const Popup = (props: Props) => {
   return (

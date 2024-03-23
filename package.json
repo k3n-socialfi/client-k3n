@@ -16,6 +16,12 @@
     "@mui/material": "^5.15.11",
     "@mui/material-nextjs": "^5.15.11",
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
+    "@solana/spl-token": "^0.2.0",
+    "@solana/wallet-adapter-base": "^0.9.7",
+    "@solana/wallet-adapter-react": "^0.15.6",
+    "@solana/wallet-adapter-react-ui": "^0.9.8",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.47.3",
     "@tanstack/react-query": "^5.17.19",
     "@web3modal/wagmi": "^4.0.0-alpha.2",
     "axios": "^1.6.7",
@@ -30,7 +36,6 @@
     "remark-gfm": "^4.0.0",
     "styled-components": "^6.1.8",
     "viem": "^2.8.9",
-    "wagmi": "^2.5.7",
     "yup": "^1.4.0"
   },
   "devDependencies": {

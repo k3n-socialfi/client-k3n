@@ -34,10 +34,10 @@ import {
   StyleTrendingTopCard,
 } from "../components/style/styleHome";
 import { useRouter } from "next/navigation";
-import Popup from "@/components/Popup";
+import Popup from "@/components/Header/components/Popup";
 import { useState } from "react";
 
-export interface IHomeProps {}
+export interface IHomeProps { }
 
 export default function Home(props: IHomeProps) {
   const [showPoppup, setShowPopup] = useState<boolean>(false);

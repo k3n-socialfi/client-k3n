@@ -6,8 +6,8 @@ import theme from "@/assets/style/theme";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import styled from "styled-components";
-import { Web3Modal } from "@/layout/WalletProvider";
 import SideBar from "@/components/SideBar";
+import WalletContextProvider from "./WalletProvider";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -19,7 +19,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   return (
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
-        <Web3Modal>
+        <WalletContextProvider>
           <Header />
           <StyleMain>
             <StyleSideBar>
@@ -30,7 +30,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
               <Footer />
             </StyleChildren>
           </StyleMain>
-        </Web3Modal>
+        </WalletContextProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
