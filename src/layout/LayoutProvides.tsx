@@ -6,8 +6,8 @@ import theme from "@/assets/style/theme";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import styled from "styled-components";
+import { Web3Modal } from "@/layout/WalletProvider";
 import SideBar from "@/components/SideBar";
-import { Web3Modal } from '@/layout/WalletProvider';
 
 export interface ILayoutProvidesProps {
   children: ReactNode;

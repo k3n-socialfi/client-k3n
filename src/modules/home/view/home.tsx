@@ -34,10 +34,13 @@ import {
   StyleTrendingTopCard,
 } from "../components/style/styleHome";
 import { useRouter } from "next/navigation";
+import Popup from "@/components/Popup";
+import { useState } from "react";
 
 export interface IHomeProps {}
 
 export default function Home(props: IHomeProps) {
+  const [showPoppup, setShowPopup] = useState<boolean>(false);
   const router = useRouter();
   const slides = [
     "https://s3-alpha-sig.figma.com/img/e1cb/18b1/bc2b456ac7d9fbd4cc65af30315f50ae?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OW3LC4lhs1Fm6nvQmBH36AsDUTxrzUAUsGn8UtG5AHYXhKDMRofmUuVfKvlI~rx2uwg5JXcR~jz9E6bnXPyRFe6JrkNdktvkDe3llhMYWUpu0ARnESaqBCGaAKb98r0qUxHCKyJLqPg~Oios9jcZQmAAnoOFt8zH59L3s2JM2fjll8zIRF8vewWzs74Y7hZFTh1KJC~fSbkHppAaJMoh6sXiwS9QUSNgsZh6UFCP55EGW4LaEUZTpB0I0wtuSx-k2VdOJODYCLwG1A2mNPaBzDTveuWcERP24LgUtzlbrLJo5ktx06xr5iJhzhKWIkRCJmrg1lvzIgg~9Jo8cj52ag__",
@@ -155,6 +158,7 @@ export default function Home(props: IHomeProps) {
           </StyleTrendingProjectsCard>
         </StyleTrendingProjects>
       </StyleTrending>
+      {showPoppup ? <Popup /> : <></>}
     </StyleContainer>
   );
 }
