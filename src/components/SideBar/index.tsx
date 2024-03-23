@@ -1,6 +1,5 @@
 "use client";
 import { IconArrowDown, IconArrowUp } from "@/assets/icons";
-import logoK3N from "@/assets/images/Logo.png";
 import { DATASIDEBAR, DATASIDEBARBOTTOM } from "@/constant/dataMockupSidebar";
 import { Collapse } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
