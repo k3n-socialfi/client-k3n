@@ -113,7 +113,6 @@ export default function TabKOLs() {
 
 const CustomBox = styled(Box)`
   width: 100%;
-  border-radius: 8px;
   padding: 24px 12px;
   background: #353535;
   overflow: hidden;
