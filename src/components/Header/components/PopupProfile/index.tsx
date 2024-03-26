@@ -5,10 +5,11 @@ import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 
-interface IPropPopup {
-  handleShowHeader: () => void;
+interface IPropPopupProfile {
+  handleDisConnect: () => void;
+  base58Pubkey?: string
 }
-export const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
+export const PopupProfile = ({ handleDisConnect, base58Pubkey }: IPropPopupProfile) => {
   return (
     <>
       <WrapperPopup>
@@ -23,7 +24,7 @@ export const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
                 <IconCheckCrile />
               </ProfileName>
               <ProfileDes className="profile-section__info__des">
-                Tiktok KOLs
+                {base58Pubkey?.slice(0, 4)}...{base58Pubkey?.slice(40, 44)}
               </ProfileDes>
             </ProfileText>
             <ProfileInfoText className="profile-section__info__text">
@@ -52,7 +53,7 @@ export const PopupProfile = ({ handleShowHeader }: IPropPopup) => {
           })}
           <ProfileItem
             className="profile-list__item"
-            onClick={handleShowHeader}
+            onClick={handleDisConnect}
           >
             <LinkCustom href="" className="profile-list__item__link">
               <IconLogout />

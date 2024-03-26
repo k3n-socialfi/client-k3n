@@ -3,29 +3,27 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "@/assets/images/Logo.png";
-import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
+import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
 import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import Popup from "./components/Popup";
+import useWalletCustom from "@/hooks/useWalletCustom";
 
 export const Header = () => {
-  const [isUser, setIsUser] = useState<boolean>(false);
   const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
   const { show, setShow, nodeRef } = useClickOutside();
+  const { buttonState, setPopup, setPopupProfile, label, popup, handleDisConnect, handleConnect, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
+
   const handlePopup = () => {
     setShow(!show);
   };
 
-  const handleShowHeader = () => {
-    setIsUser(!isUser);
-  };
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   return (
     <HeaderWrapper>
@@ -41,37 +39,37 @@ export const Header = () => {
           </HeaderIcon>
         </HeaderSearch>
       </HeaderLogo>
-      {isUser ? (
-        <HeaderUser>
-          <UserNotification>
-            <IconNotification />
-            <NumberNotification>15</NumberNotification>
-          </UserNotification>
-          <HeaderUserInfo>
-            <IconThunder />
-            <TypographyCustom className="header-user__info__text">
-              250
-            </TypographyCustom>
-            <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
-              <AvatarCustom
-                className="header-user__info__avatar"
-                alt="Cindy Baker"
-                src="/static/images/Avatar.png"
-              />
-            </HeaderAvatar>
-          </HeaderUserInfo>
-          {show && <PopupProfile handleShowHeader={handleShowHeader} />}
-        </HeaderUser>
-      ) : (
-        <HeaderButton className="header-button">
-          {/* <ButtonSecondary size="large">Signup</ButtonSecondary> */}
-          {/* <ButtonPrimary size="large" onClick={handleShowHeader}>
-            Connect Wallet
-          </ButtonPrimary> */}
-          {/* <w3m-button /> */}
-         {isClient && <WalletMultiButton />} 
-        </HeaderButton>
-      )}
+      {isClient && <div>
+        {label === 'Disconnect' ? (
+          <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
+            <UserNotification>
+              <IconNotification />
+              <NumberNotification>15</NumberNotification>
+            </UserNotification>
+            <HeaderUserInfo>
+              <IconThunder />
+              <TypographyCustom className="header-user__info__text">
+                250
+              </TypographyCustom>
+              <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
+                <AvatarCustom
+                  className="header-user__info__avatar"
+                  alt="Cindy Baker"
+                  src="/static/images/Avatar.png"
+                />
+              </HeaderAvatar>
+            </HeaderUserInfo>
+          </HeaderUser>
+        ) : (
+          <HeaderButton className="header-button">
+            <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
+              {label}
+            </ButtonPrimary>
+          </HeaderButton>
+        )}
+        {popup && <Popup handleConnect={handleConnect} setPopup={setPopup} />}
+        {popupProfile && <PopupProfile handleDisConnect={handleDisConnect} base58Pubkey={base58Pubkey} />}
+      </div>}
     </HeaderWrapper>
   );
 };
