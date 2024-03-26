@@ -40,6 +40,7 @@ export default function Ranking(props: IRankingProps) {
         color={"#FFF"}
         marginLeft={"20px"}
         fontWeight={"700"}
+        style={{ marginTop: "50px" }}
       >
         Top 100 Ranking
       </Typography>
