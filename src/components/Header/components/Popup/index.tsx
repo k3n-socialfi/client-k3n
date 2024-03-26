@@ -3,19 +3,22 @@ import styled from "styled-components";
 import { ButtonElevated } from "../../../ButtonCustom";
 import { IconClose } from "@/assets/icons";
 
-interface Props { }
+interface IPropPopup {
+  handleConnect?: () => void;
+  setPopup?: any;
+}
 
-const Popup = (props: Props) => {
+const Popup = ({ handleConnect, setPopup }: IPropPopup) => {
   return (
     <WrapperPopup>
       <PopupItem>
-        <PopupIconClose>
+        <PopupIconClose onClick={() => setPopup(false)}>
           <IconClose />
         </PopupIconClose>
         <PopupTitle>
           Please connect to your X account before proceeding with further tasks.
         </PopupTitle>
-        <ButtonElevated size="large">Connect X account</ButtonElevated>
+        <ButtonElevated size="large" onClick={handleConnect}>Connect X account</ButtonElevated>
       </PopupItem>
     </WrapperPopup>
   );
