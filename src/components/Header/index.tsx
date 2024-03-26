@@ -68,7 +68,7 @@ export const Header = () => {
           </HeaderButton>
         )}
         {popup && <Popup handleConnect={handleConnect} setPopup={setPopup} />}
-        {popupProfile && <PopupProfile handleDisConnect={handleDisConnect} base58Pubkey={base58Pubkey} />}
+        {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={handleDisConnect} base58Pubkey={base58Pubkey} />}
       </div>}
     </HeaderWrapper>
   );

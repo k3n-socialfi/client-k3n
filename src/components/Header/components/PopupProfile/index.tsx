@@ -6,16 +6,19 @@ import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 
 interface IPropPopupProfile {
-  handleDisConnect: () => void;
-  base58Pubkey?: string
+  handleDisConnect?: () => void;
+  base58Pubkey?: string;
+  setPopupProfile?: any;
 }
-export const PopupProfile = ({ handleDisConnect, base58Pubkey }: IPropPopupProfile) => {
+
+export const PopupProfile = (props: IPropPopupProfile) => {
+  const { setPopupProfile, handleDisConnect, base58Pubkey } = props
   return (
     <>
       <WrapperPopup>
         <ProfileSection>
           <ProfileAvatar>
-            <AvatarCustum alt="Cindy Baker" src="/static/images/Avatar.png" />
+            <AvatarCustom alt="Cindy Baker" src="/static/images/Avatar.png" />
           </ProfileAvatar>
           <ProfileInfo>
             <ProfileText>
@@ -39,7 +42,7 @@ export const PopupProfile = ({ handleDisConnect, base58Pubkey }: IPropPopupProfi
               <ProfileItem
                 className="profile-list__item"
                 key={item.name}
-                onClick={() => { }}
+                onClick={() => setPopupProfile(false)}
               >
                 <LinkCustom
                   href={item.href}
@@ -68,15 +71,15 @@ export const PopupProfile = ({ handleDisConnect, base58Pubkey }: IPropPopupProfi
 const WrapperPopup = styled.div`
   position: absolute;
   z-index: 100;
-  top: 110%;
-  right: 0;
+  top: 82%;
+  right: 27px;
   border-radius: 16px;
   background: #393939;
   border: 3px solid #969696;
   box-shadow: 0px 3px #111;
   min-width: 350px;
 `;
-const AvatarCustum = styled(Avatar)`
+const AvatarCustom = styled(Avatar)`
   width: 60px;
   height: 60px;
 `;
