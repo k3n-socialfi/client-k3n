@@ -58,7 +58,16 @@ function CustomTabPanel(props: TabPanelProps) {
 
   return (
     <div
-      style={{ margin: "12px 0" }}
+      style={{
+        margin: "12px 0",
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: "bold",
+        fontSize: "60px",
+        color: "#f23581",
+      }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -96,16 +105,16 @@ export default function TabKOLs() {
         <TableTrending />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        COMING SOON
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item 3
+        COMING SOON
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        Item 4
+        COMING SOON
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        Item 5
+        COMING SOON
       </CustomTabPanel>
     </CustomBox>
   );
