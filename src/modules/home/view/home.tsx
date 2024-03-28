@@ -36,8 +36,9 @@ import {
 import { useRouter } from "next/navigation";
 import Popup from "@/components/Header/components/Popup";
 import { useState } from "react";
+import CreateCampaign from "@/components/CreateCampaign";
 
-export interface IHomeProps { }
+export interface IHomeProps {}
 
 export default function Home(props: IHomeProps) {
   const [showPoppup, setShowPopup] = useState<boolean>(false);
@@ -51,12 +52,12 @@ export default function Home(props: IHomeProps) {
   ];
 
   const handleButtonClick = () => {
-    // Xử lý khi nút được click
     console.log("Button clicked");
   };
 
   return (
     <StyleContainer>
+      <CreateCampaign />
       <StyleSlide>
         <CarouselSlide slides={slides} interval={3000} slideHeight="400px" />
       </StyleSlide>
