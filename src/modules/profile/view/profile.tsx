@@ -44,6 +44,7 @@ import { FormEvent } from "react";
 import TokenContract from "../../../contract/abis/token.json";
 import { parseAbi } from "viem";
 import Services from "../components/services";
+import PostUser from "../components/Post";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
