@@ -6,7 +6,7 @@ import theme from "@/assets/style/theme";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import styled from "styled-components";
-import SideBar from "@/components/SideBar";
+import SideBar from "@/components/sideBar";
 import WalletContextProvider from "./WalletProvider";
 
 export interface ILayoutProvidesProps {

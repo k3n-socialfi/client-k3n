@@ -1,8 +1,6 @@
 "use client";
 import {
   IconBlue,
-  IconCertification,
-  IconClose,
   IconEdit,
   IconLinked,
   IconStarNormal,
@@ -10,6 +8,9 @@ import {
   IconTwitter,
   IconVerify,
   IconYouTube,
+  IconFacebook,
+  IconDiscord,
+  IconReddit,
 } from "@/assets/icons";
 import Diagram from "@/assets/images/Diagram.png";
 import Request from "@/assets/images/Request.png";
@@ -38,15 +39,15 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Experience from "../components/experience";
-import { FormEvent } from 'react';
+import { FormEvent } from "react";
 // import useNetworkData from "@/contract/hooks/useNetworkData";
 // import { type BaseError, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
-import TokenContract from "../../../contract/abis/token.json"
-import { parseAbi } from 'viem'
+import TokenContract from "../../../contract/abis/token.json";
+import { parseAbi } from "viem";
 import { PostUser } from "../components/post";
 import Services from "../components/services";
 
-export interface IUserProfileProps { }
+export interface IUserProfileProps {}
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -331,7 +332,6 @@ const Overview = () => {
         <div style={{ width: "300ox", height: "300px" }}>
           {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
         </div>
-
       )}
     </StyleOverview>
   );
@@ -359,6 +359,9 @@ const Personal = () => {
             <IconTwitter />
             <IconYouTube />
             <IconLinked />
+            <IconFacebook />
+            <IconReddit />
+            <IconDiscord />
           </StyleIcons>
         </StyleContentUser>
       </StylePersonalLeft>
@@ -395,11 +398,11 @@ export default function UserProfile(props: IUserProfileProps) {
           <PostUser />
         </PostLeft>
         <div style={{ width: "70%" }}>
+          <Experience />
           <Overview />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Services />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Experience />
         </div>
       </div>
     </StyleContainer>
@@ -407,12 +410,12 @@ export default function UserProfile(props: IUserProfileProps) {
 }
 
 const PostLeft = styled.div`
- display: flex;
- flex-direction: column;
- gap: 12px;
- width: 30%;
- padding: 12px;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 30%;
+  padding: 12px;
+`;
 const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
