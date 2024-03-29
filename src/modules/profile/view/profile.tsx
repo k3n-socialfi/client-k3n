@@ -23,7 +23,6 @@ import {
   Box,
   CardMedia,
   Divider,
-  FormControl,
   InputBase,
   InputLabel,
   MenuItem,
@@ -44,7 +43,6 @@ import { FormEvent } from "react";
 // import { type BaseError, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import TokenContract from "../../../contract/abis/token.json";
 import { parseAbi } from "viem";
-import { PostUser } from "../components/post";
 import Services from "../components/services";
 
 export interface IUserProfileProps {}
