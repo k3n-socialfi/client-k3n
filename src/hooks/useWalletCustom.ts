@@ -4,9 +4,8 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import base58 from 'bs58';
-import { postConnect } from "@/services";
-
-const messageToSign = 'TEST MESSAGE';
+import { getMessageSolana, loginSolana } from "@/services";
+import { TYPE_WALLET } from "@/constant";
 
 export default function useWalletCustom() {
   const { setVisible: setModalVisible } = useWalletModal();
@@ -57,14 +56,18 @@ export default function useWalletCustom() {
     }
   }, [buttonState, setModalVisible])
 
+
   const sign = async () => {
     try {
-      const message = new TextEncoder().encode(messageToSign);
-      if (signMessage) {
-        const uint8arraySignature = await signMessage(message);
-        setSignature(uint8arraySignature);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem("signatured", base58.encode(uint8arraySignature));
+      const messageSolana: any = await getMessageSolana(base58Pubkey)
+      if (messageSolana) {
+        const message = new TextEncoder().encode("Get sign message successful");
+        if (signMessage) {
+          const uint8arraySignature = await signMessage(message);
+          setSignature(uint8arraySignature);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem("signatured", base58.encode(uint8arraySignature));
+          }
         }
       }
     } catch (e) {
@@ -72,13 +75,16 @@ export default function useWalletCustom() {
     }
   }
 
-  const handleConnect = async () => {
-    if (onConnect) {
-      onConnect();
-      if (!signed) {
-        sign();
-      }
+  const handleWallet = (value: number) => {
+    if (value === TYPE_WALLET.connect) {
+      onConnect && onConnect();
+      !signed && sign();
       setPopup(false)
+    }
+    if (value === TYPE_WALLET.disconnect) {
+      onDisconnect && onDisconnect();
+      setPopupProfile(false)
+      localStorage.removeItem("signatured");
     }
   }
 
@@ -88,21 +94,16 @@ export default function useWalletCustom() {
     }
   }, [publicKey, signed])
 
-  const handleDisConnect = () => {
-    if (onDisconnect) {
-      onDisconnect();
-      // localStorage.removeItem("signatured");
-      setPopupProfile(false)
+  useEffect(() => {
+    if (signature) {
+      console.log("👋  signature:", signature)
+      const params = {
+        address: base58Pubkey,
+        signature: signature
+      }
+      loginSolana(params)
     }
-  }
+  }, [signature])
 
-  // useEffect(() => {
-  //   const form = {
-  //     address: base58Pubkey,
-  //     signature: signature
-  //   }
-  //   const data = postConnect(form)
-  // }, [signature])
-
-  return { buttonState, setPopup, setPopupProfile, label, popup, handleDisConnect, handleConnect, handleClick, base58Pubkey, popupProfile };
+  return { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile };
 }

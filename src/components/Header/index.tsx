@@ -11,11 +11,12 @@ import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
+import { TYPE_WALLET } from "@/constant";
 
 export const Header = () => {
   const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
-  const { buttonState, setPopup, setPopupProfile, label, popup, handleDisConnect, handleConnect, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
+  const { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
 
   const handlePopup = () => {
     setShow(!show);
@@ -67,8 +68,8 @@ export const Header = () => {
             </ButtonPrimary>
           </HeaderButton>
         )}
-        {popup && <Popup handleConnect={handleConnect} setPopup={setPopup} />}
-        {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={handleDisConnect} base58Pubkey={base58Pubkey} />}
+        {popup && <Popup handleConnect={(value: number) => handleWallet(value)} setPopup={setPopup} />}
+        {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={(value: number) => handleWallet(value)} base58Pubkey={base58Pubkey} />}
       </div>}
     </HeaderWrapper>
   );
