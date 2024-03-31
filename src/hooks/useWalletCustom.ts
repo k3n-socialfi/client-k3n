@@ -120,7 +120,7 @@ export default function useWalletCustom() {
             };
             const data: any = loginSolana(params);
             if (typeof window !== 'undefined') {
-                localStorage.setItem("token", data.accessToken);
+                localStorage.setItem("token", data.data.accessToken);
             }
         }
     }, [signature]);

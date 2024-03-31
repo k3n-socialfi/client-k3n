@@ -1,6 +1,6 @@
 "use client";
 import { IUserProfile } from "@/interface/profile.interface";
-import { getProfileUser } from "@/services/api.services";
+import { getProfileUser } from "@/services";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface IPropsProfileContextProvider {
