@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -10,39 +11,28 @@ import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
-import useWalletCustom from "@/hooks/useWalletCustom";
-import Link from "next/link";
+import useWalletCustom from "@/hooks/useWalletCustom.1";
 
 export const Header = () => {
-  const [isClient, setIsClient] = useState(false);
+  const router = useRouter()
+  const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
-  const {
-    buttonState,
-    setPopup,
-    setPopupProfile,
-    label,
-    popup,
-    handleDisConnect,
-    handleConnect,
-    handleClick,
-    base58Pubkey,
-    popupProfile,
-  } = useWalletCustom();
+  const { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
 
   const handlePopup = () => {
     setShow(!show);
   };
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setIsClient(true)
+  }, [])
 
   return (
     <HeaderWrapper>
       <HeaderLogo>
-        <Link href="/">
-          <ImageCustom width={150} height={50} alt="logo" src={logo} />
-        </Link>
+        <ImgCustom>
+          <Image onClick={() => router.push('/')} width={150} height={50} alt="logo" src={logo} />
+        </ImgCustom>
         <HeaderSearch>
           <HeaderIcon>
             <IconSearch />
@@ -53,55 +43,51 @@ export const Header = () => {
           </HeaderIcon>
         </HeaderSearch>
       </HeaderLogo>
-      {isClient && (
-        <div>
-          {label === "Disconnect" ? (
-            <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
-              <UserNotification>
-                <IconNotification />
-                <NumberNotification>15</NumberNotification>
-              </UserNotification>
-              <HeaderUserInfo>
-                <IconThunder />
-                <TypographyCustom className="header-user__info__text">
-                  250
-                </TypographyCustom>
-                <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
-                  <AvatarCustom
-                    className="header-user__info__avatar"
-                    alt="Cindy Baker"
-                    src="/static/images/Avatar.png"
-                  />
-                </HeaderAvatar>
-              </HeaderUserInfo>
-            </HeaderUser>
-          ) : (
-            <HeaderButton className="header-button">
-              <ButtonPrimary
-                disabled={
-                  buttonState === "connecting" ||
-                  buttonState === "disconnecting"
-                }
-                onClick={handleClick}
-              >
-                {label}
-              </ButtonPrimary>
-            </HeaderButton>
-          )}
-          {popup && <Popup handleConnect={handleConnect} setPopup={setPopup} />}
-          {popupProfile && (
-            <PopupProfile
-              setPopupProfile={setPopupProfile}
-              handleDisConnect={handleDisConnect}
-              base58Pubkey={base58Pubkey}
-            />
-          )}
-        </div>
-      )}
+      {isClient && <div>
+        {label === 'Disconnect' ? (
+          <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
+            <UserNotification>
+              <IconNotification />
+              <NumberNotification>15</NumberNotification>
+            </UserNotification>
+            <HeaderUserInfo>
+              <IconThunder />
+              <TypographyCustom className="header-user__info__text">
+                250
+              </TypographyCustom>
+              <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
+                <AvatarCustom
+                  className="header-user__info__avatar"
+                  alt="Cindy Baker"
+                  src="/static/images/Avatar.png"
+                />
+              </HeaderAvatar>
+            </HeaderUserInfo>
+          </HeaderUser>
+        ) : (
+          <HeaderButton className="header-button">
+            <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
+              {label}
+            </ButtonPrimary>
+          </HeaderButton>
+        )}
+        {popup && <Popup handleConnect={(value: number) => handleWallet(value)} setPopup={setPopup} />}
+        {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={(value: number) => handleWallet(value)} base58Pubkey={base58Pubkey} />}
+      </div>}
     </HeaderWrapper>
   );
 };
 
+const ImgCustom = styled.div`
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  &:hover {
+  transform: scale(0.9); 
+  background-color: pink;
+  border-radius: 16px;
+}
+`
 const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 99999;
@@ -191,9 +177,6 @@ const HeaderButton = styled.div`
   gap: 10px;
 `;
 const AvatarCustom = styled(Avatar)`
-  cursor: pointer;
-`;
-const ImageCustom = styled(Image)`
   cursor: pointer;
 `;
 const TypographyCustom = styled(Typography)`

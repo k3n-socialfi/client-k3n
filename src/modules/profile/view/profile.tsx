@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect } from "react";
 import {
   IconBlue,
   IconEdit,
@@ -10,27 +8,50 @@ import {
   IconTwitter,
   IconVerify,
   IconYouTube,
+  IconFacebook,
+  IconDiscord,
+  IconReddit,
 } from "@/assets/icons";
+import Diagram from "@/assets/images/Diagram.png";
+import Request from "@/assets/images/Request.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { DATASELECTTYPEOFREQUEST } from "@/constant/dataMockupSelectType";
 import { useBoolean } from "@/hooks/useBoolean";
-import { Box, Divider, TextField, Typography } from "@mui/material";
+import { requestCollaborationSchema_ } from "@/validations/requestCollaborationSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Box,
+  CardMedia,
+  Divider,
+  InputBase,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Experience from "../components/experience";
+import { FormEvent } from "react";
+import TokenContract from "../../../contract/abis/token.json";
+import { parseAbi } from "viem";
 import Services from "../components/services";
-import { useProfileContext } from "@/contexts/ProfileContext";
-import { useParams } from "next/navigation";
-import { PostUser } from "../components/post";
+import PostUser from "../components/post";
+import { getMyProfile } from './../../../services/index';
 
 export interface IUserProfileProps { }
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
 const Overview = () => {
   const openModal = useBoolean();
-  const { getUserProfile } = useProfileContext();
-  const { username } = useParams();
-  useEffect(() => {
-    getUserProfile(`${username}`);
-  }, []);
+
   return (
     <StyleOverview>
       <StyleLeft>
@@ -86,9 +107,8 @@ const Overview = () => {
   );
 };
 
-const Personal = () => {
-  const { userProfile } = useProfileContext();
-
+const Personal = (props: any) => {
+  const dataPersonal = props
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -100,7 +120,7 @@ const Personal = () => {
         />
         <StyleContentUser>
           <StyleTitle>
-            {userProfile?.username} <IconVerify />
+            {dataPersonal.username ? dataPersonal.username : "User Name"} <IconVerify />
           </StyleTitle>
           <StyleUserDes>Im developer software engineer</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
@@ -110,6 +130,9 @@ const Personal = () => {
             <IconTwitter />
             <IconYouTube />
             <IconLinked />
+            <IconFacebook />
+            <IconReddit />
+            <IconDiscord />
           </StyleIcons>
         </StyleContentUser>
       </StylePersonalLeft>
@@ -134,9 +157,16 @@ const Personal = () => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
+  const [dataPersonal, setDataPersonal] = useState<any>()
+
+  useEffect(() => {
+    const dataProfile: any = getMyProfile()
+    setDataPersonal(dataProfile)
+  }, []);
+
   return (
     <StyleContainer>
-      <Personal />
+      <Personal dataPersonal={dataPersonal} />
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <div style={{ display: "flex", width: "100%" }}>
         <PostLeft>
@@ -146,11 +176,11 @@ export default function UserProfile(props: IUserProfileProps) {
           <PostUser />
         </PostLeft>
         <div style={{ width: "70%" }}>
+          <Experience />
           <Overview />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Services />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Experience />
         </div>
       </div>
     </StyleContainer>

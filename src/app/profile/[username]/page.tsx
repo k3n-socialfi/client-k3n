@@ -1,10 +1,11 @@
 "use client";
-import UserProfile from "@/modules/profile/view/profile";
+
+import ClientProfile from "@/modules/profile/view/user";
 
 export default function ProfilePage() {
   return (
     <div>
-      <UserProfile />
+      <ClientProfile />
     </div>
   );
 }

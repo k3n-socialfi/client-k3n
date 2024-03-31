@@ -4,9 +4,10 @@ import { Avatar, Typography } from "@mui/material";
 import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
+import { TYPE_WALLET } from "@/constant";
 
 interface IPropPopupProfile {
-  handleDisConnect?: () => void;
+  handleDisConnect?: any;
   base58Pubkey?: string;
   setPopupProfile?: any;
 }
@@ -56,7 +57,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
           })}
           <ProfileItem
             className="profile-list__item"
-            onClick={handleDisConnect}
+          onClick={() => handleDisConnect(TYPE_WALLET.disconnect)}
           >
             <LinkCustom href="" className="profile-list__item__link">
               <IconLogout />
