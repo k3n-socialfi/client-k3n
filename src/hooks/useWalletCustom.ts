@@ -100,7 +100,7 @@ export default function useWalletCustom() {
             onDisconnect && onDisconnect();
             setPopupProfile(false);
             localStorage.removeItem("signatured");
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
         }
     };
 
@@ -118,10 +118,10 @@ export default function useWalletCustom() {
                 address: base58Pubkey,
                 signature: convertSignature as any
             };
-            const data: any = loginSolana(params);
-            if (typeof window !== 'undefined') {
-                localStorage.setItem("token", data.accessToken);
-            }
+            loginSolana(params);
+            // if (typeof window !== 'undefined') {
+            //     // localStorage.setItem("token", data.data.accessToken);
+            // }
         }
     }, [signature]);
 

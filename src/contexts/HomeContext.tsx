@@ -1,7 +1,7 @@
 "use client";
 import { IconTop1 } from "@/assets/icons";
 import { IUsers } from "@/interface/users.interface";
-import { getFeaturedKols } from "@/services/api.services";
+import { getFeaturedKols } from "@/services";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface IPropsHomeContextProvider {

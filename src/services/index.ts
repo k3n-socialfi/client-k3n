@@ -10,4 +10,12 @@ export const getMessageSolana = (address: any) => {
 
 export const getMyProfile = () => {
     return axiosInstance.get(`/api/v1/users/my/profile`);
-} 
+}
+
+export const getFeaturedKols = async () => {
+    return axiosInstance.get("/api/v1/users");
+};
+
+export const getProfileUser = async (username: string) => {
+    return axiosInstance.get(`/api/v1/users/profile/${username}`);
+};

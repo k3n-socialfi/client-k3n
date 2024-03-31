@@ -11,7 +11,7 @@ import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
-import useWalletCustom from "@/hooks/useWalletCustom.1";
+import useWalletCustom from "@/hooks/useWalletCustom";
 
 export const Header = () => {
   const router = useRouter()
