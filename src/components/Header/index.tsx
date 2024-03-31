@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -11,9 +12,9 @@ import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom.1";
-import { TYPE_WALLET } from "@/constant";
 
 export const Header = () => {
+  const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
   const { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
@@ -29,7 +30,9 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderLogo>
-        <Image width={150} height={50} alt="logo" src={logo} />
+        <ImgCustom>
+          <Image onClick={() => router.push('/')} width={150} height={50} alt="logo" src={logo} />
+        </ImgCustom>
         <HeaderSearch>
           <HeaderIcon>
             <IconSearch />
@@ -75,6 +78,16 @@ export const Header = () => {
   );
 };
 
+const ImgCustom = styled.div`
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  &:hover {
+  transform: scale(0.9); 
+  background-color: pink;
+  border-radius: 16px;
+}
+`
 const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 99999;

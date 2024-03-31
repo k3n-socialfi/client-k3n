@@ -24,7 +24,7 @@ export const DATASIDEBAR = [
         id: 11,
         label: "KOls",
         icon: <IconKOLs />,
-        link: "/KOLs",
+        link: "/kols",
       },
       {
         id: 12,
