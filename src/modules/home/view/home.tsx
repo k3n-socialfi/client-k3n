@@ -8,14 +8,6 @@ import CardFeaturedProjects from "@/components/CardFeaturedProjects";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
 import CarouselSlide from "@/components/CarouselSlide";
-import {
-  DATACARDFEATUREDKOLS,
-  DATACARDFEATUREDPROJECTs,
-} from "@/constant/dataMockupCardFeatured";
-import {
-  DATACARDTRENDINGPROJECT,
-  DATATRENDINGKOLs,
-} from "@/constant/dataMockupCardTrending";
 import { Stack, Typography } from "@mui/material";
 import {
   StyleBottom,
@@ -36,8 +28,11 @@ import {
 import { useRouter } from "next/navigation";
 import Popup from "@/components/Header/components/Popup";
 import { useState } from "react";
+import { useHomeContext } from "@/contexts/HomeContext";
+import { IconTop1 } from "@/assets/icons";
+import Link from "next/link";
 
-export interface IHomeProps { }
+export interface IHomeProps {}
 
 export default function Home(props: IHomeProps) {
   const [showPoppup, setShowPopup] = useState<boolean>(false);
@@ -54,7 +49,56 @@ export default function Home(props: IHomeProps) {
     // Xử lý khi nút được click
     console.log("Button clicked");
   };
+  const { users } = useHomeContext();
 
+  const DATACARDFEATUREDKOLS = users.map((item) => {
+    return {
+      id: 1,
+      name: item.username,
+      numberLike: "1k",
+      followers: "85.7k",
+      wallet: [
+        {
+          label: "Airdrops",
+          color: "chip.airdropsColor",
+          background: "chip.airdropsBg",
+        },
+        {
+          label: "Marketer",
+          color: "chip.marketerColor",
+          background: "chip.marketerBg",
+        },
+        {
+          label: "Injective",
+          color: "chip.injectiveColor",
+          background: "chip.injectiveBg",
+        },
+      ],
+      thumbnail:
+        "https://s3-alpha-sig.figma.com/img/6c53/0c3a/5069334414ecf7ad899d2bcd671d8342?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=T6u7EK4WbEZ1vBNRsDy0YvsBm2e0eieM-uYdmLqF-urKYO05PufvgdD3N3hWYEJzC-HLm80SdnXatko9asHmHO1Gtws0AW4XAO55pxDdx~idbH1BHGgrgmwMSwLcp1i6oP2mbbctx641TNQFlxz0OQlUt8g7bAch44qW8Qz7drHms2YbHQR8~J-DzngLuWlQoV~XilrONQNm1tWihMx1VRrfI-Ku5EZ-BIA9T5ZAAJIgwTkMV9otrW7aXSJ18jCrHND9d8DBk2ZTCw9bJRhfy-3KsmbxQcq92ttkYNDADtwB3at0VtSlFH~~8jHMJBLaz-0JHq8kVU44XMUxekEz6w__",
+    };
+  });
+  const DATATRENDINGKOLs = users.map((item) => {
+    return {
+      id: 1,
+      name: item.username,
+      avatar:
+        "https://s3-alpha-sig.figma.com/img/6c53/0c3a/5069334414ecf7ad899d2bcd671d8342?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=T6u7EK4WbEZ1vBNRsDy0YvsBm2e0eieM-uYdmLqF-urKYO05PufvgdD3N3hWYEJzC-HLm80SdnXatko9asHmHO1Gtws0AW4XAO55pxDdx~idbH1BHGgrgmwMSwLcp1i6oP2mbbctx641TNQFlxz0OQlUt8g7bAch44qW8Qz7drHms2YbHQR8~J-DzngLuWlQoV~XilrONQNm1tWihMx1VRrfI-Ku5EZ-BIA9T5ZAAJIgwTkMV9otrW7aXSJ18jCrHND9d8DBk2ZTCw9bJRhfy-3KsmbxQcq92ttkYNDADtwB3at0VtSlFH~~8jHMJBLaz-0JHq8kVU44XMUxekEz6w__",
+      rank: <IconTop1 />,
+      point: "1,250",
+      bgColor: "#42362E",
+    };
+  });
+  const DATACARDTRENDINGPROJECT = users.map((item) => {
+    return {
+      id: 1,
+      avatar:
+        "https://s3-alpha-sig.figma.com/img/d83e/f16d/be2413523d90c13532e23428190f7334?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cS8dv0iMSemmz-gwyhodo7ZUVII06UJCM5691cHWqeiI~YuK-hCjv48-Boipgh8BCtS4LhNalHZZkJ70lb1CYWBiLl80f-RAP44C7BAiqS9y~KgnrMyj2LSJp-ak0eO0pmIQIHlH5lXWCbMh4rbwQv5gsp3NrxNDMW1CAEmXr5GDcheAKxl26KCV3tpi26spzeLDyIQ6rW2BV7FZLxDiP-SJD~0uVAWbXqWYQvbnyZtKKsHWutFiefeQdzYIUyNVaX6~6RyEsu-JD7rKMMXkP5vkvqZYY1EpAIpqpYzjWqQGMjkbg6QAoBUZx3xD3R7gTFRd2O4OpMY8P4uSBLwvmw__",
+      name: item.username,
+      wallet: "socialfi",
+      mention: "821",
+    };
+  });
   return (
     <StyleContainer>
       <StyleSlide>
@@ -90,7 +134,7 @@ export default function Home(props: IHomeProps) {
           <StyleRight></StyleRight>
         </StyleTop>
         <StyleBottom>
-          {DATACARDFEATUREDPROJECTs.map((item) => (
+          {DATACARDFEATUREDKOLS.map((item) => (
             <CardFeaturedProjects
               key={item.id}
               numberLike={item.numberLike}
