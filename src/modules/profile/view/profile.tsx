@@ -1,8 +1,6 @@
 "use client";
 import {
   IconBlue,
-  IconCertification,
-  IconClose,
   IconEdit,
   IconLinked,
   IconStarNormal,
@@ -10,6 +8,9 @@ import {
   IconTwitter,
   IconVerify,
   IconYouTube,
+  IconFacebook,
+  IconDiscord,
+  IconReddit,
 } from "@/assets/icons";
 import Diagram from "@/assets/images/Diagram.png";
 import Request from "@/assets/images/Request.png";
@@ -22,7 +23,6 @@ import {
   Box,
   CardMedia,
   Divider,
-  FormControl,
   InputBase,
   InputLabel,
   MenuItem,
@@ -38,245 +38,15 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Experience from "../components/experience";
-import { FormEvent } from 'react';
-// import useNetworkData from "@/contract/hooks/useNetworkData";
-// import { type BaseError, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
-import TokenContract from "../../../contract/abis/token.json"
-import { parseAbi } from 'viem'
-import { PostUser } from "../components/post";
+import { FormEvent } from "react";
+import TokenContract from "../../../contract/abis/token.json";
+import { parseAbi } from "viem";
 import Services from "../components/services";
+import PostUser from "../components/post";
 
 export interface IUserProfileProps { }
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
-// const ModalRequestCollaboration = ({ openHireMe }: any) => {
-//   const openButton = useBoolean();
-//   const openGotIt = useBoolean();
-//   // const { data: hash, isPending, writeContract } = useWriteContract()
-//   const { contract } = useNetworkData();
-
-//   const [typeOfRequest, setTypeOfRequest] = React.useState("");
-//   const [fullName, setFullName] = React.useState("");
-
-//   const handleChangeSelect = (event: SelectChangeEvent) => {
-//     setTypeOfRequest(event.target.value as string);
-//   };
-
-//   // const { isLoading: isConfirming, isSuccess: isConfirmed } =
-//   //   useWaitForTransactionReceipt({
-//   //     hash,
-//   //   })
-
-//   const {
-//     register,
-//     control,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<any>({
-//     resolver: yupResolver(requestCollaborationSchema_),
-//     mode: "onChange",
-//   });
-//   // const { config, error } = usePrepareContractWrite({
-//   //   address: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
-//   //   abi: wagmigotchiABI,
-//   //   functionName: 'feed',
-//   // })
-//   // const { write } = useContractWrite(config)
-
-//   const onSubmitForm = async (data: any, e: any) => {
-//     e?.preventDefault()
-//     const formData = new FormData(e?.target as any)
-//     const tokenId = formData.get('tokenId') as string
-//     writeContract({
-//       address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
-//       abi: parseAbi(['function mint(uint256 tokenId)']),
-//       functionName: 'mint',
-//       args: [BigInt(tokenId)],
-//     })
-//     // writeContract({
-//     //   address: contract,
-//     //   abi: TokenContract,
-//     //   functionName: "approve",
-//     //   args: [BigInt(tokenId), BigInt(20000)] as any,
-//     // });
-//     if (isConfirmed) {
-//       openGotIt.onTrue();
-//     }
-//   };
-
-//   const [open, setOpen] = React.useState(true);
-//   const handleClose = () => {
-//     setOpen(false);
-//     openHireMe();
-//   };
-
-//   useEffect(() => {
-//     if (typeOfRequest) {
-//       openButton.onFalse();
-//     } else {
-//       openButton.onTrue();
-//     }
-//   }, [typeOfRequest]);
-
-//   return (
-//     <Modal
-//       open={open}
-//       onClose={handleClose}
-//       aria-labelledby="modal-modal-title"
-//       aria-describedby="modal-modal-description"
-//     >
-//       <StyleModalBox>
-//         <StyleTop>
-//           <StyleButtonClose onClick={handleClose}>
-//             <IconClose />
-//           </StyleButtonClose>
-//           <Typography
-//             id="modal-modal-title"
-//             variant="h4"
-//             component="h4"
-//             fontWeight={"600"}
-//           >
-//             Request collaboration
-//           </Typography>
-//           <Image
-//             height={200}
-//             // width={}
-//             src={Diagram}
-//             title="diagram"
-//             alt="diagram"
-//           />
-//         </StyleTop>
-//         {!openGotIt.value ? (
-//           <form onSubmit={handleSubmit(onSubmitForm)}>
-//             <StyleBottom>
-//               <StyleLabel>
-//                 <Typography>Type of request</Typography>
-//                 <Typography color={"orange"}>*</Typography>
-//               </StyleLabel>
-//               <FormControl fullWidth sx={{ minWidth: "500px" }}>
-//                 <InputLabel id="typeOfRequest" sx={{ color: "#FFF" }}>
-//                   Select type of request
-//                 </InputLabel>
-//                 <Select
-//                   size="medium"
-//                   id="typeOfRequest"
-//                   labelId="typeOfRequest"
-//                   value={typeOfRequest}
-//                   label="Select type of request"
-//                   sx={{
-//                     borderRadius: "20px",
-//                     color: "#FFF",
-//                     backgroundColor: "#353535",
-//                     border: "0px #353535 solid",
-//                   }}
-//                   {...register("typeOfRequest")}
-//                   onChange={handleChangeSelect}
-//                 >
-//                   {DATASELECTTYPEOFREQUEST.map((option) => (
-//                     <MenuItem key={option.id} value={option.value}>
-//                       {option.label}
-//                     </MenuItem>
-//                   ))}
-//                 </Select>
-//                 <StyleError>
-//                   {errors.typeOfRequest?.message as string}
-//                 </StyleError>
-//               </FormControl>
-
-//               <StyleLabel>
-//                 <Typography>Your Full name</Typography>
-//                 <Typography color={"orange"}>*</Typography>
-//               </StyleLabel>
-//               <FormControl
-//                 fullWidth
-//                 sx={{
-//                   backgroundColor: "#353535",
-//                   color: "#FFF",
-//                   borderRadius: "50px",
-//                 }}
-//               >
-//                 <InputBase
-//                   id="fullName"
-//                   defaultValue=""
-//                   sx={{ p: "12px 10px", color: "#FFF" }}
-//                   placeholder="Enter your full name"
-//                   inputProps={{ "aria-label": "Enter your full name" }}
-//                   color="primary"
-//                   {...register("fullName")}
-//                 />
-//               </FormControl>
-//               <div style={{ width: "100%" }}>
-//                 <StyleError>{errors.fullName?.message as string}</StyleError>
-//               </div>
-
-//               <StyleLabel>
-//                 <Typography>Other request</Typography>
-//               </StyleLabel>
-//               <FormControl
-//                 fullWidth
-//                 sx={{
-//                   backgroundColor: "#353535",
-//                   color: "#FFF",
-//                   borderRadius: "10px",
-//                 }}
-//               >
-//                 <InputBase
-//                   id="inputOther"
-//                   defaultValue=""
-//                   sx={{ p: 2, color: "#FFF" }}
-//                   placeholder="Token ID or Address"
-//                   inputProps={{ "aria-label": "Input other request" }}
-//                   color="primary"
-//                   {...register("tokenId")}
-//                 />
-//               </FormControl>
-
-//               <StyleBottomSubmit>
-//                 <ButtonPrimary
-//                   disabled={openButton.value}
-//                   type="submit"
-//                   fullWidth
-//                 >
-//                   <Typography sx={{ p: "8px 0" }}>{isPending ? 'Confirming...' : 'Submit'}</Typography>
-//                 </ButtonPrimary>
-//               </StyleBottomSubmit>
-//             </StyleBottom>
-//           </form>
-//         ) : (
-//           <Stack
-//             sx={{
-//               display: "flex",
-//               justifyContent: "center",
-//               alignItems: "center",
-//             }}
-//           >
-//             <Image
-//               height={200}
-//               // width={}
-//               src={Request}
-//               title="Request"
-//               alt="Request"
-//             />
-//             <StyleRequest>
-//               <IconCertification />
-//               <Typography variant="h6">Your request has been sent</Typography>
-//             </StyleRequest>
-//             <Typography>
-//               Your request has been forwarded to your KOLs. Kindly await their
-//             </Typography>
-//             <Typography>response. Stay tuned!</Typography>
-//             <StyleBottomGotIt onClick={handleClose}>
-//               <ButtonPrimary fullWidth>
-//                 <Typography sx={{ p: "8px 0" }}>I got it</Typography>
-//               </ButtonPrimary>
-//             </StyleBottomGotIt>
-//           </Stack>
-//         )}
-//       </StyleModalBox>
-//     </Modal>
-//   );
-// };
 
 const Overview = () => {
   const openModal = useBoolean();
@@ -331,7 +101,6 @@ const Overview = () => {
         <div style={{ width: "300ox", height: "300px" }}>
           {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
         </div>
-
       )}
     </StyleOverview>
   );
@@ -359,6 +128,9 @@ const Personal = () => {
             <IconTwitter />
             <IconYouTube />
             <IconLinked />
+            <IconFacebook />
+            <IconReddit />
+            <IconDiscord />
           </StyleIcons>
         </StyleContentUser>
       </StylePersonalLeft>
@@ -395,11 +167,11 @@ export default function UserProfile(props: IUserProfileProps) {
           <PostUser />
         </PostLeft>
         <div style={{ width: "70%" }}>
+          <Experience />
           <Overview />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Services />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Experience />
         </div>
       </div>
     </StyleContainer>
@@ -407,12 +179,12 @@ export default function UserProfile(props: IUserProfileProps) {
 }
 
 const PostLeft = styled.div`
- display: flex;
- flex-direction: column;
- gap: 12px;
- width: 30%;
- padding: 12px;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 30%;
+  padding: 12px;
+`;
 const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
