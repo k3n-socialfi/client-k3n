@@ -1,5 +1,6 @@
 "use client";
 import { Avatar, Typography } from "@mui/material";
+import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
 
@@ -17,7 +18,9 @@ export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
       <Rank>{props.rank}</Rank>
       <Name>
         <Avatar alt="" src={props.urlAvatar} sx={{ width: 56, height: 56 }} />
-        <Typography sx={{ fontWeight: "700" }}>{props.name}</Typography>
+        <LinkCustom href={`/profile/${props.name}`}>
+          <Typography sx={{ fontWeight: "700" }}>{props.name}</Typography>
+        </LinkCustom>
       </Name>
       <Point>{props.point}</Point>
     </Container>
@@ -51,7 +54,10 @@ const Name = styled.div`
   width: 100%;
   border-right: 2px #fff solid;
 `;
-
+const LinkCustom = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+`;
 const Point = styled.div`
   padding: 10px 20px;
 `;

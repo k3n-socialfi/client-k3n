@@ -120,7 +120,7 @@ const Personal = (props: any) => {
         />
         <StyleContentUser>
           <StyleTitle>
-            {dataPersonal.username ? dataPersonal.username : "User Name" } <IconVerify />
+            {dataPersonal.username ? dataPersonal.username : "User Name"} <IconVerify />
           </StyleTitle>
           <StyleUserDes>Im developer software engineer</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
