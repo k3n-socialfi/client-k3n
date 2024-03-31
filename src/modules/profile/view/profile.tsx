@@ -34,7 +34,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Experience from "../components/experience";
@@ -43,6 +43,7 @@ import TokenContract from "../../../contract/abis/token.json";
 import { parseAbi } from "viem";
 import Services from "../components/services";
 import PostUser from "../components/post";
+import { getMyProfile } from './../../../services/index';
 
 export interface IUserProfileProps { }
 const IMG_NFT =
@@ -106,7 +107,8 @@ const Overview = () => {
   );
 };
 
-const Personal = () => {
+const Personal = (props: any) => {
+  const dataPersonal = props
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -118,7 +120,7 @@ const Personal = () => {
         />
         <StyleContentUser>
           <StyleTitle>
-            User Name <IconVerify />
+            {dataPersonal.username ? dataPersonal.username : "User Name" } <IconVerify />
           </StyleTitle>
           <StyleUserDes>Im developer software engineer</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
@@ -155,9 +157,16 @@ const Personal = () => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
+  const [dataPersonal, setDataPersonal] = useState<any>()
+
+  useEffect(() => {
+    const dataProfile: any = getMyProfile()
+    setDataPersonal(dataProfile)
+  }, []);
+
   return (
     <StyleContainer>
-      <Personal />
+      <Personal dataPersonal={dataPersonal} />
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <div style={{ display: "flex", width: "100%" }}>
         <PostLeft>

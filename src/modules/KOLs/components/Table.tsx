@@ -110,7 +110,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                     groupBy={(option) => option.firstLetter}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 250, color: "#FFF", label: { color: "#FFF" } }}
+                    sx={{ height: 40, width: 250, color: "#FFF", label: { color: "#FFF" } }}
                     renderInput={(params) => <TextField {...params} label="KOLs" sx={{ input: { color: "#FFF" } }} />}
                 />
                 <Autocomplete
@@ -119,7 +119,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                     groupBy={(option) => option.firstLetter}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 250, color: "#FFF", label: { color: "#FFF" } }}
+                    sx={{ height: 40, width: 250, color: "#FFF", label: { color: "#FFF" } }}
                     renderInput={(params) => <TextField {...params} label="KYC Badge" sx={{ input: { color: "#FFF" } }} />}
                 />
                 <Autocomplete
@@ -128,7 +128,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                     groupBy={(option) => option.firstLetter}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 250, color: "#FFF", label: { color: "#FFF" } }}
+                    sx={{ height: 40, width: 250, color: "#FFF", label: { color: "#FFF" } }}
                     renderInput={(params) => <TextField {...params} label="X Follower" sx={{ input: { color: "#FFF" } }} />}
                 />
                 <Autocomplete
@@ -137,7 +137,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
                     groupBy={(option) => option.firstLetter}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 250, color: "#FFF", label: { color: "#FFF" } }}
+                    sx={{ height: 40, width: 250, color: "#FFF", label: { color: "#FFF" } }}
                     renderInput={(params) => <TextField {...params} label="Tags" sx={{ input: { color: "#FFF" } }} />}
                 />
                 <ItemFilters><IconReset />Reset Filter</ItemFilters>
@@ -214,6 +214,7 @@ const ItemFilters = styled.div`
   align-items: center;
   color: #82ebff;
   width: 15%;
+  font-size: 14px !important;
 `
 const Filter = styled.div`
   display: flex;

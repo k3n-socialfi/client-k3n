@@ -7,3 +7,7 @@ export const loginSolana = (data: any) => {
 export const getMessageSolana = (address: any) => {
     return axiosInstance.get(`/api/v1/auth/message-solana/${address}`);
 };
+
+export const getMyProfile = () => {
+    return axiosInstance.get(`/api/v1/users/my/profile`);
+} 
