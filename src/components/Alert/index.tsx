@@ -11,6 +11,7 @@ interface IAlert {
 
 export default function CustomAlert({
   autoHide = 2000,
+
   vertical = 'top',
   horizontal = 'right',
 }: IAlert) {
