@@ -8,7 +8,6 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log("👋  API_URL:", API_URL)
 
 axiosInstance.interceptors.response.use(
   (response) => response,
