@@ -7,14 +7,16 @@ import base58 from 'bs58';
 import { getTwitter, loginSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function useWalletCustom() {
     const { setVisible: setModalVisible } = useWalletModal();
     const [popup, setPopup] = useState(false);
     const [popupProfile, setPopupProfile] = useState(false);
     const [signature, setSignature] = useState<any>();
-
+    const searchParams = useSearchParams()
+    const search = searchParams.get('accessToken')
+    typeof window !== 'undefined' && localStorage.setItem("accessToken", search ? search : "");
     const router = useRouter()
     const { signIn, wallet } = useWallet();
     let signed = typeof window !== 'undefined' && localStorage.getItem("signatured");
@@ -69,6 +71,7 @@ export default function useWalletCustom() {
 
     const handleLoginTwitter = () => {
         router.push("https://k3n-47ee74080457.herokuapp.com/api/v1/oauth/twitter")
+
         // router.push(`/login?accessToken=${res.accessToken}&refreshToken=${res.refreshToken}`)
     }
 
