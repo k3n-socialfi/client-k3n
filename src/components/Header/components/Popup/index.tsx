@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { ButtonElevated } from "../../../ButtonCustom";
 import { IconClose } from "@/assets/icons";
 import { TYPE_WALLET } from "@/constant";
+import { getTwitter } from "@/services";
 
 interface IPropPopup {
-  handleConnect?: any;
+  handleLoginTwitter?: any;
   setPopup?: any;
 }
 
-const Popup = ({ handleConnect, setPopup }: IPropPopup) => {
+const Popup = ({ handleLoginTwitter, setPopup }: IPropPopup) => {
   return (
     <WrapperPopup>
       <PopupItem>
@@ -19,7 +20,7 @@ const Popup = ({ handleConnect, setPopup }: IPropPopup) => {
         <PopupTitle>
           Please connect to your X account before proceeding with further tasks.
         </PopupTitle>
-        <ButtonElevated size="large" onClick={handleConnect(TYPE_WALLET.connect)}>Connect X account</ButtonElevated>
+        <ButtonElevated size="large" onClick={() => handleLoginTwitter()}>Connect X account</ButtonElevated>
       </PopupItem>
     </WrapperPopup>
   );
