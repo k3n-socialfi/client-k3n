@@ -19,3 +19,7 @@ export const getFeaturedKols = async () => {
 export const getProfileUser = async (username: string) => {
     return axiosInstance.get(`/api/v1/users/profile/${username}`);
 };
+
+export const getTwitter = () => {
+    return axiosInstance.get(`api/v1/oauth/twitter`);
+}

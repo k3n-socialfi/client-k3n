@@ -4,17 +4,21 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import base58 from 'bs58';
-import { loginSolana } from "@/services";
+import { getTwitter, loginSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function useWalletCustom() {
     const { setVisible: setModalVisible } = useWalletModal();
     const [popup, setPopup] = useState(false);
     const [popupProfile, setPopupProfile] = useState(false);
     const [signature, setSignature] = useState<any>();
-
-    const { signMessage, signIn, wallet } = useWallet();
+    const searchParams = useSearchParams()
+    const search = searchParams.get('accessToken')
+    typeof window !== 'undefined' && localStorage.setItem("accessToken", search ? search : "");
+    const router = useRouter()
+    const { signIn, wallet } = useWallet();
     let signed = typeof window !== 'undefined' && localStorage.getItem("signatured");
 
     const { buttonState, onConnect, onDisconnect, publicKey } = useWalletMultiButton({
@@ -64,6 +68,12 @@ export default function useWalletCustom() {
         },
         [setLogs]
     );
+
+    const handleLoginTwitter = () => {
+        router.push("https://k3n-47ee74080457.herokuapp.com/api/v1/oauth/twitter")
+
+        // router.push(`/login?accessToken=${res.accessToken}&refreshToken=${res.refreshToken}`)
+    }
 
     const handleSignIn = useCallback(async () => {
         if (!publicKey || !wallet) return;
@@ -125,5 +135,5 @@ export default function useWalletCustom() {
         }
     }, [signature]);
 
-    return { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile };
+    return { handleLoginTwitter, buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile };
 }

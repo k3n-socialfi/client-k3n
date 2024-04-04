@@ -17,7 +17,7 @@ export const Header = () => {
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
-  const { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
+  const { handleLoginTwitter, buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
 
   const handlePopup = () => {
     setShow(!show);
@@ -71,7 +71,7 @@ export const Header = () => {
             </ButtonPrimary>
           </HeaderButton>
         )}
-        {popup && <Popup handleConnect={(value: number) => handleWallet(value)} setPopup={setPopup} />}
+        {popup && <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />}
         {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={(value: number) => handleWallet(value)} base58Pubkey={base58Pubkey} />}
       </div>}
     </HeaderWrapper>
