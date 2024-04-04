@@ -29,7 +29,7 @@ export default function PostUser(props: IPostUser) {
           <StylePost>
             <StyleInforPost>
               <IconAvatar />
-              <StyleUserProfile>kw</StyleUserProfile>
+              <StyleUserProfile>kw </StyleUserProfile>
               <StyleUser>@username</StyleUser>
               <IconDots />
               <StyleUser>@23 Dec 2023</StyleUser>

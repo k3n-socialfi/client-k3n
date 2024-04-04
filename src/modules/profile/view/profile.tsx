@@ -1,49 +1,27 @@
 "use client";
 import {
   IconBlue,
+  IconDiscord,
   IconEdit,
+  IconFacebook,
   IconLinked,
+  IconReddit,
   IconStarNormal,
   IconTikTok,
   IconTwitter,
   IconVerify,
   IconYouTube,
-  IconFacebook,
-  IconDiscord,
-  IconReddit,
 } from "@/assets/icons";
-import Diagram from "@/assets/images/Diagram.png";
-import Request from "@/assets/images/Request.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import { DATASELECTTYPEOFREQUEST } from "@/constant/dataMockupSelectType";
 import { useBoolean } from "@/hooks/useBoolean";
-import { requestCollaborationSchema_ } from "@/validations/requestCollaborationSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Box,
-  CardMedia,
-  Divider,
-  InputBase,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Experience from "../components/experience";
-import { FormEvent } from "react";
-import TokenContract from "../../../contract/abis/token.json";
-import { parseAbi } from "viem";
+import Experience from "../components/Experience";
+import PostUser from "../components/Post";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";
-import PostUser from "../components/Post/index";
 
 export interface IUserProfileProps {}
 const IMG_NFT =

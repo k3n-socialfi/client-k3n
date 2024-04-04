@@ -8,7 +8,7 @@ export default function Experience() {
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>Experience</StyleTitle>
+        <StyleTitle>Experience </StyleTitle>
         <ExperienceRight>
           <SeeAll>See all</SeeAll>
         </ExperienceRight>
