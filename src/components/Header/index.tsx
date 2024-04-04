@@ -7,7 +7,7 @@ import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
-import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
+import { IconNotification, IconSearch, IconThunder, IconTwitter } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
@@ -44,7 +44,7 @@ export const Header = () => {
         </HeaderSearch>
       </HeaderLogo>
       {isClient && <div>
-        {label === 'Disconnect' ? (
+        {label === 'Disconnect' || buttonState === "connected" ? (
           <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
             <UserNotification>
               <IconNotification />
@@ -68,6 +68,10 @@ export const Header = () => {
           <HeaderButton className="header-button">
             <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
               {label}
+            </ButtonPrimary>
+            <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
+              <IconTwitter />
+              Connect Twitter
             </ButtonPrimary>
           </HeaderButton>
         )}
