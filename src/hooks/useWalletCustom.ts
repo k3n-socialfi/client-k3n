@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { checkExists, loginSolana } from "@/services";
+import { checkExists, loginSolana, loginTwitterSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
 
@@ -16,10 +16,10 @@ export default function useWalletCustom() {
     const [signature, setSignature] = useState<any>();
     const searchParams = useSearchParams()
     const search = searchParams.get('accessToken')
-    typeof window !== 'undefined' && localStorage.setItem("accessToken", search ? search : "");
     const router = useRouter()
     const { signIn, wallet } = useWallet();
     let signed = typeof window !== 'undefined' && localStorage.getItem("signatured");
+    let isTwitter = typeof window !== 'undefined' && sessionStorage.getItem('isTwitter')
 
     const { buttonState, onConnect, onDisconnect, publicKey } = useWalletMultiButton({
         onSelectWallet() {
@@ -72,12 +72,20 @@ export default function useWalletCustom() {
 
     const handleLoginTwitter = () => {
         router.push("https://k3n-47ee74080457.herokuapp.com/api/v1/oauth/twitter")
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('isTwitter', "true")
+        }
     }
 
     const handleExistsTwitter = async (value: any) => {
         if (buttonState === 'connected') {
             const { data }: any = await checkExists(value)
-            !data?.data ? handleSignIn() : setPopup(true);
+            if (data?.data || isTwitter) {
+                handleSignIn()
+            }
+            else {
+                setPopup(true)
+            }
         }
     }
 
@@ -117,12 +125,16 @@ export default function useWalletCustom() {
             onDisconnect && onDisconnect();
             setPopupProfile(false);
             localStorage.removeItem("signatured");
-            // localStorage.removeItem("token");
+            localStorage.removeItem("accessToken");
+            sessionStorage.getItem('isTwitter')
         }
     };
 
     useEffect(() => {
         handleExistsTwitter(base58Pubkey)
+        if (typeof window !== 'undefined' && search) {
+            localStorage.setItem("accessToken", search)
+        }
     }, [publicKey]);
 
     const convertSignature = signature && "[" + Array?.from(signature).join(", ") + "]";
@@ -133,9 +145,9 @@ export default function useWalletCustom() {
                 address: base58Pubkey,
                 signature: convertSignature as any
             };
-            loginSolana(params);
+            isTwitter ? loginTwitterSolana(params) : loginSolana(params);
         }
-    }, [signature]);
+    }, [signature, isTwitter]);
 
     return { handleLoginTwitter, buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile };
 }

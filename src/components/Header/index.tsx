@@ -14,6 +14,7 @@ import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
 
 export const Header = () => {
+  let token = typeof window !== 'undefined' && localStorage.getItem("accessToken");
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
@@ -69,10 +70,12 @@ export const Header = () => {
             <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
               {label}
             </ButtonPrimary>
-            <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
-              <IconTwitter />
-              Connect Twitter
-            </ButtonPrimary>
+            {!token &&
+              <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
+                <IconTwitter />
+                Connect Twitter
+              </ButtonPrimary>
+            }
           </HeaderButton>
         )}
         {popup && <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />}

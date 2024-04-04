@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "./env.config";
 
-let token = typeof window !== 'undefined' && localStorage.getItem("accessToken");
+// let token = typeof window !== 'undefined' && localStorage.getItem("accessToken");
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
-    config.headers["Authorization"] = "bearer " + token;
+    config.headers["Authorization"] = `Bearer ${typeof window !== 'undefined' && localStorage.getItem("accessToken")}`;
     return config;
   },
   error => {
