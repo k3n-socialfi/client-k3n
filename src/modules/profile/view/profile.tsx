@@ -18,7 +18,7 @@ import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Experience from "../components/Experience";
+import Experience from "../components/Experiences";
 import PostUser from "../components/Post";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";

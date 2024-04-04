@@ -15,7 +15,7 @@ import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import styled from "styled-components";
-import Experience from "../components/Experience";
+import Experience from "../components/Experiences";
 import { useParams } from "next/navigation";
 import { useProfileContext } from "@/contexts/ProfileContext";
 import Services from "../components/services";
