@@ -17,5 +17,5 @@ export const createSignInData = async (address: any): Promise<SolanaSignInInput>
         resources: [domain],
     };
 
-    return signInData;
+  return signInData;
 };

@@ -20,10 +20,6 @@ export interface IPostUser {
   item?: any;
 }
 
-const IMG2 =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-const string = `SP Group and BCG Energy Joint Stock Company (BCG Energy).`;
-
 export default function PostUser({ item }: IPostUser) {
   return (
     <StyleMainCard>

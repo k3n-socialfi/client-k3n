@@ -15,11 +15,11 @@ import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import styled from "styled-components";
-import Experience from "../components/experience";
+import Experience from "../components/Experiences";
 import { useParams } from "next/navigation";
 import { useProfileContext } from "@/contexts/ProfileContext";
-import PostUser from "../components/post";
 import Services from "../components/services";
+import PostUser from "../components/PostUser";
 import { SOCIAL } from "@/constant/social";
 
 export interface IUserProfileProps {}
@@ -128,8 +128,6 @@ const Personal = ({ userProfile }: any) => {
 export default function ClientProfile(props: IUserProfileProps) {
   const { userProfile, getUserProfile } = useProfileContext();
   const { username } = useParams();
-
-  console.log("🚀 ~ Personal ~ userProfile:", userProfile);
 
   useEffect(() => {
     getUserProfile(username?.toString());

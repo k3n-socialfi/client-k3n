@@ -35,7 +35,6 @@
 //       //   handleError(error);
 //       // },
 //       onSettled: (data) => {
-//         console.log(data);
 //       },
 //       ...options,
 //     },

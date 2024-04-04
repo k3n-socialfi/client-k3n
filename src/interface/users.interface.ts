@@ -5,7 +5,21 @@ export interface Wallets {
   wallets: string;
 }
 export interface SocialProfiles {
-  socialProfiles: string;
+  social: string;
+  username: string;
+}
+export interface TwitterInfo {
+  twitterPoints: number;
+  royaltyPoints: number;
+  totalPoints: number;
+  avatar: string;
+  coverImage: string;
+  verificationStatus: boolean;
+  followers: number;
+  following: number;
+  externalUrl: null;
+  numberOfTweets: number;
+  creationDate: string;
 }
 export interface IUsers {
   createdAt: number;
@@ -35,4 +49,5 @@ export interface IUsers {
   verificationStatus: string;
   referralCode: string;
   lastLogin: string;
+  twitterInfo: TwitterInfo;
 }
