@@ -8,14 +8,14 @@ export default function Experience() {
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>Experience </StyleTitle>
+        <StyleTitle>Experience</StyleTitle>
         <ExperienceRight>
           <SeeAll>See all</SeeAll>
         </ExperienceRight>
       </Container>
       <StyleBorder />
       <StyleContent>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
           <StyleSelection key={index}>
             <StyleDots>
               <StyleDot></StyleDot>

@@ -31,9 +31,9 @@ export default function PostUser({ item }: IPostUser) {
         <div>
           <StylePost>
             <StyleInforPost>
-              <IconAvatar />
-              <StyleUserProfile>kw </StyleUserProfile>
-              <StyleUser>@username</StyleUser>
+              <Avatar alt={item?.user?.name} src={item?.user?.profilePicUrl} />
+              <StyleUserProfile>{item?.user?.name}</StyleUserProfile>
+              <StyleUser>@{item?.user?.name}</StyleUser>
               <IconDots />
               <StyleUser>@{item?.user?.location}</StyleUser>
             </StyleInforPost>
