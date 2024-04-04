@@ -1,13 +1,13 @@
 "use client";
+import base58 from 'bs58';
+import { useSearchParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
-import base58 from 'bs58';
-import { getTwitter, loginSolana } from "@/services";
+import { checkExists, loginSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
-import { useSearchParams, useRouter } from "next/navigation";
 
 export default function useWalletCustom() {
     const { setVisible: setModalVisible } = useWalletModal();
@@ -47,19 +47,20 @@ export default function useWalletCustom() {
     }
 
     const base58Pubkey = publicKey?.toBase58();
+
     const handleClick = useCallback(() => {
         switch (buttonState) {
             case 'no-wallet':
                 setModalVisible(true);
                 break;
             case 'has-wallet':
-                setPopup(true);
+                onConnect && onConnect();
                 break;
             case 'connected':
                 setPopupProfile(true);
                 break;
         }
-    }, [buttonState, setModalVisible]);
+    }, [buttonState, setModalVisible, onConnect]);
 
     const [logs, setLogs] = useState<any[]>([]);
     const createLog = useCallback(
@@ -71,39 +72,45 @@ export default function useWalletCustom() {
 
     const handleLoginTwitter = () => {
         router.push("https://k3n-47ee74080457.herokuapp.com/api/v1/oauth/twitter")
+    }
 
-        // router.push(`/login?accessToken=${res.accessToken}&refreshToken=${res.refreshToken}`)
+    const handleExistsTwitter = async (value: any) => {
+        if (buttonState === 'connected') {
+            const { data }: any = await checkExists(value)
+            !data?.data ? handleSignIn() : setPopup(true);
+        }
     }
 
     const handleSignIn = useCallback(async () => {
         if (!publicKey || !wallet) return;
         const signInData = await createSignInData(base58Pubkey);
-        try {
-            if (signIn) {
-                const { account, signedMessage, signature } = await signIn(signInData);
-                setSignature(signature);
-                if (typeof window !== 'undefined') {
-                    localStorage.setItem("signatured", base58.encode(signature));
+        if (!signed) {
+            try {
+                if (signIn) {
+                    const { account, signedMessage, signature } = await signIn(signInData);
+                    setSignature(signature);
+                    if (typeof window !== 'undefined') {
+                        localStorage.setItem("signatured", base58.encode(signature));
+                    }
+                    createLog({
+                        status: 'success',
+                        method: 'signIn',
+                        message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address} with signature ${JSON.stringify(signature)}`,
+                    });
                 }
+            } catch (error: any) {
                 createLog({
-                    status: 'success',
+                    status: 'error',
                     method: 'signIn',
-                    message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address} with signature ${JSON.stringify(signature)}`,
+                    message: error.message,
                 });
             }
-        } catch (error: any) {
-            createLog({
-                status: 'error',
-                method: 'signIn',
-                message: error.message,
-            });
         }
     }, [base58Pubkey, createLog, publicKey, signIn, wallet]);
 
     const handleWallet = (value: number) => {
         if (value === TYPE_WALLET.connect) {
             onConnect && onConnect();
-            !signed && handleSignIn();
             setPopup(false);
         }
         if (value === TYPE_WALLET.disconnect) {
@@ -115,9 +122,7 @@ export default function useWalletCustom() {
     };
 
     useEffect(() => {
-        if (publicKey && !signed) {
-            handleSignIn();
-        }
+        handleExistsTwitter(base58Pubkey)
     }, [publicKey]);
 
     const convertSignature = signature && "[" + Array?.from(signature).join(", ") + "]";
@@ -129,9 +134,6 @@ export default function useWalletCustom() {
                 signature: convertSignature as any
             };
             loginSolana(params);
-            // if (typeof window !== 'undefined') {
-            //     // localStorage.setItem("token", data.data.accessToken);
-            // }
         }
     }, [signature]);
 

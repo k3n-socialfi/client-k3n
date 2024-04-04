@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { ButtonElevated } from "../../../ButtonCustom";
 import { IconClose } from "@/assets/icons";
-import { TYPE_WALLET } from "@/constant";
-import { getTwitter } from "@/services";
 
 interface IPropPopup {
   handleLoginTwitter?: any;
