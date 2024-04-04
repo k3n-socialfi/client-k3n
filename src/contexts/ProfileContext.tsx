@@ -57,7 +57,7 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
       const res = await getProfileUser(String(username));
       setUserProfile(res.data?.data);
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
     }
   };
 

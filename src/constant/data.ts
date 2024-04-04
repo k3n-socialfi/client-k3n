@@ -20,11 +20,6 @@ export const LIST_POPUPITEM: PopupItem[] = [
     href: "/profile",
   },
   {
-    name: "Create Client",
-    icon: IconUser,
-    href: "/create-client",
-  },
-  {
     name: "Setting Profile",
     icon: IconSetting,
     href: "/",

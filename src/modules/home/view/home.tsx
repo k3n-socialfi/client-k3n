@@ -46,10 +46,6 @@ export default function Home(props: IHomeProps) {
     "https://tophinhanhdep.com/wp-content/uploads/2021/03/anh-bia-chibi-13.jpg",
   ];
 
-  const handleButtonClick = () => {
-    // Xử lý khi nút được click
-    console.log("Button clicked");
-  };
   const { trendingKols, trendingProjects, feature } = useHomeContext();
   const DATACARDFEATUREDKOLS = feature.map((item) => {
     return {

@@ -58,14 +58,13 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
           getTrendingProjects(),
           getFeature(),
         ]).then((result) => {
-          console.log("result", result);
           setUsers(result[0].data?.data?.users);
           setTrendingKols(result[1]?.data?.data?.users);
           setTrendingProjects(result[2].data?.data);
           setFeature(result[3].data?.data?.users);
         });
       } catch (error) {
-        console.log("error", error);
+        console.error("error", error);
       }
     };
     fetchData();
