@@ -19,7 +19,7 @@ import Experience from "../components/Experiences";
 import { useParams } from "next/navigation";
 import { useProfileContext } from "@/contexts/ProfileContext";
 import Services from "../components/services";
-import PostUser from "../components/Post";
+import PostUser from "../components/PostUser";
 import { SOCIAL } from "@/constant/social";
 
 export interface IUserProfileProps {}

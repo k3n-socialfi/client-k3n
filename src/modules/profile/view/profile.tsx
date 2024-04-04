@@ -19,7 +19,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
-import PostUser from "../components/Post";
+import PostUser from "../components/PostUser";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";
 
