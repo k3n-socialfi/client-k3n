@@ -7,7 +7,7 @@ interface IPropsProfileContextProvider {
   children: React.ReactNode;
 }
 interface IProfileContextTypes {
-  userProfile: IUserProfile;
+  userProfile: IUserProfile | any;
   setUserProfile: React.Dispatch<React.SetStateAction<IUserProfile>>;
   getUserProfile: (username: string) => void;
 }

@@ -7,17 +7,18 @@ import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
-import { IconNotification, IconSearch, IconThunder } from "@/assets/icons";
+import { IconNotification, IconSearch, IconThunder, IconTwitter } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
 
 export const Header = () => {
+  let token = typeof window !== 'undefined' && localStorage.getItem("accessToken");
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const { show, setShow, nodeRef } = useClickOutside();
-  const { buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
+  const { handleLoginTwitter, buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
 
   const handlePopup = () => {
     setShow(!show);
@@ -44,7 +45,7 @@ export const Header = () => {
         </HeaderSearch>
       </HeaderLogo>
       {isClient && <div>
-        {label === 'Disconnect' ? (
+        {label === 'Disconnect' || buttonState === "connected" ? (
           <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
             <UserNotification>
               <IconNotification />
@@ -69,9 +70,15 @@ export const Header = () => {
             <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
               {label}
             </ButtonPrimary>
+            {!token &&
+              <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
+                <IconTwitter />
+                Connect Twitter
+              </ButtonPrimary>
+            }
           </HeaderButton>
         )}
-        {popup && <Popup handleConnect={(value: number) => handleWallet(value)} setPopup={setPopup} />}
+        {popup && <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />}
         {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={(value: number) => handleWallet(value)} base58Pubkey={base58Pubkey} />}
       </div>}
     </HeaderWrapper>

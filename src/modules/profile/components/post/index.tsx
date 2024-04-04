@@ -14,14 +14,17 @@ import {
   IconShare,
   IconSwitch,
 } from "@/assets/icons";
+import { Avatar } from "@mui/material";
 
-export interface IPostUser {}
+export interface IPostUser {
+  item?: any;
+}
 
 const IMG2 =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 const string = `SP Group and BCG Energy Joint Stock Company (BCG Energy).`;
 
-export default function PostUser(props: IPostUser) {
+export default function PostUser({ item }: IPostUser) {
   return (
     <StyleMainCard>
       <StyleCardPost>
@@ -32,22 +35,22 @@ export default function PostUser(props: IPostUser) {
               <StyleUserProfile>kw </StyleUserProfile>
               <StyleUser>@username</StyleUser>
               <IconDots />
-              <StyleUser>@23 Dec 2023</StyleUser>
+              <StyleUser>@{item?.user?.location}</StyleUser>
             </StyleInforPost>
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              {string}
+              {item?.text}
             </Markdown>
             <StylePostImg
               width={0}
               height={293}
               sizes="100vw"
-              src={IMG2}
+              src={item?.user?.profileBannerUrl}
               alt="igs"
             />
             <StyleIcons>
               <StyleIconPost>
                 <StyleTotalActions>
-                  <IconHeart /> 1.353
+                  <IconHeart /> {item?.user?.favouritesCount}
                 </StyleTotalActions>
                 <StyleTotalActions>
                   <IconComment /> 2.333

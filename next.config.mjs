@@ -4,6 +4,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "pbs.twimg.com",
+      },
+      {
+        protocol: "https",
         hostname: "cafebiz.cafebizcdn.vn",
       },
       {

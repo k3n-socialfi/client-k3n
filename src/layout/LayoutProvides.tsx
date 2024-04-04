@@ -1,7 +1,7 @@
 "use client";
-import { ReactNode, createContext } from "react";
+import { ReactNode, Suspense, createContext } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { Divider, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import theme from "@/assets/style/theme";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -19,26 +19,28 @@ export const CartContext = createContext<any>(null);
 
 export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   return (
-    <AuthContextProvider>
-      <ProfileContextProvider>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <WalletContextProvider>
-              <Header />
-              <StyleMain>
-                <StyleSideBar>
-                  <SideBar />
-                </StyleSideBar>
-                <StyleChildren>
-                  {children}
-                  <Footer />
-                </StyleChildren>
-              </StyleMain>
-            </WalletContextProvider>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
-      </ProfileContextProvider>
-    </AuthContextProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthContextProvider>
+        <ProfileContextProvider>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <WalletContextProvider>
+                <Header />
+                <StyleMain>
+                  <StyleSideBar>
+                    <SideBar />
+                  </StyleSideBar>
+                  <StyleChildren>
+                    {children}
+                    <Footer />
+                  </StyleChildren>
+                </StyleMain>
+              </WalletContextProvider>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </ProfileContextProvider>
+      </AuthContextProvider>
+    </Suspense>
   );
 }
 
