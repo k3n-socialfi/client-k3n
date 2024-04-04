@@ -2,14 +2,14 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import {
-    IconBlue,
-    IconEdit,
-    IconLinked,
-    IconStarNormal,
-    IconTikTok,
-    IconTwitter,
-    IconVerify,
-    IconYouTube,
+  IconBlue,
+  IconEdit,
+  IconLinked,
+  IconStarNormal,
+  IconTikTok,
+  IconTwitter,
+  IconVerify,
+  IconYouTube,
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useBoolean } from "@/hooks/useBoolean";
@@ -20,140 +20,146 @@ import { useParams } from "next/navigation";
 import { useProfileContext } from "@/contexts/ProfileContext";
 import PostUser from "../components/post";
 import Services from "../components/services";
+import { SOCIAL } from "@/constant/social";
 
-export interface IUserProfileProps { }
+export interface IUserProfileProps {}
 const IMG_NFT =
-    "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-const Overview = () => {
-    const openModal = useBoolean();
-    const { getUserProfile } = useProfileContext();
-    const { username } = useParams();
-    useEffect(() => {
-        getUserProfile(username?.toString());
-    }, []);
-    return (
-        <StyleOverview>
-            <StyleLeft>
-                <StyleTitle>Overview</StyleTitle>
-                <PrimaryTitleLeft>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary Job Title</StyleDesOverview>
-                        <StyleSubTitle>Fashion KOL</StyleSubTitle>
-                    </StyleContentOverview>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary Job Title</StyleDesOverview>
-                        <StyleSubTitle>Fashion KOL</StyleSubTitle>
-                    </StyleContentOverview>
-                </PrimaryTitleLeft>
-                <PrimaryTitleLeft>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary Job Title</StyleDesOverview>
-                        <StyleSubTitle>Fashion KOL</StyleSubTitle>
-                    </StyleContentOverview>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary Job Title</StyleDesOverview>
-                        <StyleSubTitle>Fashion KOL</StyleSubTitle>
-                    </StyleContentOverview>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary Job Title</StyleDesOverview>
-                        <StyleSubTitle>
-                            Fashion KOL Fashion KOL Fashion KOL Fashion KOL
-                        </StyleSubTitle>
-                    </StyleContentOverview>
-                </PrimaryTitleLeft>
-            </StyleLeft>
-            <StyleRight>
-                <PrimaryTitleRight>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Twitter</StyleDesOverview>
-                        <StyleSubTitle>86,314</StyleSubTitle>
-                    </StyleContentOverview>
-                    <StyleContentOverview>
-                        <StyleDesOverview>Primary per post</StyleDesOverview>
-                        <StyleSubTitle>$12,450</StyleSubTitle>
-                    </StyleContentOverview>
-                </PrimaryTitleRight>
-                <ButtonPrimary onClick={() => openModal.onTrue()}>
-                    <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-                </ButtonPrimary>
-            </StyleRight>
-            {openModal.value && (
-                <div style={{ width: "300ox", height: "300px" }}>
-                    {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
-                </div>
-            )}
-        </StyleOverview>
-    );
+  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+const Overview = ({ userProfile }: any) => {
+  const openModal = useBoolean();
+
+  return (
+    <StyleOverview>
+      <StyleLeft>
+        <StyleTitle>Overview</StyleTitle>
+        <PrimaryTitleLeft>
+          <StyleContentOverview>
+            <StyleDesOverview>Primary Job Title</StyleDesOverview>
+            <StyleSubTitle>Researcher - Builder</StyleSubTitle>
+          </StyleContentOverview>
+          <StyleContentOverview>
+            <StyleDesOverview>Primary Organization</StyleDesOverview>
+            <StyleSubTitle>Azuki</StyleSubTitle>
+          </StyleContentOverview>
+        </PrimaryTitleLeft>
+        <PrimaryTitleLeft>
+          <StyleContentOverview>
+            <StyleDesOverview>Gender</StyleDesOverview>
+            <StyleSubTitle>Female</StyleSubTitle>
+          </StyleContentOverview>
+          <StyleContentOverview>
+            <StyleDesOverview>Type of KOLs</StyleDesOverview>
+            <StyleSubTitle>Influencer</StyleSubTitle>
+          </StyleContentOverview>
+          <StyleContentOverview>
+            <StyleDesOverview>Location</StyleDesOverview>
+            <StyleSubTitle>New York, NYC</StyleSubTitle>
+          </StyleContentOverview>
+        </PrimaryTitleLeft>
+      </StyleLeft>
+      <StyleRight>
+        <PrimaryTitleRight>
+          <StyleContentOverview>
+            <StyleDesOverview>Twitter</StyleDesOverview>
+            <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
+          </StyleContentOverview>
+          <StyleContentOverview>
+            <StyleDesOverview>Primary per post</StyleDesOverview>
+            <StyleSubTitle>$12,450</StyleSubTitle>
+          </StyleContentOverview>
+        </PrimaryTitleRight>
+        <ButtonPrimary onClick={() => openModal.onTrue()}>
+          <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+        </ButtonPrimary>
+      </StyleRight>
+      {openModal.value && (
+        <div style={{ width: "300ox", height: "300px" }}>
+          {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
+        </div>
+      )}
+    </StyleOverview>
+  );
 };
 
-const Personal = () => {
-    const { userProfile } = useProfileContext();
-    return (
-        <StylePersonal>
-            <StylePersonalLeft>
-                <StyleImage
-                    src={IMG_NFT}
-                    alt="avatar profile"
-                    width={220}
-                    height={220}
-                />
-                <StyleContentUser>
-                    <StyleTitle>
-                        {userProfile?.username} <IconVerify />
-                    </StyleTitle>
-                    <StyleUserDes>Im developer software engineer</StyleUserDes>
-                    <StyleUserDes>Influencer</StyleUserDes>
-                    <StyleUserSocial>Social</StyleUserSocial>
-                    <StyleIcons>
-                        <IconTikTok />
-                        <IconTwitter />
-                        <IconYouTube />
-                        <IconLinked />
-                    </StyleIcons>
-                </StyleContentUser>
-            </StylePersonalLeft>
-            <StylePersonalRight>
-                <StyleButtons>
-                    <StyleButtonTitle>
-                        <IconEdit />
-                        <div>Edit</div>
-                    </StyleButtonTitle>
-                    <StyleButtonTitle>
-                        <IconBlue />
-                        Share
-                    </StyleButtonTitle>
-                    <StyleButtonTitle>
-                        <IconStarNormal />
-                        Add to watchlist
-                    </StyleButtonTitle>
-                </StyleButtons>
-            </StylePersonalRight>
-        </StylePersonal>
-    );
+const Personal = ({ userProfile }: any) => {
+  return (
+    <StylePersonal>
+      <StylePersonalLeft>
+        <StyleImage
+          src={userProfile?.twitterInfo?.avatar ?? IMG_NFT}
+          alt="avatar profile"
+          width={220}
+          height={220}
+        />
+        <StyleContentUser>
+          <StyleTitle>
+            {userProfile?.fullName} <IconVerify />
+          </StyleTitle>
+          <StyleUserDes>{userProfile?.bio}</StyleUserDes>
+          <StyleUserDes>Influencer</StyleUserDes>
+          <StyleUserSocial>Social</StyleUserSocial>
+          <StyleIcons>
+            {userProfile?.socialProfiles.map(
+              (item: any, index: number) => SOCIAL[item?.social] ?? <></>
+            )}
+          </StyleIcons>
+        </StyleContentUser>
+      </StylePersonalLeft>
+      <StylePersonalRight>
+        <StyleButtons>
+          <StyleButtonTitle>
+            <IconEdit />
+            <div>Edit</div>
+          </StyleButtonTitle>
+          <StyleButtonTitle>
+            <IconBlue />
+            Share
+          </StyleButtonTitle>
+          <StyleButtonTitle>
+            <IconStarNormal />
+            Add to watchlist
+          </StyleButtonTitle>
+        </StyleButtons>
+      </StylePersonalRight>
+    </StylePersonal>
+  );
 };
 
 export default function ClientProfile(props: IUserProfileProps) {
-    return (
-        <StyleContainer>
-            <Personal />
-            <Divider sx={{ borderColor: "#B9B9B9 " }} />
-            <div style={{ display: "flex", width: "100%" }}>
-                <PostLeft>
-                    <StyleTitle>Post</StyleTitle>
-                    <PostUser />
-                    <PostUser />
-                    <PostUser />
-                </PostLeft>
-                <div style={{ width: "70%" }}>
-                    <Overview />
-                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
-                    <Services />
-                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
-                    <Experience />
-                </div>
-            </div>
-        </StyleContainer>
-    );
+  const { userProfile, getUserProfile } = useProfileContext();
+  const { username } = useParams();
+
+  console.log("🚀 ~ Personal ~ userProfile:", userProfile);
+
+  useEffect(() => {
+    getUserProfile(username?.toString());
+  }, [username]);
+
+  return (
+    <StyleContainer>
+      <Personal userProfile={userProfile} />
+      <Divider sx={{ borderColor: "#B9B9B9 " }} />
+      <div style={{ display: "flex", width: "100%" }}>
+        <PostLeft>
+          <StyleTitle>Post</StyleTitle>
+          <Posts>
+            {userProfile?.posts.map((item: any, index: number) => (
+              <>
+                <PostUser item={item} />
+              </>
+            ))}
+          </Posts>
+        </PostLeft>
+        <div style={{ width: "70%" }}>
+          <Overview userProfile={userProfile} />
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
+          <Services />
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
+          <Experience />
+        </div>
+      </div>
+    </StyleContainer>
+  );
 }
 
 const PostLeft = styled.div`
@@ -163,6 +169,23 @@ const PostLeft = styled.div`
   width: 30%;
   padding: 12px;
 `;
+
+const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 1260px;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+`;
+
 const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -184,7 +207,7 @@ const StyleContainer = styled.div`
 `;
 const PrimaryTitleLeft = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 60px;
   padding: 24px 0;
 `;
@@ -266,10 +289,13 @@ const StylePersonalRight = styled.div`
 `;
 const StyleOverview = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 16px 20px;
+  gap: 100px;
 `;
-const StyleLeft = styled.div``;
+const StyleLeft = styled.div`
+  width: 100%;
+`;
 
 const StyleRight = styled.div`
   display: flex;

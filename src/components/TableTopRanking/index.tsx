@@ -1,6 +1,7 @@
 "use client";
+import { IconArrowUpTop } from "@/assets/icons";
 import { rows } from "@/constant/dataMockupTableTopRanking";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, AvatarGroup, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "styled-components";
+import Avatars from "@/assets/images/Avatar.png";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -20,43 +22,38 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <StyleTableRow>
-            <StyleTableCell align="left">
+            <CustomTableCell align="center">
               <CellAll>Rank</CellAll>
-            </StyleTableCell>
-            <StyleTableCell width={100}>
+            </CustomTableCell>
+            <CustomTableCell width={100}>
               <CellAll>
                 <StyleItems>
                   Talent
                   <StyleTextSearch type="text" placeholder="Search" />
                 </StyleItems>
               </CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="center">
+            </CustomTableCell>
+            <CustomTableCell align="center">
               <CellAll>Points</CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="center">
-              <CellProof>
-                Proof of Experiences
-                <StyleTabs>
-                  <StyleProposals>Proposals</StyleProposals>
-                  <StyleOngoing>Ongoing</StyleOngoing>
-                  <StyleCompleted>Completed</StyleCompleted>
-                </StyleTabs>
-              </CellProof>
-            </StyleTableCell>
-            <StyleTableCell align="left">
+            </CustomTableCell>
+            <CustomTableCell align="center">
+              <CellProof>Proof of Experiences</CellProof>
+            </CustomTableCell>
+            <CustomTableCell align="left">
               <CellAll>Organization</CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="left">
+            </CustomTableCell>
+            <CustomTableCell align="left">
               <CellAll>Location</CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="left">
+            </CustomTableCell>
+            <CustomTableCell align="left">
               <CellAll>Gender</CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="left">
+            </CustomTableCell>
+            <CustomTableCell align="left">
               <CellAll>Platform</CellAll>
-            </StyleTableCell>
-            <StyleTableCell align="center">Sector</StyleTableCell>
+            </CustomTableCell>
+            <CustomTableCell align="center" style={{ borderRight: "0px" }}>
+              Chains
+            </CustomTableCell>
           </StyleTableRow>
         </TableHead>
         <TableBody>
@@ -71,66 +68,74 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                 background: "#3D3D3D",
               }}
             >
-              <TableCell component="th" scope="row">
-                <Rank>{row.rank}</Rank>
-              </TableCell>
+              <CustomTableCell component="th" scope="row">
+                <Rank>
+                  <UpTop>
+                    <IconArrowUpTop />
+                    <Typography fontSize={11} color={"#54F209"}>
+                      +12
+                    </Typography>
+                  </UpTop>
+                  {row.rank}
+                </Rank>
+              </CustomTableCell>
 
-              <TableCell component="th" scope="row">
+              <CustomTableCell component="th" scope="row">
                 <Talent>
-                  <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />
+                  <Avatar
+                    sx={{ width: 35, height: 35 }}
+                    alt="avatar"
+                    src={Avatars.src}
+                  />
                   {row.talent}
                 </Talent>
-              </TableCell>
+              </CustomTableCell>
 
-              <TableCell align="left">
+              <CustomTableCell align="left">
                 <Point>{row.point}</Point>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left">
                 <ProofOfExp>
-                  <Typography color={"#5DCFB4"}>
-                    {row.ProofOfExperiences.proposals}
-                  </Typography>
                   <Typography color={"#E47961"}>
                     {row.ProofOfExperiences.ongoing}
                   </Typography>
-                  <Typography color={"#CAE461"}>
-                    {row.ProofOfExperiences.completed}
-                  </Typography>
                 </ProofOfExp>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left">
                 <Organization>
-                  {row?.Organization?.map((item: any) => item?.logo)}
+                  <AvatarGroup max={3} total={(row?.Organization).length}>
+                    {row?.Organization?.map((item: any) => item?.logo)}
+                  </AvatarGroup>
                 </Organization>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left">
                 <Location>
                   <LocationChild>{row.location.area}</LocationChild>
                   <LocationChild>{row.location.country}</LocationChild>
                   <LocationChild>{row.location.city}</LocationChild>
                 </Location>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left">
                 <Gender>
                   <GenderChild backgroundColor={row.gender.bgColor}>
                     {row.gender.gender}
                   </GenderChild>
                 </Gender>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left">
                 <Platform>
                   {row.platform.map((item: any) => (
                     <>{item.logo}</>
                   ))}
                 </Platform>
-              </TableCell>
-              <TableCell align="left">
+              </CustomTableCell>
+              <CustomTableCell align="left" style={{ borderRight: "0px" }}>
                 <Sector>
-                  {row.sector.map((item: any) => (
-                    <>{item.logo}</>
-                  ))}
+                  <AvatarGroup max={3} total={(row?.sector).length}>
+                    {row.sector.map((item: any) => item.logo)}
+                  </AvatarGroup>
                 </Sector>
-              </TableCell>
+              </CustomTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -150,10 +155,10 @@ const StyleTableRow = styled(TableRow)`
   background-color: #3f3e45;
   margin: 4px 0;
 `;
-const StyleTableCell = styled(TableCell)`
+const CustomTableCell = styled(TableCell)`
   color: #ffd7f4;
   font-weight: 700;
-  /* border-left: 1px solid #ffd7f4; */
+  border-right: 1px solid #ffd7f4;
 `;
 const StyleCompleted = styled.div`
   color: #cae461;
@@ -181,21 +186,32 @@ const StyleTextSearch = styled.input`
 `;
 
 const CellAll = styled.div`
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   padding: 10px;
 `;
 
 const CellProof = styled.div`
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
+  white-space: nowrap;
   padding: 0 20px;
 `;
 
 const Rank = styled.div`
+  position: sticky;
   display: flex;
   justify-content: center;
-  border-right: 2px #b9b9b9 solid;
+  align-items: center;
+  gap: 5px;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
-  padding: 0 20px 0 0;
+  padding: 20px;
+`;
+
+const UpTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
 `;
 
 const Talent = styled.div`
@@ -205,14 +221,14 @@ const Talent = styled.div`
   font-weight: 700;
   font-size: larger;
   gap: 10px;
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
   white-space: nowrap;
 `;
 
 const Point = styled.div`
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
@@ -221,7 +237,7 @@ const ProofOfExp = styled.div`
   display: flex;
   gap: 10px;
   justify-content: space-around;
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
@@ -229,7 +245,7 @@ const ProofOfExp = styled.div`
 const Organization = styled.div`
   display: flex;
   gap: 5px;
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
@@ -237,7 +253,7 @@ const Organization = styled.div`
 const Location = styled.div`
   display: flex;
   gap: 5px;
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
@@ -249,7 +265,7 @@ const LocationChild = styled.div`
 `;
 
 const Gender = styled.div`
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
@@ -267,7 +283,7 @@ const Platform = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  border-right: 2px #b9b9b9 solid;
+  /* border-right: 2px #b9b9b9 solid; */
   color: #fff;
   padding: 10px;
 `;
