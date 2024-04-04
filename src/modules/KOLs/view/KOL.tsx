@@ -67,6 +67,7 @@ function CustomTabPanel(props: TabPanelProps) {
         fontWeight: "bold",
         fontSize: "60px",
         color: "#f23581",
+        minHeight: "100px",
       }}
       role="tabpanel"
       hidden={value !== index}

@@ -49,9 +49,9 @@ const Rank = styled.div<ICardTrendingKOLsProps>`
 const Name = styled.div`
   display: flex;
   align-items: center;
+  min-width: 314px;
   gap: 10px;
   padding: 1px 20px;
-  width: 100%;
   border-right: 2px #fff solid;
 `;
 const LinkCustom = styled(Link)`

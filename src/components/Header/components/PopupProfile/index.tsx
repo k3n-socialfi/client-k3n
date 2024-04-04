@@ -13,7 +13,7 @@ interface IPropPopupProfile {
 }
 
 export const PopupProfile = (props: IPropPopupProfile) => {
-  const { setPopupProfile, handleDisConnect, base58Pubkey } = props
+  const { setPopupProfile, handleDisConnect, base58Pubkey } = props;
   return (
     <>
       <WrapperPopup>
@@ -57,7 +57,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
           })}
           <ProfileItem
             className="profile-list__item"
-          onClick={() => handleDisConnect(TYPE_WALLET.disconnect)}
+            onClick={() => handleDisConnect(TYPE_WALLET.disconnect)}
           >
             <LinkCustom href="" className="profile-list__item__link">
               <IconLogout />
@@ -137,7 +137,7 @@ const ProfileItem = styled.div`
   list-style: none;
   &:hover {
     border-radius: 10px;
-    background: #74f7ce;
+    background: #667085;
   }
   &:active {
     background: #222425;

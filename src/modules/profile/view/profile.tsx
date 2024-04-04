@@ -42,10 +42,10 @@ import { FormEvent } from "react";
 import TokenContract from "../../../contract/abis/token.json";
 import { parseAbi } from "viem";
 import Services from "../components/services";
-import PostUser from "../components/post";
-import { getMyProfile } from './../../../services/index';
+import { getMyProfile } from "./../../../services/index";
+import PostUser from "../components/Post/index";
 
-export interface IUserProfileProps { }
+export interface IUserProfileProps {}
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -108,7 +108,7 @@ const Overview = () => {
 };
 
 const Personal = (props: any) => {
-  const dataPersonal = props
+  const dataPersonal = props;
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -120,7 +120,8 @@ const Personal = (props: any) => {
         />
         <StyleContentUser>
           <StyleTitle>
-            {dataPersonal.username ? dataPersonal.username : "User Name"} <IconVerify />
+            {dataPersonal.username ? dataPersonal.username : "User Name"}{" "}
+            <IconVerify />
           </StyleTitle>
           <StyleUserDes>Im developer software engineer</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
@@ -157,11 +158,11 @@ const Personal = (props: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const [dataPersonal, setDataPersonal] = useState<any>()
+  const [dataPersonal, setDataPersonal] = useState<any>();
 
   useEffect(() => {
-    const dataProfile: any = getMyProfile()
-    setDataPersonal(dataProfile)
+    const dataProfile: any = getMyProfile();
+    setDataPersonal(dataProfile);
   }, []);
 
   return (
