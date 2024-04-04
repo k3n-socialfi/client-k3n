@@ -65,3 +65,4 @@ export { default as IconFilter } from "./IconFilter";
 export { default as IconReset } from "./IconReset";
 export { default as IconFacebook } from "./IconFacebook";
 export { default as IconReddit } from "./IconReddit";
+export { default as IconArrowUpTop } from "./IconArrowUpTop";

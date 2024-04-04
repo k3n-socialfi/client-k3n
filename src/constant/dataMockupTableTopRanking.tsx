@@ -12,6 +12,8 @@ import {
 } from "@/assets/icons";
 import { Avatar } from "@mui/material";
 
+import Avatars from "@/assets/images/Avatar.png";
+
 function createData(
   rank?: any,
   talent?: string,
@@ -50,10 +52,22 @@ const containerArray: any[] = Array.from({ length: arrayLength }, (_, i) =>
     },
     [
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
     ],
     {
@@ -78,7 +92,7 @@ const containerArray: any[] = Array.from({ length: arrayLength }, (_, i) =>
 const dataTop = [
   createData(
     <IconTop1 />,
-    "william John Smith",
+    "Elena",
     9901,
     {
       proposals: 2,
@@ -87,10 +101,67 @@ const dataTop = [
     },
     [
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
     ],
     {
@@ -130,7 +201,7 @@ const dataTop = [
   ),
   createData(
     <IconTop2 />,
-    "william John Smith",
+    "Miles",
     9901,
 
     {
@@ -141,10 +212,130 @@ const dataTop = [
 
     [
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
+      },
+      {
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
     ],
     {
@@ -184,7 +375,7 @@ const dataTop = [
   ),
   createData(
     <IconTop3 />,
-    "william John Smith",
+    "POE",
     9901,
     {
       proposals: 2,
@@ -193,10 +384,22 @@ const dataTop = [
     },
     [
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
       {
-        logo: <Avatar sx={{ width: 35, height: 35 }} alt="avatar" src="" />,
+        logo: (
+          <Avatar
+            sx={{ width: 35, height: 35 }}
+            alt="avatar"
+            src={Avatars.src}
+          />
+        ),
       },
     ],
     {
