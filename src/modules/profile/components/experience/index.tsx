@@ -1,7 +1,5 @@
 "use client";
 import { IconStar } from "@/assets/icons";
-import { ButtonCustom, ButtonSecondary } from "@/components/ButtonCustom";
-import * as React from "react";
 import styled from "styled-components";
 
 export default function Experience() {
