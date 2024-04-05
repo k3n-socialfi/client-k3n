@@ -42,3 +42,7 @@ export const getFeatureProject = async () => {
 export const checkExists = (address: any) => {
   return axiosInstance.get(`api/v1/users/check-exists/${address}`);
 };
+
+export const kolRanking = () => {
+  return axiosInstance.get(`api/v1/users/kols/ranking`);
+};

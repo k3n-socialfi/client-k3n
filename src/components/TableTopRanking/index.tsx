@@ -11,12 +11,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "styled-components";
 import Avatars from "@/assets/images/Avatar.png";
+import { SOCIAL } from "@/constant/social";
+import { DATA_TOP } from "@/constant/dataMockupTop";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
+  dataRanking?: any;
 }
 
-export default function TableTopRanking(props: ITableTopRankingProps) {
+export default function TableTopRanking({
+  dataRanking,
+}: ITableTopRankingProps) {
   return (
     <TableContainer component={Paper} sx={{ width: "100%" }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -57,9 +62,9 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
           </StyleTableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {dataRanking?.users?.map((row: any, index: number) => (
             <TableRow
-              key={row.rank}
+              key={row?.rank}
               sx={{
                 // "&:last-child td, &:last-child th": {
                 //   border: 0,
@@ -76,7 +81,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                       +12
                     </Typography>
                   </UpTop>
-                  {row.rank}
+                  {DATA_TOP[index] ?? index + 1}
                 </Rank>
               </CustomTableCell>
 
@@ -84,55 +89,55 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                 <Talent>
                   <Avatar
                     sx={{ width: 35, height: 35 }}
-                    alt="avatar"
-                    src={Avatars.src}
+                    alt={row?.fullName ?? "Avatar"}
+                    src={row?.twitterInfo?.avatar ?? Avatars.src}
                   />
-                  {row.talent}
+                  {row?.fullName}
                 </Talent>
               </CustomTableCell>
 
               <CustomTableCell align="left">
-                <Point>{row.point}</Point>
+                <Point>{row?.twitterInfo?.totalPoints}</Point>
               </CustomTableCell>
               <CustomTableCell align="left">
                 <ProofOfExp>
                   <Typography color={"#E47961"}>
-                    {row.ProofOfExperiences.ongoing}
+                    {row?.ProofOfExperiences?.ongoing}
                   </Typography>
                 </ProofOfExp>
               </CustomTableCell>
               <CustomTableCell align="left">
                 <Organization>
-                  <AvatarGroup max={3} total={(row?.Organization).length}>
-                    {row?.Organization?.map((item: any) => item?.logo)}
+                  <AvatarGroup max={3} total={row?.organization?.length}>
+                    {row?.organization?.map((item: any) => item?.logo)}
                   </AvatarGroup>
                 </Organization>
               </CustomTableCell>
               <CustomTableCell align="left">
                 <Location>
-                  <LocationChild>{row.location.area}</LocationChild>
-                  <LocationChild>{row.location.country}</LocationChild>
-                  <LocationChild>{row.location.city}</LocationChild>
+                  <LocationChild>{row?.location?.area}</LocationChild>
+                  <LocationChild>{row?.location?.country}</LocationChild>
+                  <LocationChild>{row?.location?.city}</LocationChild>
                 </Location>
               </CustomTableCell>
               <CustomTableCell align="left">
                 <Gender>
-                  <GenderChild backgroundColor={row.gender.bgColor}>
-                    {row.gender.gender}
+                  <GenderChild backgroundColor={row?.gender?.bgColor}>
+                    {row?.gender?.gender}
                   </GenderChild>
                 </Gender>
               </CustomTableCell>
               <CustomTableCell align="left">
                 <Platform>
-                  {row.platform.map((item: any) => (
-                    <>{item.logo}</>
+                  {row?.socialProfiles?.map((item: any) => (
+                    <>{SOCIAL[item?.social]}</>
                   ))}
                 </Platform>
               </CustomTableCell>
               <CustomTableCell align="left" style={{ borderRight: "0px" }}>
                 <Sector>
-                  <AvatarGroup max={3} total={(row?.sector).length}>
-                    {row.sector.map((item: any) => item.logo)}
+                  <AvatarGroup max={3} total={row?.sector?.length}>
+                    {row?.sector?.map((item: any) => item?.logo)}
                   </AvatarGroup>
                 </Sector>
               </CustomTableCell>
