@@ -46,13 +46,14 @@ export default function Home(props: IHomeProps) {
     "https://tophinhanhdep.com/wp-content/uploads/2021/03/anh-bia-chibi-13.jpg",
   ];
 
-  const { trendingKols, trendingProjects, feature } = useHomeContext();
-  const DATACARDFEATUREDKOLS = feature.map((item) => {
+  const { trendingKols, trendingProjects, featureKols, featureProjects } =
+    useHomeContext();
+  const DATACARDFEATUREDKOLS = featureKols.map((item) => {
     return {
-      id: 1,
-      name: item.username,
+      id: item?.userId,
+      name: item?.username,
       numberLike: "1k",
-      followers: item.twitterInfo.followers,
+      followers: item?.twitterInfo?.followers,
       wallet: [
         {
           label: "Airdrops",
@@ -70,10 +71,36 @@ export default function Home(props: IHomeProps) {
           background: "chip.injectiveBg",
         },
       ],
-      thumbnail: item.twitterInfo.coverImage,
+      thumbnail: item?.twitterInfo?.coverImage,
+      verificationStatus: item?.twitterInfo?.verificationStatus,
     };
   });
 
+  const DATACARDFEATUREDPROJECTS = featureProjects.map((item) => {
+    return {
+      id: item?.jobId,
+      name: item?.projectName,
+      numberLike: "1k",
+      wallet: [
+        {
+          label: item?.tags[0],
+          color: "chip.airdropsColor",
+          background: "chip.airdropsBg",
+        },
+        {
+          label: item?.tags[1],
+          color: "chip.marketerColor",
+          background: "chip.marketerBg",
+        },
+        {
+          label: item?.tags[2],
+          color: "chip.injectiveColor",
+          background: "chip.injectiveBg",
+        },
+      ],
+      thumbnail: item?.image,
+    };
+  });
   return (
     <StyleContainer>
       <StyleSlide>
@@ -96,6 +123,7 @@ export default function Home(props: IHomeProps) {
               follower={item.followers}
               thumbnail={item.thumbnail}
               wallet={item.wallet}
+              status={item?.verificationStatus}
             />
           ))}
         </StyleBottom>
@@ -109,13 +137,13 @@ export default function Home(props: IHomeProps) {
           <StyleRight></StyleRight>
         </StyleTop>
         <StyleBottom>
-          {DATACARDFEATUREDKOLS.map((item) => (
+          {DATACARDFEATUREDPROJECTS.map((item) => (
             <CardFeaturedProjects
-              key={item.id}
-              numberLike={item.numberLike}
-              thumbnail={item.thumbnail}
-              name={item.name}
-              wallet={item.wallet}
+              key={item?.id}
+              numberLike={item?.numberLike}
+              thumbnail={item?.thumbnail}
+              name={item?.name}
+              wallet={item?.wallet}
             />
           ))}
         </StyleBottom>
@@ -140,15 +168,15 @@ export default function Home(props: IHomeProps) {
           </StyleTop>
 
           <StyleTrendingTopCard>
-            {trendingKols.map((item, index) => (
-              <StyleTrendingCard key={item.userId}>
+            {trendingKols.map((item) => (
+              <StyleTrendingCard key={item?.userId}>
                 <CardTrendingKOLs
                   rank={<IconTop1 />}
                   backgroundColor="
                   #42362E"
-                  name={item.username}
-                  point={item.totalPoints}
-                  urlAvatar={item.avatar}
+                  name={item?.username}
+                  point={item?.totalPoints}
+                  urlAvatar={item?.avatar}
                 />
               </StyleTrendingCard>
             ))}
@@ -165,10 +193,10 @@ export default function Home(props: IHomeProps) {
                   {index + 1}
                 </Typography>
                 <CardTrendingProjects
-                  avatar={item.small}
-                  name={item.name}
+                  avatar={item?.small}
+                  name={item?.name}
                   wallet="socialfi"
-                  mention={item.marketCapRank}
+                  mention={item?.marketCapRank}
                 />
               </StyleTrendingCard>
             ))}

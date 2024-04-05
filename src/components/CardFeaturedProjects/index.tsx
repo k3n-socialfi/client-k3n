@@ -20,7 +20,7 @@ export default function CardFeaturedProjects(props: any) {
             backgroundColorBt="#4D4D5C"
           >
             <Typography color={"#FFF"} sx={{ padding: "0 5px" }}>
-              {props.numberLike}
+              {props?.numberLike}
             </Typography>
           </ButtonText>
         </StyleSubscribe>
@@ -33,7 +33,7 @@ export default function CardFeaturedProjects(props: any) {
       </div>
       <CardContent>
         <Typography variant="h5" color={"#82EBFF"}>
-          {props.name}
+          {props?.name}
         </Typography>
 
         <StyleChips>
@@ -44,8 +44,8 @@ export default function CardFeaturedProjects(props: any) {
                 borderColorBt={item.background}
                 backgroundColorBt={item.background}
               >
-                <Typography color={item.color} sx={{ padding: "0 5px" }}>
-                  {item.label}
+                <Typography color={item?.color} sx={{ padding: "0 5px" }}>
+                  {item?.label}
                 </Typography>
               </ButtonText>
             </>

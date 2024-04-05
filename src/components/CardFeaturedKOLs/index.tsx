@@ -33,15 +33,15 @@ export default function CardFeaturedKOLs(props: any) {
 
         <CardMedia
           sx={{ height: "222px" }}
-          image={props.thumbnail}
+          image={props?.thumbnail}
           title="green iguana"
         />
       </div>
       <CardContent>
         <StyleContentTitle>
           <StyleTitleLeft>
-            {props.name}
-            <IconCertification />
+            {props?.name}
+            {props?.status && <IconCertification />}
           </StyleTitleLeft>
 
           <StyleTitleRight>
@@ -53,7 +53,7 @@ export default function CardFeaturedKOLs(props: any) {
                 backgroundColorBt={"#4D4D5C"}
               >
                 <Typography color={"#FFF"} sx={{ padding: "0 5px" }}>
-                  {props.numberLike}
+                  {props?.numberLike}
                 </Typography>
               </ButtonText>
             </CardActions>
@@ -70,10 +70,10 @@ export default function CardFeaturedKOLs(props: any) {
             <>
               <ButtonText
                 size="small"
-                borderColorBt={item.background}
-                backgroundColorBt={item.background}
+                borderColorBt={item?.background}
+                backgroundColorBt={item?.background}
               >
-                <Typography color={item.color} sx={{ padding: "0 5px" }}>
+                <Typography color={item?.color} sx={{ padding: "0 5px" }}>
                   {item.label}
                 </Typography>
               </ButtonText>
