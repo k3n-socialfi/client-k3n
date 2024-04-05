@@ -66,3 +66,4 @@ export { default as IconReset } from "./IconReset";
 export { default as IconFacebook } from "./IconFacebook";
 export { default as IconReddit } from "./IconReddit";
 export { default as IconArrowUpTop } from "./IconArrowUpTop";
+export { default as IconPointProfile } from "./IconPointProfile";
