@@ -78,7 +78,7 @@ export const initialHomeContextTypes = {
     priceBtc: "",
     score: 0,
   },
-  feature: {
+  featureKols: {
     createdAt: 0,
     updatedAt: 0,
     isDeleted: true,
@@ -124,5 +124,19 @@ export const initialHomeContextTypes = {
       numberOfTweets: 0,
       creationDate: "",
     },
+  },
+  featureProjects: {
+    createdAt: 0,
+    updatedAt: 0,
+    isDeleted: true,
+    jobId: "",
+    projectName: "",
+    tags: ["NFT", "Ethereum", "Mid-cap"],
+    jobType: "",
+    isPublic: true,
+    jobDescription: "",
+    organization: ["string"],
+    image: "",
+    creator: "",
   },
 };

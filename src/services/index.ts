@@ -5,8 +5,8 @@ export const loginSolana = (data: any) => {
 };
 
 export const loginTwitterSolana = (data: any) => {
-    return axiosInstance.post(`/api/v1/users/connect/wallet/solana`, data)
-}
+  return axiosInstance.post(`/api/v1/users/connect/wallet/solana`, data);
+};
 export const getMessageSolana = (address: any) => {
   return axiosInstance.get(`/api/v1/auth/message-solana/${address}`);
 };
@@ -31,10 +31,14 @@ export const getTrendingKols = async () => {
   return axiosInstance.get("/api/v1/users/kols/trending");
 };
 
-export const getFeature = async () => {
+export const getFeatureKols = async () => {
   return axiosInstance.get("/api/v1/users/kols/ranking");
 };
 
+export const getFeatureProject = async () => {
+  return axiosInstance.get("/api/v1/jobs");
+};
+
 export const checkExists = (address: any) => {
-  return axiosInstance.get(`api/v1/users/check-exists/${address}`)
-}
+  return axiosInstance.get(`api/v1/users/check-exists/${address}`);
+};

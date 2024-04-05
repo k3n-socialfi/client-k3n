@@ -17,8 +17,8 @@ export default function CardTrendingProjects(props: any) {
           sx={{ display: "flex", alignItems: "center" }}
         >
           <Avatar
-            alt={props.name}
-            src={props.avatar}
+            alt={props?.name}
+            src={props?.avatar}
             sx={{ width: 56, height: 56 }}
           />
 
@@ -29,7 +29,7 @@ export default function CardTrendingProjects(props: any) {
               component="div"
               color={"white"}
             >
-              {props.name}
+              {props?.name}
             </Typography>
             <Stack
               sx={{ display: "flex", gap: 1, alignItems: "end" }}
@@ -41,7 +41,7 @@ export default function CardTrendingProjects(props: any) {
                 backgroundColorBt={"#FFD7F4"}
               >
                 <Typography color={"#F23581"} sx={{ padding: "0 5px" }}>
-                  {props.wallet}
+                  {props?.wallet}
                 </Typography>
               </ButtonText>
               <Typography
@@ -50,7 +50,7 @@ export default function CardTrendingProjects(props: any) {
                 component="span"
                 color={"gray"}
               >
-                #{props.mention} mentions
+                #{props?.mention} mentions
               </Typography>
             </Stack>
           </Stack>

@@ -14,15 +14,15 @@ export interface ICardTrendingKOLsProps {
 
 export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
   return (
-    <Container backgroundColor={props.backgroundColor}>
-      <Rank>{props.rank}</Rank>
+    <Container backgroundColor={props?.backgroundColor}>
+      <Rank>{props?.rank}</Rank>
       <Name>
-        <Avatar alt="" src={props.urlAvatar} sx={{ width: 56, height: 56 }} />
+        <Avatar alt="" src={props?.urlAvatar} sx={{ width: 56, height: 56 }} />
         <LinkCustom href={`/profile/${props.name}`}>
-          <Typography sx={{ fontWeight: "700" }}>{props.name}</Typography>
+          <Typography sx={{ fontWeight: "700" }}>{props?.name}</Typography>
         </LinkCustom>
       </Name>
-      <Point>{props.point}</Point>
+      <Point>{props?.point}</Point>
     </Container>
   );
 }
