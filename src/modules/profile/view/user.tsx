@@ -130,7 +130,6 @@ const Personal = ({ userProfile }: any) => {
 export default function ClientProfile(props: IUserProfileProps) {
   const { userProfile, getUserProfile } = useProfileContext();
   const { username } = useParams();
-
   useEffect(() => {
     getUserProfile(username?.toString());
   }, [username]);

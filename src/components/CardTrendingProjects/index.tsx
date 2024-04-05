@@ -1,6 +1,7 @@
 import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
 import Chips from "../Chip";
 import { ButtonText } from "../ButtonCustom";
+import { LinkCustom } from "../CardFeaturedKOLs/style";
 
 export interface ICardProjectProps {}
 
@@ -23,14 +24,16 @@ export default function CardTrendingProjects(props: any) {
           />
 
           <Stack direction="column">
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              color={"white"}
-            >
-              {props?.name}
-            </Typography>
+            <LinkCustom href={`/project/${props?.id}`}>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                color={"white"}
+              >
+                {props?.name}
+              </Typography>
+            </LinkCustom>
             <Stack
               sx={{ display: "flex", gap: 1, alignItems: "end" }}
               direction="row"

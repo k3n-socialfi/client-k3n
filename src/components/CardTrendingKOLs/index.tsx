@@ -18,7 +18,7 @@ export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
       <Rank>{props?.rank}</Rank>
       <Name>
         <Avatar alt="" src={props?.urlAvatar} sx={{ width: 56, height: 56 }} />
-        <LinkCustom href={`/profile/${props.name}`}>
+        <LinkCustom href={`/profile/${props?.name}`}>
           <Typography sx={{ fontWeight: "700" }}>{props?.name}</Typography>
         </LinkCustom>
       </Name>

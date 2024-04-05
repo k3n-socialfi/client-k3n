@@ -39,11 +39,11 @@ export default function Home(props: IHomeProps) {
   const [showPoppup, setShowPopup] = useState<boolean>(false);
   const router = useRouter();
   const slides = [
-    "https://s3-alpha-sig.figma.com/img/e1cb/18b1/bc2b456ac7d9fbd4cc65af30315f50ae?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OW3LC4lhs1Fm6nvQmBH36AsDUTxrzUAUsGn8UtG5AHYXhKDMRofmUuVfKvlI~rx2uwg5JXcR~jz9E6bnXPyRFe6JrkNdktvkDe3llhMYWUpu0ARnESaqBCGaAKb98r0qUxHCKyJLqPg~Oios9jcZQmAAnoOFt8zH59L3s2JM2fjll8zIRF8vewWzs74Y7hZFTh1KJC~fSbkHppAaJMoh6sXiwS9QUSNgsZh6UFCP55EGW4LaEUZTpB0I0wtuSx-k2VdOJODYCLwG1A2mNPaBzDTveuWcERP24LgUtzlbrLJo5ktx06xr5iJhzhKWIkRCJmrg1lvzIgg~9Jo8cj52ag__",
-    "https://tonghop.vn/wp-content/uploads/2019/02/FILE-20170314-1554KQTUND9YYZQQ.png",
-    "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2020/09/anh-bia-dep-6-4-696x435.jpg?fit=700%2C20000&quality=95&ssl=1",
-    "https://i.pinimg.com/originals/e6/87/3c/e6873c5e0ed4e0aecdad75fe21b0014f.png",
-    "https://tophinhanhdep.com/wp-content/uploads/2021/03/anh-bia-chibi-13.jpg",
+    "https://pbs.twimg.com/media/GEEozaoWkAAzeqB?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/GEEo_DjXcAAZAtp?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/EdOpG_jWkAAv7q3?format=jpg&name=large",
+    "https://rawcdn.githack.com/paintincode/bored-ape-clone/c4c0344e1259878d5aa18d6691ac0592bbedea72/src/assets/bayc-mutant-hero.png",
+    "https://pbs.twimg.com/media/D0V4z7lX0AA3ugH?format=jpg&name=small",
   ];
 
   const { trendingKols, trendingProjects, featureKols, featureProjects } =
@@ -140,6 +140,7 @@ export default function Home(props: IHomeProps) {
           {DATACARDFEATUREDPROJECTS.map((item) => (
             <CardFeaturedProjects
               key={item?.id}
+              id={item?.id}
               numberLike={item?.numberLike}
               thumbnail={item?.thumbnail}
               name={item?.name}
@@ -193,6 +194,7 @@ export default function Home(props: IHomeProps) {
                   {index + 1}
                 </Typography>
                 <CardTrendingProjects
+                  id={item?.id}
                   avatar={item?.small}
                   name={item?.name}
                   wallet="socialfi"

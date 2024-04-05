@@ -29,7 +29,7 @@ const useFetchDataHomePage = () => {
   ]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<null>(null);
+  const [error, setError] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
