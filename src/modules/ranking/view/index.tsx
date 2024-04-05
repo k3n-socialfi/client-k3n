@@ -1,14 +1,41 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import MyRanking from "../components/MyRanking";
 import TableTopRanking from "@/components/TableTopRanking";
 import styled from "styled-components";
 import { IconBoxArrowRight } from "@/assets/icons";
+import { getMyProfile, kolRanking } from "@/services";
 
 export interface IRankingProps {}
 
 export default function Ranking(props: IRankingProps) {
+  const [dataRanking, setDataRanking] = useState([]);
+  const [dataPersonal, setDataPersonal] = useState<any>();
+
+  const fetchDataPersonal = async () => {
+    try {
+      const { data }: any = await getMyProfile();
+      setDataPersonal(data?.data);
+    } catch (error) {
+      return { message: "Database Error: Get Data Personal Failed" };
+    }
+  };
+
+  const fetchDataRanking = async () => {
+    try {
+      const { data } = await kolRanking();
+      setDataRanking(data?.data);
+    } catch (error) {
+      return { message: "Database Error: Get Data Kols Ranking Failed" };
+    }
+  };
+
+  useEffect(() => {
+    fetchDataRanking();
+    fetchDataPersonal();
+  }, []);
+
   return (
     <Container>
       <Stack
@@ -30,11 +57,11 @@ export default function Ranking(props: IRankingProps) {
             alignItems: "center",
           }}
         >
-          <Typography color={"#F23581"}>Turn back to land details</Typography>
+          <Typography color={"#F23581"}>Turn back</Typography>
           <IconBoxArrowRight />
         </Stack>
       </Stack>
-      <MyRanking />
+      <MyRanking dataPersonal={dataPersonal} />
       <Typography
         variant="h3"
         color={"#FFF"}
@@ -44,7 +71,7 @@ export default function Ranking(props: IRankingProps) {
       >
         Top 100 Ranking
       </Typography>
-      <TableTopRanking />
+      <TableTopRanking dataRanking={dataRanking} />
     </Container>
   );
 }

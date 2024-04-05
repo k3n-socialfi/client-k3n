@@ -1,24 +1,31 @@
 import { IconCertification, IconLightning } from "@/assets/icons";
 import { ButtonSecondary } from "@/components/ButtonCustom";
+import { getMyProfile } from "@/services";
 import { Avatar, Stack, Typography } from "@mui/material";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export interface IMyRankingProps {}
+export interface IMyRankingProps {
+  dataPersonal?: any;
+}
 
-export default function MyRanking(props: IMyRankingProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
-
+export default function MyRanking({ dataPersonal }: IMyRankingProps) {
   return (
-    <Container onClick={() => setIsOpen(!isOpen)}>
-      {isOpen ? (
+    <Container>
+      {dataPersonal ? (
         <>
           <Info>
-            <Avatar alt="" src={""} sx={{ width: 56, height: 56 }} />
+            <Avatar
+              alt=""
+              src={dataPersonal?.twitterInfo?.avatar}
+              sx={{ width: 56, height: 56 }}
+            />
             <Account>
               <Name>
-                <Typography color={"#FFF"}>Elena</Typography>
-                <IconCertification />
+                <Typography color={"#FFF"}>{dataPersonal?.fullName}</Typography>
+                {dataPersonal?.twitterInfo?.verificationStatus && (
+                  <IconCertification />
+                )}
               </Name>
               <Typography variant="body2" color={"#82EBFF"}>
                 Researcher - Builder
@@ -29,7 +36,15 @@ export default function MyRanking(props: IMyRankingProps) {
             <Slider>
               <StyleTop>
                 <CrossBar></CrossBar>
-                <StyleMilestone></StyleMilestone>
+                <StyleMilestone
+                  style={{
+                    left: `${
+                      dataPersonal?.twitterInfo?.totalPoints === 0
+                        ? ""
+                        : "100px"
+                    }`,
+                  }}
+                ></StyleMilestone>
               </StyleTop>
               <StyleBottom>
                 <Typography variant="h6" color={"#B9BDD1"} fontWeight={"700"}>
@@ -39,20 +54,24 @@ export default function MyRanking(props: IMyRankingProps) {
                   variant="h6"
                   color={"#F23581"}
                   fontWeight={"700"}
-                  sx={{ marginLeft: "120px" }}
+                  sx={{ marginLeft: "80px" }}
                 >
-                  9,901
+                  {dataPersonal?.twitterInfo?.totalPoints === 0
+                    ? ""
+                    : dataPersonal?.twitterInfo?.totalPoints}
                 </Typography>
               </StyleBottom>
             </Slider>
-            <Typography color={"#82EBFF"}>You have 9,901 points</Typography>
+            <Typography color={"#82EBFF"}>
+              You have {dataPersonal?.twitterInfo?.totalPoints ?? 0} points
+            </Typography>
           </Point>
           <Total>
             <Typography color={"#B9BDD1"}>Total point</Typography>
             <Stack sx={{ display: "flex", gap: "5px", flexDirection: "row" }}>
               <IconLightning />
               <Typography variant="h4" fontWeight={"700"} color={"#FFF"}>
-                9,901
+                {dataPersonal?.twitterInfo?.totalPoints ?? 0}
               </Typography>
             </Stack>
           </Total>
@@ -117,7 +136,7 @@ const StyleMilestone = styled.div`
   background-color: #fff;
   border-radius: 20px;
   top: -5px;
-  right: 50px;
+  /* right: 50px; */
 `;
 
 const Slider = styled.div`
