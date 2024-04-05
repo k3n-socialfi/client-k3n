@@ -1,18 +1,13 @@
 "use client";
 import {
   IconBlue,
-  IconDiscord,
   IconEdit,
-  IconFacebook,
-  IconLinked,
-  IconReddit,
+  IconPointProfile,
   IconStarNormal,
-  IconTikTok,
-  IconTwitter,
   IconVerify,
-  IconYouTube,
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { SOCIAL } from "@/constant/social";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
@@ -27,7 +22,7 @@ export interface IUserProfileProps {}
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
-const Overview = () => {
+const Overview = ({ overview }: any) => {
   const openModal = useBoolean();
 
   return (
@@ -65,7 +60,9 @@ const Overview = () => {
         <PrimaryTitleRight>
           <StyleContentOverview>
             <StyleDesOverview>Twitter</StyleDesOverview>
-            <StyleSubTitle>86,314</StyleSubTitle>
+            <StyleSubTitle>
+              {overview?.twitterInfo?.followers ?? 0}
+            </StyleSubTitle>
           </StyleContentOverview>
           <StyleContentOverview>
             <StyleDesOverview>Primary per post</StyleDesOverview>
@@ -85,33 +82,32 @@ const Overview = () => {
   );
 };
 
-const Personal = (props: any) => {
-  const dataPersonal = props;
+const Personal = ({ dataPersonal }: any) => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
         <StyleImage
-          src={IMG_NFT}
+          src={dataPersonal?.twitterInfo?.avatar ?? IMG_NFT}
           alt="avatar profile"
           width={220}
           height={220}
         />
         <StyleContentUser>
           <StyleTitle>
-            {dataPersonal.username ? dataPersonal.username : "User Name"}{" "}
-            <IconVerify />
+            {dataPersonal?.fullName ?? "User Name"}
+            {dataPersonal?.twitterInfo?.verificationStatus && <IconVerify />}
           </StyleTitle>
-          <StyleUserDes>Im developer software engineer</StyleUserDes>
+          <PointProfile>
+            <IconPointProfile />
+            {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+          </PointProfile>
+          <StyleUserDes>{dataPersonal?.bio ?? "Data null"}</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
-            <IconTikTok />
-            <IconTwitter />
-            <IconYouTube />
-            <IconLinked />
-            <IconFacebook />
-            <IconReddit />
-            <IconDiscord />
+            {dataPersonal?.socialProfiles.map(
+              (item: any, index: number) => SOCIAL[item?.social] ?? <></>
+            )}
           </StyleIcons>
         </StyleContentUser>
       </StylePersonalLeft>
@@ -138,10 +134,19 @@ const Personal = (props: any) => {
 export default function UserProfile(props: IUserProfileProps) {
   const [dataPersonal, setDataPersonal] = useState<any>();
 
+  const fetchData = async () => {
+    try {
+      const { data }: any = await getMyProfile();
+      setDataPersonal(data?.data);
+    } catch (error) {
+      return { message: "Database Error: Get Data Personal Failed" };
+    }
+  };
+
   useEffect(() => {
-    const dataProfile: any = getMyProfile();
-    setDataPersonal(dataProfile);
-  }, []);
+    if (dataPersonal) return;
+    fetchData();
+  }, [dataPersonal]);
 
   return (
     <StyleContainer>
@@ -150,13 +155,21 @@ export default function UserProfile(props: IUserProfileProps) {
       <div style={{ display: "flex", width: "100%" }}>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <PostUser />
-          <PostUser />
-          <PostUser />
+          <Posts>
+            {dataPersonal?.posts.length > 0 ? (
+              dataPersonal?.posts.map((item: any, index: number) => (
+                <>
+                  <PostUser item={item} />
+                </>
+              ))
+            ) : (
+              <>Data null</>
+            )}
+          </Posts>
         </PostLeft>
         <div style={{ width: "70%" }}>
           <Experience />
-          <Overview />
+          <Overview overview={dataPersonal} />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Services />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -172,6 +185,22 @@ const PostLeft = styled.div`
   gap: 12px;
   width: 30%;
   padding: 12px;
+`;
+
+const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 1260px;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
 `;
 const StyleButtons = styled.div`
   display: flex;
@@ -245,6 +274,11 @@ const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
   font-weight: 700;
+`;
+const PointProfile = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 `;
 const StyleUserDes = styled.div`
   padding: 4px 12px;
