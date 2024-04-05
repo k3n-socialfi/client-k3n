@@ -11,10 +11,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Tooltip from "@mui/material/Tooltip";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as React from "react";
+import TooltipCustom from "../Tooltip";
 
 export default function SideBar() {
   const router = useRouter();
@@ -93,16 +95,34 @@ export default function SideBar() {
                           unmountOnExit
                         >
                           <List component="div" disablePadding>
-                            <ListItemButton
-                              sx={{
-                                pl: 4,
-                                gap: 2,
-                              }}
-                              onClick={() => router.push(itemChild.link)}
-                            >
-                              {itemChild.icon}
-                              <ListItemText primary={itemChild.label} />
-                            </ListItemButton>
+                            {itemChild?.isCommingSoon ? (
+                              <ListItemButton
+                                sx={{
+                                  pl: 4,
+                                  gap: 2,
+                                }}
+                                onClick={() => router.push(itemChild.link)}
+                              >
+                                {itemChild.icon}
+                                <ListItemText primary={itemChild.label} />
+                              </ListItemButton>
+                            ) : (
+                              <Tooltip
+                                title={<TooltipCustom />}
+                                placement="right"
+                              >
+                                <ListItemButton
+                                  sx={{
+                                    pl: 4,
+                                    gap: 2,
+                                  }}
+                                  onClick={() => router.push(itemChild.link)}
+                                >
+                                  {itemChild.icon}
+                                  <ListItemText primary={itemChild.label} />
+                                </ListItemButton>
+                              </Tooltip>
+                            )}
                           </List>
                         </Collapse>
                       </>
@@ -117,29 +137,57 @@ export default function SideBar() {
         <List>
           {DATASIDEBARBOTTOM.map((item, index) => (
             <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  pl: open ? 4 : "",
-                }}
-              >
-                <ListItemIcon
+              {item?.isCommingSoon ? (
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                    pl: open ? 4 : "",
                   }}
                 >
-                  {/* {index % 2 === 0 ? <IconFire /> : <IconFire />} */}
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.label}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {/* {index % 2 === 0 ? <IconFire /> : <IconFire />} */}
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.label}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              ) : (
+                <Tooltip title={<TooltipCustom />} placement="right">
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                      pl: open ? 4 : "",
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {/* {index % 2 === 0 ? <IconFire /> : <IconFire />} */}
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.label}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </Tooltip>
+              )}
             </ListItem>
           ))}
         </List>

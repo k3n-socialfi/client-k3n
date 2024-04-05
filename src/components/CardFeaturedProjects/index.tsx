@@ -7,6 +7,8 @@ import CardMedia from "@mui/material/CardMedia";
 import { ButtonText } from "../ButtonCustom";
 import Chips from "../Chip";
 import { StyleChips, StyleSubscribe } from "./style";
+import Link from "next/link";
+import { LinkCustom } from "../CardFeaturedKOLs/style";
 
 export default function CardFeaturedProjects(props: any) {
   return (
@@ -27,22 +29,24 @@ export default function CardFeaturedProjects(props: any) {
 
         <CardMedia
           sx={{ height: "222px" }}
-          image={props.thumbnail}
+          image={props?.thumbnail}
           title="green iguana"
         />
       </div>
       <CardContent>
-        <Typography variant="h5" color={"#82EBFF"}>
-          {props?.name}
-        </Typography>
+        <LinkCustom href={`/jobs/${props?.id}`}>
+          <Typography variant="h5" color={"#82EBFF"}>
+            {props?.name}
+          </Typography>
+        </LinkCustom>
 
         <StyleChips>
           {props?.wallet?.map((item: any) => (
             <>
               <ButtonText
                 size="small"
-                borderColorBt={item.background}
-                backgroundColorBt={item.background}
+                borderColorBt={item?.background}
+                backgroundColorBt={item?.background}
               >
                 <Typography color={item?.color} sx={{ padding: "0 5px" }}>
                   {item?.label}

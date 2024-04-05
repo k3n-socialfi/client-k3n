@@ -49,13 +49,13 @@ const ProfileContextTypes = {
 const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
 const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
   const [userProfile, setUserProfile] = useState<IUserProfile>(
-    ProfileContextTypes.userProfile
+    ProfileContextTypes?.userProfile
   );
 
   const getUserProfile = async (username: String) => {
     try {
       const res = await getProfileUser(String(username));
-      setUserProfile(res.data?.data);
+      setUserProfile(res?.data?.data);
     } catch (error) {
       console.error("error", error);
     }

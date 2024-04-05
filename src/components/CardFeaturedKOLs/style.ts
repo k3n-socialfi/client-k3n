@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const StyleContentTitle = styled.div`
@@ -43,4 +44,9 @@ export const StyleSubscribe = styled.div`
   background-color: #3b3b39;
   border-radius: 30px;
   /* opacity: 0.8; */
+`;
+
+export const LinkCustom = styled(Link)`
+  text-decoration: none;
+  color: #fff;
 `;

@@ -128,7 +128,6 @@ const Personal = ({ userProfile }: any) => {
 export default function ClientProfile(props: IUserProfileProps) {
   const { userProfile, getUserProfile } = useProfileContext();
   const { username } = useParams();
-
   useEffect(() => {
     getUserProfile(username?.toString());
   }, [username]);
@@ -141,7 +140,7 @@ export default function ClientProfile(props: IUserProfileProps) {
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts>
-            {userProfile?.posts.map((item: any, index: number) => (
+            {userProfile?.posts?.map((item: any, index: number) => (
               <>
                 <PostUser item={item} />
               </>
