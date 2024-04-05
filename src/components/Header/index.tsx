@@ -70,12 +70,12 @@ export const Header = () => {
             <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
               {label}
             </ButtonPrimary>
-            {!token &&
+            {/* {!token &&
               <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
                 <IconTwitter />
                 Connect Twitter
               </ButtonPrimary>
-            }
+            } */}
           </HeaderButton>
         )}
         {popup && <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />}

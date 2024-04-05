@@ -158,8 +158,8 @@ export default function useWalletCustom() {
           }
           else {
             const { data }: any = await loginSolana(params);
-            if (typeof window !== "undefined" && search) {
-              localStorage.setItem("accessToken", data?.accessToken);
+            if (typeof window !== "undefined" && data) {
+              localStorage.setItem("accessToken", data.data.accessToken);
             }
           }
         }
