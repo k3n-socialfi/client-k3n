@@ -1,26 +1,23 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect } from "react";
 import {
   IconBlue,
   IconEdit,
-  IconLinked,
+  IconPointProfile,
   IconStarNormal,
-  IconTikTok,
-  IconTwitter,
   IconVerify,
-  IconYouTube,
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { SOCIAL } from "@/constant/social";
+import { useProfileContext } from "@/contexts/ProfileContext";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
-import { useParams } from "next/navigation";
-import { useProfileContext } from "@/contexts/ProfileContext";
-import Services from "../components/services";
 import PostUser from "../components/PostUser";
-import { SOCIAL } from "@/constant/social";
+import Services from "../components/services";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
@@ -93,9 +90,14 @@ const Personal = ({ userProfile }: any) => {
         />
         <StyleContentUser>
           <StyleTitle>
-            {userProfile?.fullName} <IconVerify />
+            {userProfile?.fullName ?? "User Name"}
+            {userProfile?.twitterInfo?.verificationStatus && <IconVerify />}
           </StyleTitle>
-          <StyleUserDes>{userProfile?.bio}</StyleUserDes>
+          <PointProfile>
+            <IconPointProfile />
+            {userProfile?.twitterInfo?.totalPoints ?? 0}
+          </PointProfile>
+          <StyleUserDes>{userProfile?.bio ?? "Data null"}</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
@@ -141,11 +143,15 @@ export default function ClientProfile(props: IUserProfileProps) {
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts>
-            {userProfile?.posts.map((item: any, index: number) => (
-              <>
-                <PostUser item={item} />
-              </>
-            ))}
+            {userProfile?.posts.length > 0 ? (
+              userProfile?.posts.map((item: any, index: number) => (
+                <>
+                  <PostUser item={item} />
+                </>
+              ))
+            ) : (
+              <>Data null</>
+            )}
           </Posts>
         </PostLeft>
         <div style={{ width: "70%" }}>
@@ -257,6 +263,13 @@ const StyleTitle = styled.div`
   line-height: 51px;
   font-weight: 700;
 `;
+
+const PointProfile = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+`;
+
 const StyleUserDes = styled.div`
   padding: 4px 12px;
   font-size: 16px;
