@@ -107,9 +107,8 @@ export default function useWalletCustom() {
           createLog({
             status: "success",
             method: "signIn",
-            message: `Message signed: ${JSON.stringify(signedMessage)} by ${
-              account.address
-            } with signature ${JSON.stringify(signature)}`,
+            message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address
+              } with signature ${JSON.stringify(signature)}`,
           });
         }
       } catch (error: any) {
@@ -132,7 +131,7 @@ export default function useWalletCustom() {
       setPopupProfile(false);
       localStorage.removeItem("signatured");
       localStorage.removeItem("accessToken");
-      sessionStorage.getItem("isTwitter");
+      sessionStorage.removeItem("isTwitter");
     }
   };
 
@@ -147,13 +146,27 @@ export default function useWalletCustom() {
     signature && "[" + Array?.from(signature).join(", ") + "]";
 
   useEffect(() => {
-    if (convertSignature) {
-      const params = {
-        address: base58Pubkey,
-        signature: convertSignature as any,
-      };
-      isTwitter ? loginTwitterSolana(params) : loginSolana(params);
-    }
+    (async function () {
+      try {
+        if (convertSignature) {
+          const params = {
+            address: base58Pubkey,
+            signature: convertSignature as any,
+          };
+          if (isTwitter) {
+            loginTwitterSolana(params)
+          }
+          else {
+            const { data }: any = await loginSolana(params);
+            if (typeof window !== "undefined" && data) {
+              localStorage.setItem("accessToken", data.data.accessToken);
+            }
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [signature, isTwitter]);
 
   return {

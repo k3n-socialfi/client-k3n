@@ -100,7 +100,7 @@ export const Header = () => {
               >
                 {label}
               </ButtonPrimary>
-              {!token && (
+              {/* {!token && (
                 <ButtonPrimary
                   onClick={handleLoginTwitter}
                   style={{ display: "flex", gap: "5px" }}
@@ -108,7 +108,7 @@ export const Header = () => {
                   <IconTwitter />
                   Connect Twitter
                 </ButtonPrimary>
-              )}
+              )} */}
             </HeaderButton>
           )}
           {popup && (
