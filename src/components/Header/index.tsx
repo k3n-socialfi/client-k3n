@@ -7,32 +7,55 @@ import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
-import { IconNotification, IconSearch, IconThunder, IconTwitter } from "@/assets/icons";
+import {
+  IconNotification,
+  IconSearch,
+  IconThunder,
+  IconTwitter,
+} from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
 
 export const Header = () => {
-  let token = typeof window !== 'undefined' && localStorage.getItem("accessToken");
-  const router = useRouter()
-  const [isClient, setIsClient] = useState(false)
+  let token =
+    typeof window !== "undefined" && localStorage.getItem("accessToken");
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
   const { show, setShow, nodeRef } = useClickOutside();
-  const { handleLoginTwitter, buttonState, setPopup, setPopupProfile, label, popup, handleWallet, handleClick, base58Pubkey, popupProfile } = useWalletCustom()
+  const {
+    handleLoginTwitter,
+    buttonState,
+    setPopup,
+    setPopupProfile,
+    label,
+    popup,
+    handleWallet,
+    handleClick,
+    base58Pubkey,
+    popupProfile,
+  } = useWalletCustom();
 
   const handlePopup = () => {
     setShow(!show);
   };
 
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
 
   return (
     <HeaderWrapper>
       <HeaderLogo>
         <ImgCustom>
-          <Image onClick={() => router.push('/')} width={150} height={50} alt="logo" src={logo} />
+          <Image
+            onClick={() => router.push("/")}
+            width={150}
+            height={50}
+            alt="logo"
+            src={logo}
+          />
         </ImgCustom>
         <HeaderSearch>
           <HeaderIcon>
@@ -44,43 +67,65 @@ export const Header = () => {
           </HeaderIcon>
         </HeaderSearch>
       </HeaderLogo>
-      {isClient && <div>
-        {label === 'Disconnect' || buttonState === "connected" ? (
-          <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
-            <UserNotification>
+      {isClient && (
+        <div>
+          {label === "Disconnect" || buttonState === "connected" ? (
+            <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
+              {/* <UserNotification>
               <IconNotification />
               <NumberNotification>15</NumberNotification>
-            </UserNotification>
-            <HeaderUserInfo>
-              <IconThunder />
-              <TypographyCustom className="header-user__info__text">
-                250
-              </TypographyCustom>
-              <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
-                <AvatarCustom
-                  className="header-user__info__avatar"
-                  alt="Cindy Baker"
-                  src="/static/images/Avatar.png"
-                />
-              </HeaderAvatar>
-            </HeaderUserInfo>
-          </HeaderUser>
-        ) : (
-          <HeaderButton className="header-button">
-            <ButtonPrimary disabled={buttonState === 'connecting' || buttonState === 'disconnecting'} onClick={handleClick}>
-              {label}
-            </ButtonPrimary>
-            {!token &&
-              <ButtonPrimary onClick={handleLoginTwitter} style={{ display: "flex", gap: "5px" }}>
-                <IconTwitter />
-                Connect Twitter
+            </UserNotification> */}
+              <HeaderUserInfo>
+                <IconThunder />
+                <TypographyCustom className="header-user__info__text">
+                  250
+                </TypographyCustom>
+                <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
+                  <AvatarCustom
+                    className="header-user__info__avatar"
+                    alt="Cindy Baker"
+                    src="/static/images/Avatar.png"
+                  />
+                </HeaderAvatar>
+              </HeaderUserInfo>
+            </HeaderUser>
+          ) : (
+            <HeaderButton className="header-button">
+              <ButtonPrimary
+                disabled={
+                  buttonState === "connecting" ||
+                  buttonState === "disconnecting"
+                }
+                onClick={handleClick}
+              >
+                {label}
               </ButtonPrimary>
-            }
-          </HeaderButton>
-        )}
-        {popup && <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />}
-        {popupProfile && <PopupProfile setPopupProfile={setPopupProfile} handleDisConnect={(value: number) => handleWallet(value)} base58Pubkey={base58Pubkey} />}
-      </div>}
+              {!token && (
+                <ButtonPrimary
+                  onClick={handleLoginTwitter}
+                  style={{ display: "flex", gap: "5px" }}
+                >
+                  <IconTwitter />
+                  Connect Twitter
+                </ButtonPrimary>
+              )}
+            </HeaderButton>
+          )}
+          {popup && (
+            <Popup
+              handleLoginTwitter={handleLoginTwitter}
+              setPopup={setPopup}
+            />
+          )}
+          {popupProfile && (
+            <PopupProfile
+              setPopupProfile={setPopupProfile}
+              handleDisConnect={(value: number) => handleWallet(value)}
+              base58Pubkey={base58Pubkey}
+            />
+          )}
+        </div>
+      )}
     </HeaderWrapper>
   );
 };
@@ -90,11 +135,11 @@ const ImgCustom = styled.div`
   height: 50px;
   cursor: pointer;
   &:hover {
-  transform: scale(0.9); 
-  background-color: pink;
-  border-radius: 16px;
-}
-`
+    transform: scale(0.9);
+    background-color: pink;
+    border-radius: 16px;
+  }
+`;
 const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 99999;

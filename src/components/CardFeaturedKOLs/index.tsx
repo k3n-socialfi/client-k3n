@@ -24,63 +24,61 @@ const IMG_NFT =
 export default function CardFeaturedKOLs(props: any) {
   return (
     <Card sx={{ minWidth: 350, background: "#252525" }} {...props}>
-      <div style={{ position: "relative" }}>
-        <StyleSubscribe>
-          <ButtonPrimary size="large">subscribe</ButtonPrimary>
-        </StyleSubscribe>
-
-        <CardMedia
-          sx={{ height: "222px" }}
-          image={props?.thumbnail}
-          title="green iguana"
-        />
-      </div>
-      <CardContent>
-        <StyleContentTitle>
-          <StyleTitleLeft>
-            <LinkCustom href={`profile/${props?.username}`}>
+      <LinkCustom href={`profile/${props?.username}`}>
+        <div style={{ position: "relative" }}>
+          <StyleSubscribe>
+            <ButtonPrimary size="large">subscribe</ButtonPrimary>
+          </StyleSubscribe>
+          <CardMedia
+            sx={{ height: "222px" }}
+            image={props?.thumbnail}
+            title="green iguana"
+          />
+        </div>
+        <CardContent>
+          <StyleContentTitle>
+            <StyleTitleLeft>
               {props?.name}
               {props?.status && <IconCertification />}
-            </LinkCustom>
-          </StyleTitleLeft>
+            </StyleTitleLeft>
+            <StyleTitleRight>
+              <CardActions sx={{ paddingLeft: "16px" }}>
+                <ButtonText
+                  startIcon={<IconLike />}
+                  size="medium"
+                  borderColorBt={"#4D4D5C"}
+                  backgroundColorBt={"#4D4D5C"}
+                >
+                  <Typography color={"#FFF"} sx={{ padding: "0 5px" }}>
+                    {props?.numberLike}
+                  </Typography>
+                </ButtonText>
+              </CardActions>
+            </StyleTitleRight>
+          </StyleContentTitle>
+          <StyleFollower>
+            <TwitterIcon />
+            <Typography color={"#82EBFF"}>{props.follower} follower</Typography>
+          </StyleFollower>
+          <Divider color={"#C4C4C4"} sx={{ m: 2 }} />
 
-          <StyleTitleRight>
-            <CardActions sx={{ paddingLeft: "16px" }}>
-              <ButtonText
-                startIcon={<IconLike />}
-                size="medium"
-                borderColorBt={"#4D4D5C"}
-                backgroundColorBt={"#4D4D5C"}
-              >
-                <Typography color={"#FFF"} sx={{ padding: "0 5px" }}>
-                  {props?.numberLike}
-                </Typography>
-              </ButtonText>
-            </CardActions>
-          </StyleTitleRight>
-        </StyleContentTitle>
-        <StyleFollower>
-          <TwitterIcon />
-          <Typography color={"#82EBFF"}>{props.follower} follower</Typography>
-        </StyleFollower>
-        <Divider color={"#C4C4C4"} sx={{ m: 2 }} />
-
-        <StyleChips>
-          {props?.wallet?.map((item: any) => (
-            <>
-              <ButtonText
-                size="small"
-                borderColorBt={item?.background}
-                backgroundColorBt={item?.background}
-              >
-                <Typography color={item?.color} sx={{ padding: "0 5px" }}>
-                  {item.label}
-                </Typography>
-              </ButtonText>
-            </>
-          ))}
-        </StyleChips>
-      </CardContent>
+          <StyleChips>
+            {props?.wallet?.map((item: any) => (
+              <>
+                <ButtonText
+                  size="small"
+                  borderColorBt={item?.background}
+                  backgroundColorBt={item?.background}
+                >
+                  <Typography color={item?.color} sx={{ padding: "0 5px" }}>
+                    {item.label}
+                  </Typography>
+                </ButtonText>
+              </>
+            ))}
+          </StyleChips>
+        </CardContent>
+      </LinkCustom>
     </Card>
   );
 }
