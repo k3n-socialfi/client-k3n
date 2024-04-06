@@ -44,9 +44,7 @@
                 },
                 {
                     "name": "paymentMethod",
-                    "type": {
-                        "defined": "PaymentType"
-                    }
+                    "type": "string"
                 },
                 {
                     "name": "description",
@@ -105,9 +103,7 @@
                     },
                     {
                         "name": "paymentMethod",
-                        "type": {
-                            "defined": "PaymentType"
-                        }
+                        "type": "string"
                     },
                     {
                         "name": "kol",

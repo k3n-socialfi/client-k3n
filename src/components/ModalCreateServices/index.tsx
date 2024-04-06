@@ -40,7 +40,6 @@ type Props = {
   setIsShowModal: any
 };
 
-const endpoint = "https://client-k3n.vercel.app"
 const CreateServices = (props: Props) => {
   const { isShowModal, setIsShowModal } = props
   const openGotIt = useBoolean();
@@ -49,7 +48,7 @@ const CreateServices = (props: Props) => {
 
   const idlString = JSON.stringify(idl)
   const idlJson = JSON.parse(idlString)
-  const programID = new PublicKey("CkfkNjFHCpEB7xiXvzRbtPGdK9wiim8U1KKyTWS6YHY1")
+  const programID = new PublicKey("wrdw7sX7TSk66f5zMpn9N3YTAiRNMHV6kqTkLCSw72f")
 
   const { publicKey } = useWalletMultiButton({ onSelectWallet() { any } });
 
@@ -86,6 +85,7 @@ const CreateServices = (props: Props) => {
   const myAccount = anchor.web3.Keypair.generate()
   const myServices = anchor.web3.Keypair.generate()
 
+
   const onSubmitForm = async (data: any) => {
     console.log("🚀 ~ onSubmit ~ data:", data);
     const provider = getProvider()
@@ -93,8 +93,6 @@ const CreateServices = (props: Props) => {
     data.kol = myAccount.publicKey
     data.serviceFee = new anchor.BN(data.serviceFee)
     data.paymentMethod = "OnetimePayment"
-    const enumParam = new Uint8Array([data.paymentMethod]); // Assuming enumOption is a single byte 
-    data.paymentMethod = Buffer.from(enumParam)
     const callMethod = await program.methods
       .createService(data.kol, data.serviceName, data.platform, data.serviceFee, data.currency, data.paymentMethod, data.description)
       .accounts({
