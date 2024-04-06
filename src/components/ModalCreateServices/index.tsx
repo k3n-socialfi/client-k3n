@@ -20,6 +20,8 @@ import {
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import * as anchor from '@project-serum/anchor';
+import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import {
@@ -27,14 +29,29 @@ import {
   DATAPAYMENTMETHOD,
   DATAPLATFORM,
 } from "@/constant/dataMockupCreateCampaign";
-import { createCampaignSchema_ } from "@/validations/createCampaignSchema";
 import Campaign from "@/assets/images/Request.png";
+import { createServicesSchema_ } from "@/validations/createServicesSchema";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import idl from "@/contract/abis/services.json"
+import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 
-type Props = {};
+type Props = {
+  isShowModal: boolean,
+  setIsShowModal: any
+};
 
+const endpoint = "https://client-k3n.vercel.app"
 const CreateServices = (props: Props) => {
+  const { isShowModal, setIsShowModal } = props
   const openGotIt = useBoolean();
   const openButton = useBoolean();
+  const wallet = useAnchorWallet();
+
+  const idlString = JSON.stringify(idl)
+  const idlJson = JSON.parse(idlString)
+  const programID = new PublicKey("CkfkNjFHCpEB7xiXvzRbtPGdK9wiim8U1KKyTWS6YHY1")
+
+  const { publicKey } = useWalletMultiButton({ onSelectWallet() { any } });
 
   const {
     register,
@@ -43,28 +60,59 @@ const CreateServices = (props: Props) => {
     watch,
     formState: { errors },
   } = useForm<any>({
-    resolver: yupResolver(createCampaignSchema_),
+    resolver: yupResolver(createServicesSchema_),
     mode: "onChange",
   });
 
-  const [open, setOpen] = React.useState(true);
   const [typeOfRequest, setTypeOfRequest] = React.useState("");
+
+  const getProvider = () => {
+    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+    const provider = new anchor.AnchorProvider(connection, wallet as any, {
+      preflightCommitment: 'processed',
+    })
+    return provider
+  }
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setTypeOfRequest(event.target.value as string);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsShowModal(false);
     // openHireMe();
   };
 
+  const myAccount = anchor.web3.Keypair.generate()
+  const myServices = anchor.web3.Keypair.generate()
+
   const onSubmitForm = async (data: any) => {
     console.log("🚀 ~ onSubmit ~ data:", data);
+    const provider = getProvider()
+    const program = new anchor.Program(idlJson, programID, provider)
+    data.kol = myAccount.publicKey
+    data.serviceFee = new anchor.BN(data.serviceFee)
+    data.paymentMethod = "OnetimePayment"
+    const enumParam = new Uint8Array([data.paymentMethod]); // Assuming enumOption is a single byte 
+    data.paymentMethod = Buffer.from(enumParam)
+    const callMethod = await program.methods
+      .createService(data.kol, data.serviceName, data.platform, data.serviceFee, data.currency, data.paymentMethod, data.description)
+      .accounts({
+        hirer: publicKey,
+        service: myServices.publicKey,
+        systemProgram: programID
+      })
+      .signers([])
+      .rpc({
+        commitment: 'confirmed',
+      })
     openGotIt.onTrue();
   };
 
+
+
   const checkForm = watch();
+
   useEffect(() => {
     const allValuesFilled = Object.values(checkForm).every(
       (value) => value === ""
@@ -77,9 +125,11 @@ const CreateServices = (props: Props) => {
     }
   }, [checkForm]);
 
+
+
   return (
     <Modal
-      open={open}
+      open={isShowModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -94,7 +144,7 @@ const CreateServices = (props: Props) => {
             component="h4"
             fontWeight={"600"}
           >
-            Create Campaign
+            Create Service
           </Typography>
         </StyleTop>
         {!openGotIt.value ? (
@@ -105,12 +155,12 @@ const CreateServices = (props: Props) => {
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
               <FormControl fullWidth sx={{ minWidth: "800px" }}>
-                <InputLabel id="selectPlatform" sx={{ color: "#FFF" }}>
+                <InputLabel id="platform" sx={{ color: "#FFF" }}>
                   Select Platform
                 </InputLabel>
                 <Select
-                  id="selectPlatform"
-                  labelId="selectPlatform"
+                  id="platform"
+                  labelId="platform"
                   // value={typeOfRequest}
                   label="Select Platform"
                   sx={{
@@ -119,7 +169,7 @@ const CreateServices = (props: Props) => {
                     backgroundColor: "#353535",
                     border: "0px #353535 solid",
                   }}
-                  {...register("selectPlatform")}
+                  {...register("platform")}
                 // onChange={handleChangeSelect}
                 >
                   {DATAPLATFORM.map((option) => (
@@ -129,12 +179,12 @@ const CreateServices = (props: Props) => {
                   ))}
                 </Select>
                 <StyleError>
-                  {errors.selectPlatform?.message as string}
+                  {errors.platform?.message as string}
                 </StyleError>
               </FormControl>
 
               <StyleLabel>
-                <Typography>Campaign name</Typography>
+                <Typography>Service name</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
               {/* <FormControl fullWidth>
@@ -162,23 +212,23 @@ const CreateServices = (props: Props) => {
                 }}
               >
                 <InputBase
-                  id="campaignName"
+                  id="serviceName"
                   defaultValue=""
                   sx={{ p: "12px 10px", color: "#FFF" }}
-                  placeholder="Enter your Campaign name"
+                  placeholder="Enter your Service name"
                   inputProps={{ "aria-label": "Enter your full name" }}
                   color="primary"
-                  {...register("campaignName")}
+                  {...register("serviceName")}
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
                 <StyleError>
-                  {errors.campaignName?.message as string}
+                  {errors.serviceName?.message as string}
                 </StyleError>
               </div>
 
               <StyleLabel>
-                <Typography>Campaign description</Typography>
+                <Typography>Service description</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
               {/* <FormControl fullWidth>
@@ -204,20 +254,20 @@ const CreateServices = (props: Props) => {
                 }}
               >
                 <InputBase
-                  id="campaignDescription"
+                  id="description"
                   defaultValue=""
                   sx={{ p: 2, color: "#FFF" }}
-                  placeholder="Enter your Campaign description"
+                  placeholder="Enter your Service description"
                   inputProps={{ "aria-label": "Input other request" }}
                   color="primary"
                   multiline={true}
                   minRows={3}
-                  {...register("campaignDescription")}
+                  {...register("description")}
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
                 <StyleError>
-                  {errors.campaignDescription?.message as string}
+                  {errors.description?.message as string}
                 </StyleError>
               </div>
 
@@ -237,17 +287,17 @@ const CreateServices = (props: Props) => {
                     }}
                   >
                     <InputBase
-                      id="price"
+                      id="serviceFee"
                       defaultValue=""
                       sx={{ p: "12px 10px", color: "#FFF" }}
-                      placeholder="Enter your Campaign name"
+                      placeholder="Enter your Service name"
                       inputProps={{ "aria-label": "Enter your full name" }}
                       color="primary"
-                      {...register("price")}
+                      {...register("serviceFee")}
                     />
                   </FormControl>
                   <div style={{ width: "100%" }}>
-                    <StyleError>{errors.price?.message as string}</StyleError>
+                    <StyleError>{errors.serviceFee?.message as string}</StyleError>
                   </div>
                 </Price>
 
@@ -322,7 +372,7 @@ const CreateServices = (props: Props) => {
                   {errors.paymentMethod?.message as string}
                 </StyleError>
               </FormControl>
-              <StyleLabel>
+              {/* <StyleLabel>
                 <Typography>Tags</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
@@ -330,8 +380,7 @@ const CreateServices = (props: Props) => {
                 <ButtonPrimary startIcon={<IconPlus />} size="small">
                   Add New Tag
                 </ButtonPrimary>
-              </AddNewTag>
-
+              </AddNewTag> */}
               <StyleBottomSubmit>
                 <ButtonPrimary
                   disabled={openButton.value}
@@ -363,7 +412,7 @@ const CreateServices = (props: Props) => {
             <StyleRequest>
               <IconCertification />
               <Typography variant="h6">
-                Campaign created successfully!
+                Service created successfully!
               </Typography>
             </StyleRequest>
             <Typography>
@@ -374,7 +423,7 @@ const CreateServices = (props: Props) => {
                 <Typography sx={{ p: "8px 0" }}>Back to Profile</Typography>
               </ButtonPrimary>
               <ButtonSecondary fullWidth onClick={handleClose}>
-                <Typography sx={{ p: "8px 0" }}>Create new Campaign</Typography>
+                <Typography sx={{ p: "8px 0" }}>Create new Service</Typography>
               </ButtonSecondary>
             </StyleBottomCampaign>
           </Stack>
@@ -387,6 +436,8 @@ const CreateServices = (props: Props) => {
 export default CreateServices;
 
 const StyleModalBox = styled(Box)`
+overflow-x: scroll;
+    height: 750px;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -408,12 +459,13 @@ const StyleTop = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 15px 0;
+  padding: 15px 0;
+  margin-top: 330px;
 `;
 
 const StyleButtonClose = styled.div`
   position: absolute;
-  top: 10px;
+  top: 110px;
   right: 10px;
   cursor: pointer;
   :hover {

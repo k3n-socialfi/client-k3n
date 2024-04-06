@@ -14,8 +14,8 @@ export const DATACURRENCY = [
 ];
 
 export const DATAPAYMENTMETHOD = [
-  { id: 1, label: "One-time payment", value: "One-time payment" },
-  { id: 2, label: "Package payment", value: "Package payment" },
-  { id: 3, label: "Recurring payment", value: "Recurring payment" },
-  { id: 4, label: "Installment payment", value: "Installment payment" },
+  { id: 1, label: "One-time payment", value: "onetimePayment" },
+  // { id: 2, label: "Package payment", value: "Package payment" },
+  // { id: 3, label: "Recurring payment", value: "Recurring payment" },
+  // { id: 4, label: "Installment payment", value: "Installment payment" },
 ];
