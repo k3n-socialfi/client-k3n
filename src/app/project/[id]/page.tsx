@@ -1,4 +1,4 @@
-import ProjectDetail from "@/modules/projectdetail/views/ProjectDetail";
+import ProjectDetail from "@/modules/project/views";
 import React from "react";
 
 export default function ProjectDetailPage() {
