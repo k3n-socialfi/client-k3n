@@ -17,6 +17,7 @@ import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export const Header = () => {
   let token =
@@ -44,6 +45,8 @@ export const Header = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const { dataPersonal } = useMyProfileContext();
 
   return (
     <HeaderWrapper>
@@ -78,13 +81,13 @@ export const Header = () => {
               <HeaderUserInfo>
                 <IconThunder />
                 <TypographyCustom className="header-user__info__text">
-                  250
+                  {dataPersonal?.twitterInfo?.totalPoints ?? 0}
                 </TypographyCustom>
                 <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
                   <AvatarCustom
                     className="header-user__info__avatar"
                     alt="Cindy Baker"
-                    src="/static/images/Avatar.png"
+                    src={dataPersonal?.twitterInfo?.avatar}
                   />
                 </HeaderAvatar>
               </HeaderUserInfo>
@@ -119,6 +122,7 @@ export const Header = () => {
           )}
           {popupProfile && (
             <PopupProfile
+              myProfile={dataPersonal}
               setPopupProfile={setPopupProfile}
               handleDisConnect={(value: number) => handleWallet(value)}
               base58Pubkey={base58Pubkey}

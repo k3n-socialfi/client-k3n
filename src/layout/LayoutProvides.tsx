@@ -10,6 +10,7 @@ import SideBar from "@/components/SideBar";
 import WalletContextProvider from "./WalletProvider";
 import { AuthContextProvider } from "@/contexts/HomeContext";
 import { ProfileContextProvider } from "@/contexts/ProfileContext";
+import { MyProfileContextProvider } from "@/contexts/MyProfileConext";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -22,22 +23,24 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
     <Suspense fallback={<div>Loading...</div>}>
       <AuthContextProvider>
         <ProfileContextProvider>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <WalletContextProvider>
-                <Header />
-                <StyleMain>
-                  <StyleSideBar>
-                    <SideBar />
-                  </StyleSideBar>
-                  <StyleChildren>
-                    {children}
-                    <Footer />
-                  </StyleChildren>
-                </StyleMain>
-              </WalletContextProvider>
-            </ThemeProvider>
-          </AppRouterCacheProvider>
+          <MyProfileContextProvider>
+            <AppRouterCacheProvider>
+              <ThemeProvider theme={theme}>
+                <WalletContextProvider>
+                  <Header />
+                  <StyleMain>
+                    <StyleSideBar>
+                      <SideBar />
+                    </StyleSideBar>
+                    <StyleChildren>
+                      {children}
+                      <Footer />
+                    </StyleChildren>
+                  </StyleMain>
+                </WalletContextProvider>
+              </ThemeProvider>
+            </AppRouterCacheProvider>
+          </MyProfileContextProvider>
         </ProfileContextProvider>
       </AuthContextProvider>
     </Suspense>
