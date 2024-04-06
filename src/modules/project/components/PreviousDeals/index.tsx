@@ -1,8 +1,8 @@
 "use client";
-import { IconStar } from "@/assets/icons";
+import { IconStar, IconTime, IconUser, IconUserDealCard } from "@/assets/icons";
 import styled from "styled-components";
 
-export default function Experience() {
+export default function PreviousDeals() {
   return (
     <StyleBox>
       <Container>
@@ -20,7 +20,7 @@ export default function Experience() {
             </StyleDots>
             <StyleForm>
               <StyleUserDes>2023-12</StyleUserDes>
-              <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
+              <StyleSubTitle>Fashion KO KOL Fashions</StyleSubTitle>
               <StyleIcons>
                 <IconStar />
                 <IconStar />
@@ -30,10 +30,12 @@ export default function Experience() {
               </StyleIcons>
               <StyleDate>
                 <StyleKOL>
-                  <StyleDiv>KOL Booker</StyleDiv>
+                  <IconUserDealCard />
+                  Elena.eth
                 </StyleKOL>
                 <StyleKOL>
-                  <StyleDiv>2024-03 - Present</StyleDiv>
+                  <IconTime />
+                  <StyleDiv>2024-03</StyleDiv>
                 </StyleKOL>
               </StyleDate>
             </StyleForm>
@@ -92,7 +94,11 @@ const StyleUserDes = styled.div`
   color: #ffd7f4;
   width: fit-content;
 `;
-const StyleKOL = styled.div``;
+const StyleKOL = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
 const StyleDiv = styled.div``;
 
 const StyleDate = styled.div`
@@ -113,7 +119,7 @@ const StyleSubTitle = styled.div`
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
-  color: #82ebff;
+  color: #ffd7f4;
 `;
 
 const StyleTitle = styled.div`

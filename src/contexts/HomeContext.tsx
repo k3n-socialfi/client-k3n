@@ -16,9 +16,9 @@ interface IHomeContextTypes {
   users: IUsers[];
   trendingKols: ITrendingKols[];
   trendingProjects: ITrendingProjects[];
-
   featureKols: IFeatureKols[];
   featureProjects: IFeatureProjects[];
+  isLoading: boolean;
 }
 
 const HomeContextTypes = {
@@ -27,6 +27,7 @@ const HomeContextTypes = {
   trendingProjects: [initialHomeContextTypes.trendingProjects],
   featureKols: [initialHomeContextTypes.featureKols],
   featureProjects: [initialHomeContextTypes.featureProjects],
+  isLoading: false,
 };
 const homeContext = createContext<IHomeContextTypes>(HomeContextTypes);
 const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
@@ -36,6 +37,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
     featureProjects,
     trendingKols,
     trendingProjects,
+    isLoading,
   } = useFetchDataHomePage();
   return (
     <homeContext.Provider
@@ -45,6 +47,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
         trendingProjects,
         featureKols,
         featureProjects,
+        isLoading,
       }}
     >
       {children}
