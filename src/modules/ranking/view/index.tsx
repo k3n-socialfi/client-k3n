@@ -13,7 +13,6 @@ export interface IRankingProps {}
 export default function Ranking(props: IRankingProps) {
   const [dataRanking, setDataRanking] = useState([]);
   const { dataPersonal } = useMyProfileContext();
-  console.log("dataPersonal", dataPersonal);
   const fetchDataRanking = async () => {
     try {
       const { data } = await kolRanking();
