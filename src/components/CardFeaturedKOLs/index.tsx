@@ -17,8 +17,6 @@ import TwitterIcon from "@/assets/icons/IconTwitter";
 import { ButtonPrimary, ButtonText } from "../ButtonCustom";
 import { IconCertification } from "@/assets/icons";
 import { Divider, Typography } from "@mui/material";
-import Link from "next/link";
-import styled from "styled-components";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -40,7 +38,7 @@ export default function CardFeaturedKOLs(props: any) {
       <CardContent>
         <StyleContentTitle>
           <StyleTitleLeft>
-            <LinkCustom href={`profile/${props?.name}`}>
+            <LinkCustom href={`profile/${props?.username}`}>
               {props?.name}
               {props?.status && <IconCertification />}
             </LinkCustom>

@@ -3,10 +3,6 @@ import IconArrowRight from "@/assets/icons/IconArrowRight";
 import PersonMultipleIcon from "@/assets/icons/IconPersonMultiple";
 import IconRocket from "@/assets/icons/IconRocket";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
-import CardFeaturedProjects from "@/components/CardFeaturedProjects";
-import CardTrendingKOLs from "@/components/CardTrendingKOLs";
-import CardTrendingProjects from "@/components/CardTrendingProjects";
 import CarouselSlide from "@/components/CarouselSlide";
 import { Stack, Typography } from "@mui/material";
 import {
@@ -29,9 +25,16 @@ import { useRouter } from "next/navigation";
 import Popup from "@/components/Header/components/Popup";
 import { useState } from "react";
 import { useHomeContext } from "@/contexts/HomeContext";
+import CardFeaturedKolsSkeleton from "@/components/CardFeaturedKOLs/CardFeaturedKolsSkeleton";
+import CardFeaturedProjectsSkeleton from "@/components/CardFeaturedProjects/CardFeaturedProjectsSkeleton";
+import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
+import CardTrendingProjectsSkeleton from "@/components/CardTrendingProjects/CardTrendingProjectsSkeleton";
+import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
+import CardFeaturedProjects from "@/components/CardFeaturedProjects";
+import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import { IconTop1 } from "@/assets/icons";
-import Link from "next/link";
-import { it } from "node:test";
+import CardTrendingProjects from "@/components/CardTrendingProjects";
+import CarouselSlideSkeleton from "@/components/CarouselSlide/CarouselSlideSkeleton";
 
 export interface IHomeProps {}
 
@@ -46,12 +49,20 @@ export default function Home(props: IHomeProps) {
     "https://pbs.twimg.com/media/D0V4z7lX0AA3ugH?format=jpg&name=small",
   ];
 
-  const { trendingKols, trendingProjects, featureKols, featureProjects } =
-    useHomeContext();
+  const {
+    trendingKols,
+    trendingProjects,
+    featureKols,
+    featureProjects,
+    isLoading,
+  } = useHomeContext();
+
+  const FAKEDATA_SKELETON = [0, 1, 2, 3, 4];
   const DATACARDFEATUREDKOLS = featureKols.map((item) => {
     return {
       id: item?.userId,
-      name: item?.username,
+      name: item?.fullName,
+      username: item?.username,
       numberLike: "1k",
       followers: item?.twitterInfo?.followers,
       wallet: [
@@ -71,7 +82,7 @@ export default function Home(props: IHomeProps) {
           background: "chip.injectiveBg",
         },
       ],
-      thumbnail: item?.twitterInfo?.coverImage,
+      thumbnail: item?.twitterInfo?.avatar,
       verificationStatus: item?.twitterInfo?.verificationStatus,
     };
   });
@@ -105,6 +116,7 @@ export default function Home(props: IHomeProps) {
     <StyleContainer>
       <StyleSlide>
         <CarouselSlide slides={slides} interval={3000} slideHeight="400px" />
+        {/* <CarouselSlideSkeleton /> */}
       </StyleSlide>
       <StyleFeaturedKOLs>
         <StyleTop>
@@ -115,17 +127,24 @@ export default function Home(props: IHomeProps) {
           <StyleRight></StyleRight>
         </StyleTop>
         <StyleBottom>
-          {DATACARDFEATUREDKOLS.map((item) => (
-            <CardFeaturedKOLs
-              key={item.id}
-              name={item.name}
-              numberLike={item.numberLike}
-              follower={item.followers}
-              thumbnail={item.thumbnail}
-              wallet={item.wallet}
-              status={item?.verificationStatus}
-            />
-          ))}
+          {isLoading
+            ? FAKEDATA_SKELETON.map((item) => (
+                <div key={item}>
+                  <CardFeaturedKolsSkeleton />
+                </div>
+              ))
+            : DATACARDFEATUREDKOLS.map((item) => (
+                <CardFeaturedKOLs
+                  key={item.id}
+                  name={item.name}
+                  username={item?.username}
+                  numberLike={item.numberLike}
+                  follower={item.followers}
+                  thumbnail={item.thumbnail}
+                  wallet={item.wallet}
+                  status={item?.verificationStatus}
+                />
+              ))}
         </StyleBottom>
       </StyleFeaturedKOLs>
       <StyleFeaturedProject>
@@ -137,16 +156,22 @@ export default function Home(props: IHomeProps) {
           <StyleRight></StyleRight>
         </StyleTop>
         <StyleBottom>
-          {DATACARDFEATUREDPROJECTS.map((item) => (
-            <CardFeaturedProjects
-              key={item?.id}
-              id={item?.id}
-              numberLike={item?.numberLike}
-              thumbnail={item?.thumbnail}
-              name={item?.name}
-              wallet={item?.wallet}
-            />
-          ))}
+          {isLoading
+            ? FAKEDATA_SKELETON.map((item) => (
+                <div key={item}>
+                  <CardFeaturedProjectsSkeleton />
+                </div>
+              ))
+            : DATACARDFEATUREDPROJECTS.map((item) => (
+                <CardFeaturedProjects
+                  key={item?.id}
+                  id={item?.id}
+                  numberLike={item?.numberLike}
+                  thumbnail={item?.thumbnail}
+                  name={item?.name}
+                  wallet={item?.wallet}
+                />
+              ))}
         </StyleBottom>
       </StyleFeaturedProject>
       <StyleTrending>
@@ -169,18 +194,24 @@ export default function Home(props: IHomeProps) {
           </StyleTop>
 
           <StyleTrendingTopCard>
-            {trendingKols.map((item) => (
-              <StyleTrendingCard key={item?.userId}>
-                <CardTrendingKOLs
-                  rank={<IconTop1 />}
-                  backgroundColor="
-                  #42362E"
-                  name={item?.username}
-                  point={item?.totalPoints}
-                  urlAvatar={item?.avatar}
-                />
-              </StyleTrendingCard>
-            ))}
+            {isLoading
+              ? FAKEDATA_SKELETON.map((item) => (
+                  <div key={item}>
+                    <CardTrendingKolsSkeleton />
+                  </div>
+                ))
+              : trendingKols.map((item) => (
+                  <StyleTrendingCard key={item?.userId}>
+                    <CardTrendingKOLs
+                      rank={<IconTop1 />}
+                      backgroundColor="
+                #42362E"
+                      name={item?.username}
+                      point={item?.totalPoints}
+                      urlAvatar={item?.avatar}
+                    />
+                  </StyleTrendingCard>
+                ))}
           </StyleTrendingTopCard>
         </StyleTrendingKOLs>
         <StyleTrendingProjects>
@@ -188,20 +219,27 @@ export default function Home(props: IHomeProps) {
             <Typography variant="h4">Trending Project</Typography>
           </StyleTop>
           <StyleTrendingProjectsCard>
-            {trendingProjects.map((item, index) => (
-              <StyleTrendingCard key={item.id}>
-                <Typography component={"h4"} color={"#949292"}>
-                  {index + 1}
-                </Typography>
-                <CardTrendingProjects
-                  id={item?.id}
-                  avatar={item?.small}
-                  name={item?.name}
-                  wallet="socialfi"
-                  mention={item?.marketCapRank}
-                />
-              </StyleTrendingCard>
-            ))}
+            {isLoading
+              ? FAKEDATA_SKELETON.map((item) => (
+                  <div key={item}>
+                    <CardTrendingProjectsSkeleton />
+                  </div>
+                ))
+              : trendingProjects.map((item, index) => (
+                  <StyleTrendingCard key={item.id}>
+                    <Typography component={"h4"} color={"#949292"}>
+                      {index + 1}
+                    </Typography>
+                    <CardTrendingProjects
+                      id={item?.id}
+                      avatar={item?.small}
+                      name={item?.name}
+                      wallet="socialfi"
+                      mention={item?.marketCapRank}
+                    />
+                  </StyleTrendingCard>
+                ))}
+
             <ButtonPrimary fullWidth colorBt="primary.enabled">
               <Typography sx={{ padding: "8px 0" }}>Check It Out</Typography>
             </ButtonPrimary>

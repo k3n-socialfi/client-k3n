@@ -67,3 +67,8 @@ export { default as IconFacebook } from "./IconFacebook";
 export { default as IconReddit } from "./IconReddit";
 export { default as IconArrowUpTop } from "./IconArrowUpTop";
 export { default as IconPointProfile } from "./IconPointProfile";
+export { default as IconIdProject } from "./IconIdProject";
+export { default as IconPaper } from "./IconPaper";
+export { default as IconProject } from "./IconProject";
+export { default as IconUserDealCard } from "./IconUserDealCard";
+export { default as IconTime } from "./IconTime";
