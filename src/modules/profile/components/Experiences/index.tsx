@@ -1,48 +1,71 @@
 "use client";
 import { IconStar } from "@/assets/icons";
 import styled from "styled-components";
+import ExperienceSkeleton from "../ExperienceSkeleton";
 
-export default function Experience() {
+export default function Experience({ experience }: any) {
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>Previous Deals</StyleTitle>
+        <StyleTitle>Experience</StyleTitle>
         <ExperienceRight>
-          <SeeAll>See all</SeeAll>
+          {experience && <SeeAll>See all</SeeAll>}
         </ExperienceRight>
       </Container>
-      <StyleBorder />
+
+      {experience && <StyleBorder />}
+
       <StyleContent>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-          <StyleSelection key={index}>
-            <StyleDots>
-              <StyleDot></StyleDot>
-            </StyleDots>
-            <StyleForm>
-              <StyleUserDes>2023-12</StyleUserDes>
-              <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
-              <StyleIcons>
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-              </StyleIcons>
-              <StyleDate>
-                <StyleKOL>
-                  <StyleDiv>KOL Booker</StyleDiv>
-                </StyleKOL>
-                <StyleKOL>
-                  <StyleDiv>2024-03 - Present</StyleDiv>
-                </StyleKOL>
-              </StyleDate>
-            </StyleForm>
-          </StyleSelection>
-        ))}
+        {experience ? (
+          [1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+            <StyleSelection key={index}>
+              <StyleDots>
+                <StyleDot></StyleDot>
+              </StyleDots>
+              <StyleForm>
+                <StyleUserDes>2023-12</StyleUserDes>
+                <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
+                <StyleIcons>
+                  <IconStar />
+                  <IconStar />
+                  <IconStar />
+                  <IconStar />
+                  <IconStar />
+                </StyleIcons>
+                <StyleDate>
+                  <StyleKOL>
+                    <StyleDiv>KOL Booker</StyleDiv>
+                  </StyleKOL>
+                  <StyleKOL>
+                    <StyleDiv>2024-03 - Present</StyleDiv>
+                  </StyleKOL>
+                </StyleDate>
+              </StyleForm>
+            </StyleSelection>
+          ))
+        ) : (
+          <DescriptionNotData>
+            {`You don't have any work experience yet.`}
+          </DescriptionNotData>
+        )}
       </StyleContent>
     </StyleBox>
   );
 }
+
+const ContentNotData = styled.div`
+  padding: 20px 15px;
+`;
+
+const DescriptionNotData = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  color: #f23581;
+`;
 
 const Container = styled.div`
   display: flex;

@@ -10,6 +10,7 @@ interface IProfileContextTypes {
   userProfile: IUserProfile | any;
   setUserProfile: React.Dispatch<React.SetStateAction<IUserProfile>>;
   getUserProfile: (username: string) => void;
+  isLoading: boolean;
 }
 
 const ProfileContextTypes = {
@@ -45,6 +46,7 @@ const ProfileContextTypes = {
   },
   setUserProfile: () => undefined,
   getUserProfile: () => undefined,
+  isLoading: true,
 };
 const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
 const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
@@ -52,18 +54,23 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     ProfileContextTypes?.userProfile
   );
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const getUserProfile = async (username: String) => {
+    setIsLoading(true);
     try {
       const res = await getProfileUser(String(username));
       setUserProfile(res?.data?.data);
     } catch (error) {
       console.error("error", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <profileContext.Provider
-      value={{ userProfile, setUserProfile, getUserProfile }}
+      value={{ isLoading, userProfile, setUserProfile, getUserProfile }}
     >
       {children}
     </profileContext.Provider>
