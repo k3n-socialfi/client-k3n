@@ -17,6 +17,7 @@ import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
@@ -105,7 +106,7 @@ const Personal = ({ dataPersonal }: any) => {
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
-            {dataPersonal?.socialProfiles.map(
+            {dataPersonal?.socialProfiles?.map(
               (item: any, index: number) => SOCIAL[item?.social] ?? <></>
             )}
           </StyleIcons>
@@ -132,21 +133,7 @@ const Personal = ({ dataPersonal }: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const [dataPersonal, setDataPersonal] = useState<any>();
-
-  const fetchData = async () => {
-    try {
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
-    }
-  };
-
-  useEffect(() => {
-    if (dataPersonal) return;
-    fetchData();
-  }, [dataPersonal]);
+  const { dataPersonal } = useMyProfileContext();
 
   return (
     <StyleContainer>
@@ -156,8 +143,8 @@ export default function UserProfile(props: IUserProfileProps) {
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts>
-            {dataPersonal?.posts.length > 0 ? (
-              dataPersonal?.posts.map((item: any, index: number) => (
+            {dataPersonal?.posts?.length > 0 ? (
+              dataPersonal?.posts?.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>

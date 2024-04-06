@@ -6,22 +6,13 @@ import TableTopRanking from "@/components/TableTopRanking";
 import styled from "styled-components";
 import { IconBoxArrowRight } from "@/assets/icons";
 import { getMyProfile, kolRanking } from "@/services";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export interface IRankingProps {}
 
 export default function Ranking(props: IRankingProps) {
   const [dataRanking, setDataRanking] = useState([]);
-  const [dataPersonal, setDataPersonal] = useState<any>();
-
-  const fetchDataPersonal = async () => {
-    try {
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
-    }
-  };
-
+  const { dataPersonal } = useMyProfileContext();
   const fetchDataRanking = async () => {
     try {
       const { data } = await kolRanking();
@@ -33,7 +24,6 @@ export default function Ranking(props: IRankingProps) {
 
   useEffect(() => {
     fetchDataRanking();
-    fetchDataPersonal();
   }, []);
 
   return (

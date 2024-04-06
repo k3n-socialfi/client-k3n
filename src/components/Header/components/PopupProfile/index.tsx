@@ -5,27 +5,35 @@ import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 import { TYPE_WALLET } from "@/constant";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 interface IPropPopupProfile {
   handleDisConnect?: any;
   base58Pubkey?: string;
   setPopupProfile?: any;
+  myProfile: any;
 }
 
 export const PopupProfile = (props: IPropPopupProfile) => {
-  const { setPopupProfile, handleDisConnect, base58Pubkey } = props;
+  const { setPopupProfile, handleDisConnect, base58Pubkey, myProfile } = props;
+
   return (
     <>
       <WrapperPopup>
         <ProfileSection>
           <ProfileAvatar>
-            <AvatarCustom alt="Cindy Baker" src="/static/images/Avatar.png" />
+            <AvatarCustom
+              alt="Cindy Baker"
+              src={myProfile?.twitterInfo?.avatar}
+            />
           </ProfileAvatar>
           <ProfileInfo>
             <ProfileText>
               <ProfileName className="profile-section__info__name">
-                Jayden Dang
-                <IconCheckCrile />
+                {myProfile?.fullName}
+                {myProfile?.twitterInfo?.verificationStatus && (
+                  <IconCheckCrile />
+                )}
               </ProfileName>
               <ProfileDes className="profile-section__info__des">
                 {base58Pubkey?.slice(0, 4)}...{base58Pubkey?.slice(40, 44)}
@@ -33,7 +41,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
             </ProfileText>
             <ProfileInfoText className="profile-section__info__text">
               <IconThunder />
-              <Typography>250</Typography>
+              <Typography>{myProfile?.twitterInfo?.totalPoints}</Typography>
             </ProfileInfoText>
           </ProfileInfo>
         </ProfileSection>
