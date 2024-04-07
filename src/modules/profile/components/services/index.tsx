@@ -10,7 +10,7 @@ import CreateServices from "@/components/ModalCreateServices";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function Services() {
-  const [isShowModal, setIsShowModal] = React.useState(false)
+  const [isShowModal, setIsShowModal] = React.useState(false);
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -20,7 +20,11 @@ export default function Services() {
         <StyleTitle>Services</StyleTitle>
         <ServicesRight>
           <SeeAll>See all</SeeAll>
-          <ButtonSecondary variant="outlined" colorBt="#F23581" onClick={() => setIsShowModal(!isShowModal)}>
+          <ButtonSecondary
+            variant="outlined"
+            colorBt="#F23581"
+            onClick={() => setIsShowModal(!isShowModal)}
+          >
             Add New Services
           </ButtonSecondary>
         </ServicesRight>
@@ -84,7 +88,10 @@ export default function Services() {
           </StyleSelection>
         ))}
       </StyleContent>
-      <CreateServices isShowModal={isShowModal} setIsShowModal={setIsShowModal} />
+      <CreateServices
+        isShowModal={isShowModal}
+        setIsShowModal={setIsShowModal}
+      />
     </StyleBox>
   );
 }
