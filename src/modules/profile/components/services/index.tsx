@@ -5,11 +5,15 @@ import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
 import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
+import CreateServices from "@/components/ModalCreateServices";
+
 import ServicesSkeleton from "../ServicesSkeleton";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function Services({ services }: any) {
+  const [isShowModal, setIsShowModal] = React.useState(false);
+
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -19,7 +23,11 @@ export default function Services({ services }: any) {
         <StyleTitle>Services</StyleTitle>
         <ServicesRight>
           {services && <SeeAll>See all</SeeAll>}
-          <ButtonSecondary variant="outlined" colorBt="#F23581">
+          <ButtonSecondary
+            variant="outlined"
+            colorBt="#F23581"
+            onClick={() => setIsShowModal(!isShowModal)}
+          >
             Add New Services
           </ButtonSecondary>
         </ServicesRight>
@@ -89,6 +97,10 @@ export default function Services({ services }: any) {
           </DescriptionNotData>
         )}
       </StyleContent>
+      <CreateServices
+        isShowModal={isShowModal}
+        setIsShowModal={setIsShowModal}
+      />
     </StyleBox>
   );
 }
