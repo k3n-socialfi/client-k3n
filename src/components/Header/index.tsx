@@ -171,7 +171,7 @@ const HeaderLogo = styled.div`
   gap: 100px;
   @media (max-width: 768px) {
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: 10px;
   }
 `;
