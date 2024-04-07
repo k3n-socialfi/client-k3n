@@ -20,7 +20,7 @@ import {
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import * as anchor from '@project-serum/anchor';
+import * as anchor from "@project-serum/anchor";
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
@@ -32,25 +32,28 @@ import {
 import Campaign from "@/assets/images/Request.png";
 import { createServicesSchema_ } from "@/validations/createServicesSchema";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import idl from "@/contract/abis/services.json"
+import idl from "@/contract/abis/services.json";
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
+import { SOL_NETWORK, SOL_WALLET } from "@/configs/env.config";
 
 type Props = {
-  isShowModal: boolean,
-  setIsShowModal: any
+  isShowModal: boolean;
+  setIsShowModal: any;
 };
 
 const CreateServices = (props: Props) => {
-  const { isShowModal, setIsShowModal } = props
+  const { isShowModal, setIsShowModal } = props;
   const openGotIt = useBoolean();
   const openButton = useBoolean();
   const wallet = useAnchorWallet();
 
-  const idlString = JSON.stringify(idl)
-  const idlJson = JSON.parse(idlString)
-  const programID = new PublicKey("wrdw7sX7TSk66f5zMpn9N3YTAiRNMHV6kqTkLCSw72f")
+  const idlString = JSON.stringify(idl);
+  const idlJson = JSON.parse(idlString);
+  const programID = new PublicKey(SOL_WALLET ?? "");
 
-  const { publicKey } = useWalletMultiButton({ onSelectWallet() { any } });
+  const { publicKey } = useWalletMultiButton({
+    onSelectWallet() {},
+  });
 
   const {
     register,
@@ -66,12 +69,15 @@ const CreateServices = (props: Props) => {
   const [typeOfRequest, setTypeOfRequest] = React.useState("");
 
   const getProvider = () => {
-    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+    const connection = new Connection(
+      clusterApiUrl((SOL_NETWORK as any) ?? "devnet"),
+      "confirmed"
+    );
     const provider = new anchor.AnchorProvider(connection, wallet as any, {
-      preflightCommitment: 'processed',
-    })
-    return provider
-  }
+      preflightCommitment: "processed",
+    });
+    return provider;
+  };
 
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setTypeOfRequest(event.target.value as string);
@@ -82,32 +88,36 @@ const CreateServices = (props: Props) => {
     // openHireMe();
   };
 
-  const myAccount = anchor.web3.Keypair.generate()
-  const myServices = anchor.web3.Keypair.generate()
-
+  const myAccount = anchor.web3.Keypair.generate();
+  const myServices = anchor.web3.Keypair.generate();
 
   const onSubmitForm = async (data: any) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
-    const provider = getProvider()
-    const program = new anchor.Program(idlJson, programID, provider)
-    data.kol = myAccount.publicKey
-    data.serviceFee = new anchor.BN(data.serviceFee)
-    data.paymentMethod = "OnetimePayment"
-    const callMethod = await program.methods
-      .createService(data.kol, data.serviceName, data.platform, data.serviceFee, data.currency, data.paymentMethod, data.description)
+    const provider = getProvider();
+    const program = new anchor.Program(idlJson, programID, provider);
+    data.kol = myAccount.publicKey;
+    data.serviceFee = new anchor.BN(data.serviceFee);
+    data.paymentMethod = "OnetimePayment";
+    await program.methods
+      .createService(
+        data.kol,
+        data.serviceName,
+        data.platform,
+        data.serviceFee,
+        data.currency,
+        data.paymentMethod,
+        data.description
+      )
       .accounts({
         hirer: publicKey,
         service: myServices.publicKey,
-        systemProgram: programID
+        systemProgram: programID,
       })
       .signers([])
       .rpc({
-        commitment: 'confirmed',
-      })
+        commitment: "confirmed",
+      });
     openGotIt.onTrue();
   };
-
-
 
   const checkForm = watch();
 
@@ -122,8 +132,6 @@ const CreateServices = (props: Props) => {
       openButton.onFalse();
     }
   }, [checkForm]);
-
-
 
   return (
     <Modal
@@ -168,7 +176,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("platform")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPLATFORM.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
@@ -176,9 +184,7 @@ const CreateServices = (props: Props) => {
                     </MenuItem>
                   ))}
                 </Select>
-                <StyleError>
-                  {errors.platform?.message as string}
-                </StyleError>
+                <StyleError>{errors.platform?.message as string}</StyleError>
               </FormControl>
 
               <StyleLabel>
@@ -220,9 +226,7 @@ const CreateServices = (props: Props) => {
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
-                <StyleError>
-                  {errors.serviceName?.message as string}
-                </StyleError>
+                <StyleError>{errors.serviceName?.message as string}</StyleError>
               </div>
 
               <StyleLabel>
@@ -264,9 +268,7 @@ const CreateServices = (props: Props) => {
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
-                <StyleError>
-                  {errors.description?.message as string}
-                </StyleError>
+                <StyleError>{errors.description?.message as string}</StyleError>
               </div>
 
               <StylePriceCurrency>
@@ -295,7 +297,9 @@ const CreateServices = (props: Props) => {
                     />
                   </FormControl>
                   <div style={{ width: "100%" }}>
-                    <StyleError>{errors.serviceFee?.message as string}</StyleError>
+                    <StyleError>
+                      {errors.serviceFee?.message as string}
+                    </StyleError>
                   </div>
                 </Price>
 
@@ -320,7 +324,7 @@ const CreateServices = (props: Props) => {
                         border: "0px #353535 solid",
                       }}
                       {...register("currency")}
-                    // onChange={handleChangeSelect}
+                      // onChange={handleChangeSelect}
                     >
                       {DATACURRENCY.map((option) => (
                         <MenuItem key={option.id} value={option.value}>
@@ -358,7 +362,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("paymentMethod")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPAYMENTMETHOD.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
@@ -434,8 +438,8 @@ const CreateServices = (props: Props) => {
 export default CreateServices;
 
 const StyleModalBox = styled(Box)`
-overflow-x: scroll;
-    height: 750px;
+  overflow-x: scroll;
+  height: 750px;
   position: absolute;
   display: flex;
   justify-content: center;

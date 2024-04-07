@@ -1,3 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_HOST;
+const SOL_WALLET = process.env.NEXT_PUBLIC_SOL_ADDRESS
+const SOL_NETWORK = process.env.NEXT_PUBLIC_SOL_NETWORK
 
-export { API_URL };
+export { API_URL,SOL_WALLET,SOL_NETWORK };
