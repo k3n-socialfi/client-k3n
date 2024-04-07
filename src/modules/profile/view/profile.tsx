@@ -121,7 +121,7 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
-            {dataPersonal?.socialProfiles.map(
+            {dataPersonal?.socialProfiles?.map(
               (item: any, index: number) => SOCIAL[item?.social] ?? <></>
             )}
           </StyleIcons>
