@@ -8,7 +8,9 @@ import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
 import {
+  IconMenuBar,
   IconNotification,
+  IconOpenSideBar,
   IconSearch,
   IconThunder,
   IconTwitter,
@@ -19,7 +21,11 @@ import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
-export const Header = () => {
+type THeaderProp = {
+  handleToggleSidebar?: () => void;
+};
+
+export const Header = ({ handleToggleSidebar }: THeaderProp) => {
   let token =
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const router = useRouter();
@@ -63,14 +69,16 @@ export const Header = () => {
           <HeaderIcon>
             <IconSearch />
           </HeaderIcon>
-          <TextField type="text" placeholder="Search" />
+          <TextSearch>
+            <TextField type="text" placeholder="Search" />
+          </TextSearch>
           <HeaderIcon>
             <IconChevronDown />
           </HeaderIcon>
         </HeaderSearch>
       </HeaderLogo>
       {isClient && (
-        <div>
+        <HeaderUserMobile>
           {label === "Disconnect" || buttonState === "connected" ? (
             <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
               {/* <UserNotification>
@@ -127,11 +135,32 @@ export const Header = () => {
               base58Pubkey={base58Pubkey}
             />
           )}
-        </div>
+          <ToggleSideBar onClick={handleToggleSidebar}>
+            <IconMenuBar />
+          </ToggleSideBar>
+        </HeaderUserMobile>
       )}
     </HeaderWrapper>
   );
 };
+
+const HeaderUserMobile = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  @media (max-width: 294px) {
+    align-self: end;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const ToggleSideBar = styled.div`
+  @media (min-width: 1600px) {
+    display: none;
+  }
+`;
 
 const ImgCustom = styled.div`
   position: relative;
@@ -160,8 +189,9 @@ const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   @media (max-width: 768px) {
+  }
+  @media (max-width: 486px) {
     align-items: flex-start;
-    gap: 15px;
   }
 `;
 
@@ -174,6 +204,9 @@ const HeaderLogo = styled.div`
     /* flex-wrap: wrap; */
     gap: 10px;
   }
+  @media (max-width: 400px) {
+    flex-wrap: wrap;
+  }
 `;
 const HeaderSearch = styled.div`
   background: #b9b9b9;
@@ -183,8 +216,11 @@ const HeaderSearch = styled.div`
   min-width: 395px;
   padding: 5px 10px;
   border-radius: 16px;
-  @media (max-width: 768px) {
-    min-width: 100px;
+  @media (max-width: 820px) {
+    min-width: 350px;
+  }
+  @media (max-width: 660px) {
+    min-width: 150px;
   }
 `;
 const HeaderIcon = styled.div`
@@ -193,6 +229,23 @@ const HeaderIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const TextSearch = styled.div`
+  width: 100%;
+  input {
+    width: 100%;
+  }
+  @media (max-width: 580px) {
+    input {
+      max-width: 100px;
+    }
+  }
+  @media (max-width: 440px) {
+    input {
+      max-width: 50px;
+    }
+  }
 `;
 const TextField = styled.input`
   border: none;
@@ -249,6 +302,7 @@ const HeaderButton = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  white-space: nowrap;
 `;
 const AvatarCustom = styled(Avatar)`
   cursor: pointer;

@@ -88,7 +88,10 @@ const WrapperPopup = styled.div`
   box-shadow: 0px 3px #111;
   min-width: 350px;
   @media (max-width: 768px) {
-    min-width: 180px;
+    min-width: 240px;
+  }
+  @media (max-width: 486px) {
+    top: 60%;
   }
 `;
 const AvatarCustom = styled(Avatar)`

@@ -9,3 +9,11 @@ export const CloseSideBar = styled.div`
     display: none;
   }
 `;
+
+export const Discover = styled.div`
+  .MuiPaper-elevation {
+    @media (max-width: 391px) {
+      margin-top: 60px;
+    }
+  }
+`;

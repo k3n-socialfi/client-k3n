@@ -74,6 +74,7 @@ export { default as IconUserDealCard } from "./IconUserDealCard";
 // export { default as IconTime } from "./IconTime";
 export { default as IconOpenSideBar } from "./IconOpenSideBar";
 export { default as IconCloseSideBar } from "./IconCloseSideBar";
+export { default as IconMenuBar } from "./IconMenuBar";
 export { default as IconTime } from "./IconTime";
 export { default as IconUSDT } from "./IconUSDT";
 export { default as IconK3NToken } from "./IconK3NToken";

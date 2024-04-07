@@ -34,6 +34,8 @@ export default PersonSkeleton;
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   width: 100%;
   padding: 20px;
 `;
@@ -41,6 +43,7 @@ const Container = styled.div`
 const Infor = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
 `;
 
@@ -55,5 +58,6 @@ const Detail = styled.div`
 const Button = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
 `;

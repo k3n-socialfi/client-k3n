@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
-import { CloseSideBar } from "./style";
+import { CloseSideBar, Discover } from "./style";
 
 type TSidebar = {
   handleClose?: () => void;
@@ -59,10 +59,11 @@ export default function SideBar({ handleClose }: TSidebar) {
       }}
     >
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
-        <div>
-          <DrawerHeader sx={{ justifyContent: "center" }}>
-            {/* {open && (
+      <Discover>
+        <Drawer variant="permanent" open={open}>
+          <div>
+            <DrawerHeader sx={{ justifyContent: "center" }}>
+              {/* {open && (
               <Image
                 height={50}
                 width={150}
@@ -71,58 +72,44 @@ export default function SideBar({ handleClose }: TSidebar) {
                 alt="logo k3n"
               />
             )} */}
-            {/* <IconButton onClick={handleDrawerToggle}>
+              {/* <IconButton onClick={handleDrawerToggle}>
               {theme.direction === "rtl" ? <IconMenuBar /> : <IconMenuBar />}
             </IconButton> */}
-          </DrawerHeader>
-          <CloseSideBar onClick={handleClose}>
+            </DrawerHeader>
+            {/* <CloseSideBar onClick={handleClose}>
             <IconCloseSideBar />
-          </CloseSideBar>
-          {DATASIDEBAR.map((item, index) => {
-            return (
-              <>
-                <List>
-                  <ListItemButton
-                    onClick={() => {
-                      handleItemClick(index);
-                    }}
-                  >
-                    {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
-                    <ListItemText
-                      primary={item.label}
-                      sx={{ pl: open ? 2 : "", color: item.color }}
-                    />
-                    {expanded[index] ? (
-                      <IconArrowUp color={item.colorArrow} />
-                    ) : (
-                      <IconArrowDown />
-                    )}
-                  </ListItemButton>
-                  {item.children.map((itemChild, indexChild) => {
-                    return (
-                      <>
-                        <Collapse
-                          in={expanded[index]}
-                          timeout="auto"
-                          unmountOnExit
-                        >
-                          <List component="div" disablePadding>
-                            {itemChild?.isCommingSoon ? (
-                              <ListItemButton
-                                sx={{
-                                  pl: 4,
-                                  gap: 2,
-                                }}
-                                onClick={() => router.push(itemChild.link)}
-                              >
-                                {itemChild.icon}
-                                <ListItemText primary={itemChild.label} />
-                              </ListItemButton>
-                            ) : (
-                              <Tooltip
-                                title={<TooltipCustom />}
-                                placement="right"
-                              >
+          </CloseSideBar> */}
+
+            {DATASIDEBAR.map((item, index) => {
+              return (
+                <>
+                  <List>
+                    <ListItemButton
+                      onClick={() => {
+                        handleItemClick(index);
+                      }}
+                    >
+                      {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
+                      <ListItemText
+                        primary={item.label}
+                        sx={{ pl: open ? 2 : "", color: item.color }}
+                      />
+                      {expanded[index] ? (
+                        <IconArrowUp color={item.colorArrow} />
+                      ) : (
+                        <IconArrowDown />
+                      )}
+                    </ListItemButton>
+                    {item.children.map((itemChild, indexChild) => {
+                      return (
+                        <>
+                          <Collapse
+                            in={expanded[index]}
+                            timeout="auto"
+                            unmountOnExit
+                          >
+                            <List component="div" disablePadding>
+                              {itemChild?.isCommingSoon ? (
                                 <ListItemButton
                                   sx={{
                                     pl: 4,
@@ -133,47 +120,38 @@ export default function SideBar({ handleClose }: TSidebar) {
                                   {itemChild.icon}
                                   <ListItemText primary={itemChild.label} />
                                 </ListItemButton>
-                              </Tooltip>
-                            )}
-                          </List>
-                        </Collapse>
-                      </>
-                    );
-                  })}
-                </List>
-              </>
-            );
-          })}
-        </div>
+                              ) : (
+                                <Tooltip
+                                  title={<TooltipCustom />}
+                                  placement="right"
+                                >
+                                  <ListItemButton
+                                    sx={{
+                                      pl: 4,
+                                      gap: 2,
+                                    }}
+                                    onClick={() => router.push(itemChild.link)}
+                                  >
+                                    {itemChild.icon}
+                                    <ListItemText primary={itemChild.label} />
+                                  </ListItemButton>
+                                </Tooltip>
+                              )}
+                            </List>
+                          </Collapse>
+                        </>
+                      );
+                    })}
+                  </List>
+                </>
+              );
+            })}
+          </div>
 
-        <List>
-          {DATASIDEBARBOTTOM.map((item, index) => (
-            <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
-              {item?.isCommingSoon ? (
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                    pl: open ? 4 : "",
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.label}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              ) : (
-                <Tooltip title={<TooltipCustom />} placement="right">
+          <List>
+            {DATASIDEBARBOTTOM.map((item, index) => (
+              <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
+                {item?.isCommingSoon ? (
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -196,12 +174,37 @@ export default function SideBar({ handleClose }: TSidebar) {
                       sx={{ opacity: open ? 1 : 0 }}
                     />
                   </ListItemButton>
-                </Tooltip>
-              )}
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+                ) : (
+                  <Tooltip title={<TooltipCustom />} placement="right">
+                    <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? "initial" : "center",
+                        px: 2.5,
+                        pl: open ? 4 : "",
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          mr: open ? 3 : "auto",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={item.label}
+                        sx={{ opacity: open ? 1 : 0 }}
+                      />
+                    </ListItemButton>
+                  </Tooltip>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </Discover>
     </Box>
   );
 }
@@ -223,14 +226,17 @@ const openedMixin = (theme: Theme): CSSObject => ({
   background: "#393939",
   color: "#fff",
   gap: "100px",
-  "@media (max-width: 1224px)": {
+  "@media (max-width: 1250px)": {
     width: "30%",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 820px)": {
     width: "50%",
   },
-  "@media (max-width: 460px)": {
+  "@media (max-width: 520px)": {
     width: "60%",
+  },
+  "@media (max-width: 391px)": {
+    width: "100%",
   },
 });
 

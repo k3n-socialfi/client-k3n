@@ -35,10 +35,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
             <AppRouterCacheProvider>
               <ThemeProvider theme={theme}>
                 <WalletContextProvider>
-                  <Header />
-                  <OpenSideBar onClick={isOpenSideBar.onToggle}>
-                    <IconOpenSideBar />
-                  </OpenSideBar>
+                  <Header handleToggleSidebar={isOpenSideBar.onToggle} />
                   <StyleMain>
                     <StyleSideBar isOpen={isOpenSideBar.value}>
                       <SideBar handleClose={isOpenSideBar.onToggle} />
@@ -58,18 +55,9 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   );
 }
 
-const OpenSideBar = styled.div`
-  position: absolute;
-  top: 90px;
-  left: 10px;
-  @media (min-width: 1024px) {
-    display: none;
-  }
-`;
-
 const StyleSideBar = styled.div<ISideBar>`
   width: 20%;
-  @media (max-width: 1024px) {
+  @media (max-width: 1599px) {
     transition: all 1s;
     display: ${(props) => (props.isOpen ? "block" : "none")};
     width: 0%;
@@ -81,8 +69,11 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
-  @media (max-width: 1024px) {
+  @media (max-width: 1599px) {
     width: 100%;
+  }
+  @media (max-width: 391px) {
+    margin-top: 122px;
   }
 `;
 
