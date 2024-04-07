@@ -135,13 +135,13 @@ export default function Home(props: IHomeProps) {
               ))
             : DATACARDFEATUREDKOLS.map((item) => (
                 <CardFeaturedKOLs
-                  key={item.id}
-                  name={item.name}
+                  key={item?.id}
+                  name={item?.name}
                   username={item?.username}
-                  numberLike={item.numberLike}
-                  follower={item.followers}
-                  thumbnail={item.thumbnail}
-                  wallet={item.wallet}
+                  numberLike={item?.numberLike}
+                  follower={item?.followers}
+                  thumbnail={item?.thumbnail}
+                  wallet={item?.wallet}
                   status={item?.verificationStatus}
                 />
               ))}

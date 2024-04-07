@@ -63,11 +63,11 @@ export default function MyRanking({ dataPersonal }: IMyRankingProps) {
               </StyleBottom>
             </Slider>
             <Typography color={"#82EBFF"}>
-              You have {dataPersonal?.twitterInfo?.totalPoints ?? 0} points
+              You have {dataPersonal?.twitterInfo?.totalPoints ?? 0} Shill Score
             </Typography>
           </Point>
           <Total>
-            <Typography color={"#B9BDD1"}>Total point</Typography>
+            <Typography color={"#B9BDD1"}>Total Shill Score</Typography>
             <Stack sx={{ display: "flex", gap: "5px", flexDirection: "row" }}>
               <IconLightning />
               <Typography variant="h4" fontWeight={"700"} color={"#FFF"}>

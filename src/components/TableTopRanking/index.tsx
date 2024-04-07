@@ -39,7 +39,7 @@ export default function TableTopRanking({
               </CellAll>
             </CustomTableCell>
             <CustomTableCell align="center">
-              <CellAll>Points</CellAll>
+              <CellAll>Shill Score</CellAll>
             </CustomTableCell>
             <CustomTableCell align="center">
               <CellProof>Proof of Experiences</CellProof>
