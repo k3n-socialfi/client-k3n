@@ -21,7 +21,8 @@ const useFetchDataMyProfile = () => {
 
   useEffect(() => {
     if (dataPersonal) return;
-    fetchData();
+    const token = localStorage.getItem("accessToken");
+    if (token) fetchData();
   }, [dataPersonal]);
 
   return {

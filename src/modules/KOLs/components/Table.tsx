@@ -6,6 +6,7 @@ import {
   IconStar,
   IconNFT,
 } from "@/assets/icons";
+import IconUnverify from "@/assets/icons/IconUverify";
 import { useHomeContext } from "@/contexts/HomeContext";
 import { Avatar } from "@mui/material";
 import {
@@ -26,6 +27,65 @@ export interface ITableTopRankingProps {
   backgroundColor?: string;
 }
 
+const DATA_TABLE = [
+  {
+    name: "Elena",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "Miles",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "POE",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "Elena",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "Miles",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "Elena",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+  {
+    name: "Miles",
+    badge: "Verified",
+    follower: "120,12",
+    price: 345,
+    review: "5.9 (1.234)",
+    tags: ["SocialFi", "Researcher", "Ethereum"],
+  },
+];
+
 const top100Films = [
   { title: "A The Shawshank Redemption", year: 1994 },
   { title: "B The Godfather", year: 1972 },
@@ -41,14 +101,15 @@ export default function TableTrending(props: ITableTopRankingProps) {
   const data = dataTableKols?.map((item) => {
     return {
       name: item?.fullName,
-      badge: "",
+      badge: item?.twitterInfo?.verificationStatus,
       follower: item?.twitterInfo?.followers,
-      price: 0,
-      review: "",
+      price: "0",
+      review: "0",
       tags: [],
       avatar: item?.twitterInfo?.avatar,
     };
   });
+  const regex = /^\d{1,3}(,\d{3})*$/;
   const options = top100Films.map((option) => {
     const firstLetter = option.title[0].toUpperCase();
     return {
@@ -201,10 +262,13 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     {row?.badge ? (
                       <>
                         <IconVerify />
-                        {row?.badge}
+                        Verified
                       </>
                     ) : (
-                      <></>
+                      <>
+                        <IconUnverify />
+                        Unverified
+                      </>
                     )}
                   </Cell>
                 </CustomTableCell>
