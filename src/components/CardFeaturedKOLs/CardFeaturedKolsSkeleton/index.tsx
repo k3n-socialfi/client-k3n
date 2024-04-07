@@ -15,8 +15,16 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 export default function CardFeaturedKolsSkeleton(props: any) {
   return (
     <Card sx={{ minWidth: 350, background: "#252525" }} {...props}>
-      <div style={{ position: "relative" }}>
-        <LoadingSkeleton height="300px" />
+      <div
+        style={{
+          paddingTop: "20px",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <LoadingSkeleton height="250px" width="250px" radius="100%" />
       </div>
       <CardContent>
         <StyleContentTitle>

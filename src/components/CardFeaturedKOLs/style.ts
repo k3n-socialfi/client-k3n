@@ -39,8 +39,8 @@ export const StyleChips = styled.div`
 
 export const StyleSubscribe = styled.div`
   position: absolute;
-  right: 8px;
-  bottom: 8px;
+  right: 32%;
+  bottom: -50px;
   background-color: #3b3b39;
   border-radius: 30px;
   /* opacity: 0.8; */
