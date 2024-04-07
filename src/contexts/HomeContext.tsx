@@ -1,6 +1,6 @@
 "use client";
 import { initialHomeContextTypes } from "@/constant/dataInitialHomeContext";
-import useFetchDataHomePage from "@/contract/hooks/useFetchDataHomePage";
+import useFetchDataHomePage from "@/hooks/useFetchDataHomePage";
 import { IFeatureKols } from "@/interface/featureKols.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
 import { ITrendingKols } from "@/interface/trendingKols.interface";
