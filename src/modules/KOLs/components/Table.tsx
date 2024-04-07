@@ -6,7 +6,10 @@ import {
   IconStar,
   IconNFT,
 } from "@/assets/icons";
+<<<<<<< Updated upstream
 import IconUnverify from "@/assets/icons/IconUverify";
+=======
+>>>>>>> Stashed changes
 import { useHomeContext } from "@/contexts/HomeContext";
 import { Avatar } from "@mui/material";
 import {
@@ -101,15 +104,25 @@ export default function TableTrending(props: ITableTopRankingProps) {
   const data = dataTableKols?.map((item) => {
     return {
       name: item?.fullName,
+<<<<<<< Updated upstream
       badge: item?.twitterInfo?.verificationStatus,
       follower: item?.twitterInfo?.followers,
       price: "0",
       review: "0",
+=======
+      badge: "",
+      follower: item?.twitterInfo?.followers,
+      price: 0,
+      review: "",
+>>>>>>> Stashed changes
       tags: [],
       avatar: item?.twitterInfo?.avatar,
     };
   });
+<<<<<<< Updated upstream
   const regex = /^\d{1,3}(,\d{3})*$/;
+=======
+>>>>>>> Stashed changes
   const options = top100Films.map((option) => {
     const firstLetter = option.title[0].toUpperCase();
     return {
@@ -262,6 +275,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     {row?.badge ? (
                       <>
                         <IconVerify />
+<<<<<<< Updated upstream
                         Verified
                       </>
                     ) : (
@@ -269,6 +283,12 @@ export default function TableTrending(props: ITableTopRankingProps) {
                         <IconUnverify />
                         Unverified
                       </>
+=======
+                        {row?.badge}
+                      </>
+                    ) : (
+                      <></>
+>>>>>>> Stashed changes
                     )}
                   </Cell>
                 </CustomTableCell>
