@@ -18,14 +18,19 @@ import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
 import Services from "../components/services";
+import PersonSkeleton from "../components/PersonSkeleton";
+import PostSkeleton from "../components/PostSkeleton";
+import ServicesSkeleton from "../components/ServicesSkeleton";
+import OverviewSkeleton from "../components/OverviewSkeleton";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-const Overview = ({ userProfile }: any) => {
+
+const Overview = ({ overView }: any) => {
   const openModal = useBoolean();
 
-  return (
+  return overView ? (
     <StyleOverview>
       <StyleLeft>
         <StyleTitle>Overview</StyleTitle>
@@ -58,7 +63,7 @@ const Overview = ({ userProfile }: any) => {
         <PrimaryTitleRight>
           <StyleContentOverview>
             <StyleDesOverview>Twitter</StyleDesOverview>
-            <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
+            <StyleSubTitle>{overView?.twitterInfo?.followers}</StyleSubTitle>
           </StyleContentOverview>
           <StyleContentOverview>
             <StyleDesOverview>Primary per post</StyleDesOverview>
@@ -75,6 +80,13 @@ const Overview = ({ userProfile }: any) => {
         </div>
       )}
     </StyleOverview>
+  ) : (
+    <ContentNotData>
+      <StyleTitle>OverView</StyleTitle>
+      <DescriptionNotData>
+        {`You don't have any work Overview yet.`}
+      </DescriptionNotData>
+    </ContentNotData>
   );
 };
 
@@ -128,7 +140,8 @@ const Personal = ({ userProfile }: any) => {
 };
 
 export default function ClientProfile(props: IUserProfileProps) {
-  const { userProfile, getUserProfile } = useProfileContext();
+  const { isLoading, userProfile, getUserProfile } = useProfileContext();
+
   const { username } = useParams();
   useEffect(() => {
     getUserProfile(username?.toString());
@@ -136,34 +149,72 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   return (
     <StyleContainer>
-      <Personal userProfile={userProfile} />
+      {isLoading ? <PersonSkeleton /> : <Personal userProfile={userProfile} />}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <div style={{ display: "flex", width: "100%" }}>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts>
-            {userProfile?.posts.length > 0 ? (
+            {isLoading ? (
+              <PostSkeleton />
+            ) : userProfile?.posts.length > 0 ? (
               userProfile?.posts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
               ))
             ) : (
-              <>Data null</>
+              <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
             )}
           </Posts>
         </PostLeft>
         <div style={{ width: "70%" }}>
-          <Overview userProfile={userProfile} />
+          {isLoading ? (
+            <OverviewSkeleton />
+          ) : (
+            <Overview overView={userProfile} />
+          )}
+
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Services />
+
+          {isLoading ? (
+            <ServicesSkeleton />
+          ) : (
+            <Experience experience={userProfile} />
+          )}
+
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Experience />
+
+          {isLoading ? (
+            <ServicesSkeleton />
+          ) : (
+            <Services services={userProfile} />
+          )}
+
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
         </div>
       </div>
     </StyleContainer>
   );
 }
+
+const ContentNotData = styled.div`
+  padding: 20px 15px;
+`;
+
+const DescriptionNotData = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  color: #f23581;
+`;
+
+const NotData = styled.div`
+  padding: 20px;
+`;
 
 const PostLeft = styled.div`
   display: flex;
@@ -187,6 +238,11 @@ const Posts = styled.div`
   }
 
   scrollbar-width: none;
+`;
+
+const PostNotData = styled.div`
+  margin: 30px auto;
+  color: #f23581;
 `;
 
 const StyleButtons = styled.div`

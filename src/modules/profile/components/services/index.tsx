@@ -7,10 +7,13 @@ import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import CreateServices from "@/components/ModalCreateServices";
 
+import ServicesSkeleton from "../ServicesSkeleton";
+
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services() {
+export default function Services({ services }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
+
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -19,7 +22,7 @@ export default function Services() {
       <Container>
         <StyleTitle>Services</StyleTitle>
         <ServicesRight>
-          <SeeAll>See all</SeeAll>
+          {services && <SeeAll>See all</SeeAll>}
           <ButtonSecondary
             variant="outlined"
             colorBt="#F23581"
@@ -30,63 +33,69 @@ export default function Services() {
         </ServicesRight>
       </Container>
       <StyleContent>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-          <StyleSelection key={index}>
-            <StyleForm>
-              <ServicesTitle>X Content creation</ServicesTitle>
-              <SubTitle>
-                Partner with me to reach your target audience quickly and
-                effectively.
-              </SubTitle>
-              <StyleChips>
-                <Chips
-                  label="X Content"
-                  variant="outlined"
-                  sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
-                />
-                <Chips
-                  label="Research"
-                  variant="outlined"
-                  sx={{ color: "#3EAABE", backgroundColor: "#EBFCFF" }}
-                  color="primary"
-                />
-                <Chips
-                  label="SocialFi"
-                  variant="outlined"
-                  sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
-                  color="secondary"
-                />
-                <Chips
-                  label="Ethereum"
-                  color="secondary"
-                  sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
-                />
-              </StyleChips>
-              <Transfer>
-                <StyleServicesImg
-                  width={150}
-                  height={130}
-                  src={IMG2}
-                  alt="igs"
-                />
-                <RightTransfer>
-                  <Options>
-                    <Price>Contact me</Price>
-                    <Checkbox {...label} />
-                  </Options>
-                  <Divider sx={{ borderColor: "#B9B9B9 " }} />
-                  <Options>
-                    <TitlePrice>One time payment</TitlePrice>
-                    <Checkbox {...label} defaultChecked />
-                  </Options>
-                  <ButtonPrimary style={{ width: "100%" }}>
-                    <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-                  </ButtonPrimary>
-                </RightTransfer>
-              </Transfer>
-            </StyleForm>
-          </StyleSelection>
-        ))}
+        {services ? (
+          [1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+            <StyleSelection key={index}>
+              <StyleForm>
+                <ServicesTitle>X Content creation</ServicesTitle>
+                <SubTitle>
+                  Partner with me to reach your target audience quickly and
+                  effectively.
+                </SubTitle>
+                <StyleChips>
+                  <Chips
+                    label="X Content"
+                    variant="outlined"
+                    sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
+                  />
+                  <Chips
+                    label="Research"
+                    variant="outlined"
+                    sx={{ color: "#3EAABE", backgroundColor: "#EBFCFF" }}
+                    color="primary"
+                  />
+                  <Chips
+                    label="SocialFi"
+                    variant="outlined"
+                    sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
+                    color="secondary"
+                  />
+                  <Chips
+                    label="Ethereum"
+                    color="secondary"
+                    sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+                  />
+                </StyleChips>
+                <Transfer>
+                  <StyleServicesImg
+                    width={150}
+                    height={130}
+                    src={IMG2}
+                    alt="igs"
+                  />
+                  <RightTransfer>
+                    <Options>
+                      <Price>Contact me</Price>
+                      <Checkbox {...label} />
+                    </Options>
+                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
+                    <Options>
+                      <TitlePrice>One time payment</TitlePrice>
+                      <Checkbox {...label} defaultChecked />
+                    </Options>
+                    <ButtonPrimary style={{ width: "100%" }}>
+                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                    </ButtonPrimary>
+                  </RightTransfer>
+                </Transfer>
+              </StyleForm>
+            </StyleSelection>
+          ))
+        ) : (
+          <DescriptionNotData>
+            {`You don't have any work services yet.`}
+          </DescriptionNotData>
+        )}
       </StyleContent>
       <CreateServices
         isShowModal={isShowModal}
@@ -95,6 +104,21 @@ export default function Services() {
     </StyleBox>
   );
 }
+
+const ContentNotData = styled.div`
+  padding: 20px 15px;
+`;
+
+const DescriptionNotData = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  color: #f23581;
+`;
+
 const StyleServicesImg = styled(Image)`
   border-radius: 8px;
   margin-top: 12px;

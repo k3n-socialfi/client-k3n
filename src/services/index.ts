@@ -46,3 +46,7 @@ export const checkExists = (address: any) => {
 export const kolRanking = () => {
   return axiosInstance.get(`api/v1/users/kols/ranking`);
 };
+
+export const updateProfile = (data: any) => {
+  return axiosInstance.put(`api/v1/users/profile/update`, data);
+};

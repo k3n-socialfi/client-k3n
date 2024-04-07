@@ -17,6 +17,13 @@ import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";
+import EditProfile from "@/components/EditProfile";
+import PersonSkeleton from "../components/PersonSkeleton";
+import PostSkeleton from "../components/PostSkeleton";
+import ExperienceSkeleton from "../components/ExperienceSkeleton";
+import ServicesSkeleton from "../components/ServicesSkeleton";
+import OverviewSkeleton from "../components/OverviewSkeleton";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
@@ -25,7 +32,7 @@ const IMG_NFT =
 const Overview = ({ overview }: any) => {
   const openModal = useBoolean();
 
-  return (
+  return overview ? (
     <StyleOverview>
       <StyleLeft>
         <StyleTitle>Overview</StyleTitle>
@@ -79,10 +86,19 @@ const Overview = ({ overview }: any) => {
         </div>
       )}
     </StyleOverview>
+  ) : (
+    <ContentNotData>
+      <StyleTitle>OverView</StyleTitle>
+      <DescriptionNotData>
+        {`You don't have any work Overview yet.`}
+      </DescriptionNotData>
+    </ContentNotData>
   );
 };
 
-const Personal = ({ dataPersonal }: any) => {
+const Personal = ({ dataPersonal, resetPage }: any) => {
+  const isOpenEditProfile = useBoolean();
+
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -101,11 +117,11 @@ const Personal = ({ dataPersonal }: any) => {
             <IconPointProfile />
             {dataPersonal?.twitterInfo?.totalPoints ?? 0}
           </PointProfile>
-          <StyleUserDes>{dataPersonal?.bio ?? "Data null"}</StyleUserDes>
+          <StyleUserDes>{dataPersonal?.bio}</StyleUserDes>
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
-            {dataPersonal?.socialProfiles.map(
+            {dataPersonal?.socialProfiles?.map(
               (item: any, index: number) => SOCIAL[item?.social] ?? <></>
             )}
           </StyleIcons>
@@ -113,7 +129,7 @@ const Personal = ({ dataPersonal }: any) => {
       </StylePersonalLeft>
       <StylePersonalRight>
         <StyleButtons>
-          <StyleButtonTitle>
+          <StyleButtonTitle onClick={isOpenEditProfile.onTrue}>
             <IconEdit />
             <div>Edit</div>
           </StyleButtonTitle>
@@ -127,57 +143,110 @@ const Personal = ({ dataPersonal }: any) => {
           </StyleButtonTitle>
         </StyleButtons>
       </StylePersonalRight>
+      {isOpenEditProfile.value && (
+        <EditProfile
+          resetModal={isOpenEditProfile.onFalse}
+          dataPersonal={dataPersonal}
+          resetPage={resetPage}
+        />
+      )}
     </StylePersonal>
   );
 };
 
 export default function UserProfile(props: IUserProfileProps) {
   const [dataPersonal, setDataPersonal] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const { data }: any = await getMyProfile();
       setDataPersonal(data?.data);
     } catch (error) {
       return { message: "Database Error: Get Data Personal Failed" };
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (dataPersonal) return;
     fetchData();
-  }, [dataPersonal]);
+  }, []);
 
   return (
     <StyleContainer>
-      <Personal dataPersonal={dataPersonal} />
+      {isLoading ? (
+        <PersonSkeleton />
+      ) : dataPersonal ? (
+        <Personal dataPersonal={dataPersonal} resetPage={() => fetchData()} />
+      ) : (
+        <PersonSkeleton />
+      )}
+      {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <div style={{ display: "flex", width: "100%" }}>
         <PostLeft>
-          <StyleTitle>Post</StyleTitle>
+          {isLoading ? (
+            <LoadingSkeleton width="200px" height="30px" />
+          ) : (
+            <StyleTitle>Post</StyleTitle>
+          )}
           <Posts>
-            {dataPersonal?.posts.length > 0 ? (
+            {isLoading ? (
+              [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
+            ) : dataPersonal?.posts.length > 0 ? (
               dataPersonal?.posts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
               ))
             ) : (
-              <>Data null</>
+              <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
             )}
           </Posts>
         </PostLeft>
         <div style={{ width: "70%" }}>
-          <Experience />
-          <Overview overview={dataPersonal} />
+          {isLoading ? (
+            <OverviewSkeleton />
+          ) : (
+            <Overview overview={dataPersonal} />
+          )}
+
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Services />
+
+          {isLoading ? (
+            <ServicesSkeleton />
+          ) : (
+            <Experience experience={dataPersonal} />
+          )}
+
+          <Divider sx={{ borderColor: "#B9B9B9 " }} />
+          {isLoading ? (
+            <ServicesSkeleton />
+          ) : (
+            <Services services={dataPersonal} />
+          )}
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
         </div>
       </div>
     </StyleContainer>
   );
 }
+
+const ContentNotData = styled.div`
+  padding: 20px 15px;
+`;
+
+const DescriptionNotData = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  color: #f23581;
+`;
 
 const PostLeft = styled.div`
   display: flex;
@@ -202,6 +271,12 @@ const Posts = styled.div`
 
   scrollbar-width: none;
 `;
+
+const PostNotData = styled.div`
+  margin: 30px auto;
+  color: #f23581;
+`;
+
 const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -213,7 +288,7 @@ const StyleButtonTitle = styled.div`
   align-items: center;
   gap: 8px;
   background-color: #393939;
-
+  cursor: pointer;
   color: #b9b9b9;
   border-radius: 6px;
 `;
