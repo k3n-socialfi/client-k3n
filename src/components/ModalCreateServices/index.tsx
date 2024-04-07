@@ -35,6 +35,7 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import idl from "@/contract/abis/services.json";
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { SOL_NETWORK, SOL_WALLET } from "@/configs/env.config";
+console.log("🚀 ~ SOL_WALLET:", SOL_WALLET);
 
 type Props = {
   isShowModal: boolean;
