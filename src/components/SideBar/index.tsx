@@ -1,7 +1,7 @@
 "use client";
-import { IconArrowDown, IconArrowUp } from "@/assets/icons";
+import { IconArrowDown, IconArrowUp, IconCloseSideBar } from "@/assets/icons";
 import { DATASIDEBAR, DATASIDEBARBOTTOM } from "@/constant/dataMockupSidebar";
-import { Collapse } from "@mui/material";
+import { Collapse, IconButton } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,8 +17,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
+import { CloseSideBar } from "./style";
 
-export default function SideBar() {
+type TSidebar = {
+  handleClose?: () => void;
+};
+
+export default function SideBar({ handleClose }: TSidebar) {
   const router = useRouter();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -48,7 +53,11 @@ export default function SideBar() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <div>
@@ -63,9 +72,12 @@ export default function SideBar() {
               />
             )} */}
             {/* <IconButton onClick={handleDrawerToggle}>
-              {theme.direction === "rtl" ? <IconFire /> : <IconFire />}
+              {theme.direction === "rtl" ? <IconMenuBar /> : <IconMenuBar />}
             </IconButton> */}
           </DrawerHeader>
+          <CloseSideBar onClick={handleClose}>
+            <IconCloseSideBar />
+          </CloseSideBar>
           {DATASIDEBAR.map((item, index) => {
             return (
               <>
@@ -153,7 +165,6 @@ export default function SideBar() {
                       justifyContent: "center",
                     }}
                   >
-                    {/* {index % 2 === 0 ? <IconFire /> : <IconFire />} */}
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText
@@ -178,7 +189,6 @@ export default function SideBar() {
                         justifyContent: "center",
                       }}
                     >
-                      {/* {index % 2 === 0 ? <IconFire /> : <IconFire />} */}
                       {item.icon}
                     </ListItemIcon>
                     <ListItemText
@@ -213,6 +223,15 @@ const openedMixin = (theme: Theme): CSSObject => ({
   background: "#393939",
   color: "#fff",
   gap: "100px",
+  "@media (max-width: 1024px)": {
+    width: "30%",
+  },
+  "@media (max-width: 768px)": {
+    width: "40%",
+  },
+  "@media (max-width: 460px)": {
+    width: "60%",
+  },
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -230,6 +249,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
   background: "#393939",
   color: "#fff",
   gap: "100px",
+  "@media (max-width: 768px)": {
+    width: "0%",
+  },
 });
 
 const DrawerHeader = styled("div")(({ theme }) => ({

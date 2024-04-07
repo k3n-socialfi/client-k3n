@@ -54,10 +54,9 @@ export const Header = () => {
         <ImgCustom>
           <Image
             onClick={() => router.push("/")}
-            width={150}
-            height={50}
             alt="logo"
             src={logo}
+            layout="fill"
           />
         </ImgCustom>
         <HeaderSearch>
@@ -135,6 +134,7 @@ export const Header = () => {
 };
 
 const ImgCustom = styled.div`
+  position: relative;
   width: 150px;
   height: 50px;
   cursor: pointer;
@@ -142,6 +142,12 @@ const ImgCustom = styled.div`
     transform: scale(0.9);
     background-color: pink;
     border-radius: 16px;
+  }
+  @media (max-width: 1024px) {
+    width: 100px;
+  }
+  @media (max-width: 768px) {
+    width: 70px;
   }
 `;
 const HeaderWrapper = styled.div`
@@ -153,12 +159,21 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    gap: 15px;
+  }
 `;
 
 const HeaderLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 100px;
+  @media (max-width: 768px) {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 `;
 const HeaderSearch = styled.div`
   background: #b9b9b9;
@@ -168,6 +183,9 @@ const HeaderSearch = styled.div`
   min-width: 395px;
   padding: 5px 10px;
   border-radius: 16px;
+  @media (max-width: 768px) {
+    min-width: 100px;
+  }
 `;
 const HeaderIcon = styled.div`
   color: #798395;
