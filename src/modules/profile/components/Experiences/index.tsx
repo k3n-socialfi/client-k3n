@@ -101,6 +101,9 @@ const StyleContent = styled.div`
   overflow-x: auto;
   padding-bottom: 24px;
   margin-right: 40px;
+  @media (max-width: 520px) {
+    margin-right: 0px;
+  }
 `;
 const StyleSelection = styled.div`
   width: 100%;
@@ -144,6 +147,10 @@ const StyleTitle = styled.div`
   line-height: 51px;
   font-weight: 700;
   padding-bottom: 24px;
+  @media (max-width: 520px) {
+    font-size: 20px;
+    padding-bottom: 0px;
+}
 `;
 const StyleBorder = styled.div`
   position: absolute;
@@ -152,6 +159,9 @@ const StyleBorder = styled.div`
   display: flex;
   border-top: 2px solid #82ebff;
   margin-bottom: 24px;
+  @media (max-width: 768px) {
+    width: 93%;
+  }
 `;
 const StyleDots = styled.div`
   position: relative;
