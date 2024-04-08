@@ -1,7 +1,7 @@
 "use client";
-import { ReactNode, Suspense, createContext } from "react";
+import { ReactNode, Suspense, createContext, useState } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { ThemeProvider } from "@mui/material";
+import { Button, IconButton, ThemeProvider } from "@mui/material";
 import theme from "@/assets/style/theme";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -11,6 +11,8 @@ import WalletContextProvider from "./WalletProvider";
 import { AuthContextProvider } from "@/contexts/HomeContext";
 import { ProfileContextProvider } from "@/contexts/ProfileContext";
 import { MyProfileContextProvider } from "@/contexts/MyProfileConext";
+import { useBoolean } from "@/hooks/useBoolean";
+import { IconOpenSideBar } from "@/assets/icons";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -18,7 +20,13 @@ export interface ILayoutProvidesProps {
 
 export const CartContext = createContext<any>(null);
 
+type ISideBar = {
+  isOpen?: boolean;
+};
+
 export default function LayoutProvides({ children }: ILayoutProvidesProps) {
+  const isOpenSideBar = useBoolean();
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <AuthContextProvider>
@@ -27,10 +35,10 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
             <AppRouterCacheProvider>
               <ThemeProvider theme={theme}>
                 <WalletContextProvider>
-                  <Header />
+                  <Header handleToggleSidebar={isOpenSideBar.onToggle} />
                   <StyleMain>
-                    <StyleSideBar>
-                      <SideBar />
+                    <StyleSideBar isOpen={isOpenSideBar.value}>
+                      <SideBar handleClose={isOpenSideBar.onToggle} />
                     </StyleSideBar>
                     <StyleChildren>
                       {children}
@@ -47,8 +55,13 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   );
 }
 
-const StyleSideBar = styled.div`
+const StyleSideBar = styled.div<ISideBar>`
   width: 20%;
+  @media (max-width: 1599px) {
+    transition: all 1s;
+    display: ${(props) => (props.isOpen ? "block" : "none")};
+    width: 0%;
+  }
 `;
 const StyleChildren = styled.div`
   display: flex;
@@ -56,6 +69,12 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
+  @media (max-width: 1599px) {
+    width: 100%;
+  }
+  @media (max-width: 391px) {
+    margin-top: 122px;
+  }
 `;
 
 const StyleMain = styled.div`
