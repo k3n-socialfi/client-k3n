@@ -23,7 +23,7 @@ import PostSkeleton from "../components/PostSkeleton";
 import ServicesSkeleton from "../components/ServicesSkeleton";
 import OverviewSkeleton from "../components/OverviewSkeleton";
 
-export interface IUserProfileProps {}
+export interface IUserProfileProps { }
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -113,7 +113,7 @@ const Personal = ({ userProfile }: any) => {
           <StyleUserDes>Influencer</StyleUserDes>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
-            {userProfile?.socialProfiles.map(
+            {userProfile?.socialProfiles?.map(
               (item: any, index: number) => SOCIAL[item?.social] ?? <></>
             )}
           </StyleIcons>
@@ -151,14 +151,14 @@ export default function ClientProfile(props: IUserProfileProps) {
     <StyleContainer>
       {isLoading ? <PersonSkeleton /> : <Personal userProfile={userProfile} />}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
-      <div style={{ display: "flex", width: "100%" }}>
+      <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts>
             {isLoading ? (
               <PostSkeleton />
             ) : userProfile?.posts.length > 0 ? (
-              userProfile?.posts.map((item: any, index: number) => (
+              userProfile?.posts?.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
@@ -168,35 +168,46 @@ export default function ClientProfile(props: IUserProfileProps) {
             )}
           </Posts>
         </PostLeft>
-        <div style={{ width: "70%" }}>
+        <ContentRight>
           {isLoading ? (
-            <OverviewSkeleton />
+            <>
+              <OverviewSkeleton />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <ServicesSkeleton />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <ServicesSkeleton />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+            </>
           ) : (
-            <Overview overView={userProfile} />
+            <>
+              <Overview overView={userProfile} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <Experience experience={userProfile} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <Services services={userProfile} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+            </>
           )}
-
-          <Divider sx={{ borderColor: "#B9B9B9 " }} />
-
-          {isLoading ? (
-            <ServicesSkeleton />
-          ) : (
-            <Experience experience={userProfile} />
-          )}
-
-          <Divider sx={{ borderColor: "#B9B9B9 " }} />
-
-          {isLoading ? (
-            <ServicesSkeleton />
-          ) : (
-            <Services services={userProfile} />
-          )}
-
-          <Divider sx={{ borderColor: "#B9B9B9 " }} />
-        </div>
-      </div>
+        </ContentRight>
+      </Content>
     </StyleContainer>
   );
 }
+
+const Content = styled.div`
+  display: flex;
+  width: 100% ;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+const ContentRight = styled.div`
+    width: 70% ;
+    @media (max-width: 768px) {
+      width: 100% ;
+  }
+`
 
 const ContentNotData = styled.div`
   padding: 20px 15px;
@@ -222,6 +233,9 @@ const PostLeft = styled.div`
   gap: 12px;
   width: 30%;
   padding: 12px;
+  @media (max-width: 768px) {
+      width: 100% ;
+  }
 `;
 
 const Posts = styled.div`
@@ -249,6 +263,10 @@ const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+  @media (max-width: 520px) {
+  flex-wrap: no-wrap;
+  gap: 4px;
+  }
 `;
 const StyleButtonTitle = styled.div`
   padding: 4px 8px;
@@ -297,6 +315,11 @@ const StylePersonal = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 24px 14px;
+  @media (max-width: 520px) {
+    flex-wrap: wrap;
+    padding: 8px;
+    justify-content: center;
+  }
 `;
 const StyleImage = styled(Image)`
   border: 2px solid #fff;
@@ -307,6 +330,12 @@ const StylePersonalLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+  @media (max-width: 520px) {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+
+  }
 `;
 const StyleContentUser = styled.div`
   display: flex;
@@ -352,12 +381,23 @@ const StylePersonalRight = styled.div`
   display: flex;
   gap: 14px;
   width: 40%;
+  @media (max-width: 520px) {
+  width: 100%;
+  margin-left: 0px;
+  margin-top: 30px;
+
+  }
 `;
 const StyleOverview = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 16px 20px;
   gap: 100px;
+  @media (max-width: 520px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 14px;
+  }
 `;
 const StyleLeft = styled.div`
   width: 100%;
