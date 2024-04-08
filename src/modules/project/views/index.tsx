@@ -406,7 +406,6 @@ export default function ProjectDetail(props: IProjectDetail) {
   useEffect(() => {
     getDataProjectDetail(id.toString());
   }, [id]);
-  console.log("data", dataProjectDetail);
   return (
     <StyleContainer>
       {isLoading ? (
