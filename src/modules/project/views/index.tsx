@@ -352,7 +352,7 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
                 }}
               >
                 {dataProjectDetail?.categories?.map((item: any) => {
-                  return <StyleUserDes>{item}</StyleUserDes>;
+                  return <StyleUserDes key={item}>{item}</StyleUserDes>;
                 })}
               </div>
               <StyleUserSocial>Social</StyleUserSocial>
@@ -464,7 +464,7 @@ export default function ProjectDetail(props: IProjectDetail) {
                 {dataProjectDetail?.tweets?.map((item: any) => {
                   return (
                     <>
-                      <CartMentions item={item} />
+                      <CartMentions item={item} key={item?.name} />
                     </>
                   );
                 })}
