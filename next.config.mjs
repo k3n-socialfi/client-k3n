@@ -22,6 +22,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "abs.twimg.com",
       },
+      {
+        protocol: "https",
+        hostname: "assets.coingecko.com",
+      },
+      // https://assets.coingecko.com
     ],
   },
   compiler: {
