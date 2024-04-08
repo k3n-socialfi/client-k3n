@@ -38,7 +38,7 @@ import CarouselSlideSkeleton from "@/components/CarouselSlide/CarouselSlideSkele
 
 export interface IHomeProps {}
 
-export default function Home(props: IHomeProps) {
+export default function Home({}: IHomeProps) {
   const [showPoppup, setShowPopup] = useState<boolean>(false);
   const router = useRouter();
   const slides = [

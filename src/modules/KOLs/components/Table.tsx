@@ -21,6 +21,7 @@ import {
   Autocomplete,
   TextField,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 export interface ITableTopRankingProps {
@@ -107,6 +108,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
       review: "0",
       tags: [],
       avatar: item?.twitterInfo?.avatar,
+      href: `profile/${item?.username}`,
     };
   });
   const regex = /^\d{1,3}(,\d{3})*$/;
@@ -117,7 +119,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
       ...option,
     };
   });
-
+  const { push } = useRouter();
   return (
     <div>
       <Filter>
@@ -241,10 +243,14 @@ export default function TableTrending(props: ITableTopRankingProps) {
           <TableBody>
             {data.map((row: any, index) => (
               <TableRow
+                onClick={() => {
+                  push(row?.href);
+                }}
                 key={index}
                 sx={{
                   borderBottom: "5px solid rgba(0, 0, 0, 0.5)",
                   background: "#3D3D3D",
+                  cursor: "pointer",
                 }}
               >
                 <CustomTableCell align="center" style={{ borderLeft: "0px" }}>

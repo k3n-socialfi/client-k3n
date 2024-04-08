@@ -13,6 +13,7 @@ import styled from "styled-components";
 import Avatars from "@/assets/images/Avatar.png";
 import { SOCIAL } from "@/constant/social";
 import { DATA_TOP } from "@/constant/dataMockupTop";
+import { useRouter } from "next/navigation";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -22,6 +23,7 @@ export interface ITableTopRankingProps {
 export default function TableTopRanking({
   dataRanking,
 }: ITableTopRankingProps) {
+  const { push } = useRouter();
   return (
     <TableContainer component={Paper} sx={{ width: "100%" }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -64,11 +66,12 @@ export default function TableTopRanking({
         <TableBody>
           {dataRanking?.users?.map((row: any, index: number) => (
             <TableRow
+              onClick={() => {
+                push(`/profile/${row?.username}`);
+              }}
               key={row?.rank}
               sx={{
-                // "&:last-child td, &:last-child th": {
-                //   border: 0,
-                // },\
+                cursor: "pointer",
                 borderBottom: "5px solid rgba(0, 0, 0, 0.5)",
                 background: "#3D3D3D",
               }}
