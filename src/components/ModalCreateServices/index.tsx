@@ -1,8 +1,16 @@
 "use client";
-import { IconCertification, IconClose, IconPlus } from "@/assets/icons";
-import { DATASELECTTYPEOFREQUEST } from "@/constant/dataMockupSelectType";
+import { IconCertification, IconClose } from "@/assets/icons";
+import Campaign from "@/assets/images/Request.png";
+import { SOL_WALLET } from "@/configs/env.config";
+import {
+  DATACURRENCY,
+  DATAPAYMENTMETHOD,
+  DATAPLATFORM,
+} from "@/constant/dataMockupCreateCampaign";
+import idl from "@/contract/abis/services.json";
 import { useBoolean } from "@/hooks/useBoolean";
-import { requestCollaborationSchema_ } from "@/validations/requestCollaborationSchema";
+import useProviderConnect from "@/hooks/useProviderConnect";
+import { createServicesSchema_ } from "@/validations/createServicesSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
@@ -12,30 +20,17 @@ import {
   MenuItem,
   Modal,
   Select,
-  SelectChangeEvent,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import * as anchor from "@project-serum/anchor";
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
+import Image from "next/image";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
-import {
-  DATACURRENCY,
-  DATAPAYMENTMETHOD,
-  DATAPLATFORM,
-} from "@/constant/dataMockupCreateCampaign";
-import Campaign from "@/assets/images/Request.png";
-import { createServicesSchema_ } from "@/validations/createServicesSchema";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import idl from "@/contract/abis/services.json";
-import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
-import { SOL_NETWORK, SOL_WALLET } from "@/configs/env.config";
-console.log("🚀 ~ SOL_WALLET:", SOL_WALLET);
 
 type Props = {
   isShowModal: boolean;
@@ -46,19 +41,13 @@ const CreateServices = (props: Props) => {
   const { isShowModal, setIsShowModal } = props;
   const openGotIt = useBoolean();
   const openButton = useBoolean();
-  const wallet = useAnchorWallet();
-
+  const { getProvider } = useProviderConnect();
   const idlString = JSON.stringify(idl);
   const idlJson = JSON.parse(idlString);
   const programID = new PublicKey(SOL_WALLET ?? "");
 
-  const { publicKey } = useWalletMultiButton({
-    onSelectWallet() {},
-  });
-
   const {
     register,
-    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -67,57 +56,55 @@ const CreateServices = (props: Props) => {
     mode: "onChange",
   });
 
-  const [typeOfRequest, setTypeOfRequest] = React.useState("");
-
-  const getProvider = () => {
-    const connection = new Connection(
-      clusterApiUrl((SOL_NETWORK as any) ?? "devnet"),
-      "confirmed"
-    );
-    const provider = new anchor.AnchorProvider(connection, wallet as any, {
-      preflightCommitment: "processed",
-    });
-    return provider;
-  };
-
-  const handleChangeSelect = (event: SelectChangeEvent) => {
-    setTypeOfRequest(event.target.value as string);
-  };
-
   const handleClose = () => {
     setIsShowModal(false);
     // openHireMe();
   };
+  const provider = getProvider();
+  const program = new anchor.Program(idlJson, programID, provider);
 
-  const myAccount = anchor.web3.Keypair.generate();
-  const myServices = anchor.web3.Keypair.generate();
+  const getServices = async (myServices: any) => {
+    try {
+      const res = await program?.account?.service?.fetch(myServices.publicKey);
+      console.log("🚀 ~ getServices ~ res:", res);
+    } catch (error) {
+      console.log("🚀 ~ getServices ~ error:", error);
+    }
+  };
 
   const onSubmitForm = async (data: any) => {
-    const provider = getProvider();
-    const program = new anchor.Program(idlJson, programID, provider);
-    data.kol = myAccount.publicKey;
-    data.serviceFee = new anchor.BN(data.serviceFee);
-    data.paymentMethod = "OnetimePayment";
-    await program.methods
-      .createService(
-        data.kol,
-        data.serviceName,
-        data.platform,
-        data.serviceFee,
-        data.currency,
-        data.paymentMethod,
-        data.description
-      )
-      .accounts({
-        hirer: publicKey,
-        service: myServices.publicKey,
-        systemProgram: programID,
-      })
-      .signers([])
-      .rpc({
-        commitment: "confirmed",
-      });
-    openGotIt.onTrue();
+    const myAccount = anchor.web3.Keypair.generate();
+    const myServices = anchor.web3.Keypair.generate();
+
+    try {
+      data.kol = myAccount.publicKey;
+      data.serviceFee = new anchor.BN(+data.serviceFee);
+      data.paymentMethod = "OnetimePayment";
+
+      await program.methods
+        .createService(
+          data.kol,
+          data.serviceName,
+          data.platform,
+          data.serviceFee,
+          data.currency,
+          data.paymentMethod,
+          data.description
+        )
+        .accounts({
+          hirer: myAccount.publicKey as any,
+          service: myServices as any,
+          systemProgram: anchor.web3.SystemProgram.programId,
+        })
+        .signers([myAccount as any])
+        .rpc();
+
+      getServices(myServices);
+
+      openGotIt.onTrue();
+    } catch (error) {
+      console.log("🚀 ~ onSubmitForm ~ error:", error);
+    }
   };
 
   const checkForm = watch();
