@@ -159,10 +159,10 @@ const StyleSelection = styled.div`
     width: 100%;
   }
   @media (max-width: 768px) {
-    width: 190%;
+    width: 700px;
   }
   @media (max-width: 400px) {
-    width: 300%;
+    width: 900px;
   }
 `;
 const ServicesTitle = styled.div`
