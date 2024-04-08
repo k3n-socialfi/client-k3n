@@ -5,22 +5,6 @@ import IconRocket from "@/assets/icons/IconRocket";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import CarouselSlide from "@/components/CarouselSlide";
 import { Stack, Typography } from "@mui/material";
-import {
-  StyleBottom,
-  StyleContainer,
-  StyleFeaturedKOLs,
-  StyleFeaturedProject,
-  StyleLeft,
-  StyleRight,
-  StyleSlide,
-  StyleTop,
-  StyleTrending,
-  StyleTrendingCard,
-  StyleTrendingKOLs,
-  StyleTrendingProjects,
-  StyleTrendingProjectsCard,
-  StyleTrendingTopCard,
-} from "../components/style/styleHome";
 import { useRouter } from "next/navigation";
 import Popup from "@/components/Header/components/Popup";
 import { useState } from "react";
@@ -35,6 +19,7 @@ import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import { IconTop1 } from "@/assets/icons";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
 import CarouselSlideSkeleton from "@/components/CarouselSlide/CarouselSlideSkeleton";
+import styled from "styled-components";
 
 export interface IHomeProps {}
 
@@ -250,3 +235,92 @@ export default function Home({}: IHomeProps) {
     </StyleContainer>
   );
 }
+
+const StyleContainer = styled.div`
+  padding: 50px 50px;
+  background-color: #161616;
+`;
+
+const StyleSlide = styled.div``;
+const StyleFeaturedKOLs = styled.div``;
+const StyleFeaturedProject = styled.div``;
+
+const StyleTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  margin: 20px 0;
+`;
+
+const StyleBottom = styled.div`
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scrollbar-width: none;
+`;
+
+const StyleLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  @media (max-width: 520px) {
+    h4 {
+      font-size: 15px !important;
+    }
+  }
+`;
+const StyleRight = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const StyleTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+`;
+
+const StyleTrending = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+  @media (max-width: 1124px) {
+    justify-content: start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+`;
+
+const StyleTrendingKOLs = styled.div`
+  width: 100%;
+`;
+
+const StyleTrendingTop = styled.div`
+  margin-bottom: 10px;
+`;
+
+const StyleTrendingTopCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const StyleTrendingProjects = styled.div`
+  width: 100%;
+`;
+
+const StyleTrendingProjectsCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const StyleTrendingCard = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+`;

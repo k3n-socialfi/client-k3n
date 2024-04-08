@@ -1,6 +1,7 @@
 import FireIcon from "@/assets/icons/IconFire";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 // import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 interface CarouselSlideProps {
@@ -49,31 +50,12 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
           borderRadius: "10px",
         }}
       />
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          transform: "translateY(-50%)",
-          paddingX: 2,
-        }}
-      >
+      <BoxCustom>
         {/* <IconButton onClick={goToPreviousSlide}>
           <ArrowBackIos />
           <FireIcon />
         </IconButton> */}
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <StackCustom>
           <Typography variant="h4" sx={{ color: "white" }}>
             YOUR #1 WEB3 Digital Services Platform for
           </Typography>
@@ -83,14 +65,38 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
           <Typography variant="caption" sx={{ color: "white" }}>
             {currentSlide + 1} / {slides.length}
           </Typography>
-        </Stack>
+        </StackCustom>
         {/* <IconButton onClick={goToNextSlide}>
           <ArrowForwardIos />
           <FireIcon />
         </IconButton> */}
-      </Box>
+      </BoxCustom>
     </Box>
   );
 };
 
 export default CarouselSlide;
+
+const BoxCustom = styled(Box)`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%);
+  padding: 0 20px;
+`;
+
+const StackCustom = styled(Stack)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  @media (max-width: 520px) {
+    h4 {
+      font-size: 15px !important;
+    }
+  }
+`;
