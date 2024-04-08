@@ -13,6 +13,7 @@ import { ProfileContextProvider } from "@/contexts/ProfileContext";
 import { MyProfileContextProvider } from "@/contexts/MyProfileConext";
 import { useBoolean } from "@/hooks/useBoolean";
 import { IconOpenSideBar } from "@/assets/icons";
+import { ProjectContextProvider } from "@/contexts/ProjectContext";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -32,22 +33,24 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
       <AuthContextProvider>
         <ProfileContextProvider>
           <MyProfileContextProvider>
-            <AppRouterCacheProvider>
-              <ThemeProvider theme={theme}>
-                <WalletContextProvider>
-                  <Header handleToggleSidebar={isOpenSideBar.onToggle} />
-                  <StyleMain>
-                    <StyleSideBar isOpen={isOpenSideBar.value}>
-                      <SideBar handleClose={isOpenSideBar.onToggle} />
-                    </StyleSideBar>
-                    <StyleChildren>
-                      {children}
-                      <Footer />
-                    </StyleChildren>
-                  </StyleMain>
-                </WalletContextProvider>
-              </ThemeProvider>
-            </AppRouterCacheProvider>
+            <ProjectContextProvider>
+              <AppRouterCacheProvider>
+                <ThemeProvider theme={theme}>
+                  <WalletContextProvider>
+                    <Header handleToggleSidebar={isOpenSideBar.onToggle} />
+                    <StyleMain>
+                      <StyleSideBar isOpen={isOpenSideBar.value}>
+                        <SideBar handleClose={isOpenSideBar.onToggle} />
+                      </StyleSideBar>
+                      <StyleChildren>
+                        {children}
+                        <Footer />
+                      </StyleChildren>
+                    </StyleMain>
+                  </WalletContextProvider>
+                </ThemeProvider>
+              </AppRouterCacheProvider>
+            </ProjectContextProvider>
           </MyProfileContextProvider>
         </ProfileContextProvider>
       </AuthContextProvider>

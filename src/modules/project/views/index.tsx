@@ -11,10 +11,7 @@ import {
   IconVerify,
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import { useProfileContext } from "@/contexts/ProfileContext";
 import { useBoolean } from "@/hooks/useBoolean";
-import PostUser from "@/modules/profile/components/PostUser";
-import Services from "@/modules/profile/components/services";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -23,56 +20,127 @@ import styled from "styled-components";
 import PreviousDeals from "../components/PreviousDeals";
 import AvailableDeals from "../components/AvailableDeals";
 import CartMentions from "../components/CardMentions";
+import { useProjectContext } from "@/contexts/ProjectContext";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-const Overview = ({ userProfile }: any) => {
+const Overview = ({ userProfile, isLoading }: any) => {
   const openModal = useBoolean();
   return (
     <StyleOverview>
       <StyleLeft>
-        <StyleTitle>Overview</StyleTitle>
+        {isLoading ? (
+          <LoadingSkeleton width="200px" height="20px" />
+        ) : (
+          <StyleTitle>Overview</StyleTitle>
+        )}
+
         <PrimaryTitleLeft>
           <StyleContentOverview>
-            <StyleDesOverview>Project Type</StyleDesOverview>
-            <StyleSubTitle>Memecoin</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Project Type</StyleDesOverview>
+                <StyleSubTitle>Memecoin</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
           <StyleContentOverview>
-            <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
-            <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
+                <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
         </PrimaryTitleLeft>
         <PrimaryTitleLeft>
           <StyleContentOverview>
-            <StyleDesOverview>Gender</StyleDesOverview>
-            <StyleSubTitle>Female</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Gender</StyleDesOverview>
+                <StyleSubTitle>Female</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
           <StyleContentOverview>
-            <StyleDesOverview>Type of KOLs</StyleDesOverview>
-            <StyleSubTitle>Influencer</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Type of KOLs</StyleDesOverview>
+                <StyleSubTitle>Influencer</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
           <StyleContentOverview>
-            <StyleDesOverview>Location</StyleDesOverview>
-            <StyleSubTitle>New York, NYC</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Location</StyleDesOverview>
+                <StyleSubTitle>New York, NYC</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
         </PrimaryTitleLeft>
       </StyleLeft>
       <StyleRight>
         <PrimaryTitleRight>
           <StyleContentOverview>
-            <StyleDesOverview>X Followers</StyleDesOverview>
-            <StyleSubTitle>
-              {userProfile?.twitterInfo?.followers ?? 259000}
-            </StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>X Followers</StyleDesOverview>
+                <StyleSubTitle>
+                  {userProfile?.twitterInfo?.followers ?? 259000}
+                </StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
           <StyleContentOverview>
-            <StyleDesOverview>Avg. Price per deals</StyleDesOverview>
-            <StyleSubTitle>2-3 ETH</StyleSubTitle>
+            {isLoading ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Avg. Price per deals</StyleDesOverview>
+                <StyleSubTitle>2-3 ETH</StyleSubTitle>
+              </>
+            )}
           </StyleContentOverview>
         </PrimaryTitleRight>
-        <ButtonPrimary onClick={() => openModal.onTrue()}>
-          <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-        </ButtonPrimary>
+        {isLoading ? (
+          <>
+            <LoadingSkeleton width="200px" height="50px" radius="50px" />
+          </>
+        ) : (
+          <>
+            <ButtonPrimary onClick={() => openModal.onTrue()}>
+              <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+            </ButtonPrimary>
+          </>
+        )}
       </StyleRight>
       {openModal.value && (
         <div style={{ width: "300ox", height: "300px" }}>
@@ -82,39 +150,94 @@ const Overview = ({ userProfile }: any) => {
     </StyleOverview>
   );
 };
-const KeyMetrics = () => {
+const KeyMetrics = ({ isLoading, dataProjectDetail }: any) => {
   const openModal = useBoolean();
   return (
     <>
-      <StyleTitle>Key Metrics</StyleTitle>
+      {isLoading ? (
+        <LoadingSkeleton width="200px" height="20px" />
+      ) : (
+        <StyleTitle>Key Metrics</StyleTitle>
+      )}
       <StyleOverview>
         <StyleLeft>
           <PrimaryTitleLeft>
             <StyleContentOverview>
-              <StyleDesOverview>Price</StyleDesOverview>
-              <StyleSubTitle>$0.042592</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="100px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Price </StyleDesOverview>
+                  <StyleSubTitle>
+                    ${dataProjectDetail?.price ?? 0}
+                  </StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
+
             <StyleContentOverview>
-              <StyleDesOverview>Circulating Supply</StyleDesOverview>
-              <StyleSubTitle>65,845,582,624,539 BONK</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Circulating Supply</StyleDesOverview>
+                  <StyleSubTitle>65,845,582,624,539 BONK</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
           </PrimaryTitleLeft>
           <PrimaryTitleLeft>
             <StyleContentOverview>
-              <StyleDesOverview>Max Supply</StyleDesOverview>
-              <StyleSubTitle>93,526,183,276,778</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Max Supply</StyleDesOverview>
+                  <StyleSubTitle>93,526,183,276,778</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
             <StyleContentOverview>
-              <StyleDesOverview>Total Supply</StyleDesOverview>
-              <StyleSubTitle>93,526,183,276,778</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Total Supply</StyleDesOverview>
+                  <StyleSubTitle>93,526,183,276,778</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
             <StyleContentOverview>
-              <StyleDesOverview>ATH </StyleDesOverview>
-              <StyleSubTitle>$0.044547</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>ATH </StyleDesOverview>
+                  <StyleSubTitle>$0.044547</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
             <StyleContentOverview>
-              <StyleDesOverview>ATH Date </StyleDesOverview>
-              <StyleSubTitle>Mar 5, 2024 </StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>ATH Date </StyleDesOverview>
+                  <StyleSubTitle>Mar 5, 2024 </StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
           </PrimaryTitleLeft>
         </StyleLeft>
@@ -122,22 +245,54 @@ const KeyMetrics = () => {
         <StyleRight>
           <PrimaryTitleRight>
             <StyleContentOverview>
-              <StyleDesOverview>Volume 24h</StyleDesOverview>
-              <StyleSubTitle>$239,41M</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Volume 24h</StyleDesOverview>
+                  <StyleSubTitle>$239,41M</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
             <StyleContentOverview>
-              <StyleDesOverview>Market Cap</StyleDesOverview>
-              <StyleSubTitle>$1,71B</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>Market Cap</StyleDesOverview>
+                  <StyleSubTitle>$1,71B</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
           </PrimaryTitleRight>
           <PrimaryTitleRight>
             <StyleContentOverview>
-              <StyleDesOverview>FDV</StyleDesOverview>
-              <StyleSubTitle>$2,42B</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>FDV</StyleDesOverview>
+                  <StyleSubTitle>$2,42B</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
             <StyleContentOverview>
-              <StyleDesOverview>TVL</StyleDesOverview>
-              <StyleSubTitle>-</StyleSubTitle>
+              {isLoading ? (
+                <>
+                  <LoadingSkeleton width="200px" height="20px" />
+                </>
+              ) : (
+                <>
+                  <StyleDesOverview>TVL</StyleDesOverview>
+                  <StyleSubTitle>-</StyleSubTitle>
+                </>
+              )}
             </StyleContentOverview>
           </PrimaryTitleRight>
         </StyleRight>
@@ -151,65 +306,93 @@ const KeyMetrics = () => {
   );
 };
 
-const Personal = ({ userProfile }: any) => {
+const Personal = ({ dataProjectDetail, isLoading }: any) => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
-        <StyleImage
-          src={userProfile?.twitterInfo?.avatar ?? IMG_NFT}
-          alt="avatar profile"
-          width={220}
-          height={220}
-        />
-        <StyleContentUser>
-          <StyleTitle>
-            {/* {userProfile?.fullName ?? "User Name"}
-             */}
-            username
-            <IconVerify />
-            {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
-          </StyleTitle>
-          <PointProfile>
-            <IconPointProfile />
-            {/* {userProfile?.twitterInfo?.totalPoints ?? 0} */}
-            1000
-          </PointProfile>
-          {/* <StyleUserDes>{userProfile?.bio ?? "data null"}</StyleUserDes> */}
-          <StyleUserDes>
-            Bonk is the first Solana dog coin for the people, by the people with
-            50% of the total supply airdropped to the Solana community.
-          </StyleUserDes>
+        {isLoading ? (
+          <LoadingSkeleton width="220px" height="220px" radius="100%" />
+        ) : (
+          <StyleImage
+            src={dataProjectDetail?.image ?? IMG_NFT}
+            alt="avatar profile"
+            width={220}
+            height={220}
+          />
+        )}
 
-          <StyleUserDes>Influencer</StyleUserDes>
-          <StyleUserDes>mene</StyleUserDes>
-          <StyleUserSocial>Social</StyleUserSocial>
-          <StyleIcons>
-            {/* {userProfile?.socialProfiles.map(
+        <StyleContentUser>
+          {isLoading ? (
+            <>
+              <LoadingSkeleton width="200px" height="10px" />
+              <LoadingSkeleton width="50px" height="10px" />
+              <LoadingSkeleton width="200px" height="100px" />
+              <LoadingSkeleton width="200px" height="10px" />
+              <LoadingSkeleton width="200px" height="10px" />
+              <LoadingSkeleton width="200px" height="10px" />
+              <LoadingSkeleton width="200px" height="10px" />
+            </>
+          ) : (
+            <>
+              <StyleTitle>
+                {dataProjectDetail?.name ?? "User Name"}
+                <IconVerify />
+                {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
+              </StyleTitle>
+              <PointProfile>
+                <IconPointProfile />0
+              </PointProfile>
+              <StyleUserDes>
+                {dataProjectDetail?.description ?? "data null"}
+              </StyleUserDes>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                }}
+              >
+                {dataProjectDetail?.categories?.map((item: any) => {
+                  return <StyleUserDes key={item}>{item}</StyleUserDes>;
+                })}
+              </div>
+              <StyleUserSocial>Social</StyleUserSocial>
+              <StyleIcons>
+                {/* {dataProjectDetail?.social.map(
               (item: any, index: number) =>
                 SOCIAL[item?.social] ?? ( */}
-            <>
-              <IconTikTok></IconTikTok>
-            </>
-            {/* )
+                {/* )
             )} */}
-          </StyleIcons>
+                <>
+                  <IconTikTok></IconTikTok>
+                </>
+              </StyleIcons>
+            </>
+          )}
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
-        <StyleButtons>
-          <StyleButtonTitle>
-            <IconIdProject />
-            <div>CA: DezXAZ....</div>
-          </StyleButtonTitle>
-          <StyleButtonTitle>
-            <IconPaper />
-            Whitepaper
-          </StyleButtonTitle>
-          <StyleButtonTitle>
-            <IconProject />
-            Project Website
-          </StyleButtonTitle>
-        </StyleButtons>
+        {isLoading ? (
+          <>
+            <LoadingSkeleton width="150px" height="20px" />
+            <LoadingSkeleton width="150px" height="20px" />
+            <LoadingSkeleton width="150px" height="20px" />
+          </>
+        ) : (
+          <StyleButtons>
+            <StyleButtonTitle>
+              <IconIdProject />
+              <div>CA: DezXAZ....</div>
+            </StyleButtonTitle>
+            <StyleButtonTitle>
+              <IconPaper />
+              Whitepaper
+            </StyleButtonTitle>
+            <StyleButtonTitle>
+              <IconProject />
+              Project Website
+            </StyleButtonTitle>
+          </StyleButtons>
+        )}
       </StylePersonalRight>
     </StylePersonal>
   );
@@ -217,33 +400,86 @@ const Personal = ({ userProfile }: any) => {
 
 interface IProjectDetail {}
 export default function ProjectDetail(props: IProjectDetail) {
-  const { userProfile, getUserProfile } = useProfileContext();
-  const { username } = useParams();
+  const { id } = useParams();
+  const { dataProjectDetail, isLoading, getDataProjectDetail } =
+    useProjectContext();
   useEffect(() => {
-    getUserProfile(username?.toString());
-  }, [username]);
-
+    getDataProjectDetail(id.toString());
+  }, [id]);
   return (
     <StyleContainer>
-      <Personal userProfile={userProfile} />
-      <Divider sx={{ borderColor: "#B9B9B9 " }} />
-      <div style={{ display: "flex", width: "100%" }}>
-        <PostLeft>
-          <StyleTitle>Mentions</StyleTitle>
-          <Posts>
-            <CartMentions />
-            <CartMentions />
-          </Posts>
-        </PostLeft>
-        <div style={{ width: "70%" }}>
-          <Overview userProfile={userProfile} />
+      {isLoading ? (
+        <>
+          <Personal
+            dataProjectDetail={dataProjectDetail}
+            isLoading={isLoading}
+          />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <KeyMetrics />
+          <Wrapper>
+            <PostLeft>
+              {isLoading ? (
+                <LoadingSkeleton width="200px" height="20px" />
+              ) : (
+                <StyleTitle>Mentions</StyleTitle>
+              )}
+              <Posts>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100%" height="400px" />
+                    <LoadingSkeleton width="100%" height="400px" />
+                    <LoadingSkeleton width="100%" height="400px" />
+                  </>
+                ) : (
+                  <>
+                    {dataProjectDetail?.tweets?.map((item: any) => {
+                      return (
+                        <>
+                          <CartMentions item={item} />
+                        </>
+                      );
+                    })}
+                  </>
+                )}
+              </Posts>
+            </PostLeft>
+            <div style={{ width: "70%" }}>
+              <Overview
+                dataProjectDetail={dataProjectDetail}
+                isLoading={isLoading}
+              />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <KeyMetrics isLoading={isLoading} />
+            </div>
+          </Wrapper>
+        </>
+      ) : (
+        <>
+          <Personal dataProjectDetail={dataProjectDetail} />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <PreviousDeals />
-          <AvailableDeals />
-        </div>
-      </div>
+          <Wrapper style={{ display: "flex", width: "100%" }}>
+            <PostLeft>
+              <StyleTitle>Mentions</StyleTitle>
+              <Posts>
+                {dataProjectDetail?.tweets?.map((item: any) => {
+                  return (
+                    <>
+                      <CartMentions item={item} key={item?.name} />
+                    </>
+                  );
+                })}
+              </Posts>
+            </PostLeft>
+            <div style={{ width: "70%" }}>
+              <Overview dataProjectDetail={dataProjectDetail} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <KeyMetrics dataProjectDetail={dataProjectDetail} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <PreviousDeals />
+              <AvailableDeals />
+            </div>
+          </Wrapper>
+        </>
+      )}
     </StyleContainer>
   );
 }
@@ -254,6 +490,17 @@ const PostLeft = styled.div`
   gap: 12px;
   width: 30%;
   padding: 12px;
+  @media (max-width: 1024px) {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  @media (max-width: 420px) {
+    flex-direction: column;
+  }
 `;
 
 const Posts = styled.div`
@@ -262,9 +509,17 @@ const Posts = styled.div`
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 1260px;
   width: 100%;
-
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    overflow: visible;
+  }
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
+  @media (max-width: 420px) {
+    flex-direction: row;
+  }
   &::-webkit-scrollbar {
     display: none;
   }
@@ -324,6 +579,24 @@ const StylePersonal = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 24px 14px;
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  @media (max-width: 420px) {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
 `;
 const StyleImage = styled(Image)`
   border: 2px solid #fff;
@@ -373,6 +646,15 @@ const StyleIcons = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  @media (min-width: 1024px) {
+    flex-wrap: wrap;
+  }
+  @media (min-width: 768px) {
+    flex-wrap: wrap;
+  }
+  @media (min-width: 420px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const StylePersonalRight = styled.div`
@@ -387,10 +669,26 @@ const StyleOverview = styled.div`
   align-items: flex-start;
   padding: 16px 20px;
   gap: 100px;
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 420px) {
+    flex-wrap: wrap;
+  }
 `;
 const StyleLeft = styled.div`
   width: 70%;
   margin-left: -20px;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 420px) {
+  }
 `;
 
 const StyleRight = styled.div`
@@ -485,4 +783,22 @@ const StyleRequest = styled.div`
   align-items: center;
   color: #f23581;
   margin-top: 15px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  width: "100%";
+  align-items: flex-start;
+  justify-content: center;
+  gap: 50px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  @media (max-width: 420px) {
+    flex-direction: column;
+  }
 `;
