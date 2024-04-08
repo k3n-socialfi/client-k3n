@@ -57,6 +57,9 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
   return (
     <HeaderWrapper>
       <HeaderLogo>
+        <ToggleSideBar onClick={handleToggleSidebar}>
+          <IconMenuBar />
+        </ToggleSideBar>
         <ImgCustom>
           <Image
             onClick={() => router.push("/")}
@@ -77,6 +80,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
           </HeaderIcon>
         </HeaderSearch>
       </HeaderLogo>
+
       {isClient && (
         <HeaderUserMobile>
           {label === "Disconnect" || buttonState === "connected" ? (
@@ -135,9 +139,6 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
               base58Pubkey={base58Pubkey}
             />
           )}
-          <ToggleSideBar onClick={handleToggleSidebar}>
-            <IconMenuBar />
-          </ToggleSideBar>
         </HeaderUserMobile>
       )}
     </HeaderWrapper>
@@ -197,12 +198,15 @@ const HeaderWrapper = styled.div`
 
 const HeaderLogo = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 100px;
+  @media (max-width: 1599px) {
+    gap: 10px;
+  }
   @media (max-width: 768px) {
     align-items: center;
     /* flex-wrap: wrap; */
-    gap: 10px;
   }
   @media (max-width: 400px) {
     flex-wrap: wrap;
