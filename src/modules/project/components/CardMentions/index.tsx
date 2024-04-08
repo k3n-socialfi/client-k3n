@@ -81,6 +81,13 @@ const StyleMainCard = styled.div`
   padding: 12px;
   border: 1px solid gray;
   border-radius: 8px;
+  width: 100%;
+  @media (max-width: 1250px) {
+    width: 100%;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 const StylePostImg = styled(Image)`
   width: 96%;
