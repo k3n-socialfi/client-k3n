@@ -75,11 +75,16 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
+  padding: 50px;
+  background-color: #292d32;
 
   @media (max-width: 1599px) {
     width: 100%;
   }
-  @media (max-width: 590px) {
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+  @media (max-width: 610px) {
     margin-top: 132px;
   }
 `;
@@ -87,4 +92,11 @@ const StyleChildren = styled.div`
 const StyleMain = styled.div`
   width: 100%;
   display: flex;
+`;
+
+const FooterCustom = styled.div`
+  padding: -50px;
+  @media (max-width: 768px) {
+    padding: -16px;
+  }
 `;

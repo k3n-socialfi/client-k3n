@@ -16,8 +16,6 @@ export interface IRankingProps {}
 
 export default function Ranking(props: IRankingProps) {
   const { dataRanking, isLoading, error } = useTableRankingContext();
-  console.log("🚀 ~ Ranking ~ isLoading:", isLoading);
-  console.log("🚀 ~ Ranking ~ dataRanking:", dataRanking);
 
   const { dataPersonal } = useMyProfileContext();
 
@@ -60,7 +58,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+  padding: 20px 0;
   min-width: 100%;
   background-color: #292d32;
   @media (max-width: 768px) {

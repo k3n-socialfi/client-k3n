@@ -181,7 +181,7 @@ const HeaderWrapper = styled.div`
   gap: 20px;
   @media (max-width: 768px) {
   }
-  @media (max-width: 590px) {
+  @media (max-width: 610px) {
     flex-wrap: wrap;
   }
 `;
@@ -201,12 +201,12 @@ const HeaderLogo = styled.div`
     align-items: center;
   }
 
-  @media (max-width: 590px) {
+  @media (max-width: 610px) {
     order: 1;
   }
 
   @media (max-width: 390px) {
-    width: 50%;
+    width: 40%;
   }
 `;
 const HeaderSearch = styled.div`
@@ -227,7 +227,7 @@ const HeaderSearch = styled.div`
   @media (max-width: 660px) {
     min-width: 300px;
   }
-  @media (max-width: 590px) {
+  @media (max-width: 610px) {
     width: 100%;
     order: 3;
   }
@@ -247,7 +247,7 @@ const HeaderUserMobile = styled.div`
   @media (max-width: 1599px) {
     width: 40%;
   }
-  @media (max-width: 590px) {
+  @media (max-width: 610px) {
     order: 1;
   }
   @media (max-width: 390px) {
@@ -256,6 +256,7 @@ const HeaderUserMobile = styled.div`
   @media (max-width: 294px) {
     align-self: center;
     flex-direction: column;
+    width: 50%;
   }
 `;
 

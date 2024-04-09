@@ -4,10 +4,11 @@ import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import TableTrending from "../components/Table/Table";
-import { CustomTab, SkeletonKols } from "../components/Style/style";
+
 import SkeletonKOLs from "@/components/Skeleton/KOLs";
 import { useHomeContext } from "@/contexts/HomeContext";
+import { CustomTab, SkeletonKols } from "../components/Style/style";
+import TableTrending from "../components/Table/Table";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -125,7 +126,7 @@ export default function TabKOLs() {
 
 const CustomBox = styled(Box)`
   width: 100%;
-  padding: 24px 12px;
+  padding: 24px 0;
   background: #353535;
   overflow: hidden;
   .MuiTabs-flexContainer {
