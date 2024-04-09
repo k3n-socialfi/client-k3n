@@ -194,10 +194,10 @@ export default function UserProfile(props: IUserProfileProps) {
           ) : (
             <StyleTitle>Post</StyleTitle>
           )}
-          <Posts widthNotData={dataPersonal?.posts.length > 0}>
+          <Posts widthNotData={dataPersonal?.posts?.length > 0}>
             {isLoading ? (
               [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPersonal?.posts.length > 0 ? (
+            ) : dataPersonal?.posts?.length > 0 ? (
               dataPersonal?.posts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
@@ -279,7 +279,7 @@ const Posts = styled.div<IUserProfileProps>`
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: ${(props) => (props.widthNotData ? "1360px" : "100px")};
+  height: ${(props) => (props.widthNotData ? "1260px" : "100px")};
   width: 100%;
 
   &::-webkit-scrollbar {
@@ -299,7 +299,7 @@ const StyleButtons = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   @media (max-width: 520px) {
-    flex-wrap: no-wrap;
+    flex-wrap: nowrap;
     gap: 4px;
   }
 `;

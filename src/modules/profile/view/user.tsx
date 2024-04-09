@@ -157,10 +157,10 @@ export default function ClientProfile(props: IUserProfileProps) {
       <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <Posts widthNotData={userProfile?.posts.length > 0}>
+          <Posts widthNotData={userProfile?.posts?.length > 0}>
             {isLoading ? (
               <PostSkeleton />
-            ) : userProfile?.posts.length > 0 ? (
+            ) : userProfile?.posts?.length > 0 ? (
               userProfile?.posts?.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
@@ -267,7 +267,7 @@ const StyleButtons = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   @media (max-width: 520px) {
-    flex-wrap: no-wrap;
+    flex-wrap: nowrap;
     gap: 4px;
   }
 `;

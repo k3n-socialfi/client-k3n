@@ -93,10 +93,3 @@ const StyleMain = styled.div`
   width: 100%;
   display: flex;
 `;
-
-const FooterCustom = styled.div`
-  padding: -50px;
-  @media (max-width: 768px) {
-    padding: -16px;
-  }
-`;
