@@ -1,7 +1,6 @@
 "use client";
 import { IconStar } from "@/assets/icons";
 import styled from "styled-components";
-import ExperienceSkeleton from "../ExperienceSkeleton";
 
 export default function Experience({ experience }: any) {
   return (

@@ -68,18 +68,19 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
             layout="fill"
           />
         </ImgCustom>
-        <HeaderSearch>
-          <HeaderIcon>
-            <IconSearch />
-          </HeaderIcon>
-          <TextSearch>
-            <TextField type="text" placeholder="Search" />
-          </TextSearch>
-          <HeaderIcon>
-            <IconChevronDown />
-          </HeaderIcon>
-        </HeaderSearch>
       </HeaderLogo>
+
+      <HeaderSearch>
+        <HeaderIcon>
+          <IconSearch />
+        </HeaderIcon>
+        <TextSearch>
+          <TextField type="text" placeholder="Search" />
+        </TextSearch>
+        <HeaderIcon>
+          <IconChevronDown />
+        </HeaderIcon>
+      </HeaderSearch>
 
       {isClient && (
         <HeaderUserMobile>
@@ -145,18 +146,6 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
   );
 };
 
-const HeaderUserMobile = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  @media (max-width: 294px) {
-    align-self: end;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-`;
-
 const ToggleSideBar = styled.div`
   @media (min-width: 1600px) {
     display: none;
@@ -189,10 +178,11 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   @media (max-width: 768px) {
   }
-  @media (max-width: 486px) {
-    align-items: flex-start;
+  @media (max-width: 590px) {
+    flex-wrap: wrap;
   }
 `;
 
@@ -201,15 +191,22 @@ const HeaderLogo = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 100px;
+  width: 20%;
   @media (max-width: 1599px) {
     gap: 10px;
+    width: 30%;
   }
+
   @media (max-width: 768px) {
     align-items: center;
-    /* flex-wrap: wrap; */
   }
-  @media (max-width: 400px) {
-    flex-wrap: wrap;
+
+  @media (max-width: 590px) {
+    order: 1;
+  }
+
+  @media (max-width: 390px) {
+    width: 50%;
   }
 `;
 const HeaderSearch = styled.div`
@@ -220,13 +217,48 @@ const HeaderSearch = styled.div`
   min-width: 395px;
   padding: 5px 10px;
   border-radius: 16px;
+  width: 20%;
+  @media (max-width: 1599px) {
+    width: 30%;
+  }
   @media (max-width: 820px) {
     min-width: 350px;
   }
   @media (max-width: 660px) {
+    min-width: 300px;
+  }
+  @media (max-width: 590px) {
+    width: 100%;
+    order: 3;
+  }
+  @media (max-width: 390px) {
     min-width: 150px;
+    order: 3;
   }
 `;
+
+const HeaderUserMobile = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: 70%;
+  justify-content: flex-end;
+  @media (max-width: 1599px) {
+    width: 40%;
+  }
+  @media (max-width: 590px) {
+    order: 1;
+  }
+  @media (max-width: 390px) {
+    width: 30%;
+  }
+  @media (max-width: 294px) {
+    align-self: center;
+    flex-direction: column;
+  }
+`;
+
 const HeaderIcon = styled.div`
   color: #798395;
   font-size: 24px;
@@ -240,16 +272,16 @@ const TextSearch = styled.div`
   input {
     width: 100%;
   }
-  @media (max-width: 580px) {
+  /* @media (max-width: 580px) {
     input {
       max-width: 100px;
     }
-  }
-  @media (max-width: 440px) {
+  } */
+  /* @media (max-width: 440px) {
     input {
       max-width: 50px;
     }
-  }
+  } */
 `;
 const TextField = styled.input`
   border: none;

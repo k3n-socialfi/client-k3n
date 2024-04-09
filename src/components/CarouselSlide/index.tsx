@@ -96,7 +96,7 @@ const StackCustom = styled(Stack)`
   flex-direction: column;
   @media (max-width: 520px) {
     h4 {
-      font-size: 15px !important;
+      font-size: 25px !important;
     }
   }
 `;

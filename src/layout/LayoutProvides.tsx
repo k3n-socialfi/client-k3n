@@ -13,6 +13,7 @@ import { ProfileContextProvider } from "@/contexts/ProfileContext";
 import { MyProfileContextProvider } from "@/contexts/MyProfileConext";
 import { useBoolean } from "@/hooks/useBoolean";
 import { IconOpenSideBar } from "@/assets/icons";
+import { TableRankingContextProvider } from "@/contexts/TableTopRanking";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -30,26 +31,28 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <AuthContextProvider>
-        <ProfileContextProvider>
-          <MyProfileContextProvider>
-            <AppRouterCacheProvider>
-              <ThemeProvider theme={theme}>
-                <WalletContextProvider>
-                  <Header handleToggleSidebar={isOpenSideBar.onToggle} />
-                  <StyleMain>
-                    <StyleSideBar isOpen={isOpenSideBar.value}>
-                      <SideBar handleClose={isOpenSideBar.onToggle} />
-                    </StyleSideBar>
-                    <StyleChildren>
-                      {children}
-                      <Footer />
-                    </StyleChildren>
-                  </StyleMain>
-                </WalletContextProvider>
-              </ThemeProvider>
-            </AppRouterCacheProvider>
-          </MyProfileContextProvider>
-        </ProfileContextProvider>
+        <TableRankingContextProvider>
+          <ProfileContextProvider>
+            <MyProfileContextProvider>
+              <AppRouterCacheProvider>
+                <ThemeProvider theme={theme}>
+                  <WalletContextProvider>
+                    <Header handleToggleSidebar={isOpenSideBar.onToggle} />
+                    <StyleMain>
+                      <StyleSideBar isOpen={isOpenSideBar.value}>
+                        <SideBar handleClose={isOpenSideBar.onToggle} />
+                      </StyleSideBar>
+                      <StyleChildren>
+                        {children}
+                        <Footer />
+                      </StyleChildren>
+                    </StyleMain>
+                  </WalletContextProvider>
+                </ThemeProvider>
+              </AppRouterCacheProvider>
+            </MyProfileContextProvider>
+          </ProfileContextProvider>
+        </TableRankingContextProvider>
       </AuthContextProvider>
     </Suspense>
   );
@@ -69,11 +72,12 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
+
   @media (max-width: 1599px) {
     width: 100%;
   }
-  @media (max-width: 391px) {
-    margin-top: 122px;
+  @media (max-width: 590px) {
+    margin-top: 132px;
   }
 `;
 

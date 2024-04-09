@@ -9,21 +9,24 @@ interface IProfileContextTypes {
   dataPersonal: any;
   isLoading: boolean;
   error?: any;
+  fetchData: () => void;
 }
 
 const ProfileContextTypes = {
   dataPersonal: [{}],
   isLoading: true,
   error: "",
+  fetchData: () => undefined,
 };
 const MyProfileContext =
   createContext<IProfileContextTypes>(ProfileContextTypes);
 const MyProfileContextProvider = ({
   children,
 }: IPropsProfileContextProvider) => {
-  const { dataPersonal, isLoading } = useFetchDataMyProfile();
+  const { dataPersonal, isLoading, fetchData } = useFetchDataMyProfile();
+
   return (
-    <MyProfileContext.Provider value={{ dataPersonal, isLoading }}>
+    <MyProfileContext.Provider value={{ dataPersonal, isLoading, fetchData }}>
       {children}
     </MyProfileContext.Provider>
   );

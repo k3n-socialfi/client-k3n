@@ -18,10 +18,10 @@ import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
 import Services from "../components/services";
-import PersonSkeleton from "../components/PersonSkeleton";
-import PostSkeleton from "../components/PostSkeleton";
-import ServicesSkeleton from "../components/ServicesSkeleton";
-import OverviewSkeleton from "../components/OverviewSkeleton";
+import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
+import PostSkeleton from "@/components/Skeleton/PostSkeleton";
+import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
+import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 
 export interface IUserProfileProps {}
 const IMG_NFT =
