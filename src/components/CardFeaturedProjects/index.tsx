@@ -13,7 +13,7 @@ import { LinkCustom } from "../CardFeaturedKOLs/style";
 export default function CardFeaturedProjects(props: any) {
   return (
     <Card sx={{ minWidth: 350, background: "#252525" }} {...props}>
-      <LinkCustom href={`/jobs/${props?.id}`}>
+      <LinkCustom href={`/project/${props?.id}`}>
         <div style={{ position: "relative" }}>
           <StyleSubscribe>
             <ButtonText

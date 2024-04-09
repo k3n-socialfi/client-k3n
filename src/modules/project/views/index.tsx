@@ -30,7 +30,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
   return (
     <StyleOverview>
       <StyleLeft>
-        {isLoading ? (
+        {isLoading && !!userProfile ? (
           <LoadingSkeleton width="200px" height="20px" />
         ) : (
           <StyleTitle>Overview</StyleTitle>
@@ -38,7 +38,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
 
         <PrimaryTitleLeft>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -50,7 +50,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
             )}
           </StyleContentOverview>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -64,7 +64,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
         </PrimaryTitleLeft>
         <PrimaryTitleLeft>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -76,7 +76,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
             )}
           </StyleContentOverview>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -88,7 +88,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
             )}
           </StyleContentOverview>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -104,7 +104,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
       <StyleRight>
         <PrimaryTitleRight>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -112,13 +112,13 @@ const Overview = ({ userProfile, isLoading }: any) => {
               <>
                 <StyleDesOverview>X Followers</StyleDesOverview>
                 <StyleSubTitle>
-                  {userProfile?.twitterInfo?.followers ?? 259000}
+                  {!userProfile?.twitterInfo?.followers ?? 259000}
                 </StyleSubTitle>
               </>
             )}
           </StyleContentOverview>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -130,7 +130,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
             )}
           </StyleContentOverview>
         </PrimaryTitleRight>
-        {isLoading ? (
+        {isLoading && !!userProfile ? (
           <>
             <LoadingSkeleton width="200px" height="50px" radius="50px" />
           </>
@@ -306,7 +306,7 @@ const KeyMetrics = ({ isLoading, dataProjectDetail }: any) => {
   );
 };
 
-const Personal = ({ dataProjectDetail, isLoading }: any) => {
+const Personal = ({ dataProjectDetail, isLoading, dataJobsDetail }: any) => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -314,7 +314,7 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
           <LoadingSkeleton width="220px" height="220px" radius="100%" />
         ) : (
           <StyleImage
-            src={dataProjectDetail?.image ?? IMG_NFT}
+            src={dataProjectDetail?.image ?? dataJobsDetail?.image}
             alt="avatar profile"
             width={220}
             height={220}
@@ -335,7 +335,7 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
           ) : (
             <>
               <StyleTitle>
-                {dataProjectDetail?.name ?? "User Name"}
+                {dataProjectDetail?.name ?? dataJobsDetail?.projectName}
                 <IconVerify />
                 {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
               </StyleTitle>
@@ -400,18 +400,15 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
 
 interface IProjectDetail {}
 export default function ProjectDetail(props: IProjectDetail) {
-  const { id } = useParams();
-  const { dataProjectDetail, isLoading, getDataProjectDetail } =
-    useProjectContext();
-  useEffect(() => {
-    getDataProjectDetail(id.toString());
-  }, [id]);
+  const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
+
   return (
     <StyleContainer>
       {isLoading ? (
         <>
           <Personal
             dataProjectDetail={dataProjectDetail}
+            dataJobsDetail={dataJobsDetail}
             isLoading={isLoading}
           />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -443,18 +440,21 @@ export default function ProjectDetail(props: IProjectDetail) {
               </Posts>
             </PostLeft>
             <div style={{ width: "70%" }}>
-              <Overview
+              <Overview userProfile={dataProjectDetail} isLoading={isLoading} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <KeyMetrics
                 dataProjectDetail={dataProjectDetail}
                 isLoading={isLoading}
               />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <KeyMetrics isLoading={isLoading} />
             </div>
           </Wrapper>
         </>
       ) : (
         <>
-          <Personal dataProjectDetail={dataProjectDetail} />
+          <Personal
+            dataProjectDetail={dataProjectDetail}
+            dataJobsDetail={dataJobsDetail}
+          />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Wrapper style={{ display: "flex", width: "100%" }}>
             <PostLeft>
@@ -470,9 +470,15 @@ export default function ProjectDetail(props: IProjectDetail) {
               </Posts>
             </PostLeft>
             <div style={{ width: "70%" }}>
-              <Overview dataProjectDetail={dataProjectDetail} />
+              <Overview
+                dataProjectDetail={dataProjectDetail}
+                dataJobsDetail={dataJobsDetail}
+              />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <KeyMetrics dataProjectDetail={dataProjectDetail} />
+              <KeyMetrics
+                dataJobsDetail={dataJobsDetail}
+                dataProjectDetail={dataProjectDetail}
+              />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PreviousDeals />
               <AvailableDeals />
@@ -801,4 +807,9 @@ const Wrapper = styled.div`
   @media (max-width: 420px) {
     flex-direction: column;
   }
+`;
+
+const PostNotData = styled.div`
+  margin: 30px auto;
+  color: #f23581;
 `;

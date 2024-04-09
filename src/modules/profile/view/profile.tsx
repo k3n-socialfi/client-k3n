@@ -25,7 +25,7 @@ import ServicesSkeleton from "../components/ServicesSkeleton";
 import OverviewSkeleton from "../components/OverviewSkeleton";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 
-export interface IUserProfileProps { }
+export interface IUserProfileProps {}
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -76,11 +76,11 @@ const Overview = ({ overview }: any) => {
             <StyleSubTitle>$12,450</StyleSubTitle>
           </StyleContentOverview>
         </PrimaryTitleRight>
-        <ButtonPrimary onClick={() => openModal.onTrue()}>
+        <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
         </ButtonPrimary>
       </StyleRight>
-      {openModal.value && (
+      {openModal?.value && (
         <div style={{ width: "300ox", height: "300px" }}>
           {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
         </div>
@@ -183,7 +183,7 @@ export default function UserProfile(props: IUserProfileProps) {
       ) : (
         <PersonSkeleton />
       )}
-      { }
+      {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
         <PostLeft>
@@ -194,7 +194,7 @@ export default function UserProfile(props: IUserProfileProps) {
           )}
           <Posts>
             {isLoading ? (
-              [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
+              [1, 2, 3, 4, 5]?.map((item) => <PostSkeleton key={item} />)
             ) : dataPersonal?.posts.length > 0 ? (
               dataPersonal?.posts.map((item: any, index: number) => (
                 <>
@@ -215,7 +215,6 @@ export default function UserProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <ServicesSkeleton />
             </>
-
           ) : (
             <>
               <Overview overview={dataPersonal} />
@@ -234,18 +233,18 @@ export default function UserProfile(props: IUserProfileProps) {
 
 const Content = styled.div`
   display: flex;
-  width: 100% ;
+  width: 100%;
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 const ContentRight = styled.div`
-    width: 70% ;
-    @media (max-width: 768px) {
-      width: 100% ;
+  width: 70%;
+  @media (max-width: 768px) {
+    width: 100%;
   }
-`
+`;
 
 const ContentNotData = styled.div`
   padding: 20px 15px;
@@ -268,7 +267,7 @@ const PostLeft = styled.div`
   width: 30%;
   padding: 12px;
   @media (max-width: 768px) {
-      width: 100% ;
+    width: 100%;
   }
 `;
 
@@ -279,7 +278,9 @@ const Posts = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
   height: 1260px;
+
   width: 100%;
+  height: auto;
 
   &::-webkit-scrollbar {
     display: none;
@@ -298,8 +299,8 @@ const StyleButtons = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   @media (max-width: 520px) {
-  flex-wrap: no-wrap;
-  gap: 4px;
+    flex-wrap: no-wrap;
+    gap: 4px;
   }
 `;
 const StyleButtonTitle = styled.div`
@@ -412,10 +413,9 @@ const StylePersonalRight = styled.div`
   gap: 14px;
   width: 40%;
   @media (max-width: 520px) {
-  width: 100%;
-  margin-left: 0px;
-  margin-top: 30px;
-
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 30px;
   }
 `;
 const StyleOverview = styled.div`

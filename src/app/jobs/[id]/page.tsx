@@ -5,7 +5,7 @@ import styled from "styled-components";
 type Props = {};
 
 export default function JobDetail(props: Props) {
-  return <ProjectPage>Comming Soon</ProjectPage>;
+  return <ProjectPage>Comming soon</ProjectPage>;
 }
 
 const ProjectPage = styled.div`
