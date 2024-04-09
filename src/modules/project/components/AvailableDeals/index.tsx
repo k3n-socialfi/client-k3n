@@ -155,6 +155,15 @@ const StyleSelection = styled.div`
   background-color: rgba(70, 70, 70, 1);
   border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    width: 700px;
+  }
+  @media (max-width: 400px) {
+    width: 900px;
+  }
 `;
 const ServicesTitle = styled.div`
   padding: 4px 12px;

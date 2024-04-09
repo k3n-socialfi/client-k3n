@@ -126,6 +126,9 @@ const Transfer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 14px;
+  @media (max-width: 520px) {
+    gap: 4px;
+  }
 `;
 const Options = styled.div`
   display: flex;
@@ -136,11 +139,17 @@ const Price = styled.div`
   font-size: 24px;
   font-weight: 700;
   color: #82ebff;
+  @media (max-width: 520px) {
+    font-size: 14px;
+  }
 `;
 const TitlePrice = styled.div`
   color: #82ebff;
   font-size: 16px;
   font-weight: 500;
+  @media (max-width: 520px) {
+    font-size: 11px;
+  }
 `;
 const RightTransfer = styled.div`
   width: 100%;
@@ -149,11 +158,12 @@ const RightTransfer = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 `;
 const ServicesRight = styled.div`
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 `;
 const SeeAll = styled.div`
   color: #f23581;
@@ -174,6 +184,11 @@ const StyleForm = styled.div`
   border: 1px solid #b9b9b9;
   padding: 24px;
   border-radius: 8px;
+  @media (max-width: 520px) {
+    width: 330px;
+    height: 438px;
+    padding: 12px;
+  }
 `;
 const StyleContent = styled.div`
   display: flex;
@@ -181,6 +196,9 @@ const StyleContent = styled.div`
   overflow-x: auto;
   padding-bottom: 24px;
   margin-right: 40px;
+  @media (max-width: 520px) {
+    margin-right: 0px;
+  }
 `;
 const StyleSelection = styled.div`
   width: 100%;
@@ -217,4 +235,8 @@ const StyleTitle = styled.div`
   line-height: 51px;
   font-weight: 700;
   padding-bottom: 24px;
+  @media (max-width: 520px) {
+    font-size: 20px;
+    padding-bottom: 0px;
+  }
 `;

@@ -28,30 +28,22 @@ export default function CartMentions({ item }: ICartMentions) {
           <StylePost>
             <StyleInforPost>
               <Avatar alt={item?.user?.name} src={item?.user?.profilePicUrl} />
-              <StyleUserProfile>username</StyleUserProfile>
-              <StyleUser>@username</StyleUser>
+              <StyleUserProfile>{item?.user?.username}</StyleUserProfile>
+              <StyleUser>{item?.user?.username}</StyleUser>
               <IconDots />
               <StyleUser>@vietnam</StyleUser>
             </StyleInforPost>
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              To check your $KMNO allocation:
+              {item?.source}
             </Markdown>
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              🔹Visit @KaminoFinance on the official account, connect your
-              wallet, select KMNO tab, and press check.
-            </Markdown>
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              🔹Or go to your Phantom Wallet and the allocation will be written
-              on the main screen.
-            </Markdown>
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-              1 $KMNO = 0.15$ on Drift pre-market. https://t.co/pbXRlE1SEY
+              {item?.text}
             </Markdown>
             <StylePostImg
               width={0}
               height={293}
               sizes="100vw"
-              src="https://pbs.twimg.com/media/GEEozaoWkAAzeqB?format=jpg&name=4096x4096"
+              src={item?.user?.profileBannerUrl}
               alt="igs"
             />
             <StyleIcons>
@@ -89,6 +81,13 @@ const StyleMainCard = styled.div`
   padding: 12px;
   border: 1px solid gray;
   border-radius: 8px;
+  width: 100%;
+  @media (max-width: 1250px) {
+    width: 100%;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 const StylePostImg = styled(Image)`
   width: 96%;
