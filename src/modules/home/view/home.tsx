@@ -237,14 +237,14 @@ export default function Home({}: IHomeProps) {
 }
 
 const StyleContainer = styled.div`
-  padding: 50px;
-  background-color: #161616;
-  @media (max-width: 1024px) {
+  /* padding: 50px; */
+  background-color: #292d32;
+  /* @media (max-width: 1024px) {
     padding: 30px;
-  }
-  @media (max-width: 768px) {
+  } */
+  /* @media (max-width: 768px) {
     padding: 16px;
-  }
+  } */
 `;
 
 const StyleSlide = styled.div``;

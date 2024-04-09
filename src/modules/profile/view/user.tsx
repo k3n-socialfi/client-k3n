@@ -23,7 +23,10 @@ import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 
-export interface IUserProfileProps { }
+export interface IUserProfileProps {
+  widthNotData?: boolean;
+}
+
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -154,10 +157,10 @@ export default function ClientProfile(props: IUserProfileProps) {
       <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <Posts>
+          <Posts widthNotData={userProfile?.posts?.length > 0}>
             {isLoading ? (
               <PostSkeleton />
-            ) : userProfile?.posts.length > 0 ? (
+            ) : userProfile?.posts?.length > 0 ? (
               userProfile?.posts?.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
@@ -196,18 +199,18 @@ export default function ClientProfile(props: IUserProfileProps) {
 
 const Content = styled.div`
   display: flex;
-  width: 100% ;
+  width: 100%;
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 const ContentRight = styled.div`
-    width: 70% ;
-    @media (max-width: 768px) {
-      width: 100% ;
+  width: 70%;
+  @media (max-width: 768px) {
+    width: 100%;
   }
-`
+`;
 
 const ContentNotData = styled.div`
   padding: 20px 15px;
@@ -234,17 +237,17 @@ const PostLeft = styled.div`
   width: 30%;
   padding: 12px;
   @media (max-width: 768px) {
-      width: 100% ;
+    width: 100%;
   }
 `;
 
-const Posts = styled.div`
+const Posts = styled.div<IUserProfileProps>`
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 1260px;
+  height: ${(props) => (props.widthNotData ? "1260px" : "100px")};
   width: 100%;
 
   &::-webkit-scrollbar {
@@ -264,8 +267,8 @@ const StyleButtons = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   @media (max-width: 520px) {
-  flex-wrap: no-wrap;
-  gap: 4px;
+    flex-wrap: nowrap;
+    gap: 4px;
   }
 `;
 const StyleButtonTitle = styled.div`
@@ -334,7 +337,6 @@ const StylePersonalLeft = styled.div`
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
-
   }
 `;
 const StyleContentUser = styled.div`
@@ -382,10 +384,9 @@ const StylePersonalRight = styled.div`
   gap: 14px;
   width: 40%;
   @media (max-width: 520px) {
-  width: 100%;
-  margin-left: 0px;
-  margin-top: 30px;
-
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 30px;
   }
 `;
 const StyleOverview = styled.div`
