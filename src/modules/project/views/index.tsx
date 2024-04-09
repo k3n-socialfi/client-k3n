@@ -33,73 +33,74 @@ const Overview = ({ userProfile, isLoading }: any) => {
         {isLoading ? (
           <LoadingSkeleton width="200px" height="20px" />
         ) : (
-          <StyleTitle>Overview</StyleTitle>
+          <>
+            <StyleTitle>Overview</StyleTitle>
+            <PrimaryTitleLeft>
+              <StyleContentOverview>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100px" height="20px" />
+                  </>
+                ) : (
+                  <>
+                    <StyleDesOverview>Project Type</StyleDesOverview>
+                    <StyleSubTitle>Memecoin</StyleSubTitle>
+                  </>
+                )}
+              </StyleContentOverview>
+              <StyleContentOverview>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100px" height="20px" />
+                  </>
+                ) : (
+                  <>
+                    <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
+                    <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
+                  </>
+                )}
+              </StyleContentOverview>
+            </PrimaryTitleLeft>
+            <PrimaryTitleLeft>
+              <StyleContentOverview>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100px" height="20px" />
+                  </>
+                ) : (
+                  <>
+                    <StyleDesOverview>Gender</StyleDesOverview>
+                    <StyleSubTitle>Female</StyleSubTitle>
+                  </>
+                )}
+              </StyleContentOverview>
+              <StyleContentOverview>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100px" height="20px" />
+                  </>
+                ) : (
+                  <>
+                    <StyleDesOverview>Type of KOLs</StyleDesOverview>
+                    <StyleSubTitle>Influencer</StyleSubTitle>
+                  </>
+                )}
+              </StyleContentOverview>
+              <StyleContentOverview>
+                {isLoading ? (
+                  <>
+                    <LoadingSkeleton width="100px" height="20px" />
+                  </>
+                ) : (
+                  <>
+                    <StyleDesOverview>Location</StyleDesOverview>
+                    <StyleSubTitle>New York, NYC</StyleSubTitle>
+                  </>
+                )}
+              </StyleContentOverview>
+            </PrimaryTitleLeft>
+          </>
         )}
-
-        <PrimaryTitleLeft>
-          <StyleContentOverview>
-            {isLoading ? (
-              <>
-                <LoadingSkeleton width="100px" height="20px" />
-              </>
-            ) : (
-              <>
-                <StyleDesOverview>Project Type</StyleDesOverview>
-                <StyleSubTitle>Memecoin</StyleSubTitle>
-              </>
-            )}
-          </StyleContentOverview>
-          <StyleContentOverview>
-            {isLoading ? (
-              <>
-                <LoadingSkeleton width="100px" height="20px" />
-              </>
-            ) : (
-              <>
-                <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
-                <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
-              </>
-            )}
-          </StyleContentOverview>
-        </PrimaryTitleLeft>
-        <PrimaryTitleLeft>
-          <StyleContentOverview>
-            {isLoading ? (
-              <>
-                <LoadingSkeleton width="100px" height="20px" />
-              </>
-            ) : (
-              <>
-                <StyleDesOverview>Gender</StyleDesOverview>
-                <StyleSubTitle>Female</StyleSubTitle>
-              </>
-            )}
-          </StyleContentOverview>
-          <StyleContentOverview>
-            {isLoading ? (
-              <>
-                <LoadingSkeleton width="100px" height="20px" />
-              </>
-            ) : (
-              <>
-                <StyleDesOverview>Type of KOLs</StyleDesOverview>
-                <StyleSubTitle>Influencer</StyleSubTitle>
-              </>
-            )}
-          </StyleContentOverview>
-          <StyleContentOverview>
-            {isLoading ? (
-              <>
-                <LoadingSkeleton width="100px" height="20px" />
-              </>
-            ) : (
-              <>
-                <StyleDesOverview>Location</StyleDesOverview>
-                <StyleSubTitle>New York, NYC</StyleSubTitle>
-              </>
-            )}
-          </StyleContentOverview>
-        </PrimaryTitleLeft>
       </StyleLeft>
       <StyleRight>
         <PrimaryTitleRight>
@@ -345,16 +346,11 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
               <StyleUserDes>
                 {dataProjectDetail?.description ?? "data null"}
               </StyleUserDes>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
+              <WrapperCategori>
                 {dataProjectDetail?.categories?.map((item: any) => {
                   return <StyleUserDes key={item}>{item}</StyleUserDes>;
                 })}
-              </div>
+              </WrapperCategori>
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
                 {/* {dataProjectDetail?.social.map(
@@ -381,7 +377,7 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
           <StyleButtons>
             <StyleButtonTitle>
               <IconIdProject />
-              <div>CA: DezXAZ....</div>
+              CA: DezXAZ....
             </StyleButtonTitle>
             <StyleButtonTitle>
               <IconPaper />
@@ -469,14 +465,14 @@ export default function ProjectDetail(props: IProjectDetail) {
                 })}
               </Posts>
             </PostLeft>
-            <div style={{ width: "70%" }}>
+            <WrapperContentRight>
               <Overview dataProjectDetail={dataProjectDetail} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <KeyMetrics dataProjectDetail={dataProjectDetail} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PreviousDeals />
               <AvailableDeals />
-            </div>
+            </WrapperContentRight>
           </Wrapper>
         </>
       )}
@@ -490,6 +486,10 @@ const PostLeft = styled.div`
   gap: 12px;
   width: 30%;
   padding: 12px;
+  @media (max-width: 1250px) {
+    width: 100%;
+  }
+
   @media (max-width: 1024px) {
     width: 100%;
     flex-wrap: wrap;
@@ -506,6 +506,7 @@ const PostLeft = styled.div`
 const Posts = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -551,6 +552,19 @@ const PrimaryTitleLeft = styled.div`
   flex-wrap: nowrap;
   gap: 40px;
   padding: 24px 0;
+  @media (max-width: 1024px) {
+    overflow: visible;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  @media (max-width: 420px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 `;
 
 const PrimaryTitleRight = styled.div`
@@ -579,11 +593,27 @@ const StylePersonal = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 24px 14px;
+  @media (max-width: 1120px) {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
   @media (max-width: 1024px) {
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 40px;
+  }
+  @media (max-width: 850px) {
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 650px) {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
   }
   @media (max-width: 768px) {
     flex-wrap: wrap;
@@ -607,17 +637,35 @@ const StylePersonalLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+  @media (max-width: 850px) {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 `;
 const StyleContentUser = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  @media (max-width: 1024px) {
+    align-items: center;
+  }
+  @media (max-width: 650px) {
+    align-items: center;
+    margin-top: -40px;
+  }
 `;
 const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
   font-weight: 700;
   margin-top: 30px;
+  @media (max-width: 1024px) {
+    text-align: center;
+  }
+  @media (max-width: 650px) {
+    align-items: center;
+  }
 `;
 
 const PointProfile = styled.div`
@@ -635,6 +683,9 @@ const StyleUserDes = styled.div`
   border-radius: 12px;
   color: #82ebff;
   width: fit-content;
+  @media (max-width: 650px) {
+    width: 100%;
+  }
 `;
 const StyleUserSocial = styled.div`
   font-size: 14px;
@@ -662,6 +713,22 @@ const StylePersonalRight = styled.div`
   display: flex;
   gap: 14px;
   width: 55%;
+  @media (max-width: 1120px) {
+    width: 100%;
+    margin-left: 250px;
+    margin-top: 10px;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    margin: 0;
+  }
+  @media (max-width: 420px) {
+  }
 `;
 const StyleOverview = styled.div`
   display: flex;
@@ -669,8 +736,17 @@ const StyleOverview = styled.div`
   align-items: flex-start;
   padding: 16px 20px;
   gap: 100px;
+  @media (max-width: 1120px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   @media (max-width: 1024px) {
     flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   @media (max-width: 768px) {
     flex-wrap: wrap;
@@ -684,6 +760,10 @@ const StyleLeft = styled.div`
   margin-left: -20px;
   @media (max-width: 1024px) {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   @media (max-width: 768px) {
   }
@@ -695,6 +775,13 @@ const StyleRight = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
+  @media (max-width: 1024px) {
+    width: 50%;
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 420px) {
+  }
 `;
 const StyleModalBox = styled(Box)`
   position: fixed;
@@ -790,7 +877,15 @@ const Wrapper = styled.div`
   width: "100%";
   align-items: flex-start;
   justify-content: center;
+  padding: 20px;
   gap: 50px;
+  @media (max-width: 1250px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 1120px) {
+    gap: 10px;
+    align-items: flex-start;
+  }
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
@@ -800,5 +895,29 @@ const Wrapper = styled.div`
   }
   @media (max-width: 420px) {
     flex-direction: column;
+  }
+`;
+
+const WrapperCategori = styled.div`
+  display: flex;
+  gap: 10px;
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const WrapperContentRight = styled.div`
+  width: 70%;
+  @media (max-width: 1250px) {
+    width: 100%;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 420px) {
   }
 `;
