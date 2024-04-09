@@ -35,7 +35,6 @@ const Overview = ({ userProfile, isLoading }: any) => {
         ) : (
           <StyleTitle>Overview</StyleTitle>
         )}
-
         <PrimaryTitleLeft>
           <StyleContentOverview>
             {isLoading && !!userProfile ? (
