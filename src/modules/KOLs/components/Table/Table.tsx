@@ -7,6 +7,7 @@ import {
   IconNFT,
 } from "@/assets/icons";
 import IconUnverify from "@/assets/icons/IconUverify";
+import SkeletonKOLs from "@/components/Skeleton/KOLs";
 import { useHomeContext } from "@/contexts/HomeContext";
 import { Avatar } from "@mui/material";
 import {
@@ -98,7 +99,7 @@ const top100Films = [
 ];
 
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { featureKols: dataTableKols } = useHomeContext();
+  const { featureKols: dataTableKols, isLoading } = useHomeContext();
   const data = dataTableKols?.map((item) => {
     return {
       name: item?.fullName,
@@ -240,6 +241,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
               <CustomTableCell align="center">Tags</CustomTableCell>
             </CustomTableRow>
           </TableHead>
+
           <TableBody>
             {data.map((row: any, index) => (
               <TableRow
@@ -346,7 +348,7 @@ const CustomTableRow = styled(TableRow)`
 `;
 
 const CustomTableCell = styled(TableCell)`
-  color: #ffd7f4;
+  color: #ffd7f4 !important;
   font-weight: 700;
   border-left: 1px solid #ffd7f4;
 `;

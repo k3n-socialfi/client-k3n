@@ -7,8 +7,6 @@ import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import CreateServices from "@/components/ModalCreateServices";
 
-import ServicesSkeleton from "../ServicesSkeleton";
-
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function Services({ services }: any) {

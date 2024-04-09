@@ -33,7 +33,7 @@ export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
   );
 }
 
-const CardCustom = styled(Card)`
+const CardCustom = styled.div`
   width: 100%;
   border-radius: 15px;
   border: 0;
@@ -48,42 +48,58 @@ const Container = styled.div<ICardTrendingKOLsProps>`
   background-color: ${(props) => props.backgroundColor ?? "#42362E"};
   color: #fff;
   border-radius: 15px;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     flex-wrap: wrap;
     height: 100%;
+  }
+  @media (max-width: 420px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
   }
 `;
 
 const Rank = styled.div<ICardTrendingKOLsProps>`
   border-right: 2px #fff solid;
   padding: 15px 20px;
-  /* min-width: 100px; */
   width: 15%;
   display: flex;
   justify-content: center;
-  @media (max-width: 500px) {
-    width: 30%;
+  @media (max-width: 600px) {
     border-right: 0;
+    padding: 5px;
   }
-  @media (max-width: 300px) {
-    width: 35%;
-    border-right: 0;
+  @media (max-width: 540px) {
+    width: 20%;
+  }
+  @media (max-width: 420px) {
+    width: 100%;
+    text-align: center;
   }
 `;
 
 const Name = styled.div`
   display: flex;
   align-items: center;
-  /* min-width: 314px; */
   width: 70%;
   gap: 10px;
-  padding: 1px 20px;
+  padding: 4px 20px;
   border-right: 2px #fff solid;
-  @media (max-width: 500px) {
-    border-right: 0;
+  @media (max-width: 600px) {
+    border-right: 2px #fff solid;
+    border-left: 2px #fff solid;
+    width: 60%;
+    flex-direction: column;
+  }
+  @media (max-width: 540px) {
+    width: 50%;
+    flex-wrap: wrap;
+    padding: 5px 10px;
   }
   @media (max-width: 420px) {
-    flex-wrap: wrap;
+    border: 0;
+    text-align: center;
   }
 `;
 const LinkCustom = styled(Link)`
@@ -93,4 +109,11 @@ const LinkCustom = styled(Link)`
 const Point = styled.div`
   padding: 10px 20px;
   width: 25%;
+  @media (max-width: 540px) {
+    width: 20%;
+  }
+  @media (max-width: 420px) {
+    width: 100%;
+    text-align: center;
+  }
 `;

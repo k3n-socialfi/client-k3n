@@ -58,7 +58,10 @@ export default function TableTopRanking({
             <CustomTableCell align="left">
               <CellAll>Platform</CellAll>
             </CustomTableCell>
-            <CustomTableCell align="center" style={{ borderRight: "0px" }}>
+            <CustomTableCell
+              align="center"
+              style={{ borderRight: "0px", fontSize: "18px !important" }}
+            >
               Chains
             </CustomTableCell>
           </StyleTableRow>
@@ -164,7 +167,7 @@ const StyleTableRow = styled(TableRow)`
   margin: 4px 0;
 `;
 const CustomTableCell = styled(TableCell)`
-  color: #ffd7f4;
+  color: #ffd7f4 !important;
   font-weight: 700;
   border-right: 1px solid #ffd7f4;
 `;
@@ -196,12 +199,14 @@ const StyleTextSearch = styled.input`
 const CellAll = styled.div`
   /* border-right: 2px #b9b9b9 solid; */
   padding: 10px;
+  font-size: 18px !important;
 `;
 
 const CellProof = styled.div`
   /* border-right: 2px #b9b9b9 solid; */
   white-space: nowrap;
   padding: 0 20px;
+  font-size: 18px !important;
 `;
 
 const Rank = styled.div`

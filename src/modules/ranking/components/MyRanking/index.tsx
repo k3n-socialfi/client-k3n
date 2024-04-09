@@ -96,6 +96,15 @@ const Container = styled.div`
   width: 100%;
   background-color: #404356;
   border-radius: 20px;
+  gap: 20px;
+  @media (max-width: 798px) {
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  @media (max-width: 504px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Info = styled.div`
