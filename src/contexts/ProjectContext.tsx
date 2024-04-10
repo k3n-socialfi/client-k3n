@@ -1,4 +1,9 @@
 "use client";
+import { dataInitalProjectDetail } from "@/constant/dataInitalProjectDetail";
+import {
+  IJobsDetail,
+  IProjectDetail,
+} from "@/interface/projectDetail.interface";
 import useJobsDetail from "@/modules/jobs/hook/useJobsDetail";
 import { useParams } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -8,14 +13,14 @@ interface IPropsProfileContextProvider {
 }
 
 interface IProjectContextTypes {
-  dataProjectDetail: any;
-  dataJobsDetail: any;
+  dataProjectDetail: IProjectDetail;
+  dataJobsDetail: IJobsDetail;
   isLoading: boolean;
 }
 
 const projectContextTypes = {
-  dataProjectDetail: {},
-  dataJobsDetail: {},
+  dataProjectDetail: dataInitalProjectDetail.projectDetail,
+  dataJobsDetail: dataInitalProjectDetail.jobsDetail,
   isLoading: true,
   getDataProjectDetail: () => undefined,
   getDataJobsDetail: () => undefined,

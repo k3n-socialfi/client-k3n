@@ -22,6 +22,10 @@ import AvailableDeals from "../components/AvailableDeals";
 import CartMentions from "../components/CardMentions";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import {
+  IJobsDetail,
+  IProjectDetail,
+} from "@/interface/projectDetail.interface";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -305,7 +309,16 @@ const KeyMetrics = ({ isLoading, dataProjectDetail }: any) => {
   );
 };
 
-const Personal = ({ dataProjectDetail, isLoading, dataJobsDetail }: any) => {
+interface IPropsPersonal {
+  dataProjectDetail: IProjectDetail;
+  isLoading?: boolean;
+  dataJobsDetail: IJobsDetail;
+}
+const Personal = ({
+  dataProjectDetail,
+  isLoading,
+  dataJobsDetail,
+}: IPropsPersonal) => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -313,7 +326,11 @@ const Personal = ({ dataProjectDetail, isLoading, dataJobsDetail }: any) => {
           <LoadingSkeleton width="220px" height="220px" radius="100%" />
         ) : (
           <StyleImage
-            src={dataProjectDetail?.image ?? dataJobsDetail?.image}
+            src={
+              dataProjectDetail?.image
+                ? dataProjectDetail?.image
+                : dataJobsDetail?.image
+            }
             alt="avatar profile"
             width={220}
             height={220}
@@ -334,7 +351,9 @@ const Personal = ({ dataProjectDetail, isLoading, dataJobsDetail }: any) => {
           ) : (
             <>
               <StyleTitle>
-                {dataProjectDetail?.name ?? dataJobsDetail?.projectName}
+                {dataProjectDetail?.name
+                  ? dataProjectDetail?.name
+                  : dataJobsDetail?.projectName}
                 <IconVerify />
                 {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
               </StyleTitle>
@@ -392,10 +411,12 @@ const Personal = ({ dataProjectDetail, isLoading, dataJobsDetail }: any) => {
   );
 };
 
-interface IProjectDetail {}
+interface IProjectsDetail {}
 export default function ProjectDetail(props: IProjectDetail) {
   const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
-
+  // console.log("dataPage", dataJobsDetail);
+  console.log("dataProjectDetail", dataProjectDetail);
+  // console.log("test", Boolean("12") ?? "ok");
   return (
     <StyleContainer>
       {isLoading ? (
