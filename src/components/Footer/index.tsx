@@ -32,8 +32,12 @@ export default function Footer(props: IFooterProps) {
 }
 
 const Container = styled.div`
+  margin: 50px -50px -50px;
   padding: 12px 40px;
   background-color: #000;
+  @media (max-width: 768px) {
+    margin: 16px -16px -16px;
+  }
 `;
 
 const Content = styled(Stack)`

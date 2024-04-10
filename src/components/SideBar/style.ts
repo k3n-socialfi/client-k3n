@@ -12,7 +12,7 @@ export const CloseSideBar = styled.div`
 
 export const Discover = styled.div`
   .MuiPaper-elevation {
-    @media (max-width: 391px) {
+    @media (max-width: 610px) {
       margin-top: 60px;
     }
   }

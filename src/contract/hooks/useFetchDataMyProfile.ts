@@ -29,6 +29,7 @@ const useFetchDataMyProfile = () => {
     dataPersonal,
     isLoading,
     error,
+    fetchData,
   };
 };
 

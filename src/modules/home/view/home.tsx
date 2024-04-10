@@ -237,8 +237,14 @@ export default function Home({}: IHomeProps) {
 }
 
 const StyleContainer = styled.div`
-  padding: 50px 50px;
-  background-color: #161616;
+  /* padding: 50px; */
+  background-color: #292d32;
+  /* @media (max-width: 1024px) {
+    padding: 30px;
+  } */
+  /* @media (max-width: 768px) {
+    padding: 16px;
+  } */
 `;
 
 const StyleSlide = styled.div``;
@@ -250,6 +256,11 @@ const StyleTop = styled.div`
   justify-content: space-between;
   color: white;
   margin: 20px 0;
+  @media (max-width: 520px) {
+    h4 {
+      font-size: 25px;
+    }
+  }
 `;
 
 const StyleBottom = styled.div`
@@ -266,7 +277,7 @@ const StyleLeft = styled.div`
   color: white;
   @media (max-width: 520px) {
     h4 {
-      font-size: 15px !important;
+      font-size: 25px !important;
     }
   }
 `;
@@ -286,7 +297,7 @@ const StyleTrending = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 100px;
-  @media (max-width: 1124px) {
+  @media (max-width: 1224px) {
     justify-content: start;
     flex-direction: column;
     flex-wrap: wrap;

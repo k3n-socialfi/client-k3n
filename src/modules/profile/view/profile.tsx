@@ -18,14 +18,16 @@ import PostUser from "../components/PostUser";
 import Services from "../components/services";
 import { getMyProfile } from "./../../../services/index";
 import EditProfile from "@/components/EditProfile";
-import PersonSkeleton from "../components/PersonSkeleton";
-import PostSkeleton from "../components/PostSkeleton";
-import ExperienceSkeleton from "../components/ExperienceSkeleton";
-import ServicesSkeleton from "../components/ServicesSkeleton";
-import OverviewSkeleton from "../components/OverviewSkeleton";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
+import PostSkeleton from "@/components/Skeleton/PostSkeleton";
+import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
+import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 
-export interface IUserProfileProps {}
+export interface IUserProfileProps {
+  widthNotData?: boolean;
+}
+
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -192,9 +194,9 @@ export default function UserProfile(props: IUserProfileProps) {
           ) : (
             <StyleTitle>Post</StyleTitle>
           )}
-          <Posts>
+          <Posts widthNotData={dataPersonal?.posts?.length > 0}>
             {isLoading ? (
-              [1, 2, 3, 4, 5]?.map((item) => <PostSkeleton key={item} />)
+              [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
             ) : dataPersonal?.posts.length > 0 ? (
               dataPersonal?.posts.map((item: any, index: number) => (
                 <>
@@ -271,14 +273,13 @@ const PostLeft = styled.div`
   }
 `;
 
-const Posts = styled.div`
+const Posts = styled.div<IUserProfileProps>`
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 1260px;
-
   width: 100%;
   height: auto;
 

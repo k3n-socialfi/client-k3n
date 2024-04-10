@@ -5,63 +5,51 @@ import MyRanking from "../components/MyRanking";
 import TableTopRanking from "@/components/TableTopRanking";
 import styled from "styled-components";
 import { IconBoxArrowRight } from "@/assets/icons";
-import { getMyProfile, kolRanking } from "@/services";
+import { getMyProfile } from "@/services";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
+import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
+import { kolRanking } from "@/services/TableTopRanking";
+import { useTableRankingContext } from "@/contexts/TableTopRanking";
 
 export interface IRankingProps {}
 
 export default function Ranking(props: IRankingProps) {
-  const [dataRanking, setDataRanking] = useState([]);
-  const { dataPersonal } = useMyProfileContext();
-  const fetchDataRanking = async () => {
-    try {
-      const { data } = await kolRanking();
-      setDataRanking(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Kols Ranking Failed" };
-    }
-  };
+  const { dataRanking, isLoading, error } = useTableRankingContext();
 
-  useEffect(() => {
-    fetchDataRanking();
-  }, []);
+  const { dataPersonal } = useMyProfileContext();
 
   return (
     <Container>
-      <Stack
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-          color: "#FFF",
-        }}
-      >
+      <MyRankingTop>
         <Typography variant="h3" marginLeft={"20px"} fontWeight={"700"}>
           My Ranking
         </Typography>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "5px",
-            alignItems: "center",
-          }}
-        >
+        <TurnBack>
           <Typography color={"#F23581"}>Turn back</Typography>
           <IconBoxArrowRight />
-        </Stack>
-      </Stack>
-      <MyRanking dataPersonal={dataPersonal} />
+        </TurnBack>
+      </MyRankingTop>
+      {isLoading || !dataPersonal ? (
+        <SkeletonMyRanking />
+      ) : (
+        <MyRanking dataPersonal={dataPersonal} />
+      )}
       <Typography
         variant="h3"
-        color={"#FFF"}
         marginLeft={"20px"}
         fontWeight={"700"}
-        style={{ marginTop: "50px" }}
+        color="#FFF"
       >
         Top 100 Ranking
       </Typography>
-      <TableTopRanking dataRanking={dataRanking} />
+      {isLoading ? (
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((row) => (
+          <SkeletonTableTopRanking key={row} />
+        ))
+      ) : (
+        <TableTopRanking dataRanking={dataRanking} />
+      )}
     </Container>
   );
 }
@@ -70,7 +58,37 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+  padding: 20px 0;
   min-width: 100%;
   background-color: #292d32;
+  @media (max-width: 768px) {
+    h3 {
+      font-size: 32px !important;
+    }
+  }
+  @media (max-width: 420px) {
+    h3 {
+      font-size: 20px !important;
+    }
+  }
+`;
+
+const MyRankingTop = styled(Stack)`
+  display: flex;
+  justify-content: space-between !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  color: #fff;
+  @media (max-width: 768px) {
+    h3 {
+      font-size: 32px;
+    }
+  }
+`;
+
+const TurnBack = styled(Stack)`
+  display: flex;
+  flex-direction: row !important;
+  gap: 5px !important;
+  align-items: center;
 `;

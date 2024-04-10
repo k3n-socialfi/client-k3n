@@ -4,7 +4,11 @@ import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import TableTrending from "../components/Table";
+
+import SkeletonKOLs from "@/components/Skeleton/KOLs";
+import { useHomeContext } from "@/contexts/HomeContext";
+import { CustomTab, SkeletonKols } from "../components/Style/style";
+import TableTrending from "../components/Table/Table";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -57,18 +61,7 @@ function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      style={{
-        margin: "12px 0",
-        textAlign: "center",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontWeight: "bold",
-        fontSize: "60px",
-        color: "#f23581",
-        minHeight: "100px",
-      }}
+    <CustomTab
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -76,11 +69,13 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && <div>{children}</div>}
-    </div>
+    </CustomTab>
   );
 }
 
 export default function TabKOLs() {
+  const { isLoading } = useHomeContext();
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -103,7 +98,15 @@ export default function TabKOLs() {
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <TableTrending />
+        {isLoading ? (
+          <SkeletonKols>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((row) => (
+              <SkeletonKOLs key={row} />
+            ))}
+          </SkeletonKols>
+        ) : (
+          <TableTrending />
+        )}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         COMING SOON
@@ -123,7 +126,23 @@ export default function TabKOLs() {
 
 const CustomBox = styled(Box)`
   width: 100%;
-  padding: 24px 12px;
+  padding: 24px 0;
   background: #353535;
   overflow: hidden;
+  .MuiTabs-flexContainer {
+    overflow-y: hidden;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+  }
+
+  @media (max-width: 768px) {
+    .MuiTabs-indicator {
+      display: none !important;
+    }
+  }
 `;
