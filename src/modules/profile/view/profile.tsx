@@ -78,11 +78,11 @@ const Overview = ({ overview }: any) => {
             <StyleSubTitle>$12,450</StyleSubTitle>
           </StyleContentOverview>
         </PrimaryTitleRight>
-        <ButtonPrimary onClick={() => openModal.onTrue()}>
+        <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
         </ButtonPrimary>
       </StyleRight>
-      {openModal.value && (
+      {openModal?.value && (
         <div style={{ width: "300ox", height: "300px" }}>
           {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
         </div>
@@ -197,7 +197,7 @@ export default function UserProfile(props: IUserProfileProps) {
           <Posts widthNotData={dataPersonal?.posts?.length > 0}>
             {isLoading ? (
               [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPersonal?.posts?.length > 0 ? (
+            ) : dataPersonal?.posts.length > 0 ? (
               dataPersonal?.posts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
@@ -279,8 +279,9 @@ const Posts = styled.div<IUserProfileProps>`
   gap: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: ${(props) => (props.widthNotData ? "1260px" : "100px")};
+  height: 1260px;
   width: 100%;
+  height: auto;
 
   &::-webkit-scrollbar {
     display: none;
@@ -299,7 +300,7 @@ const StyleButtons = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   @media (max-width: 520px) {
-    flex-wrap: nowrap;
+    flex-wrap: no-wrap;
     gap: 4px;
   }
 `;

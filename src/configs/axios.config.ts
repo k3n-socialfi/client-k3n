@@ -12,11 +12,13 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  config => {
-    config.headers["Authorization"] = `Bearer ${typeof window !== 'undefined' && localStorage.getItem("accessToken")}`;
+  (config) => {
+    config.headers["Authorization"] = `Bearer ${
+      typeof window !== "undefined" && localStorage.getItem("accessToken")
+    }`;
     return config;
   },
-  error => {
+  (error) => {
     Promise.reject(error);
   }
 );

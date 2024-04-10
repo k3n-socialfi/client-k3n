@@ -22,6 +22,10 @@ import AvailableDeals from "../components/AvailableDeals";
 import CartMentions from "../components/CardMentions";
 import { useProjectContext } from "@/contexts/ProjectContext";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import {
+  IJobsDetail,
+  IProjectDetail,
+} from "@/interface/projectDetail.interface";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -30,82 +34,80 @@ const Overview = ({ userProfile, isLoading }: any) => {
   return (
     <StyleOverview>
       <StyleLeft>
-        {isLoading ? (
+        {isLoading && !!userProfile ? (
           <LoadingSkeleton width="200px" height="20px" />
         ) : (
-          <>
-            <StyleTitle>Overview</StyleTitle>
-            <PrimaryTitleLeft>
-              <StyleContentOverview>
-                {isLoading ? (
-                  <>
-                    <LoadingSkeleton width="100px" height="20px" />
-                  </>
-                ) : (
-                  <>
-                    <StyleDesOverview>Project Type</StyleDesOverview>
-                    <StyleSubTitle>Memecoin</StyleSubTitle>
-                  </>
-                )}
-              </StyleContentOverview>
-              <StyleContentOverview>
-                {isLoading ? (
-                  <>
-                    <LoadingSkeleton width="100px" height="20px" />
-                  </>
-                ) : (
-                  <>
-                    <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
-                    <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
-                  </>
-                )}
-              </StyleContentOverview>
-            </PrimaryTitleLeft>
-            <PrimaryTitleLeft>
-              <StyleContentOverview>
-                {isLoading ? (
-                  <>
-                    <LoadingSkeleton width="100px" height="20px" />
-                  </>
-                ) : (
-                  <>
-                    <StyleDesOverview>Gender</StyleDesOverview>
-                    <StyleSubTitle>Female</StyleSubTitle>
-                  </>
-                )}
-              </StyleContentOverview>
-              <StyleContentOverview>
-                {isLoading ? (
-                  <>
-                    <LoadingSkeleton width="100px" height="20px" />
-                  </>
-                ) : (
-                  <>
-                    <StyleDesOverview>Type of KOLs</StyleDesOverview>
-                    <StyleSubTitle>Influencer</StyleSubTitle>
-                  </>
-                )}
-              </StyleContentOverview>
-              <StyleContentOverview>
-                {isLoading ? (
-                  <>
-                    <LoadingSkeleton width="100px" height="20px" />
-                  </>
-                ) : (
-                  <>
-                    <StyleDesOverview>Location</StyleDesOverview>
-                    <StyleSubTitle>New York, NYC</StyleSubTitle>
-                  </>
-                )}
-              </StyleContentOverview>
-            </PrimaryTitleLeft>
-          </>
+          <StyleTitle>Overview</StyleTitle>
         )}
+        <PrimaryTitleLeft>
+          <StyleContentOverview>
+            {isLoading && !!userProfile ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Project Type</StyleDesOverview>
+                <StyleSubTitle>Memecoin</StyleSubTitle>
+              </>
+            )}
+          </StyleContentOverview>
+          <StyleContentOverview>
+            {isLoading && !!userProfile ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Primary Ecosystem</StyleDesOverview>
+                <StyleSubTitle>Solana Ecosystem</StyleSubTitle>
+              </>
+            )}
+          </StyleContentOverview>
+        </PrimaryTitleLeft>
+        <PrimaryTitleLeft>
+          <StyleContentOverview>
+            {isLoading && !!userProfile ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Gender</StyleDesOverview>
+                <StyleSubTitle>Female</StyleSubTitle>
+              </>
+            )}
+          </StyleContentOverview>
+          <StyleContentOverview>
+            {isLoading && !!userProfile ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Type of KOLs</StyleDesOverview>
+                <StyleSubTitle>Influencer</StyleSubTitle>
+              </>
+            )}
+          </StyleContentOverview>
+          <StyleContentOverview>
+            {isLoading && !!userProfile ? (
+              <>
+                <LoadingSkeleton width="100px" height="20px" />
+              </>
+            ) : (
+              <>
+                <StyleDesOverview>Location</StyleDesOverview>
+                <StyleSubTitle>New York, NYC</StyleSubTitle>
+              </>
+            )}
+          </StyleContentOverview>
+        </PrimaryTitleLeft>
       </StyleLeft>
       <StyleRight>
         <PrimaryTitleRight>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -113,13 +115,13 @@ const Overview = ({ userProfile, isLoading }: any) => {
               <>
                 <StyleDesOverview>X Followers</StyleDesOverview>
                 <StyleSubTitle>
-                  {userProfile?.twitterInfo?.followers ?? 259000}
+                  {!userProfile?.twitterInfo?.followers ?? 259000}
                 </StyleSubTitle>
               </>
             )}
           </StyleContentOverview>
           <StyleContentOverview>
-            {isLoading ? (
+            {isLoading && !!userProfile ? (
               <>
                 <LoadingSkeleton width="100px" height="20px" />
               </>
@@ -131,7 +133,7 @@ const Overview = ({ userProfile, isLoading }: any) => {
             )}
           </StyleContentOverview>
         </PrimaryTitleRight>
-        {isLoading ? (
+        {isLoading && !!userProfile ? (
           <>
             <LoadingSkeleton width="200px" height="50px" radius="50px" />
           </>
@@ -307,7 +309,16 @@ const KeyMetrics = ({ isLoading, dataProjectDetail }: any) => {
   );
 };
 
-const Personal = ({ dataProjectDetail, isLoading }: any) => {
+interface IPropsPersonal {
+  dataProjectDetail: IProjectDetail;
+  isLoading?: boolean;
+  dataJobsDetail: IJobsDetail;
+}
+const Personal = ({
+  dataProjectDetail,
+  isLoading,
+  dataJobsDetail,
+}: IPropsPersonal) => {
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -315,7 +326,11 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
           <LoadingSkeleton width="220px" height="220px" radius="100%" />
         ) : (
           <StyleImage
-            src={dataProjectDetail?.image ?? IMG_NFT}
+            src={
+              dataProjectDetail?.image
+                ? dataProjectDetail?.image
+                : dataJobsDetail?.image
+            }
             alt="avatar profile"
             width={220}
             height={220}
@@ -336,7 +351,9 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
           ) : (
             <>
               <StyleTitle>
-                {dataProjectDetail?.name ?? "User Name"}
+                {dataProjectDetail?.name
+                  ? dataProjectDetail?.name
+                  : dataJobsDetail?.projectName}
                 <IconVerify />
                 {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
               </StyleTitle>
@@ -394,20 +411,17 @@ const Personal = ({ dataProjectDetail, isLoading }: any) => {
   );
 };
 
-interface IProjectDetail {}
-export default function ProjectDetail(props: IProjectDetail) {
-  const { id } = useParams();
-  const { dataProjectDetail, isLoading, getDataProjectDetail } =
-    useProjectContext();
-  useEffect(() => {
-    getDataProjectDetail(id.toString());
-  }, [id]);
+interface IProjectsDetail {}
+export default function ProjectDetail(props: IProjectsDetail) {
+  const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
+
   return (
     <StyleContainer>
       {isLoading ? (
         <>
           <Personal
             dataProjectDetail={dataProjectDetail}
+            dataJobsDetail={dataJobsDetail}
             isLoading={isLoading}
           />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -439,18 +453,21 @@ export default function ProjectDetail(props: IProjectDetail) {
               </Posts>
             </PostLeft>
             <div style={{ width: "70%" }}>
-              <Overview
+              <Overview userProfile={dataProjectDetail} isLoading={isLoading} />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <KeyMetrics
                 dataProjectDetail={dataProjectDetail}
                 isLoading={isLoading}
               />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <KeyMetrics isLoading={isLoading} />
             </div>
           </Wrapper>
         </>
       ) : (
         <>
-          <Personal dataProjectDetail={dataProjectDetail} />
+          <Personal
+            dataProjectDetail={dataProjectDetail}
+            dataJobsDetail={dataJobsDetail}
+          />
           <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Wrapper style={{ display: "flex", width: "100%" }}>
             <PostLeft>
@@ -465,10 +482,13 @@ export default function ProjectDetail(props: IProjectDetail) {
                 })}
               </Posts>
             </PostLeft>
-            <WrapperContentRight>
+            <WrapperContentRight style={{ width: "70%" }}>
               <Overview dataProjectDetail={dataProjectDetail} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <KeyMetrics dataProjectDetail={dataProjectDetail} />
+              <KeyMetrics
+                dataJobsDetail={dataJobsDetail}
+                dataProjectDetail={dataProjectDetail}
+              />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PreviousDeals />
               <AvailableDeals />
@@ -897,17 +917,6 @@ const Wrapper = styled.div`
     flex-direction: column;
   }
 `;
-
-const WrapperCategori = styled.div`
-  display: flex;
-  gap: 10px;
-  @media (max-width: 650px) {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
 const WrapperContentRight = styled.div`
   width: 70%;
   @media (max-width: 1250px) {
@@ -919,5 +928,14 @@ const WrapperContentRight = styled.div`
   @media (max-width: 768px) {
   }
   @media (max-width: 420px) {
+  }
+`;
+const WrapperCategori = styled.div`
+  display: flex;
+  gap: 10px;
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 `;

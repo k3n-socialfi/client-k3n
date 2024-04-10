@@ -1,6 +1,11 @@
 "use client";
-import useFetchDataProjectDetail from "@/modules/project/hook/useFetchDataProfileDetail";
-import { getProjectDetail } from "@/modules/project/services";
+import { dataInitalProjectDetail } from "@/constant/dataInitalProjectDetail";
+import {
+  IJobsDetail,
+  IProjectDetail,
+} from "@/interface/projectDetail.interface";
+import useJobsDetail from "@/modules/jobs/hook/useJobsDetail";
+import { useParams } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface IPropsProfileContextProvider {
@@ -8,49 +13,43 @@ interface IPropsProfileContextProvider {
 }
 
 interface IProjectContextTypes {
-  dataProjectDetail: any;
+  dataProjectDetail: IProjectDetail;
+  dataJobsDetail: IJobsDetail;
   isLoading: boolean;
-  getDataProjectDetail: (id: string) => void;
 }
 
 const projectContextTypes = {
-  dataProjectDetail: {},
+  dataProjectDetail: dataInitalProjectDetail.projectDetail,
+  dataJobsDetail: dataInitalProjectDetail.jobsDetail,
   isLoading: true,
   getDataProjectDetail: () => undefined,
+  getDataJobsDetail: () => undefined,
 };
 
 const projectContext = createContext<IProjectContextTypes>(projectContextTypes);
 const ProjectContextProvider = ({ children }: IPropsProfileContextProvider) => {
-  const [dataProjectDetail, setdataProjectDetail] = useState<any>(
-    projectContextTypes.dataProjectDetail
-  );
-  const [isLoading, setIsloading] = useState<boolean>(
-    projectContextTypes.isLoading
-  );
+  const { id } = useParams();
+  const {
+    dataProjectDetail,
+    isLoading,
+    dataJobsDetail,
+    getDataProjectDetail,
+    getDataJobsDetail,
+  } = useJobsDetail();
 
-  const getDataProjectDetail = async (id: string) => {
-    // try {
-    //   const { dataProjectDetail, isLoading } = useFetchDataProjectDetail(id);
-    //   setdataProjectDetail(dataProjectDetail);
-    //   setIsloading(isLoading);
-    // } catch (error) {
-    //   console.error("error", error);
-    // } finally {
-    // }
-    try {
-      setIsloading(true);
-      const { data } = await getProjectDetail(id);
-      setdataProjectDetail(data?.data);
-    } catch (error) {
-      console.error("error", error);
-    } finally {
-      setIsloading(false);
+  useEffect(() => {
+    if (id) {
+      getDataProjectDetail(id);
+      getDataJobsDetail(id);
     }
-  };
-
+  }, [id]);
   return (
     <projectContext.Provider
-      value={{ dataProjectDetail, isLoading, getDataProjectDetail }}
+      value={{
+        dataProjectDetail,
+        isLoading,
+        dataJobsDetail,
+      }}
     >
       {children}
     </projectContext.Provider>
