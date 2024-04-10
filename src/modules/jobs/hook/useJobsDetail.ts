@@ -37,7 +37,6 @@ export default function useJobsDetail() {
       setIsloading(true);
       const { data } = await getJobsDetail(id);
       setDataJobsDetail(data?.data);
-      console.log("datajobsdetail", data?.data);
     } catch (error) {
       console.error("error", error);
     } finally {

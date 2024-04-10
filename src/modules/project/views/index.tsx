@@ -412,11 +412,9 @@ const Personal = ({
 };
 
 interface IProjectsDetail {}
-export default function ProjectDetail(props: IProjectDetail) {
+export default function ProjectDetail(props: IProjectsDetail) {
   const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
-  // console.log("dataPage", dataJobsDetail);
-  console.log("dataProjectDetail", dataProjectDetail);
-  // console.log("test", Boolean("12") ?? "ok");
+
   return (
     <StyleContainer>
       {isLoading ? (
