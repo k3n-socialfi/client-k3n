@@ -24,7 +24,20 @@ const projectContextTypes = {
 const projectContext = createContext<IProjectContextTypes>(projectContextTypes);
 const ProjectContextProvider = ({ children }: IPropsProfileContextProvider) => {
   const { id } = useParams();
-  const { dataProjectDetail, isLoading, dataJobsDetail } = useJobsDetail(id);
+  const {
+    dataProjectDetail,
+    isLoading,
+    dataJobsDetail,
+    getDataProjectDetail,
+    getDataJobsDetail,
+  } = useJobsDetail();
+
+  useEffect(() => {
+    if (id) {
+      getDataProjectDetail(id);
+      getDataJobsDetail(id);
+    }
+  }, [id]);
   return (
     <projectContext.Provider
       value={{
