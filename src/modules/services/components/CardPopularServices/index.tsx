@@ -13,7 +13,7 @@ export default function CardPopularServices() {
       <StyleForm>
         <ServicesTitle>Short Video on Tiktok</ServicesTitle>
         <SubTitle>
-          Don't miss the chance to make your brand go viral with my 2.5M Tiktok
+          Dont miss the chance to make your brand go viral with my 2.5M Tiktok
           followers!
         </SubTitle>
         <StyleChips>
