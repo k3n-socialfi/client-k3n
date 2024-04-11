@@ -5,6 +5,7 @@ import { Stack } from "@mui/material";
 
 interface ICustomButtonProps extends ButtonProps {
   colorBt?: string;
+  borderRadius?: string;
   borderColorBt?: string;
   backgroundColorBt?: string;
   colorBtHover?: string;
@@ -18,6 +19,7 @@ interface ICustomButtonProps extends ButtonProps {
 
 export const ButtonCustom: React.FC<ICustomButtonProps> = ({
   colorBt,
+  borderRadius,
   borderColorBt,
   backgroundColorBt,
   colorBtHover,
@@ -34,7 +36,7 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
     <Button
       {...props}
       sx={{
-        borderRadius: "50px",
+        borderRadius: `${borderRadius}`,
         textTransform: "inherit",
         color: `${colorBt}`,
         borderColor: `${borderColorBt}`,
@@ -73,6 +75,7 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
       {...props}
       variant="contained"
       color="primary"
+      borderRadius={props.borderRadius ?? "50px"}
       colorBt="primary.whiteText"
       borderColorBt="primary.enabled"
       backgroundColorBt="primary.enabled"
@@ -89,7 +92,6 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
 };
 
 export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
-  backgroundColorBt,
   children,
   ...props
 }) => {
@@ -97,10 +99,11 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
     <ButtonCustom
       {...props}
       variant="outlined"
-      color="secondary"
+      color={props.color ?? "secondary"}
+      borderRadius={props.borderRadius ?? "50px"}
       colorBt={props.colorBt ?? "primary.pinkText"}
       borderColorBt="primary.enabled"
-      backgroundColorBt={backgroundColorBt}
+      backgroundColorBt={props.backgroundColorBt}
       colorBtHover="primary.pinkText"
       borderColorBtHover="primary.hover"
       backgroundColorBtHover="secondary.hover"
@@ -114,8 +117,6 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
 };
 
 export const ButtonText: React.FC<ICustomButtonProps> = ({
-  backgroundColorBt,
-  borderColorBt,
   children,
   ...props
 }) => {
@@ -124,9 +125,10 @@ export const ButtonText: React.FC<ICustomButtonProps> = ({
       {...props}
       variant="outlined"
       color="textCustom"
-      colorBt="primary.pinkText"
-      borderColorBt={borderColorBt}
-      backgroundColorBt={backgroundColorBt}
+      borderRadius={props.borderRadius ?? "50px"}
+      colorBt={props.colorBt ?? "primary.pinkText"}
+      borderColorBt={props.borderColorBt}
+      backgroundColorBt={props.backgroundColorBt}
       colorBtHover="primary.pinkText"
       borderColorBtHover="textCustom.hover"
       backgroundColorBtHover="textCustom.hover"
@@ -149,6 +151,7 @@ export const ButtonElevated: React.FC<ICustomButtonProps> = ({
       {...props}
       variant="contained"
       color="elevated"
+      borderRadius={props.borderRadius ?? "50px"}
       colorBt="primary.whiteText"
       borderColorBt="primary.enabled"
       backgroundColorBt="primary.enabled"
