@@ -29,6 +29,10 @@ h6 {
   margin: 0;
 }
 
+video {
+  mix-blend-mode: screen;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
