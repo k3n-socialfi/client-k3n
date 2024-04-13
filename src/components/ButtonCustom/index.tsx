@@ -1,7 +1,7 @@
 "use client";
-import * as React from "react";
 import Button, { ButtonProps } from "@mui/material/Button";
-import { Stack } from "@mui/material";
+import * as React from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface ICustomButtonProps extends ButtonProps {
   colorBt?: string;
@@ -15,6 +15,7 @@ interface ICustomButtonProps extends ButtonProps {
   borderColorBtPressed?: string;
   backgroundColorBtPressed?: string;
   backgroundColorBtDisElevated?: string;
+  isLoading?: boolean;
 }
 
 export const ButtonCustom: React.FC<ICustomButtonProps> = ({
@@ -30,9 +31,42 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
   backgroundColorBtPressed,
   backgroundColorBtDisElevated,
   children,
+  isLoading = false,
   ...props
 }) => {
-  return (
+  return isLoading ? (
+    <LoadingButton
+      {...props}
+      loading={isLoading}
+      sx={{
+        borderRadius: `${borderRadius}`,
+        textTransform: "inherit",
+        color: `${colorBt}`,
+        borderColor: `${borderColorBt}`,
+        backgroundColor: `${backgroundColorBt}`,
+        ":hover": {
+          color: `${colorBtHover}`,
+          borderColor: `${borderColorBtHover}`,
+          backgroundColor: `${backgroundColorBtHover}`,
+        },
+        ":active": {
+          color: `${colorBtPressed}`,
+          borderColor: `${borderColorBtPressed}`,
+          backgroundColor: `${backgroundColorBtPressed}`,
+        },
+        ":disabled": {
+          opacity: 0.5,
+          color: `${colorBt}`,
+          borderColor: `${borderColorBt}`,
+          backgroundColor: `${
+            backgroundColorBtDisElevated ?? backgroundColorBt
+          }`,
+        },
+      }}
+    >
+      {children}
+    </LoadingButton>
+  ) : (
     <Button
       {...props}
       sx={{
@@ -68,6 +102,7 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
 
 export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
   children,
+  isLoading,
   ...props
 }) => {
   return (
@@ -85,6 +120,7 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
       colorBtPressed="primary.whiteText"
       borderColorBtPressed="primary.pressed"
       backgroundColorBtPressed="primary.pressed"
+      isLoading={isLoading}
     >
       {children}
     </ButtonCustom>
@@ -93,6 +129,7 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
 
 export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
   children,
+  isLoading = false,
   ...props
 }) => {
   return (
@@ -110,6 +147,7 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
       colorBtPressed="primary.whiteText"
       borderColorBtPressed="secondary.pressed"
       backgroundColorBtPressed="secondary.pressed"
+      isLoading={isLoading}
     >
       {children}
     </ButtonCustom>
@@ -118,6 +156,7 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
 
 export const ButtonText: React.FC<ICustomButtonProps> = ({
   children,
+  isLoading = false,
   ...props
 }) => {
   return (
@@ -135,6 +174,7 @@ export const ButtonText: React.FC<ICustomButtonProps> = ({
       colorBtPressed="primary.whiteText"
       borderColorBtPressed="textCustom.pressed"
       backgroundColorBtPressed="textCustom.pressed"
+      isLoading={isLoading}
     >
       {children}
     </ButtonCustom>
@@ -143,6 +183,7 @@ export const ButtonText: React.FC<ICustomButtonProps> = ({
 
 export const ButtonElevated: React.FC<ICustomButtonProps> = ({
   backgroundColorBtDisElevated,
+  isLoading,
   children,
   ...props
 }) => {
@@ -162,6 +203,7 @@ export const ButtonElevated: React.FC<ICustomButtonProps> = ({
       borderColorBtPressed="primary.pressed"
       backgroundColorBtPressed="primary.pressed"
       backgroundColorBtDisElevated={`${backgroundColorBtDisElevated}`}
+      isLoading={isLoading}
     >
       {children}
     </ButtonCustom>
