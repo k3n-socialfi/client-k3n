@@ -1,15 +1,14 @@
 "use client";
 import { IconCertification, IconClose } from "@/assets/icons";
 import Campaign from "@/assets/images/Request.png";
-import { SOL_WALLET } from "@/configs/env.config";
 import {
   DATACURRENCY,
   DATAPAYMENTMETHOD,
   DATAPLATFORM,
 } from "@/constant/dataMockupCreateCampaign";
-import idl from "@/contract/abis/services.json";
 import { useBoolean } from "@/hooks/useBoolean";
 import useProviderConnect from "@/hooks/useProviderConnect";
+import { TService } from "@/types/service";
 import { createServicesSchema_ } from "@/validations/createServicesSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -21,13 +20,12 @@ import {
   Modal,
   Select,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
@@ -39,17 +37,19 @@ type Props = {
 
 const CreateServices = (props: Props) => {
   const { isShowModal, setIsShowModal } = props;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const openGotIt = useBoolean();
   const openButton = useBoolean();
-  const { getProvider } = useProviderConnect();
-  const idlString = JSON.stringify(idl);
-  const idlJson = JSON.parse(idlString);
-  const programID = new PublicKey(SOL_WALLET ?? "");
+  const walletSol = useWallet();
+  const anchorWallet = useAnchorWallet();
+
+  const { connection, provider, program } = useProviderConnect();
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<any>({
     resolver: yupResolver(createServicesSchema_),
@@ -58,51 +58,77 @@ const CreateServices = (props: Props) => {
 
   const handleClose = () => {
     setIsShowModal(false);
+    reset();
     // openHireMe();
   };
-  const provider = getProvider();
-  const program = new anchor.Program(idlJson, programID, provider);
 
   const getServices = async (myServices: any) => {
     try {
-      const res = await program?.account?.service?.fetch(myServices.publicKey);
+      const res = await program?.account?.service?.fetch(myServices);
       console.log("🚀 ~ getServices ~ res:", res);
     } catch (error) {
       console.log("🚀 ~ getServices ~ error:", error);
     }
   };
 
-  const onSubmitForm = async (data: any) => {
-    const myAccount = anchor.web3.Keypair.generate();
-    const myServices = anchor.web3.Keypair.generate();
+  const onSubmitForm = async (data: TService) => {
+    setIsLoading(true);
+    const newKol = anchor.web3.Keypair.generate();
+    const seed = new anchor.BN(1);
+
+    let serviceId: string = `${Math.random()}`;
+
+    data.kol = newKol.publicKey;
+    data.serviceFee = new anchor.BN(+data.serviceFee);
+    data.paymentMethod = "OnetimePayment";
 
     try {
-      data.kol = myAccount.publicKey;
-      data.serviceFee = new anchor.BN(+data.serviceFee);
-      data.paymentMethod = "OnetimePayment";
+      let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
+        [
+          Buffer.from("K3N"),
+          seed.toArrayLike(Buffer, "le", 8),
+          Buffer.from(serviceId),
+        ],
+        program.programId,
+      );
 
-      await program.methods
-        .createService(
-          data.kol,
-          data.serviceName,
-          data.platform,
-          data.serviceFee,
-          data.currency,
-          data.paymentMethod,
-          data.description
-        )
-        .accounts({
-          hirer: myAccount.publicKey as any,
-          service: myServices as any,
-          systemProgram: anchor.web3.SystemProgram.programId,
-        })
-        .signers([myAccount as any])
-        .rpc();
+      if (anchorWallet) {
+        let tx = new anchor.web3.Transaction().add(
+          program.instruction.createService(
+            seed,
+            serviceId,
+            data.kol,
+            data.serviceName,
+            data.platform,
+            data.serviceFee,
+            data.currency,
+            data.paymentMethod,
+            data.description,
+            {
+              accounts: {
+                hirer: provider.publicKey,
+                service: serviceGened,
+                systemProgram: anchor.web3.SystemProgram.programId,
+              },
+              signers: [walletSol as any],
+            },
+          ),
+        );
+        let blockhash = (await connection.getLatestBlockhash("confirmed"))
+          .blockhash;
+        tx.feePayer = anchorWallet?.publicKey as any;
+        tx.recentBlockhash = blockhash;
+        const txhash = await anchorWallet?.signTransaction(tx);
+        const serialized = txhash?.serialize();
+        const txId = await connection.sendRawTransaction(serialized as any);
+        const result = await connection.confirmTransaction(txId);
+      }
 
-      getServices(myServices);
-
+      getServices(serviceGened);
+      setIsLoading(false);
       openGotIt.onTrue();
     } catch (error) {
+      setIsLoading(false);
       console.log("🚀 ~ onSubmitForm ~ error:", error);
     }
   };
@@ -111,7 +137,7 @@ const CreateServices = (props: Props) => {
 
   useEffect(() => {
     const allValuesFilled = Object.values(checkForm).every(
-      (value) => value === ""
+      (value) => value === "",
     );
 
     if (allValuesFilled) {
@@ -179,23 +205,6 @@ const CreateServices = (props: Props) => {
                 <Typography>Service name</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
-              {/* <FormControl fullWidth>
-              <TextField
-                id="fullName"
-                label="Enter your full name"
-                defaultValue={fullName ?? ""}
-                {...register("fullName")}
-                sx={{
-                  // borderRadius: "20px",
-                  color: "#FFF",
-                  backgroundColor: "#353535",
-                  border: "0px #353535 solid",
-                }}
-                // onChange={handleChangeFullName}
-              />
-              <StyleError>{errors.fullName?.message as string}</StyleError>
-            </FormControl> */}
-
               <FormControl
                 fullWidth
                 sx={{
@@ -221,20 +230,6 @@ const CreateServices = (props: Props) => {
                 <Typography>Service description</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
-              {/* <FormControl fullWidth>
-              <TextField
-                id="inputOther"
-                label="Input other request"
-                defaultValue=""
-                {...register("inputOther")}
-                multiline={true}
-                minRows={3}
-                sx={{
-                  backgroundColor: "#353535",
-                  border: "0px #353535 solid",
-                }}
-              />
-            </FormControl> */}
               <FormControl
                 fullWidth
                 sx={{
@@ -376,6 +371,7 @@ const CreateServices = (props: Props) => {
                   disabled={openButton.value}
                   type="submit"
                   fullWidth
+                  isLoading={isLoading}
                 >
                   <Typography sx={{ p: "8px 0" }}>Submit</Typography>
                 </ButtonPrimary>
@@ -409,10 +405,22 @@ const CreateServices = (props: Props) => {
               You can either go back to your profile or create a new campaign.
             </Typography>
             <StyleBottomCampaign>
-              <ButtonPrimary fullWidth onClick={handleClose}>
+              <ButtonPrimary
+                fullWidth
+                onClick={() => {
+                  openGotIt.onFalse();
+                  setIsShowModal(false);
+                }}
+              >
                 <Typography sx={{ p: "8px 0" }}>Back to Profile</Typography>
               </ButtonPrimary>
-              <ButtonSecondary fullWidth onClick={handleClose}>
+              <ButtonSecondary
+                fullWidth
+                onClick={() => {
+                  openGotIt.onFalse();
+                  reset();
+                }}
+              >
                 <Typography sx={{ p: "8px 0" }}>Create new Service</Typography>
               </ButtonSecondary>
             </StyleBottomCampaign>
@@ -496,13 +504,6 @@ const StyleBottomCampaign = styled.div`
   width: 100%;
   margin: 20px 0;
   gap: 10px;
-`;
-
-const StyleInput = styled(TextField)`
-  border-radius: 20px;
-  color: #fff;
-  background-color: #353535;
-  border: 0px #353535 solid;
 `;
 
 export const StyleError = styled.p`
