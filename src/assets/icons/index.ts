@@ -84,3 +84,5 @@ export { default as IconChooseCrypto } from "./IconChooseCrypto";
 export { default as IconDogeCoin } from "./IconDogeCoin";
 export { default as IconDAI } from "./IconDAI";
 export { default as IconBitCoin } from "./IconBitCoin";
+export { default as IconArrowDownChange } from "./IconArrowDownChange";
+export { default as IconArrowUpChange } from "./IconArrowUpChange";

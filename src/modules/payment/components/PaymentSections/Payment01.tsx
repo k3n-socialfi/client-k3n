@@ -2,7 +2,11 @@
 import { Divider, FormControl, InputBase, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-import { ButtonPrimary, ButtonSecondary, ButtonText } from "../ButtonCustom";
+import {
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonText,
+} from "../../../../components/ButtonCustom";
 
 import LINK_VIDEO from "@/assets/images/Video_Short.png";
 import Image from "next/image";
@@ -25,9 +29,15 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
           </Typography>
         </Title>
         <Invoice>
-          <Typography>Short Video on Tiktok</Typography>
-          <Typography>Price: $7,450</Typography>
-          <Typography>Payment type: One time payment</Typography>
+          <Typography color="#FFF">Short Video on Tiktok</Typography>
+          <Price>
+            <Typography color="#B9B9B9">Price: </Typography>
+            <Typography color="#82EBFF">$7,450</Typography>
+          </Price>
+          <PaymentType>
+            <Typography color="#B9B9B9">Payment type: </Typography>
+            <Typography color="#82EBFF">One time payment</Typography>
+          </PaymentType>
         </Invoice>
         <Divider />
         <Order>
@@ -52,8 +62,8 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
 
             <Image
               // layout="fill"
-              width={250}
-              height={120}
+              width={270}
+              height={140}
               alt="Elena TikTok video thumbnail"
               src={LINK_VIDEO}
             />
@@ -65,15 +75,7 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
         <Divider />
         <Apply>
           <DiscountCode>
-            <FormControl
-              fullWidth
-              sx={{
-                backgroundColor: "#353535",
-                color: "#FFF",
-                borderRadius: "5px",
-                width: "165px",
-              }}
-            >
+            <FormControlCustom fullWidth>
               <InputBase
                 id="serviceFee"
                 defaultValue=""
@@ -83,7 +85,7 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
                 color="primary"
                 // {...register("serviceFee")}
               />
-            </FormControl>
+            </FormControlCustom>
           </DiscountCode>
           <ApplyCode>
             <ButtonText
@@ -114,7 +116,7 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
         <Divider />
         <Total>
           <Typography>Total</Typography>
-          <Typography>0.00</Typography>
+          <Typography color="#82EBFF">0.00</Typography>
         </Total>
       </Right>
     </Container>
@@ -128,11 +130,18 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 50px;
+  @media (max-width: 1270px) {
+    flex-wrap: wrap-reverse;
+  }
 `;
 const Left = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 80%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
 const Title = styled.div``;
 const Invoice = styled.div`
@@ -145,23 +154,49 @@ const Invoice = styled.div`
   color: #fff;
   border-radius: 10px;
 `;
+const Price = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+const PaymentType = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
 const Order = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 50px;
   width: 100%;
+  white-space: nowrap;
+  @media (max-width: 335px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   color: #fff;
+  width: 20%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
-const ShortVideo = styled.div``;
+const ShortVideo = styled.div`
+  @media (max-width: 1270px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
 const Video = styled.div`
-  width: 250px;
-  height: 120px;
+  width: 270px;
+  height: 140px;
 `;
 
 const TitleVideo = styled.div``;
@@ -177,6 +212,13 @@ const Apply = styled.div`
 const DiscountCode = styled.div`
   width: 100%;
   white-space: nowrap;
+`;
+
+const FormControlCustom = styled(FormControl)`
+  background-color: #353535;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
 `;
 
 const ApplyCode = styled.div`
