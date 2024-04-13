@@ -3,6 +3,7 @@ import {
   IconBlue,
   IconEdit,
   IconPointProfile,
+  IconStar,
   IconStarNormal,
   IconVerify,
 } from "@/assets/icons";
@@ -112,14 +113,35 @@ const Personal = ({ userProfile }: any) => {
             <IconPointProfile />
             {userProfile?.twitterInfo?.totalPoints ?? 0}
           </PointProfile>
-          <StyleUserDes>{userProfile?.bio ?? "Data null"}</StyleUserDes>
-          <StyleUserDes>Influencer</StyleUserDes>
-          <StyleUserSocial>Social</StyleUserSocial>
-          <StyleIcons>
-            {userProfile?.socialProfiles?.map(
-              (item: any, index: number) => SOCIAL[item?.social] ?? <></>
-            )}
-          </StyleIcons>
+          <StyleContentFlex>
+            <StyleContentUser>
+              <StyleUserDes>{userProfile?.bio ?? "Data null"}</StyleUserDes>
+              <StyleUserDes>Influencer</StyleUserDes>
+              <StyleUserSocial>Social</StyleUserSocial>
+              <StyleIcons>
+                {userProfile?.socialProfiles?.map(
+                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>
+                )}
+              </StyleIcons>
+            </StyleContentUser>
+            <StyleContentUser>
+              <StyleTotal>
+                <StyleDesOverview>Total Achievements:</StyleDesOverview>
+                <StyleSubTitle>32</StyleSubTitle>
+              </StyleTotal>
+              <StyleTotal>
+                <StyleDesOverview>Review:</StyleDesOverview>
+                <StyleSubTitle>28</StyleSubTitle>
+              </StyleTotal>
+              <StyleIcons>
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+              </StyleIcons>
+            </StyleContentUser>
+          </StyleContentFlex>
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
@@ -342,7 +364,7 @@ const StylePersonalLeft = styled.div`
 const StyleContentUser = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 `;
 const StyleTitle = styled.div`
   font-size: 40px;
@@ -496,4 +518,17 @@ const StyleRequest = styled.div`
   align-items: center;
   color: #f23581;
   margin-top: 15px;
+`;
+
+const StyleContentFlex = styled.div`
+  display: flex;
+  align-items: start;
+  gap: 50px;
+`;
+
+const StyleTotal = styled.div`
+  display: flex;
+  align-items: center;
+  width: 215px;
+  gap: 10px;
 `;
