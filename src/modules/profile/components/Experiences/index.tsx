@@ -149,7 +149,7 @@ const StyleTitle = styled.div`
   @media (max-width: 520px) {
     font-size: 20px;
     padding-bottom: 0px;
-}
+  }
 `;
 const StyleBorder = styled.div`
   position: absolute;
