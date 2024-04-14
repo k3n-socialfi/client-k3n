@@ -3,10 +3,13 @@ import imageCard from "@/assets/images/image-card-service.svg";
 import Image from "next/image";
 import { Checkbox, Divider, Typography } from "@mui/material";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { useRouter } from "next/navigation";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function CardServices() {
+  const router = useRouter();
+
   return (
     <StyleWrapperCard>
       <CardImage height={130} src={imageCard} alt="igs" />
@@ -26,7 +29,10 @@ export default function CardServices() {
             <TitlePrice>One time payment</TitlePrice>
             <Checkbox {...label} defaultChecked />
           </Options>
-          <ButtonPrimary style={{ width: "100%" }}>
+          <ButtonPrimary
+            style={{ width: "100%" }}
+            onClick={() => router.push("/services/payment")}
+          >
             <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
           </ButtonPrimary>
         </CardBottom>

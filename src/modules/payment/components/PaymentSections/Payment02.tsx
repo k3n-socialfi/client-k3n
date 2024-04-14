@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-import { ButtonPrimary } from "../ButtonCustom";
+import { ButtonPrimary } from "../../../../components/ButtonCustom";
 
 import {
   IconChooseCrypto,
@@ -26,6 +26,7 @@ import Image from "next/image";
 interface IPayment02Props {
   nextScreen?: () => void;
   prevScreen?: () => void;
+  bgColor?: boolean;
 }
 
 const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
@@ -44,6 +45,7 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
   return (
     <Container>
       <Left>
+        <Divider />
         <Title>
           <Typography color="#FFF">Payment</Typography>
           <Typography color="#667085">
@@ -74,33 +76,22 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
             >
               <SelectItems>
                 {SELECT_CRYPTO.map((item) => (
-                  // <ItemChoose key={item.id}>
-                  //   <Label>
-                  //     <Checkbox
-                  //       {...label}
-                  //       icon={<IconNotChooseCrypto />}
-                  //       checkedIcon={<IconChooseCrypto />}
-                  //     />
-                  //     {item.label}
-                  //   </Label>
-                  //   <Icon>{item.icon}</Icon>
-                  // </ItemChoose>
-                  <ItemChoose key={item.id}>
-                    {/* <FormControlLabel
-                      value={item.label}
-                      control={<Radio />}
-                      label={item.label}
-                    /> */}
-                    <Radio
-                      checked={selectedValue === item.label}
-                      onChange={handleChanges}
-                      value={item.label}
-                      name={`radio-buttons-${item.label}`}
-                      inputProps={{ "aria-label": item.label }}
-                      icon={<IconNotChooseCrypto />}
-                      checkedIcon={<IconChooseCrypto />}
-                    />
-                    {item.label}
+                  <ItemChoose
+                    key={item.id}
+                    bgColor={selectedValue === item.label}
+                  >
+                    <NameCrypto>
+                      <Radio
+                        checked={selectedValue === item.label}
+                        onChange={handleChanges}
+                        value={item.label}
+                        name={`radio-buttons-${item.label}`}
+                        inputProps={{ "aria-label": item.label }}
+                        icon={<IconNotChooseCrypto />}
+                        checkedIcon={<IconChooseCrypto />}
+                      />
+                      {item.label}
+                    </NameCrypto>
                     <Icon>{item.icon}</Icon>
                   </ItemChoose>
                 ))}
@@ -129,9 +120,8 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
             /> */}
 
             <Image
-              // layout="fill"
-              width={250}
-              height={120}
+              width={270}
+              height={140}
               alt="Elena TikTok video thumbnail"
               src={LINK_VIDEO}
             />
@@ -143,15 +133,7 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
         <Divider />
         <Apply>
           <DiscountCode>
-            <FormControl
-              fullWidth
-              sx={{
-                backgroundColor: "#353535",
-                color: "#FFF",
-                borderRadius: "5px",
-                width: "165px",
-              }}
-            >
+            <FormControlCustom fullWidth>
               <InputBase
                 id="serviceFee"
                 defaultValue=""
@@ -161,10 +143,12 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
                 color="primary"
                 // {...register("serviceFee")}
               />
-            </FormControl>
+            </FormControlCustom>
           </DiscountCode>
           <ApplyCode>
-            <ButtonPrimary borderRadius="5px">Apply</ButtonPrimary>
+            <ButtonPrimary fullWidth borderRadius="5px">
+              Apply
+            </ButtonPrimary>
           </ApplyCode>
         </Apply>
         <Divider />
@@ -185,7 +169,7 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
         <Divider />
         <Total>
           <Typography>Total</Typography>
-          <Typography>0.00</Typography>
+          <Typography color={"#82EBFF"}>0.00</Typography>
         </Total>
       </Right>
     </Container>
@@ -201,11 +185,19 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 50px;
+  width: 100%;
+  @media (max-width: 1270px) {
+    flex-wrap: wrap-reverse;
+  }
 `;
 const Left = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 80%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
 const Title = styled.div`
   display: flex;
@@ -215,8 +207,7 @@ const Title = styled.div`
 const Cryptocurrency = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: #404356; */
-  padding: 10px;
+  padding: 10px 0;
   width: 100%;
   color: #fff;
   border-radius: 10px;
@@ -230,6 +221,9 @@ const CryptocurrencyTop = styled.div`
   background-color: #404356;
   padding: 10px;
   border-radius: 10px 10px 0 0;
+  @media (max-width: 320px) {
+    flex-direction: column;
+  }
 `;
 const CryptocurrencySelect = styled.div`
   display: flex;
@@ -258,9 +252,12 @@ const SelectItems = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, auto);
   grid-gap: 10px;
+  @media (max-width: 420px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
-const ItemChoose = styled.div`
+const ItemChoose = styled.div<IPayment02Props>`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -268,8 +265,14 @@ const ItemChoose = styled.div`
   padding: 5px 8px;
   width: 100%;
   border: 1px solid #fff;
+  background-color: ${(props) => (props.bgColor ? "#667085" : "")};
 `;
-const Label = styled.div``;
+const NameCrypto = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`;
 const Icon = styled.div``;
 
 const TitleSelect = styled.div``;
@@ -286,11 +289,22 @@ const Right = styled.div`
   flex-direction: column;
   gap: 20px;
   color: #fff;
+  width: 20%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
-const ShortVideo = styled.div``;
+const ShortVideo = styled.div`
+  @media (max-width: 1270px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
 const Video = styled.div`
-  width: 250px;
-  height: 120px;
+  width: 270px;
+  height: 140px;
 `;
 
 const TitleVideo = styled.div``;
@@ -306,6 +320,13 @@ const Apply = styled.div`
 const DiscountCode = styled.div`
   width: 100%;
   white-space: nowrap;
+`;
+
+const FormControlCustom = styled(FormControl)`
+  background-color: #353535;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
 `;
 
 const ApplyCode = styled.div`

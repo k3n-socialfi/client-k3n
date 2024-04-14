@@ -4,10 +4,13 @@ import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import styled from "styled-components";
 import tiktokImage from "@/assets/images/image-tiktok.svg";
+import { useRouter } from "next/navigation";
 import { IconStar } from "@/assets/icons";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export default function CardPopularServices() {
   const IMG2 = tiktokImage;
+
+  const router = useRouter();
 
   return (
     <StyleSelection>
@@ -73,7 +76,10 @@ export default function CardPopularServices() {
               <TitlePrice>One time payment</TitlePrice>
               <Checkbox {...label} defaultChecked />
             </Options>
-            <ButtonPrimary style={{ width: "100%" }}>
+            <ButtonPrimary
+              fullWidth
+              onClick={() => router.push("/services/payment")}
+            >
               <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
             </ButtonPrimary>
           </RightTransfer>

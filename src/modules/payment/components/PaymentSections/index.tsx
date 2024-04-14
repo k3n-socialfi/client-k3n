@@ -6,7 +6,7 @@ import Payment02 from "./Payment02";
 
 type Props = {};
 
-const Payment = (props: Props) => {
+const PaymentSections = (props: Props) => {
   const [screen, setScreen] = useState(-1);
 
   const handlePrevScreen = () => {
@@ -37,4 +37,4 @@ const Payment = (props: Props) => {
   }
 };
 
-export default Payment;
+export default PaymentSections;

@@ -1,7 +1,7 @@
 "use client";
 import { Divider, FormControl, InputBase, Typography } from "@mui/material";
 import styled from "styled-components";
-import { ButtonPrimary } from "../ButtonCustom";
+import { ButtonPrimary } from "../../../../components/ButtonCustom";
 import { IconCertification, IconUSDT } from "@/assets/icons";
 import LINK_VIDEO from "@/assets/images/Video_Short.png";
 import Image from "next/image";
@@ -81,7 +81,10 @@ const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
 
         <Divider />
         <Order>
-          <Typography>Need help? Contact us</Typography>
+          <NeedHelp>
+            <Typography>Need help?</Typography>
+            <Typography color="#82EBFF">Contact us</Typography>
+          </NeedHelp>
           <ButtonPrimary fullWidth>Place a New Order</ButtonPrimary>
         </Order>
       </Left>
@@ -100,8 +103,8 @@ const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
 
             <Image
               // layout="fill"
-              width={250}
-              height={120}
+              width={270}
+              height={140}
               alt="Elena TikTok video thumbnail"
               src={LINK_VIDEO}
             />
@@ -113,15 +116,7 @@ const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
         <Divider />
         <Apply>
           <DiscountCode>
-            <FormControl
-              fullWidth
-              sx={{
-                backgroundColor: "#353535",
-                color: "#FFF",
-                borderRadius: "5px",
-                width: "165px",
-              }}
-            >
+            <FormControlCustom fullWidth>
               <InputBase
                 id="serviceFee"
                 defaultValue=""
@@ -131,10 +126,12 @@ const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
                 color="primary"
                 // {...register("serviceFee")}
               />
-            </FormControl>
+            </FormControlCustom>
           </DiscountCode>
           <ApplyCode>
-            <ButtonPrimary borderRadius="5px">Apply</ButtonPrimary>
+            <ButtonPrimary fullWidth borderRadius="5px">
+              Apply
+            </ButtonPrimary>
           </ApplyCode>
         </Apply>
         <Divider />
@@ -155,7 +152,7 @@ const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
         <Divider />
         <Total>
           <Typography>Total</Typography>
-          <Typography>0.00</Typography>
+          <Typography color={"#82EBFF"}>0.00</Typography>
         </Total>
       </Right>
     </Container>
@@ -171,11 +168,19 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 50px;
+  width: 100%;
+  @media (max-width: 1270px) {
+    flex-wrap: wrap-reverse;
+  }
 `;
 const Left = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 80%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
 const Notification = styled.div`
   display: flex;
@@ -242,67 +247,6 @@ const OrderDetailBottom = styled.div`
 const Title = styled.div`
   color: #fff;
 `;
-const Cryptocurrency = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* background-color: #404356; */
-  padding: 10px;
-  width: 100%;
-  color: #fff;
-  border-radius: 10px;
-`;
-
-const CryptocurrencyTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #404356;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
-`;
-const CryptocurrencySelect = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-`;
-const LogoCoin = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-`;
-
-const CryptocurrencyBottom = styled.div`
-  background-color: #393939;
-  padding: 10px;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  border-radius: 0 0 10px 10px;
-`;
-
-const SelectItems = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, auto);
-  grid-gap: 10px;
-`;
-
-const ItemChoose = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  padding: 5px 8px;
-  width: 100%;
-  border: 1px solid #fff;
-`;
-const Label = styled.div``;
-const Icon = styled.div``;
-
-const TitleSelect = styled.div``;
 
 const Order = styled.div`
   display: flex;
@@ -312,17 +256,38 @@ const Order = styled.div`
   width: 100%;
   white-space: nowrap;
   color: #fff;
+  @media (max-width: 470px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+const NeedHelp = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   color: #fff;
+  width: 20%;
+  @media (max-width: 1270px) {
+    width: 100%;
+  }
 `;
-const ShortVideo = styled.div``;
+const ShortVideo = styled.div`
+  @media (max-width: 1270px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
 const Video = styled.div`
-  width: 250px;
-  height: 120px;
+  width: 270px;
+  height: 140px;
 `;
 
 const TitleVideo = styled.div``;
@@ -338,6 +303,13 @@ const Apply = styled.div`
 const DiscountCode = styled.div`
   width: 100%;
   white-space: nowrap;
+`;
+
+const FormControlCustom = styled(FormControl)`
+  background-color: #353535;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
 `;
 
 const ApplyCode = styled.div`
