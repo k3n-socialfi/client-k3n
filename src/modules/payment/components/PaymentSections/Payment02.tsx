@@ -76,26 +76,10 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
             >
               <SelectItems>
                 {SELECT_CRYPTO.map((item) => (
-                  // <ItemChoose key={item.id}>
-                  //   <Label>
-                  //     <Checkbox
-                  //       {...label}
-                  //       icon={<IconNotChooseCrypto />}
-                  //       checkedIcon={<IconChooseCrypto />}
-                  //     />
-                  //     {item.label}
-                  //   </Label>
-                  //   <Icon>{item.icon}</Icon>
-                  // </ItemChoose>
                   <ItemChoose
                     key={item.id}
                     bgColor={selectedValue === item.label}
                   >
-                    {/* <FormControlLabel
-                      value={item.label}
-                      control={<Radio />}
-                      label={item.label}
-                    /> */}
                     <NameCrypto>
                       <Radio
                         checked={selectedValue === item.label}
@@ -136,7 +120,6 @@ const Payment02 = ({ nextScreen, prevScreen }: IPayment02Props) => {
             /> */}
 
             <Image
-              // layout="fill"
               width={270}
               height={140}
               alt="Elena TikTok video thumbnail"
@@ -224,7 +207,6 @@ const Title = styled.div`
 const Cryptocurrency = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: #404356; */
   padding: 10px 0;
   width: 100%;
   color: #fff;
@@ -291,7 +273,6 @@ const NameCrypto = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const Label = styled.div``;
 const Icon = styled.div``;
 
 const TitleSelect = styled.div``;

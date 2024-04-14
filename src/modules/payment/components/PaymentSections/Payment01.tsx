@@ -61,7 +61,6 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
             /> */}
 
             <Image
-              // layout="fill"
               width={270}
               height={140}
               alt="Elena TikTok video thumbnail"

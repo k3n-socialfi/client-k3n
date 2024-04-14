@@ -109,8 +109,6 @@ const CustomTableBodyCell = styled(TableCell)`
   color: #fff !important;
   font-weight: 700;
   white-space: nowrap;
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
 `;
 
 const CellAll = styled.div`
@@ -118,8 +116,6 @@ const CellAll = styled.div`
   font-size: 18px !important;
   background-color: #393939;
   white-space: nowrap;
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
 `;
 
 const TableRowBodyCustom = styled(TableRow)`

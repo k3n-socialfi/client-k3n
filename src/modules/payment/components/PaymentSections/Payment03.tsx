@@ -247,67 +247,6 @@ const OrderDetailBottom = styled.div`
 const Title = styled.div`
   color: #fff;
 `;
-const Cryptocurrency = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* background-color: #404356; */
-  padding: 10px;
-  width: 100%;
-  color: #fff;
-  border-radius: 10px;
-`;
-
-const CryptocurrencyTop = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #404356;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
-`;
-const CryptocurrencySelect = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-`;
-const LogoCoin = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-`;
-
-const CryptocurrencyBottom = styled.div`
-  background-color: #393939;
-  padding: 10px;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  border-radius: 0 0 10px 10px;
-`;
-
-const SelectItems = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, auto);
-  grid-gap: 10px;
-`;
-
-const ItemChoose = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  padding: 5px 8px;
-  width: 100%;
-  border: 1px solid #fff;
-`;
-const Label = styled.div``;
-const Icon = styled.div``;
-
-const TitleSelect = styled.div``;
 
 const Order = styled.div`
   display: flex;
