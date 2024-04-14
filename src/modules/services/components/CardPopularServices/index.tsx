@@ -5,6 +5,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { useRouter } from "next/navigation";
+import { IconStar } from "@/assets/icons";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export default function CardPopularServices() {
   const IMG2 = tiktokImage;
@@ -15,6 +16,26 @@ export default function CardPopularServices() {
     <StyleSelection>
       <StyleForm>
         <ServicesTitle>Short Video on Tiktok</ServicesTitle>
+        <StyleItem>
+          <StyleTotal>
+            <StyleDesOverview>Completed:</StyleDesOverview>
+            <StyleSubTitle>32</StyleSubTitle>
+          </StyleTotal>
+          <StyleTotal>
+            <StyleDesOverview>Review:</StyleDesOverview>
+            <StyleSubTitle>28</StyleSubTitle>
+          </StyleTotal>
+          <StyleTotal>
+            <StyleDesOverview>Ranting:</StyleDesOverview>
+            <StyleIcons>
+              <IconStar />
+              <IconStar />
+              <IconStar />
+              <IconStar />
+              <IconStar />
+            </StyleIcons>
+          </StyleTotal>
+        </StyleItem>
         <SubTitle>
           Dont miss the chance to make your brand go viral with my 2.5M Tiktok
           followers!
@@ -147,4 +168,43 @@ const TitlePrice = styled.div`
   color: #82ebff;
   font-size: 16px;
   font-weight: 500;
+`;
+
+const StyleItem = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #393939;
+  padding: 5px;
+  border-radius: 5px;
+  @media (max-width: 660px) {
+    flex-wrap: wrap;
+  }
+`;
+
+const StyleTotal = styled.div`
+  display: flex;
+  align-items: center;
+  width: 250px;
+  gap: 10px;
+`;
+
+const StyleDesOverview = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #b9b9b9;
+`;
+
+const StyleSubTitle = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #82ebff;
+`;
+
+const StyleIcons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;

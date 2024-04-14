@@ -6,6 +6,9 @@ import Chips from "@/components/Chip";
 import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import CreateServices from "@/components/ModalCreateServices";
+import Link from "next/link";
+import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
+import { IconStar } from "@/assets/icons";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -20,7 +23,11 @@ export default function Services({ services }: any) {
       <Container>
         <StyleTitle>Services</StyleTitle>
         <ServicesRight>
-          {services && <SeeAll>See all</SeeAll>}
+          {services && (
+            <LinkCustom href={`/services`}>
+              <SeeAll>See all</SeeAll>
+            </LinkCustom>
+          )}
           <ButtonSecondary
             variant="outlined"
             colorBt="#F23581"
@@ -36,6 +43,26 @@ export default function Services({ services }: any) {
             <StyleSelection key={index}>
               <StyleForm>
                 <ServicesTitle>X Content creation</ServicesTitle>
+                <StyleItem>
+                  <StyleTotal>
+                    <StyleDesOverview>Completed:</StyleDesOverview>
+                    <StyleSubTitle>32</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleTotal>
+                    <StyleDesOverview>Review:</StyleDesOverview>
+                    <StyleSubTitle>28</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleTotal>
+                    <StyleDesOverview>Ranting:</StyleDesOverview>
+                    <StyleIcons>
+                      <IconStar />
+                      <IconStar />
+                      <IconStar />
+                      <IconStar />
+                      <IconStar />
+                    </StyleIcons>
+                  </StyleTotal>
+                </StyleItem>
                 <SubTitle>
                   Partner with me to reach your target audience quickly and
                   effectively.
@@ -239,4 +266,40 @@ const StyleTitle = styled.div`
     font-size: 20px;
     padding-bottom: 0px;
   }
+`;
+
+const StyleItem = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #393939;
+  padding: 5px;
+  border-radius: 5px;
+`;
+
+const StyleTotal = styled.div`
+  display: flex;
+  align-items: center;
+  width: 250px;
+  gap: 10px;
+`;
+
+const StyleDesOverview = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #b9b9b9;
+`;
+
+const StyleSubTitle = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #82ebff;
+`;
+
+const StyleIcons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;

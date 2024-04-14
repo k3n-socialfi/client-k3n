@@ -105,7 +105,8 @@ export default function TableTrending(props: ITableTopRankingProps) {
       name: item?.fullName,
       badge: item?.twitterInfo?.verificationStatus,
       follower: item?.twitterInfo?.followers,
-      price: "0",
+      minPrice: "0",
+      maxPrice: "100",
       review: "0",
       tags: [],
       avatar: item?.twitterInfo?.avatar,
@@ -285,10 +286,10 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <Cell>
-                    {row?.price ? (
+                    {row?.minPrice ? (
                       <>
                         <IconNFT />
-                        {row?.price}
+                        {`${row?.minPrice}-${row?.maxPrice}`}
                       </>
                     ) : (
                       <></>

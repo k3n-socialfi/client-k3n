@@ -15,10 +15,11 @@ interface IWalletContextProvider {
 const WalletContextProvider = ({ children }: IWalletContextProvider) => {
   const wallets = React.useMemo(
     () => [
-      // new walletAdapterWallets.PhantomWalletAdapter(),
+      new walletAdapterWallets.TrustWalletAdapter(),
+      new walletAdapterWallets.PhantomWalletAdapter(),
       new walletAdapterWallets.SolflareWalletAdapter(),
     ],
-    [solNetwork()]
+    [solNetwork()],
   );
 
   return (
