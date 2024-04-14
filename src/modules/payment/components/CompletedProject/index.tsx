@@ -1,5 +1,8 @@
 import { IconArrowDownChange, IconArrowUpChange } from "@/assets/icons";
-import { DATA_COMPLETED_PROJECT } from "@/constant/dataMockupCompletedProject";
+import {
+  DATA_COMPLETED_PROJECT,
+  DATA_HEAD_CP,
+} from "@/constant/dataMockupCompletedProject";
 import {
   Avatar,
   Paper,
@@ -28,33 +31,14 @@ const ComPletedProject = (props: ICompletedProjectProps) => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRowHeadCustom>
-            <CustomTableHeadCell align="center">
-              <CellAll>No</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="left">
-              <CellAll>Project</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="center">
-              <CellAll>Date</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="center">
-              <CellAll>Price</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="center">
-              <CellAll>Gender</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="center">
-              <CellAll>New ATH</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell align="center">
-              <CellAll>Current Price</CellAll>
-            </CustomTableHeadCell>
-            <CustomTableHeadCell
-              align="center"
-              // style={{ borderRight: "0px", fontSize: "18px !important" }}
-            >
-              <CellAll>Change</CellAll>
-            </CustomTableHeadCell>
+            {DATA_HEAD_CP.map((item, index) => (
+              <CustomTableHeadCell
+                key={index}
+                align={`${item === "Project" ? "left" : "center"}`}
+              >
+                <CellAll>{item}</CellAll>
+              </CustomTableHeadCell>
+            ))}
           </TableRowHeadCustom>
         </TableHead>
         <TableBody>
@@ -154,6 +138,7 @@ const Change = styled.div<ICompletedProjectProps>`
   display: flex;
   flex-direction: row;
   gap: 10px;
+  justify-content: center;
   color: ${(props) => (props?.arrowChange === "up" ? "#54F209" : "#F95A2C")};
 `;
 

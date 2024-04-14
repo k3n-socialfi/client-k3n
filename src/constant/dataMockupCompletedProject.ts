@@ -1,3 +1,14 @@
+export const DATA_HEAD_CP = [
+  "No",
+  "Project",
+  "Date",
+  "Price",
+  "Gender",
+  "New ETH",
+  "Current Price",
+  "Change",
+];
+
 export const DATA_COMPLETED_PROJECT = [
   {
     id: 1,
