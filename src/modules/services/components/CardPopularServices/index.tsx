@@ -7,7 +7,13 @@ import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { useRouter } from "next/navigation";
 import { IconStar } from "@/assets/icons";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
-export default function CardPopularServices() {
+
+interface IPropsCarPopular {
+  dataPopularServices: any;
+}
+export default function CardPopularServices({
+  dataPopularServices,
+}: IPropsCarPopular) {
   const IMG2 = tiktokImage;
 
   const router = useRouter();
@@ -15,7 +21,7 @@ export default function CardPopularServices() {
   return (
     <StyleSelection>
       <StyleForm>
-        <ServicesTitle>Short Video on Tiktok</ServicesTitle>
+        <ServicesTitle>{dataPopularServices?.projectName}</ServicesTitle>
         <StyleItem>
           <StyleTotal>
             <StyleDesOverview>Completed:</StyleDesOverview>
@@ -36,10 +42,7 @@ export default function CardPopularServices() {
             </StyleIcons>
           </StyleTotal>
         </StyleItem>
-        <SubTitle>
-          Dont miss the chance to make your brand go viral with my 2.5M Tiktok
-          followers!
-        </SubTitle>
+        <SubTitle>{dataPopularServices?.jobDescription}</SubTitle>
         <StyleChips>
           <Chips
             label="Tiktok"
@@ -68,12 +71,12 @@ export default function CardPopularServices() {
           <StyleServicesImg width={150} height={130} src={IMG2} alt="igs" />
           <RightTransfer>
             <Options>
-              <Price>$7,450</Price>
+              <Price>${dataPopularServices?.price}</Price>
               <Checkbox {...label} />
             </Options>
             <Divider sx={{ borderColor: "#B9B9B9 " }} />
             <Options>
-              <TitlePrice>One time payment</TitlePrice>
+              <TitlePrice>{dataPopularServices?.paymentMethod}</TitlePrice>
               <Checkbox {...label} defaultChecked />
             </Options>
             <ButtonPrimary

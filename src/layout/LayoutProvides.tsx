@@ -15,6 +15,7 @@ import { useBoolean } from "@/hooks/useBoolean";
 import { IconOpenSideBar } from "@/assets/icons";
 import { TableRankingContextProvider } from "@/contexts/TableTopRanking";
 import { ProjectContextProvider } from "@/contexts/ProjectContext";
+import { ServicesContextProvider } from "@/contexts/ServicesContext";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -33,28 +34,30 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
     <Suspense fallback={<div>Loading...</div>}>
       <AuthContextProvider>
         <TableRankingContextProvider>
-          <ProfileContextProvider>
-            <MyProfileContextProvider>
-              <ProjectContextProvider>
-                <AppRouterCacheProvider>
-                  <ThemeProvider theme={theme}>
-                    <WalletContextProvider>
-                      <Header handleToggleSidebar={isOpenSideBar.onToggle} />
-                      <StyleMain>
-                        <StyleSideBar isOpen={isOpenSideBar.value}>
-                          <SideBar handleClose={isOpenSideBar.onToggle} />
-                        </StyleSideBar>
-                        <StyleChildren>
-                          {children}
-                          <Footer />
-                        </StyleChildren>
-                      </StyleMain>
-                    </WalletContextProvider>
-                  </ThemeProvider>
-                </AppRouterCacheProvider>
-              </ProjectContextProvider>
-            </MyProfileContextProvider>
-          </ProfileContextProvider>
+          <ServicesContextProvider>
+            <ProfileContextProvider>
+              <MyProfileContextProvider>
+                <ProjectContextProvider>
+                  <AppRouterCacheProvider>
+                    <ThemeProvider theme={theme}>
+                      <WalletContextProvider>
+                        <Header handleToggleSidebar={isOpenSideBar.onToggle} />
+                        <StyleMain>
+                          <StyleSideBar isOpen={isOpenSideBar.value}>
+                            <SideBar handleClose={isOpenSideBar.onToggle} />
+                          </StyleSideBar>
+                          <StyleChildren>
+                            {children}
+                            <Footer />
+                          </StyleChildren>
+                        </StyleMain>
+                      </WalletContextProvider>
+                    </ThemeProvider>
+                  </AppRouterCacheProvider>
+                </ProjectContextProvider>
+              </MyProfileContextProvider>
+            </ProfileContextProvider>
+          </ServicesContextProvider>
         </TableRankingContextProvider>
       </AuthContextProvider>
     </Suspense>

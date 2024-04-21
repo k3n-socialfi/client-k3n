@@ -12,7 +12,7 @@ import { IconStar } from "@/assets/icons";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ services }: any) {
+export default function Services({ services, dataPopularServices }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
 
   const IMG2 =
@@ -38,11 +38,11 @@ export default function Services({ services }: any) {
         </ServicesRight>
       </Container>
       <StyleContent>
-        {services ? (
-          [1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-            <StyleSelection key={index}>
+        {dataPopularServices ? (
+          dataPopularServices.map((item: any) => (
+            <StyleSelection key={item?.jobId}>
               <StyleForm>
-                <ServicesTitle>X Content creation</ServicesTitle>
+                <ServicesTitle>{item?.projectName}</ServicesTitle>
                 <StyleItem>
                   <StyleTotal>
                     <StyleDesOverview>Completed:</StyleDesOverview>
@@ -63,10 +63,7 @@ export default function Services({ services }: any) {
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
-                <SubTitle>
-                  Partner with me to reach your target audience quickly and
-                  effectively.
-                </SubTitle>
+                <SubTitle>{item?.jobDescription}</SubTitle>
                 <StyleChips>
                   <Chips
                     label="X Content"
@@ -105,7 +102,7 @@ export default function Services({ services }: any) {
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
                     <Options>
-                      <TitlePrice>One time payment</TitlePrice>
+                      <TitlePrice>{item?.paymentMethod}</TitlePrice>
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>

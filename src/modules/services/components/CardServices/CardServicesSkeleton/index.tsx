@@ -1,41 +1,18 @@
-import styled from "styled-components";
-import imageCard from "@/assets/images/image-card-service.svg";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import Image from "next/image";
-import { Checkbox, Divider, Typography } from "@mui/material";
-import { ButtonPrimary } from "@/components/ButtonCustom";
-import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-interface IPropCardServices {
-  dataCardServices: any;
-}
-export default function CardServices({ dataCardServices }: IPropCardServices) {
-  const router = useRouter();
+export default function CardServicesSkeleton() {
   return (
     <StyleWrapperCard>
-      <CardImage height={130} src={imageCard} alt="igs" />
+      <LoadingSkeleton width="100%" height="130px" radius="10px" />
       <CardContent>
         <CardWrapperTitle>
-          <ServicesTitle>{dataCardServices?.projectName}</ServicesTitle>
-          <SubTitle>{dataCardServices?.jobDescription}</SubTitle>
+          <LoadingSkeleton width="100%" height="30px" radius="0px" />
+          <LoadingSkeleton width="100%" height="60px" radius="0px" />
         </CardWrapperTitle>
         <CardBottom>
-          <Options>
-            <Price>${dataCardServices?.price}</Price>
-            <Checkbox {...label} />
-          </Options>
-          <Divider sx={{ borderColor: "#B9B9B9 " }} />
-          <Options>
-            <TitlePrice>{dataCardServices?.paymentMethod}</TitlePrice>
-            <Checkbox {...label} defaultChecked />
-          </Options>
-          <ButtonPrimary
-            style={{ width: "100%" }}
-            onClick={() => router.push("/services/payment")}
-          >
-            <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-          </ButtonPrimary>
+          <LoadingSkeleton width="100%" height="50px" radius="20px" />
         </CardBottom>
       </CardContent>
     </StyleWrapperCard>
@@ -49,6 +26,7 @@ const StyleWrapperCard = styled.div`
   background: #464646;
   border-radius: 8px;
 `;
+
 const CardImage = styled(Image)`
   width: 100%;
 `;

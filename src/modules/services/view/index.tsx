@@ -20,6 +20,10 @@ const top100Films = [
 ];
 import { Autocomplete, TextField, Typography } from "@mui/material";
 import CardServices from "../components/CardServices";
+import { useServicesContext } from "@/contexts/ServicesContext";
+import CardServicesSkeleton from "../components/CardServices/CardServicesSkeleton";
+import PopularServicesSkeleton from "../components/CardPopularServices/PopularServicesSkeleton";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 export default function Services() {
   const options = top100Films.map((option) => {
@@ -29,95 +33,130 @@ export default function Services() {
       ...option,
     };
   });
+
+  const { dataServices, isLoading, dataPopularServices } = useServicesContext();
+
   return (
     <StyleContainerServices>
       <StylePopularServices>
         <StylePopularHeading>
-          <Typography variant="h4">Popular Services</Typography>
+          {isLoading ? (
+            <LoadingSkeleton width="300px" height="40px" radius="10px" />
+          ) : (
+            <Typography variant="h4">Popular Services</Typography>
+          )}
         </StylePopularHeading>
         <StyleWrapperPopularCard>
-          <CardPopularServices />
-          <CardPopularServices />
+          {isLoading && dataPopularServices
+            ? [0, 1, 2, 3].map((item) => {
+                return <PopularServicesSkeleton key={item} />;
+              })
+            : dataPopularServices?.map((item: any) => {
+                return (
+                  <CardPopularServices
+                    key={item?.jobId}
+                    dataPopularServices={item}
+                  />
+                );
+              })}
         </StyleWrapperPopularCard>
       </StylePopularServices>
       <StyleAllServices>
         <StyleAllServicesHeading>
-          <Typography variant="h4">All Services</Typography>
-          <SearchAllServices>
-            <SearchServicesIcon>
-              <IconSearch />
-            </SearchServicesIcon>
-            <TextSearch>
-              <TextFieldCustoms type="text" placeholder="Search" />
-            </TextSearch>
-            <SearchServicesIcon>
-              <IconChevronDown />
-            </SearchServicesIcon>
-          </SearchAllServices>
+          {isLoading ? (
+            <>
+              <LoadingSkeleton width="300px" height="40px" radius="10px" />
+              <LoadingSkeleton width="500px" height="40px" radius="20px" />
+            </>
+          ) : (
+            <>
+              <Typography variant="h4">All Services</Typography>
+              <SearchAllServices>
+                <SearchServicesIcon>
+                  <IconSearch />
+                </SearchServicesIcon>
+                <TextSearch>
+                  <TextFieldCustoms type="text" placeholder="Search" />
+                </TextSearch>
+                <SearchServicesIcon>
+                  <IconChevronDown />
+                </SearchServicesIcon>
+              </SearchAllServices>
+            </>
+          )}
         </StyleAllServicesHeading>
         <StyleWrapperContent>
-          <StyleFillterServices>
-            <Filter>
-              <ItemFilters>
-                <IconFilter />
-                Filters by
-              </ItemFilters>
-              <Autocomplete
-                size="small"
-                id="grouped-demo"
-                options={options.sort(
-                  (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                )}
-                groupBy={(option) => option.firstLetter}
-                getOptionLabel={(option) => option.title}
-                sx={{
-                  height: 40,
-                  width: 250,
-                  color: "#FFF",
-                  label: { color: "#FFF" },
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Platform"
-                    sx={{ input: { color: "#FFF" } }}
-                  />
-                )}
-              />
-              <Autocomplete
-                size="small"
-                id="grouped-demo"
-                options={options.sort(
-                  (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                )}
-                groupBy={(option) => option.firstLetter}
-                getOptionLabel={(option) => option.title}
-                sx={{
-                  height: 40,
-                  width: 250,
-                  color: "#FFF",
-                  label: { color: "#FFF" },
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Chain"
-                    sx={{ input: { color: "#FFF" } }}
-                  />
-                )}
-              />
+          {isLoading ? (
+            <LoadingSkeleton width="700px" height="60px" radius="10px" />
+          ) : (
+            <StyleFillterServices>
+              <Filter>
+                <ItemFilters>
+                  <IconFilter />
+                  Filters by
+                </ItemFilters>
+                <Autocomplete
+                  size="small"
+                  id="grouped-demo"
+                  options={options.sort(
+                    (a, b) => -b.firstLetter.localeCompare(a.firstLetter),
+                  )}
+                  groupBy={(option) => option.firstLetter}
+                  getOptionLabel={(option) => option.title}
+                  sx={{
+                    height: 40,
+                    width: 250,
+                    color: "#FFF",
+                    label: { color: "#FFF" },
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Platform"
+                      sx={{ input: { color: "#FFF" } }}
+                    />
+                  )}
+                />
+                <Autocomplete
+                  size="small"
+                  id="grouped-demo"
+                  options={options.sort(
+                    (a, b) => -b.firstLetter.localeCompare(a.firstLetter),
+                  )}
+                  groupBy={(option) => option.firstLetter}
+                  getOptionLabel={(option) => option.title}
+                  sx={{
+                    height: 40,
+                    width: 250,
+                    color: "#FFF",
+                    label: { color: "#FFF" },
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Chain"
+                      sx={{ input: { color: "#FFF" } }}
+                    />
+                  )}
+                />
 
-              <ItemFilters>
-                <IconReset />
-                Reset Filter
-              </ItemFilters>
-            </Filter>
-          </StyleFillterServices>
+                <ItemFilters>
+                  <IconReset />
+                  Reset Filter
+                </ItemFilters>
+              </Filter>
+            </StyleFillterServices>
+          )}
           <StyleWrapperCardServices>
-            <CardServices />
-            <CardServices />
-            <CardServices />
-            <CardServices />
+            {isLoading && !dataServices
+              ? [0, 1, 2, 3, 4, 5, 6, 7].map((item) => {
+                  return <CardServicesSkeleton key={item} />;
+                })
+              : dataServices?.map((item: any) => {
+                  return (
+                    <CardServices key={item?.jobId} dataCardServices={item} />
+                  );
+                })}
           </StyleWrapperCardServices>
         </StyleWrapperContent>
       </StyleAllServices>
@@ -167,6 +206,7 @@ const StyleAllServicesHeading = styled.div`
   margin-top: 100px;
   width: 100%;
   color: #fff;
+  margin-bottom: 20px;
   @media (max-width: 660px) {
     display: flex;
     align-items: center;
@@ -227,7 +267,11 @@ const TextFieldCustoms = styled.input`
   color: #fff;
 `;
 
-const StyleWrapperContent = styled.div``;
+const StyleWrapperContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 const StyleFillterServices = styled.div`
   width: 70%;
   margin-top: 50px;
