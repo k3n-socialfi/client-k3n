@@ -19,8 +19,6 @@ import { Avatar } from "@mui/material";
 export interface IPostUser {
   item?: any;
 }
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
 export default function PostUser({ item }: IPostUser) {
   return (
@@ -31,38 +29,35 @@ export default function PostUser({ item }: IPostUser) {
             <StyleInforPost>
               <Avatar alt={item?.user?.name} src={item?.user?.profilePicUrl} />
               <StyleUserProfile>{item?.user?.name}</StyleUserProfile>
-              <StyleUser>@{item?.user?.name}</StyleUser>
-              <IconDots />
-              <StyleUser>@{item?.user?.location}</StyleUser>
+              <StyleUser>@{item?.user?.username}</StyleUser>
             </StyleInforPost>
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
               {item?.text}
             </Markdown>
-            <StylePostImg
-              width={0}
-              height={293}
-              sizes="100vw"
-              src={item?.user?.profileBannerUrl ?? IMG_NFT}
-              alt="igs"
-            />
+            {item?.mediaUrl?.length > 0 &&
+              <StylePostImg
+                width={0}
+                height={293}
+                sizes="100vw"
+                src={item?.mediaUrl[0]}
+                alt="igs"
+              />
+            }
             <StyleIcons>
               <StyleIconPost>
                 <StyleTotalActions>
-                  <IconHeart /> {item?.user?.favouritesCount}
+                  <IconHeart /> {item?.favoriteCount}
                 </StyleTotalActions>
                 <StyleTotalActions>
-                  <IconComment /> 2.333
+                  <IconComment /> {item?.replyCount}
                 </StyleTotalActions>
                 <StyleTotalActions>
-                  <IconSwitch /> 232
+                  <IconSwitch /> {item?.bookmarkCount}
                 </StyleTotalActions>
               </StyleIconPost>
               <StyleIconPost>
                 <StyleTotalActions>
                   <IconSave />
-                </StyleTotalActions>
-                <StyleTotalActions>
-                  <IconShare />
                 </StyleTotalActions>
               </StyleIconPost>
             </StyleIcons>
