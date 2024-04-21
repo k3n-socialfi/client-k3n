@@ -30,7 +30,7 @@ export default function Ranking(props: IRankingProps) {
           <IconBoxArrowRight />
         </TurnBack>
       </MyRankingTop>
-      {isLoading || accessToken ? (
+      {isLoading && accessToken ? (
         <SkeletonMyRanking />
       ) : (
         <MyRanking dataPersonal={dataPersonal} />
