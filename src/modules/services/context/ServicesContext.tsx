@@ -1,5 +1,5 @@
 "use client";
-import useFetchDataServices from "@/modules/services/Hook/useFetchDataServices";
+import useFetchDataServices from "@/modules/services/hook/useFetchDataServices";
 import React, { createContext, useContext } from "react";
 
 interface IPropsServicesContextProvider {
