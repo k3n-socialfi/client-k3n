@@ -23,6 +23,7 @@ import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
+import { useServicesContext } from "@/contexts/ServicesContext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -120,7 +121,7 @@ const Personal = ({ userProfile }: any) => {
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
                 {userProfile?.socialProfiles?.map(
-                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>
+                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
                 )}
               </StyleIcons>
             </StyleContentUser>
@@ -166,7 +167,7 @@ const Personal = ({ userProfile }: any) => {
 
 export default function ClientProfile(props: IUserProfileProps) {
   const { isLoading, userProfile, getUserProfile } = useProfileContext();
-
+  const { dataPopularServices } = useServicesContext();
   const { username } = useParams();
   useEffect(() => {
     getUserProfile(username?.toString());
@@ -209,7 +210,10 @@ export default function ClientProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={userProfile} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <Services services={userProfile} />
+              <Services
+                dataPopularServices={dataPopularServices}
+                services={userProfile}
+              />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
             </>
           )}

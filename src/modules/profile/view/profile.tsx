@@ -23,6 +23,7 @@ import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
+import { useServicesContext } from "@/contexts/ServicesContext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -124,7 +125,7 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
             {dataPersonal?.socialProfiles?.map(
-              (item: any, index: number) => SOCIAL[item?.social] ?? <></>
+              (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
             )}
           </StyleIcons>
         </StyleContentUser>
@@ -159,7 +160,7 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
 export default function UserProfile(props: IUserProfileProps) {
   const [dataPersonal, setDataPersonal] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
-
+  const { dataPopularServices } = useServicesContext();
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -223,7 +224,10 @@ export default function UserProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={dataPersonal} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <Services services={dataPersonal} />
+              <Services
+                dataPopularServices={dataPopularServices}
+                services={dataPersonal}
+              />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
             </>
           )}
