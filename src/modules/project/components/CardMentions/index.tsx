@@ -20,6 +20,9 @@ export interface ICartMentions {
   item?: any;
 }
 
+const IMG_NFT =
+  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
 export default function CartMentions({ item }: ICartMentions) {
   return (
     <StyleMainCard>
@@ -43,13 +46,13 @@ export default function CartMentions({ item }: ICartMentions) {
               width={0}
               height={293}
               sizes="100vw"
-              src={item?.user?.profileBannerUrl}
+              src={item?.user?.profileBannerUrl || IMG_NFT}
               alt="igs"
             />
             <StyleIcons>
               <StyleIconPost>
                 <StyleTotalActions>
-                  <IconHeart /> {item?.user?.favouritesCount}
+                  <IconHeart /> {item?.user?.favouritesCount || 0}
                 </StyleTotalActions>
                 <StyleTotalActions>
                   <IconComment /> 2.333

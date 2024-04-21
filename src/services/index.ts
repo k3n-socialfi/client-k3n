@@ -31,7 +31,7 @@ export const getTrendingKols = async () => {
   return axiosInstance.get("/api/v1/users/kols/trending");
 };
 
-export const getFeatureKols = async () => {
+export const getFeatureKolsRanking = async () => {
   return axiosInstance.get("/api/v1/users/kols/ranking");
 };
 

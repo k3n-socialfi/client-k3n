@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  getFeatureKols,
+  getFeatureKolsRanking,
   getFeatureProject,
   getFeaturedKols,
   getTrendingKols,
@@ -19,7 +19,7 @@ const useFetchDataHomePage = () => {
     initialHomeContextTypes.trendingKols,
   ]);
   const [trendingProjects, setTrendingProjects] = useState<ITrendingProjects[]>(
-    [initialHomeContextTypes.trendingProjects]
+    [initialHomeContextTypes.trendingProjects],
   );
   const [featureKols, setFeatureKols] = useState<IFeatureKols[]>([
     initialHomeContextTypes.featureKols,
@@ -39,7 +39,7 @@ const useFetchDataHomePage = () => {
           getFeaturedKols(),
           getTrendingKols(),
           getTrendingProjects(),
-          getFeatureKols(),
+          getFeatureKolsRanking(),
           getFeatureProject(),
         ]);
 

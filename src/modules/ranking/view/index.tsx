@@ -5,11 +5,9 @@ import MyRanking from "../components/MyRanking";
 import TableTopRanking from "@/components/TableTopRanking";
 import styled from "styled-components";
 import { IconBoxArrowRight } from "@/assets/icons";
-import { getMyProfile } from "@/services";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
-import { kolRanking } from "@/services/TableTopRanking";
 import { useTableRankingContext } from "@/contexts/TableTopRanking";
 
 export interface IRankingProps {}
@@ -18,6 +16,8 @@ export default function Ranking(props: IRankingProps) {
   const { dataRanking, isLoading, error } = useTableRankingContext();
 
   const { dataPersonal } = useMyProfileContext();
+
+  const accessToken = localStorage.getItem("accessToken");
 
   return (
     <Container>
@@ -30,7 +30,7 @@ export default function Ranking(props: IRankingProps) {
           <IconBoxArrowRight />
         </TurnBack>
       </MyRankingTop>
-      {isLoading || !dataPersonal ? (
+      {isLoading && accessToken ? (
         <SkeletonMyRanking />
       ) : (
         <MyRanking dataPersonal={dataPersonal} />
