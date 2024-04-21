@@ -70,7 +70,7 @@ export default function useWalletCustom() {
     (log: any) => {
       return setLogs((logs) => [...logs, log]);
     },
-    [setLogs]
+    [setLogs],
   );
 
   const handleLoginTwitter = () => {
@@ -98,7 +98,7 @@ export default function useWalletCustom() {
       try {
         if (signIn) {
           const { account, signedMessage, signature } = await signIn(
-            signInData
+            signInData,
           );
           setSignature(signature);
           if (typeof window !== "undefined") {
@@ -107,8 +107,9 @@ export default function useWalletCustom() {
           createLog({
             status: "success",
             method: "signIn",
-            message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address
-              } with signature ${JSON.stringify(signature)}`,
+            message: `Message signed: ${JSON.stringify(signedMessage)} by ${
+              account.address
+            } with signature ${JSON.stringify(signature)}`,
           });
         }
       } catch (error: any) {
@@ -132,6 +133,7 @@ export default function useWalletCustom() {
       localStorage.removeItem("signatured");
       localStorage.removeItem("accessToken");
       sessionStorage.removeItem("isTwitter");
+      router.push("/");
     }
   };
 
@@ -154,9 +156,8 @@ export default function useWalletCustom() {
             signature: convertSignature as any,
           };
           if (isTwitter) {
-            loginTwitterSolana(params)
-          }
-          else {
+            loginTwitterSolana(params);
+          } else {
             const { data }: any = await loginSolana(params);
             if (typeof window !== "undefined" && data) {
               localStorage.setItem("accessToken", data.data.accessToken);
