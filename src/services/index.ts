@@ -1,4 +1,5 @@
 import axiosInstance from "@/configs/axios.config";
+import { IFilterKOL } from "@/interface/users.interface";
 
 export const loginSolana = (data: any) => {
   return axiosInstance.post(`/api/v1/auth/login-solana`, data);
@@ -33,6 +34,10 @@ export const getTrendingKols = async () => {
 
 export const getFeatureKolsRanking = async () => {
   return axiosInstance.get("/api/v1/users/kols/ranking");
+};
+
+export const getKolsFilter = async (params: IFilterKOL) => {
+  return axiosInstance.get("/api/v1/users/kols/ranking", { params });
 };
 
 export const getFeatureProject = async () => {

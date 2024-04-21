@@ -1,105 +1,55 @@
 "use client";
 import {
   IconFilter,
-  IconReset,
-  IconVerify,
-  IconStar,
   IconNFT,
+  IconReset,
+  IconStar,
+  IconVerify,
 } from "@/assets/icons";
 import IconUnverify from "@/assets/icons/IconUverify";
-import SkeletonKOLs from "@/components/Skeleton/KOLs";
-import { useHomeContext } from "@/contexts/HomeContext";
-import { Avatar } from "@mui/material";
 import {
-  Chip,
-  TableRow,
-  TableHead,
-  TableContainer,
-  TableCell,
-  TableBody,
-  Table,
-  Paper,
+  FOLLOWER_RANGE,
+  OPTIONS_KYC,
+  TAGS,
+  TYPE_OF_KOL,
+} from "@/constant/FilterData";
+import { useHomeContext } from "@/contexts/HomeContext";
+import {
   Autocomplete,
+  Avatar,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
 }
 
-const DATA_TABLE = [
-  {
-    name: "Elena",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "Miles",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "POE",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "Elena",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "Miles",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "Elena",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-  {
-    name: "Miles",
-    badge: "Verified",
-    follower: "120,12",
-    price: 345,
-    review: "5.9 (1.234)",
-    tags: ["SocialFi", "Researcher", "Ethereum"],
-  },
-];
-
-const top100Films = [
-  { title: "A The Shawshank Redemption", year: 1994 },
-  { title: "B The Godfather", year: 1972 },
-  { title: "C The Godfather: Part II", year: 1974 },
-  { title: "D The Dark Knight", year: 2008 },
-  { title: "12 Angry Men", year: 1957 },
-  { title: "E Schindler's List", year: 1993 },
-  { title: "A Pulp Fiction", year: 1994 },
-];
-
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { featureKols: dataTableKols, isLoading } = useHomeContext();
+  const { kols: dataTableKols, isLoading } = useHomeContext();
+  const { push, replace } = useRouter();
+
+  const path = usePathname();
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+  const verification = searchParams.get("verification");
+  const lowerLimit = searchParams.get("lowerLimit");
+  const upperLimit = searchParams.get("upperLimit");
+  const tag = searchParams.get("tag");
+
+  useEffect(() => {
+    replace(path, undefined);
+  }, []);
+
   const data = dataTableKols?.map((item) => {
     return {
       name: item?.fullName,
@@ -107,21 +57,34 @@ export default function TableTrending(props: ITableTopRankingProps) {
       follower: item?.twitterInfo?.followers,
       minPrice: "0",
       maxPrice: "100",
-      review: "0",
-      tags: [],
+      review: item?.review ?? "0",
+      tags: item.tags,
       avatar: item?.twitterInfo?.avatar,
       href: `profile/${item?.username}`,
     };
   });
-  const regex = /^\d{1,3}(,\d{3})*$/;
-  const options = top100Films.map((option) => {
-    const firstLetter = option.title[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-      ...option,
-    };
-  });
-  const { push } = useRouter();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value.toString());
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const createAnyQueryString = useCallback(
+    (names: string[], values: string[]) => {
+      const params = new URLSearchParams(searchParams.toString());
+      for (let i = 0; i < names.length; i++) {
+        params.set(names[i], values[i]);
+      }
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <div>
       <Filter>
@@ -131,12 +94,12 @@ export default function TableTrending(props: ITableTopRankingProps) {
         </ItemFilters>
         <Autocomplete
           size="small"
-          id="grouped-demo"
-          options={options.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
-          groupBy={(option) => option.firstLetter}
+          id="grouped-type-kol"
+          options={TYPE_OF_KOL}
           getOptionLabel={(option) => option.title}
+          onChange={(event, val) =>
+            push(path + "?" + createQueryString("type", val?.value ?? ""))
+          }
           sx={{
             height: 40,
             width: 250,
@@ -146,7 +109,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="KOLs"
+              label="Type of KOLs"
               sx={{ input: { color: "#FFF" } }}
             />
           )}
@@ -154,11 +117,15 @@ export default function TableTrending(props: ITableTopRankingProps) {
         <Autocomplete
           size="small"
           id="grouped-demo"
-          options={options.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
-          groupBy={(option) => option.firstLetter}
+          options={OPTIONS_KYC}
           getOptionLabel={(option) => option.title}
+          onChange={(event, val) =>
+            push(
+              path +
+                "?" +
+                createQueryString("kyc", val?.value?.toString() ?? ""),
+            )
+          }
           sx={{
             height: 40,
             width: 250,
@@ -168,7 +135,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="KYC Badge"
+              label="KYC"
               sx={{ input: { color: "#FFF" } }}
             />
           )}
@@ -176,11 +143,18 @@ export default function TableTrending(props: ITableTopRankingProps) {
         <Autocomplete
           size="small"
           id="grouped-demo"
-          options={options.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
-          groupBy={(option) => option.firstLetter}
+          options={FOLLOWER_RANGE}
           getOptionLabel={(option) => option.title}
+          onChange={async (event, val) =>
+            push(
+              path +
+                "?" +
+                createAnyQueryString(
+                  ["lowerLimit", "upperLimit"],
+                  [val?.value.lowerLimit ?? "", val?.value.upperLimit ?? ""],
+                ),
+            )
+          }
           sx={{
             height: 40,
             width: 250,
@@ -190,7 +164,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="X Follower"
+              label="Follower"
               sx={{ input: { color: "#FFF" } }}
             />
           )}
@@ -198,11 +172,15 @@ export default function TableTrending(props: ITableTopRankingProps) {
         <Autocomplete
           size="small"
           id="grouped-demo"
-          options={options.sort(
-            (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-          )}
-          groupBy={(option) => option.firstLetter}
+          options={TAGS}
+          multiple
           getOptionLabel={(option) => option.title}
+          onChange={(event, val) => {
+            const value = val.map((item) => item.value);
+            push(
+              path + "?" + createQueryString("tags", value.toString() ?? ""),
+            );
+          }}
           sx={{
             height: 40,
             width: 250,
@@ -217,7 +195,10 @@ export default function TableTrending(props: ITableTopRankingProps) {
             />
           )}
         />
-        <ItemFilters>
+        <ItemFilters
+          onClick={() => replace(path, undefined)}
+          style={{ cursor: "pointer" }}
+        >
           <IconReset />
           Reset Filter
         </ItemFilters>
