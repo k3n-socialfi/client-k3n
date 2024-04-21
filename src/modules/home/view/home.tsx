@@ -18,7 +18,6 @@ import CardFeaturedProjects from "@/components/CardFeaturedProjects";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import { IconTop1 } from "@/assets/icons";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
-import CarouselSlideSkeleton from "@/components/CarouselSlide/CarouselSlideSkeleton";
 import styled from "styled-components";
 
 export interface IHomeProps {}
@@ -35,6 +34,7 @@ export default function Home({}: IHomeProps) {
   ];
 
   const {
+    users,
     trendingKols,
     trendingProjects,
     featureKols,
@@ -43,7 +43,7 @@ export default function Home({}: IHomeProps) {
   } = useHomeContext();
 
   const FAKEDATA_SKELETON = [0, 1, 2, 3, 4];
-  const DATACARDFEATUREDKOLS = featureKols.map((item) => {
+  const DATACARDFEATUREDKOLS = users.map((item) => {
     return {
       id: item?.userId,
       name: item?.fullName,
@@ -136,7 +136,7 @@ export default function Home({}: IHomeProps) {
         <StyleTop>
           <StyleLeft>
             <IconRocket />
-            <Typography variant="h4">Featured Project</Typography>
+            <Typography variant="h4">Services</Typography>
           </StyleLeft>
           <StyleRight></StyleRight>
         </StyleTop>

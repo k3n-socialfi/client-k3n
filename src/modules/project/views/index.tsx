@@ -370,11 +370,6 @@ const Personal = ({
               </WrapperCategori>
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
-                {/* {dataProjectDetail?.social.map(
-              (item: any, index: number) =>
-                SOCIAL[item?.social] ?? ( */}
-                {/* )
-            )} */}
                 <>
                   <IconTikTok></IconTikTok>
                 </>

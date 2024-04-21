@@ -20,7 +20,7 @@ const TableRankingContextTypes = {
 };
 
 const tableRankingContext = createContext<ITableRankingContextTypes>(
-  TableRankingContextTypes
+  TableRankingContextTypes,
 );
 
 const TableRankingContextProvider = ({
