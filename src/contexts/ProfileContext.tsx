@@ -51,7 +51,7 @@ const ProfileContextTypes = {
 const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
 const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
   const [userProfile, setUserProfile] = useState<IUserProfile>(
-    ProfileContextTypes?.userProfile
+    ProfileContextTypes?.userProfile,
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -62,7 +62,7 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
       const res = await getProfileUser(String(username));
       setUserProfile(res?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
     } finally {
       setIsLoading(false);
     }

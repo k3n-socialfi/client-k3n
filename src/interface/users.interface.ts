@@ -50,4 +50,14 @@ export interface IUsers {
   referralCode: string;
   lastLogin: string;
   twitterInfo: TwitterInfo;
+  review?: number;
+  tags?: string[];
+}
+
+export interface IFilterKOL {
+  type?: string;
+  verification?: boolean;
+  lowerLimit?: number;
+  upperLimit?: number;
+  tags?: string[];
 }

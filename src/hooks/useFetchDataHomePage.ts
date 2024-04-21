@@ -3,6 +3,7 @@ import {
   getFeatureKolsRanking,
   getFeatureProject,
   getFeaturedKols,
+  getKolsFilter,
   getTrendingKols,
   getTrendingProjects,
 } from "@/services";
@@ -12,6 +13,7 @@ import { ITrendingKols } from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
 import { IFeatureKols } from "@/interface/featureKols.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
+import { useSearchParams } from "next/navigation";
 
 const useFetchDataHomePage = () => {
   const [users, setUsers] = useState<IUsers[]>([initialHomeContextTypes.users]);
@@ -24,12 +26,48 @@ const useFetchDataHomePage = () => {
   const [featureKols, setFeatureKols] = useState<IFeatureKols[]>([
     initialHomeContextTypes.featureKols,
   ]);
+
+  const [kols, setKols] = useState<IFeatureKols[]>([]);
+
   const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>([
     initialHomeContextTypes.featureProjects,
   ]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>();
+
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+  const verification = searchParams.get("kyc");
+  const lowerLimit = searchParams.get("lowerLimit");
+  const upperLimit = searchParams.get("upperLimit");
+  const tags = searchParams.get("tags");
+
+  useEffect(() => {
+    const fetchKolsFilter = async () => {
+      try {
+        const params = {
+          type: type ? type : undefined,
+          verification: verification
+            ? verification === "true"
+              ? true
+              : false
+            : undefined,
+          lowerLimit: lowerLimit ? +lowerLimit : undefined,
+          upperLimit: upperLimit ? +upperLimit : undefined,
+          tags: tags ? tags.split(",") : undefined,
+          page: 0,
+          limit: 100,
+          top: 100,
+        };
+        const { data } = await getKolsFilter(params);
+        setKols(data.data.users);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchKolsFilter();
+  }, [type, verification, lowerLimit, upperLimit, tags]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,6 +104,7 @@ const useFetchDataHomePage = () => {
     featureProjects,
     isLoading,
     error,
+    kols,
   };
 };
 

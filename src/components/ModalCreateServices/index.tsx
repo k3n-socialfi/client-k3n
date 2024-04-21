@@ -65,7 +65,6 @@ const CreateServices = (props: Props) => {
   const getServices = async (myServices: any) => {
     try {
       const res = await program?.account?.service?.fetch(myServices);
-      console.log("🚀 ~ getServices ~ res:", res);
     } catch (error) {
       console.log("🚀 ~ getServices ~ error:", error);
     }
@@ -129,7 +128,6 @@ const CreateServices = (props: Props) => {
       openGotIt.onTrue();
     } catch (error) {
       setIsLoading(false);
-      console.log("🚀 ~ onSubmitForm ~ error:", error);
     }
   };
 
