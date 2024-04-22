@@ -1,6 +1,6 @@
 "use client";
-import useFetchDataServices from "@/modules/services/hook/useFetchDataServices";
 import React, { createContext, useContext } from "react";
+import useFetchDataServices from "../Hook/useFetchDataServices";
 
 interface IPropsServicesContextProvider {
   children: React.ReactNode;
