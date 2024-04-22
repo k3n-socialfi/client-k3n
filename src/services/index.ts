@@ -16,7 +16,12 @@ export const getMyProfile = () => {
 };
 
 export const getFeaturedKols = async () => {
-  return axiosInstance.get("/api/v1/users");
+  return axiosInstance.get("/api/v1/users", {
+    params: {
+      page: 1,
+      param: 5,
+    },
+  });
 };
 
 export const getProfileUser = async (username: string) => {
@@ -24,19 +29,39 @@ export const getProfileUser = async (username: string) => {
 };
 
 export const getTrendingProjects = async () => {
-  return axiosInstance.get("/api/v1/jobs/trending/projects");
+  return axiosInstance.get("/api/v1/jobs/trending/projects", {
+    params: {
+      page: 1,
+      param: 10,
+    },
+  });
 };
 
 export const getTrendingKols = async () => {
-  return axiosInstance.get("/api/v1/users/kols/trending");
+  return axiosInstance.get("/api/v1/users/kols/trending", {
+    params: {
+      page: 1,
+      param: 10,
+    },
+  });
 };
 
 export const getFeatureKolsRanking = async () => {
-  return axiosInstance.get("/api/v1/users/kols/ranking");
+  return axiosInstance.get("/api/v1/users/kols/ranking", {
+    params: {
+      page: 1,
+      param: 15,
+    },
+  });
 };
 
 export const getFeatureProject = async () => {
-  return axiosInstance.get("/api/v1/jobs");
+  return axiosInstance.get("/api/v1/jobs", {
+    params: {
+      page: 1,
+      param: 5,
+    },
+  });
 };
 
 export const checkExists = (address: any) => {

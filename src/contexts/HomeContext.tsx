@@ -39,6 +39,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
     trendingProjects,
     isLoading,
   } = useFetchDataHomePage();
+
   return (
     <homeContext.Provider
       value={{
