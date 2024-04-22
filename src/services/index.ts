@@ -1,4 +1,5 @@
 import axiosInstance from "@/configs/axios.config";
+import { TService } from "@/types/service";
 import { IFilterKOL } from "@/interface/users.interface";
 
 export const loginSolana = (data: any) => {
@@ -75,4 +76,8 @@ export const checkExists = (address: any) => {
 
 export const updateProfile = (data: any) => {
   return axiosInstance.put(`api/v1/users/profile/update`, data);
+};
+
+export const createServices = (data: TService) => {
+  return axiosInstance.put(`/api/v1/jobs/create`, data);
 };
