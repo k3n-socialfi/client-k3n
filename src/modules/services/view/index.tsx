@@ -20,7 +20,7 @@ const top100Films = [
 ];
 import { Autocomplete, TextField, Typography } from "@mui/material";
 import CardServices from "../components/CardServices";
-import { useServicesContext } from "@/contexts/ServicesContext";
+import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import CardServicesSkeleton from "../components/CardServices/CardServicesSkeleton";
 import PopularServicesSkeleton from "../components/CardPopularServices/PopularServicesSkeleton";
 import LoadingSkeleton from "@/components/LoadingSkeleton";

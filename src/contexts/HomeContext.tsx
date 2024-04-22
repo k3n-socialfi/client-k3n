@@ -42,6 +42,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
     isLoading,
     kols,
   } = useFetchDataHomePage();
+
   return (
     <homeContext.Provider
       value={{

@@ -23,7 +23,7 @@ import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
-import { useServicesContext } from "@/contexts/ServicesContext";
+import { useServicesContext } from "@/modules/services/context/ServicesContext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;

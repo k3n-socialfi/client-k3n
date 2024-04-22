@@ -15,7 +15,7 @@ import { useBoolean } from "@/hooks/useBoolean";
 import { IconOpenSideBar } from "@/assets/icons";
 import { TableRankingContextProvider } from "@/contexts/TableTopRanking";
 import { ProjectContextProvider } from "@/contexts/ProjectContext";
-import { ServicesContextProvider } from "@/contexts/ServicesContext";
+import { ServicesContextProvider } from "@/modules/services/context/ServicesContext";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
