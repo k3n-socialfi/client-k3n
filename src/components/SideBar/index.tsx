@@ -20,10 +20,10 @@ import TooltipCustom from "../Tooltip";
 import { CloseSideBar, Discover } from "./style";
 
 type TSidebar = {
-  handleClose?: () => void;
+  handleToggleSidebar?: () => void;
 };
 
-export default function SideBar({ handleClose }: TSidebar) {
+export default function SideBar({ handleToggleSidebar }: TSidebar) {
   const router = useRouter();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -107,6 +107,7 @@ export default function SideBar({ handleClose }: TSidebar) {
                             in={expanded[index]}
                             timeout="auto"
                             unmountOnExit
+                            onClick={handleToggleSidebar}
                           >
                             <List component="div" disablePadding>
                               {itemChild?.isCommingSoon ? (
@@ -150,7 +151,12 @@ export default function SideBar({ handleClose }: TSidebar) {
 
           <List>
             {DATASIDEBARBOTTOM.map((item, index) => (
-              <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
+              <ListItem
+                key={item.id}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={handleToggleSidebar}
+              >
                 {item?.isCommingSoon ? (
                   <ListItemButton
                     sx={{

@@ -13,12 +13,21 @@ export const CustomTab = styled.div`
   min-height: 100px;
   overflow: auto;
   width: 100%;
+  /* table-layout: auto; */
 
   &::-webkit-scrollbar {
     display: none;
   }
 
   scrollbar-width: none;
+
+  @media (min-width: 1600px) and (max-width: 1720px) {
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 1378px) {
+    justify-content: flex-start;
+  }
 
   @media (max-width: 1224px) {
   }

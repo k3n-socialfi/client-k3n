@@ -23,11 +23,12 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   TextField,
 } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 export interface ITableTopRankingProps {
@@ -37,6 +38,24 @@ export interface ITableTopRankingProps {
 export default function TableTrending(props: ITableTopRankingProps) {
   const { kols: dataTableKols, isLoading } = useHomeContext();
   const { push, replace } = useRouter();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [count, setCount] = useState(0);
+  const [typeOfKols, setTypeOfKols] = useState("");
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    push(path + "?" + createQueryString("limit", event.target.value ?? 10));
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+
+    push(path + "?" + createQueryString("page", newPage ?? 1));
+  };
 
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -65,7 +84,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
   });
 
   const createQueryString = useCallback(
-    (name: string, value: string) => {
+    (name: string, value: string | number) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value.toString());
 
@@ -106,9 +125,12 @@ export default function TableTrending(props: ITableTopRankingProps) {
             color: "#FFF",
             label: { color: "#FFF" },
           }}
+          // value={typeOfKols}
           renderInput={(params) => (
             <TextField
               {...params}
+              // inputValue={type ?? ""}
+              // value={type ?? ""}
               label="Type of KOLs"
               sx={{ input: { color: "#FFF" } }}
             />
@@ -300,6 +322,17 @@ export default function TableTrending(props: ITableTopRankingProps) {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          sx={{ padding: "50px" }}
+          rowsPerPageOptions={[10, 20, 50]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Rows per page"
+        />
       </TableContainer>
     </div>
   );

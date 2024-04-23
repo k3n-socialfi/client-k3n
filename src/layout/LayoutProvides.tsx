@@ -44,7 +44,9 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
                         <Header handleToggleSidebar={isOpenSideBar.onToggle} />
                         <StyleMain>
                           <StyleSideBar isOpen={isOpenSideBar.value}>
-                            <SideBar handleClose={isOpenSideBar.onToggle} />
+                            <SideBar
+                              handleToggleSidebar={isOpenSideBar.onToggle}
+                            />
                           </StyleSideBar>
                           <StyleChildren>
                             {children}

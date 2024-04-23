@@ -42,6 +42,8 @@ const useFetchDataHomePage = () => {
   const lowerLimit = searchParams.get("lowerLimit");
   const upperLimit = searchParams.get("upperLimit");
   const tags = searchParams.get("tags");
+  const page = searchParams.get("page");
+  const limit = searchParams.get("limit");
 
   useEffect(() => {
     const fetchKolsFilter = async () => {
@@ -56,8 +58,8 @@ const useFetchDataHomePage = () => {
           lowerLimit: lowerLimit ? +lowerLimit : undefined,
           upperLimit: upperLimit ? +upperLimit : undefined,
           tags: tags ? tags.split(",") : undefined,
-          page: 0,
-          limit: 100,
+          page: page ? page : 0,
+          limit: limit ? limit : 100,
           top: 100,
         };
         const { data } = await getKolsFilter(params);
@@ -67,7 +69,7 @@ const useFetchDataHomePage = () => {
       }
     };
     fetchKolsFilter();
-  }, [type, verification, lowerLimit, upperLimit, tags]);
+  }, [type, verification, lowerLimit, upperLimit, tags, limit, page]);
 
   useEffect(() => {
     const fetchData = async () => {
