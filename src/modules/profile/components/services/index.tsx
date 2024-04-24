@@ -9,6 +9,7 @@ import CreateServices from "@/components/ModalCreateServices";
 import Link from "next/link";
 import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 import { IconStar } from "@/assets/icons";
+import { useAlert } from "@/contexts/AlertContext";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -31,7 +32,9 @@ export default function Services({ services, dataPopularServices }: any) {
           <ButtonSecondary
             variant="outlined"
             colorBt="#F23581"
-            onClick={() => setIsShowModal(!isShowModal)}
+            onClick={() => {
+              setIsShowModal(!isShowModal);
+            }}
           >
             Add New Services
           </ButtonSecondary>

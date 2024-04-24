@@ -32,6 +32,7 @@ import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import { createServices } from "@/services";
 import { IMAGES } from "@/constant";
 import IconPlus from "@/assets/icons/IconPlus";
+import { useAlert } from "@/contexts/AlertContext";
 
 type Props = {
   isShowModal: boolean;
@@ -47,6 +48,7 @@ const CreateServices = (props: Props) => {
   const anchorWallet = useAnchorWallet();
 
   const { connection, provider, program } = useProviderConnect();
+  const { setAlertSuccess, setAlertError } = useAlert();
 
   const {
     register,
@@ -73,11 +75,19 @@ const CreateServices = (props: Props) => {
     data.isPublic = true;
     data.price = +data.price;
     try {
-      await createServices(data);
+      const res = await createServices(data);
       setIsLoading(false);
       openGotIt.onTrue();
-    } catch (error) {
+      setAlertSuccess(
+        "Create success",
+        `${res?.data?.message ?? "Create Success"}`,
+      );
+    } catch (error: any) {
       setIsLoading(false);
+      setAlertError(
+        "Create Error",
+        `${error?.data?.message[0] ?? "Create Error"}`,
+      );
     }
     // const newKol = anchor.web3.Keypair.generate();
     // const seed = new anchor.BN(1);
