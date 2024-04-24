@@ -79,5 +79,5 @@ export const updateProfile = (data: any) => {
 };
 
 export const createServices = (data: TService) => {
-  return axiosInstance.put(`/api/v1/jobs/create`, data);
+  return axiosInstance.post(`/api/v1/jobs/create`, data);
 };

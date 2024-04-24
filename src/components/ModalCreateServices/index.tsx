@@ -65,24 +65,17 @@ const CreateServices = (props: Props) => {
     // openHireMe();
   };
 
-  const getServices = async (myServices: any) => {
-    try {
-      const res = await program?.account?.service?.fetch(myServices);
-    } catch (error) {
-      console.log("🚀 ~ getServices ~ error:", error);
-    }
-  };
-
   const onSubmitForm = async (data: TService) => {
     setIsLoading(true);
-    data.img = IMAGES
-    data.currency = [data.currency]
-    data.tags = ["tag test"]
-    data.isPublic = true
-    data.jobType = "Tiktok"
+    data.img = IMAGES;
+    data.currency = [data.currency];
+    data.tags = ["tag test"];
+    data.isPublic = true;
+    data.price = +data.price;
     try {
-      await createServices(data)
+      await createServices(data);
       setIsLoading(false);
+      openGotIt.onTrue();
     } catch (error) {
       setIsLoading(false);
     }
@@ -202,7 +195,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("platform")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPLATFORM.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
@@ -263,7 +256,9 @@ const CreateServices = (props: Props) => {
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
-                <StyleError>{errors.jobDescription?.message as string}</StyleError>
+                <StyleError>
+                  {errors.jobDescription?.message as string}
+                </StyleError>
               </div>
 
               <StylePriceCurrency>
@@ -292,9 +287,7 @@ const CreateServices = (props: Props) => {
                     />
                   </FormControl>
                   <div style={{ width: "100%" }}>
-                    <StyleError>
-                      {errors.price?.message as string}
-                    </StyleError>
+                    <StyleError>{errors.price?.message as string}</StyleError>
                   </div>
                 </Price>
 
@@ -319,7 +312,7 @@ const CreateServices = (props: Props) => {
                         border: "0px #353535 solid",
                       }}
                       {...register("currency")}
-                    // onChange={handleChangeSelect}
+                      // onChange={handleChangeSelect}
                     >
                       {DATACURRENCY.map((option) => (
                         <MenuItem key={option.id} value={option.value}>
@@ -357,7 +350,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("paymentMethod")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPAYMENTMETHOD.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
