@@ -147,6 +147,10 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
 };
 
 const ToggleSideBar = styled.div`
+  &:active {
+    opacity: 0.8;
+  }
+  cursor: pointer;
   @media (min-width: 1600px) {
     display: none;
   }

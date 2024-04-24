@@ -136,7 +136,7 @@ export default function Home({}: IHomeProps) {
         <StyleTop>
           <StyleLeft>
             <IconRocket />
-            <Typography variant="h4">Services</Typography>
+            <Typography variant="h4">Featured Services</Typography>
           </StyleLeft>
           <StyleRight></StyleRight>
         </StyleTop>
