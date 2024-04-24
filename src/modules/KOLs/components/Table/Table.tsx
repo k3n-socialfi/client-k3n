@@ -323,7 +323,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           </TableBody>
         </Table>
         <TablePagination
-          sx={{ padding: "50px" }}
+          sx={{ padding: "50px", backgroundColor: "#3f3e45", color: "#FFF" }}
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
           count={data.length}
