@@ -29,6 +29,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
+import { createServices } from "@/services";
+import { IMAGES } from "@/constant";
+import IconPlus from "@/assets/icons/IconPlus";
+import { useAlert } from "@/contexts/AlertContext";
 
 type Props = {
   isShowModal: boolean;
@@ -44,6 +48,7 @@ const CreateServices = (props: Props) => {
   const anchorWallet = useAnchorWallet();
 
   const { connection, provider, program } = useProviderConnect();
+  const { setAlertSuccess, setAlertError } = useAlert();
 
   const {
     register,
@@ -62,73 +67,85 @@ const CreateServices = (props: Props) => {
     // openHireMe();
   };
 
-  const getServices = async (myServices: any) => {
-    try {
-      const res = await program?.account?.service?.fetch(myServices);
-    } catch (error) {
-      console.log("🚀 ~ getServices ~ error:", error);
-    }
-  };
-
   const onSubmitForm = async (data: TService) => {
     setIsLoading(true);
-    const newKol = anchor.web3.Keypair.generate();
-    const seed = new anchor.BN(1);
-
-    let serviceId: string = `${Math.random()}`;
-
-    data.kol = newKol.publicKey;
-    data.serviceFee = new anchor.BN(+data.serviceFee);
-    data.paymentMethod = "OnetimePayment";
-
+    data.img = IMAGES;
+    data.currency = [data.currency];
+    data.tags = ["tag test"];
+    data.isPublic = true;
+    data.price = +data.price;
     try {
-      let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
-        [
-          Buffer.from("K3N"),
-          seed.toArrayLike(Buffer, "le", 8),
-          Buffer.from(serviceId),
-        ],
-        program.programId,
-      );
-
-      if (anchorWallet) {
-        let tx = new anchor.web3.Transaction().add(
-          program.instruction.createService(
-            seed,
-            serviceId,
-            data.kol,
-            data.serviceName,
-            data.platform,
-            data.serviceFee,
-            data.currency,
-            data.paymentMethod,
-            data.description,
-            {
-              accounts: {
-                hirer: provider.publicKey,
-                service: serviceGened,
-                systemProgram: anchor.web3.SystemProgram.programId,
-              },
-              signers: [walletSol as any],
-            },
-          ),
-        );
-        let blockhash = (await connection.getLatestBlockhash("confirmed"))
-          .blockhash;
-        tx.feePayer = anchorWallet?.publicKey as any;
-        tx.recentBlockhash = blockhash;
-        const txhash = await anchorWallet?.signTransaction(tx);
-        const serialized = txhash?.serialize();
-        const txId = await connection.sendRawTransaction(serialized as any);
-        const result = await connection.confirmTransaction(txId);
-      }
-
-      getServices(serviceGened);
+      const res = await createServices(data);
       setIsLoading(false);
       openGotIt.onTrue();
-    } catch (error) {
+      setAlertSuccess(
+        "Create success",
+        `${res?.data?.message ?? "Create Success"}`,
+      );
+    } catch (error: any) {
       setIsLoading(false);
+      setAlertError(
+        "Create Error",
+        `${error?.data?.message[0] ?? "Create Error"}`,
+      );
     }
+    // const newKol = anchor.web3.Keypair.generate();
+    // const seed = new anchor.BN(1);
+
+    // let serviceId: string = `${Math.random()}`;
+
+    // data.kol = newKol.publicKey;
+    // data.serviceFee = new anchor.BN(+data.serviceFee);
+    // data.paymentMethod = "OnetimePayment";
+
+    // try {
+    //   let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
+    //     [
+    //       Buffer.from("K3N"),
+    //       seed.toArrayLike(Buffer, "le", 8),
+    //       Buffer.from(serviceId),
+    //     ],
+    //     program.programId,
+    //   );
+
+    //   if (anchorWallet) {
+    //     let tx = new anchor.web3.Transaction().add(
+    //       program.instruction.createService(
+    //         seed,
+    //         serviceId,
+    //         data.kol,
+    //         data.serviceName,
+    //         data.platform,
+    //         data.serviceFee,
+    //         data.currency,
+    //         data.paymentMethod,
+    //         data.description,
+    //         {
+    //           accounts: {
+    //             hirer: provider.publicKey,
+    //             service: serviceGened,
+    //             systemProgram: anchor.web3.SystemProgram.programId,
+    //           },
+    //           signers: [walletSol as any],
+    //         },
+    //       ),
+    //     );
+    //     let blockhash = (await connection.getLatestBlockhash("confirmed"))
+    //       .blockhash;
+    //     tx.feePayer = anchorWallet?.publicKey as any;
+    //     tx.recentBlockhash = blockhash;
+    //     const txhash = await anchorWallet?.signTransaction(tx);
+    //     const serialized = txhash?.serialize();
+    //     const txId = await connection.sendRawTransaction(serialized as any);
+    //     const result = await connection.confirmTransaction(txId);
+    //   }
+
+    //   getServices(serviceGened);
+    //   setIsLoading(false);
+    //   openGotIt.onTrue();
+    // } catch (error) {
+    //   setIsLoading(false);
+    // }
   };
 
   const checkForm = watch();
@@ -217,11 +234,11 @@ const CreateServices = (props: Props) => {
                   placeholder="Enter your Service name"
                   inputProps={{ "aria-label": "Enter your full name" }}
                   color="primary"
-                  {...register("serviceName")}
+                  {...register("projectName")}
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
-                <StyleError>{errors.serviceName?.message as string}</StyleError>
+                <StyleError>{errors.projectName?.message as string}</StyleError>
               </div>
 
               <StyleLabel>
@@ -245,11 +262,13 @@ const CreateServices = (props: Props) => {
                   color="primary"
                   multiline={true}
                   minRows={3}
-                  {...register("description")}
+                  {...register("jobDescription")}
                 />
               </FormControl>
               <div style={{ width: "100%" }}>
-                <StyleError>{errors.description?.message as string}</StyleError>
+                <StyleError>
+                  {errors.jobDescription?.message as string}
+                </StyleError>
               </div>
 
               <StylePriceCurrency>
@@ -274,13 +293,11 @@ const CreateServices = (props: Props) => {
                       placeholder="Enter your Service name"
                       inputProps={{ "aria-label": "Enter your full name" }}
                       color="primary"
-                      {...register("serviceFee")}
+                      {...register("price")}
                     />
                   </FormControl>
                   <div style={{ width: "100%" }}>
-                    <StyleError>
-                      {errors.serviceFee?.message as string}
-                    </StyleError>
+                    <StyleError>{errors.price?.message as string}</StyleError>
                   </div>
                 </Price>
 
@@ -355,7 +372,7 @@ const CreateServices = (props: Props) => {
                   {errors.paymentMethod?.message as string}
                 </StyleError>
               </FormControl>
-              {/* <StyleLabel>
+              <StyleLabel>
                 <Typography>Tags</Typography>
                 <Typography color={"orange"}>*</Typography>
               </StyleLabel>
@@ -363,7 +380,7 @@ const CreateServices = (props: Props) => {
                 <ButtonPrimary startIcon={<IconPlus />} size="small">
                   Add New Tag
                 </ButtonPrimary>
-              </AddNewTag> */}
+              </AddNewTag>
               <StyleBottomSubmit>
                 <ButtonPrimary
                   disabled={openButton.value}

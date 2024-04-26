@@ -1,13 +1,15 @@
-import { PublicKey } from "@solana/web3.js";
-
 export type TService = {
   seed?: number,
-  id?:string,
+  id?: string,
   kol?: any,
-  serviceName: string,
+  projectName: string,
   platform: string,
-  serviceFee: number,
-  currency: string,
-  paymentMethod: string ,
-  description: string,
+  price: number,
+  currency: any[],
+  paymentMethod: string,
+  jobDescription: string,
+  tags?: any[],
+  img?: string,
+  isPublic?: boolean,
+  jobType?: string
 }

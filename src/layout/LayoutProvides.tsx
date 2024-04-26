@@ -16,6 +16,8 @@ import { IconOpenSideBar } from "@/assets/icons";
 import { TableRankingContextProvider } from "@/contexts/TableTopRanking";
 import { ProjectContextProvider } from "@/contexts/ProjectContext";
 import { ServicesContextProvider } from "@/modules/services/context/ServicesContext";
+import { AlertProvider } from "@/contexts/AlertContext";
+import CustomAlert from "@/components/Alert";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -32,36 +34,41 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AuthContextProvider>
-        <TableRankingContextProvider>
-          <ServicesContextProvider>
-            <ProfileContextProvider>
-              <MyProfileContextProvider>
-                <ProjectContextProvider>
-                  <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                      <WalletContextProvider>
-                        <Header handleToggleSidebar={isOpenSideBar.onToggle} />
-                        <StyleMain>
-                          <StyleSideBar isOpen={isOpenSideBar.value}>
-                            <SideBar
-                              handleToggleSidebar={isOpenSideBar.onToggle}
-                            />
-                          </StyleSideBar>
-                          <StyleChildren>
-                            {children}
-                            <Footer />
-                          </StyleChildren>
-                        </StyleMain>
-                      </WalletContextProvider>
-                    </ThemeProvider>
-                  </AppRouterCacheProvider>
-                </ProjectContextProvider>
-              </MyProfileContextProvider>
-            </ProfileContextProvider>
-          </ServicesContextProvider>
-        </TableRankingContextProvider>
-      </AuthContextProvider>
+      <AlertProvider>
+        <CustomAlert />
+        <AuthContextProvider>
+          <TableRankingContextProvider>
+            <ServicesContextProvider>
+              <ProfileContextProvider>
+                <MyProfileContextProvider>
+                  <ProjectContextProvider>
+                    <AppRouterCacheProvider>
+                      <ThemeProvider theme={theme}>
+                        <WalletContextProvider>
+                          <Header
+                            handleToggleSidebar={isOpenSideBar.onToggle}
+                          />
+                          <StyleMain>
+                            <StyleSideBar isOpen={isOpenSideBar.value}>
+                              <SideBar
+                                handleToggleSidebar={isOpenSideBar.onToggle}
+                              />
+                            </StyleSideBar>
+                            <StyleChildren>
+                              {children}
+                              <Footer />
+                            </StyleChildren>
+                          </StyleMain>
+                        </WalletContextProvider>
+                      </ThemeProvider>
+                    </AppRouterCacheProvider>
+                  </ProjectContextProvider>
+                </MyProfileContextProvider>
+              </ProfileContextProvider>
+            </ServicesContextProvider>
+          </TableRankingContextProvider>
+        </AuthContextProvider>
+      </AlertProvider>
     </Suspense>
   );
 }

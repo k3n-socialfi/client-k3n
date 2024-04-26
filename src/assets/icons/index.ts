@@ -86,3 +86,8 @@ export { default as IconDAI } from "./IconDAI";
 export { default as IconBitCoin } from "./IconBitCoin";
 export { default as IconArrowDownChange } from "./IconArrowDownChange";
 export { default as IconArrowUpChange } from "./IconArrowUpChange";
+export { default as IconWarning } from "./IconWarning";
+export { default as IconSuccess } from "./IconSuccess";
+export { default as IconError } from "./IconError";
+export { default as IconInformation } from "./IconInformation";
+export { default as IconCloseAlert } from "./IconCloseAlert";
