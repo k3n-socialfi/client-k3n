@@ -35,6 +35,7 @@ export default function Services() {
   });
 
   const { dataServices, isLoading, dataPopularServices } = useServicesContext();
+  console.log("🚀 ~ Services ~ dataServices:", dataServices);
 
   return (
     <StyleContainerServices>

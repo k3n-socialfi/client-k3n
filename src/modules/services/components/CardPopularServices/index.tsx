@@ -6,10 +6,11 @@ import styled from "styled-components";
 import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { useRouter } from "next/navigation";
 import { IconStar } from "@/assets/icons";
+import { TService } from "@/types/service";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface IPropsCarPopular {
-  dataPopularServices: any;
+  dataPopularServices: TService;
 }
 export default function CardPopularServices({
   dataPopularServices,
@@ -81,7 +82,9 @@ export default function CardPopularServices({
             </Options>
             <ButtonPrimary
               fullWidth
-              onClick={() => router.push("/services/payment")}
+              onClick={() =>
+                router.push(`/services/payment/${dataPopularServices.jobId}`)
+              }
             >
               <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
             </ButtonPrimary>

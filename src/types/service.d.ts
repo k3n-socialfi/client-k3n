@@ -1,15 +1,20 @@
 export type TService = {
-  seed?: number,
-  id?: string,
-  kol?: any,
-  projectName: string,
-  platform: string,
-  price: number,
-  currency: any[],
-  paymentMethod: string,
-  jobDescription: string,
-  tags?: any[],
-  img?: string,
-  isPublic?: boolean,
-  jobType?: string
+  id?: string;
+  kol?: any;
+  projectName: string;
+  platform: string;
+  price: number;
+  currency: any[];
+  paymentMethod: string;
+  jobDescription: string;
+  tags?: any[];
+  img?: string;
+  isPublic?: boolean;
+  jobType?: string;
+  jobId?: string;
+};
+
+export interface TServiceSubmit extends TService {
+  seed?: number;
+  kol?: any;
 }

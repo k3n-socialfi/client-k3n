@@ -10,6 +10,8 @@ import {
 
 import LINK_VIDEO from "@/assets/images/Video_Short.png";
 import Image from "next/image";
+import { useServiceDetailCtx } from "../../contexts/ServiceDetailCtx";
+import useServiceContract from "../../hooks/useServiceContract";
 
 interface IPayment01Props {
   nextScreen?: () => void;
@@ -17,32 +19,39 @@ interface IPayment01Props {
 }
 
 const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
+  const { serviceDetail, isLoading } = useServiceDetailCtx();
+  const { createServiceContract, isLoading: isLoadingCtc } =
+    useServiceContract();
+
   return (
     <Container>
       <Left>
         <Title>
-          <Typography color="#FFF">
-            {` Elevate your TikTok presence with K3N's collaboration with Elena!
-            Boost your brand's visibility and engagement by harnessing Elena's
-            expertise in TikTok advertising. Message us now to leverage Elena's
-            skills and enhance your TikTok marketing strategy!`}
-          </Typography>
+          <Typography color="#FFF">{serviceDetail?.jobDescription}</Typography>
         </Title>
         <Invoice>
-          <Typography color="#FFF">Short Video on Tiktok</Typography>
+          <Typography color="#FFF">{serviceDetail?.projectName}</Typography>
           <Price>
             <Typography color="#B9B9B9">Price: </Typography>
-            <Typography color="#82EBFF">$7,450</Typography>
+            <Typography color="#82EBFF">${serviceDetail?.price}</Typography>
           </Price>
           <PaymentType>
             <Typography color="#B9B9B9">Payment type: </Typography>
-            <Typography color="#82EBFF">One time payment</Typography>
+            <Typography color="#82EBFF">
+              {serviceDetail?.paymentMethod}
+            </Typography>
           </PaymentType>
         </Invoice>
         <Divider />
         <Order>
           <ButtonSecondary fullWidth>DM to Elena</ButtonSecondary>
-          <ButtonPrimary fullWidth onClick={nextScreen}>
+          <ButtonPrimary
+            fullWidth
+            isLoading={isLoadingCtc}
+            onClick={() =>
+              serviceDetail && createServiceContract(serviceDetail)
+            }
+          >
             Order now
           </ButtonPrimary>
         </Order>
@@ -64,11 +73,11 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
               width={270}
               height={140}
               alt="Elena TikTok video thumbnail"
-              src={LINK_VIDEO}
+              src={serviceDetail?.img ?? LINK_VIDEO}
             />
           </Video>
           <TitleVideo>
-            <Typography>Short Video on Tiktok</Typography>
+            <Typography>{serviceDetail?.projectName}</Typography>
           </TitleVideo>
         </ShortVideo>
         <Divider />
@@ -101,7 +110,7 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
         <DetailInvoice>
           <Subtotal>
             <Typography>Subtotal</Typography>
-            <Typography>0.00</Typography>
+            <Typography>{serviceDetail?.price}</Typography>
           </Subtotal>
           <Tax>
             <Typography>Tax</Typography>

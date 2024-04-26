@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Payment01 from "./Payment01";
 import Payment03 from "./Payment03";
 import Payment02 from "./Payment02";
+import { useServiceDetailCtx } from "../../contexts/ServiceDetailCtx";
 
 type Props = {};
 
