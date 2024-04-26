@@ -91,10 +91,6 @@ export default function TabKOLs() {
           aria-label="styled tabs example"
         >
           <StyledTab label="Trending KOLs" />
-          <StyledTab label="Meme" />
-          <StyledTab label="DeFi" />
-          <StyledTab label="SocialFi" />
-          <StyledTab label="Airdrops" />
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -107,18 +103,6 @@ export default function TabKOLs() {
         ) : (
           <TableTrending />
         )}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        COMING SOON
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        COMING SOON
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        COMING SOON
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        COMING SOON
       </CustomTabPanel>
     </CustomBox>
   );
