@@ -20,8 +20,11 @@ interface IPayment01Props {
 
 const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
   const { serviceDetail, isLoading } = useServiceDetailCtx();
-  const { createServiceContract, isLoading: isLoadingCtc } =
-    useServiceContract();
+  const {
+    createServiceContract,
+    completedServiceContract,
+    isLoading: isLoadingCtc,
+  } = useServiceContract();
 
   return (
     <Container>
@@ -53,6 +56,15 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
             }
           >
             Order now
+          </ButtonPrimary>
+          <ButtonPrimary
+            fullWidth
+            isLoading={isLoadingCtc}
+            onClick={() =>
+              serviceDetail?.jobId && completedServiceContract(serviceDetail)
+            }
+          >
+            Completed
           </ButtonPrimary>
         </Order>
       </Left>
