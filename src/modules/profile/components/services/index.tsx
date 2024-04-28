@@ -204,7 +204,6 @@ const StyleBox = styled.div`
 `;
 const StyleForm = styled.div`
   width: 580px;
-  height: 370px;
   display: flex;
   flex-direction: column;
   gap: 12px;
