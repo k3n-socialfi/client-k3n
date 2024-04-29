@@ -34,7 +34,7 @@ export default function PostUser({ item }: IPostUser) {
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
               {item?.text}
             </Markdown>
-            {item?.mediaUrl?.length > 0 &&
+            {item?.mediaUrl?.length > 0 && (
               <StylePostImg
                 width={0}
                 height={293}
@@ -42,7 +42,7 @@ export default function PostUser({ item }: IPostUser) {
                 src={item?.mediaUrl[0]}
                 alt="igs"
               />
-            }
+            )}
             <StyleIcons>
               <StyleIconPost>
                 <StyleTotalActions>
@@ -75,6 +75,7 @@ const StyleMainCard = styled.div`
   padding: 12px;
   border: 1px solid gray;
   border-radius: 8px;
+  min-width: 400px;
 `;
 const StylePostImg = styled(Image)`
   width: 96%;

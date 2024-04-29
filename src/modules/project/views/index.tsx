@@ -1,12 +1,10 @@
 "use client";
 import {
-  IconBlue,
-  IconEdit,
   IconIdProject,
   IconPaper,
   IconPointProfile,
   IconProject,
-  IconStarNormal,
+  IconStar,
   IconTikTok,
   IconVerify,
 } from "@/assets/icons";
@@ -14,8 +12,6 @@ import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
 import styled from "styled-components";
 import PreviousDeals from "../components/PreviousDeals";
 import AvailableDeals from "../components/AvailableDeals";
@@ -26,6 +22,9 @@ import {
   IJobsDetail,
   IProjectDetail,
 } from "@/interface/projectDetail.interface";
+import Chips from "@/components/Chip";
+import TableProject from "../components/TableProject";
+import RecentPosts from "../components/RecentPost";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -314,6 +313,9 @@ interface IPropsPersonal {
   isLoading?: boolean;
   dataJobsDetail: IJobsDetail;
 }
+interface IPropUserDes {
+  color?: string;
+}
 const Personal = ({
   dataProjectDetail,
   isLoading,
@@ -355,25 +357,61 @@ const Personal = ({
                   ? dataProjectDetail?.name
                   : dataJobsDetail?.projectName}
                 <IconVerify />
-                {/* {userProfile?.twitterInfo?.verificationStatus && <IconVerify />} */}
               </StyleTitle>
               <PointProfile>
-                <IconPointProfile />0
+                <IconPointProfile />
               </PointProfile>
-              <StyleUserDes>
-                {dataProjectDetail?.description ?? "data null"}
-              </StyleUserDes>
-              <WrapperCategori>
-                {dataProjectDetail?.categories?.map((item: any) => {
-                  return <StyleUserDes key={item}>{item}</StyleUserDes>;
-                })}
-              </WrapperCategori>
-              <StyleUserSocial>Social</StyleUserSocial>
-              <StyleIcons>
-                <>
-                  <IconTikTok></IconTikTok>
-                </>
-              </StyleIcons>
+              <StyleContentFlex>
+                <StyleContentUser>
+                  <StyleUserDes>
+                    {dataProjectDetail?.description ??
+                      "data null" ??
+                      "Data null"}
+                  </StyleUserDes>
+                  <WrapperCategori>
+                    {dataProjectDetail?.categories?.map((item: any) => {
+                      return (
+                        <StyleUserDes color="#82EBFF" key={item}>
+                          {item}
+                        </StyleUserDes>
+                      );
+                    })}
+                  </WrapperCategori>
+                  <StyleUserSocial>Social</StyleUserSocial>
+                  <StyleIcons>
+                    <>
+                      <IconTikTok></IconTikTok>
+                    </>
+                  </StyleIcons>
+                  {/* <StyleIcons>
+                    {dataProjectDetail?.socialProfiles?.map(
+                      (item: any, index: number) =>
+                        SOCIAL[item?.social] ?? <></>,
+                    )}
+                  </StyleIcons> */}
+                </StyleContentUser>
+                <StyleContentUser>
+                  <StyleTotal>
+                    <StyleDesOverview>Total Achievements:</StyleDesOverview>
+                    <StyleSubTitle>32</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleTotal>
+                    <StyleDesOverview>Review:</StyleDesOverview>
+                    <StyleSubTitle>28</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleIcons>
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                  </StyleIcons>
+                </StyleContentUser>
+                <StyleContentUser>
+                  <StyleDesOverview>Location</StyleDesOverview>
+                  <StyleSubTitle>New York, NYC</StyleSubTitle>
+                </StyleContentUser>
+              </StyleContentFlex>
             </>
           )}
         </StyleContentUser>
@@ -386,20 +424,53 @@ const Personal = ({
             <LoadingSkeleton width="150px" height="20px" />
           </>
         ) : (
-          <StyleButtons>
-            <StyleButtonTitle>
-              <IconIdProject />
-              CA: DezXAZ....
-            </StyleButtonTitle>
-            <StyleButtonTitle>
-              <IconPaper />
-              Whitepaper
-            </StyleButtonTitle>
-            <StyleButtonTitle>
-              <IconProject />
-              Project Website
-            </StyleButtonTitle>
-          </StyleButtons>
+          <>
+            <StyleButtons>
+              <StyleButtonTitle>
+                <IconIdProject />
+                CA: DezXAZ....
+              </StyleButtonTitle>
+              <StyleButtonTitle>
+                <IconPaper />
+                Whitepaper
+              </StyleButtonTitle>
+              <StyleButtonTitle>
+                <IconProject />
+                Project Website
+              </StyleButtonTitle>
+            </StyleButtons>
+            <StyleChips>
+              <Chips
+                label="X tweets"
+                variant="outlined"
+                sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
+              />
+              <Chips
+                label="KOLs"
+                variant="outlined"
+                sx={{ color: "#3EAABE", backgroundColor: "#EBFCFF" }}
+                color="primary"
+              />
+              <Chips
+                label="Callers"
+                variant="outlined"
+                sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
+                color="secondary"
+              />
+              <Chips
+                label="Solana Ecosystem"
+                color="secondary"
+                sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+              />
+            </StyleChips>
+            <StyleTotal>
+              <StyleDesOverview>X Followers::</StyleDesOverview>
+              <StyleSubTitle>12,314</StyleSubTitle>
+            </StyleTotal>
+            <ButtonPrimary style={{ width: "100%" }}>
+              <Typography sx={{ p: "8px 0" }}>DM to Elena</Typography>
+            </ButtonPrimary>
+          </>
         )}
       </StylePersonalRight>
     </StylePersonal>
@@ -409,7 +480,6 @@ const Personal = ({
 interface IProjectsDetail {}
 export default function ProjectDetail(props: IProjectsDetail) {
   const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
-
   return (
     <StyleContainer>
       {isLoading ? (
@@ -463,30 +533,16 @@ export default function ProjectDetail(props: IProjectsDetail) {
             dataProjectDetail={dataProjectDetail}
             dataJobsDetail={dataJobsDetail}
           />
-          <Divider sx={{ borderColor: "#B9B9B9 " }} />
           <Wrapper style={{ display: "flex", width: "100%" }}>
-            <PostLeft>
-              <StyleTitle>Mentions</StyleTitle>
-              <Posts>
-                {dataProjectDetail?.tweets?.map((item: any) => {
-                  return (
-                    <>
-                      <CartMentions item={item} key={item?.name} />
-                    </>
-                  );
-                })}
-              </Posts>
-            </PostLeft>
-            <WrapperContentRight style={{ width: "70%" }}>
-              <Overview dataProjectDetail={dataProjectDetail} />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <KeyMetrics
-                dataJobsDetail={dataJobsDetail}
-                dataProjectDetail={dataProjectDetail}
-              />
+            <WrapperContentRight style={{ width: "100%" }}>
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PreviousDeals />
+              <TableProject />
               <AvailableDeals />
+              <RecentPosts
+                dataPosts={dataProjectDetail?.tweets}
+                isLoading={isLoading}
+              />
             </WrapperContentRight>
           </Wrapper>
         </>
@@ -555,7 +611,7 @@ const StyleButtonTitle = styled.div`
   gap: 8px;
   background-color: #393939;
 
-  color: #b9b9b9;
+  color: #ffd7f4;
   border-radius: 6px;
 `;
 const StyleContainer = styled.div`
@@ -595,6 +651,7 @@ const StyleDesOverview = styled.div`
   font-weight: 500;
   line-height: 21px;
   color: #b9b9b9;
+  white-space: nowrap;
 `;
 const StyleContentOverview = styled.div``;
 const StyleSubTitle = styled.div`
@@ -603,11 +660,12 @@ const StyleSubTitle = styled.div`
   font-weight: 700;
   line-height: 24px;
   color: #82ebff;
+  white-space: nowrap;
 `;
 const StylePersonal = styled.div`
   display: flex;
   align-items: flex-start;
-  padding: 24px 14px;
+  padding: 0 14px 24px 14px;
   @media (max-width: 1120px) {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -674,7 +732,6 @@ const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
   font-weight: 700;
-  margin-top: 30px;
   @media (max-width: 1024px) {
     text-align: center;
   }
@@ -689,14 +746,14 @@ const PointProfile = styled.div`
   gap: 8px;
 `;
 
-const StyleUserDes = styled.div`
+const StyleUserDes = styled.div<IPropUserDes>`
   padding: 4px 12px;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
   background-color: #393939;
   border-radius: 12px;
-  color: #82ebff;
+  color: ${({ color }) => (color ? color : "#82EBFF")};
   width: fit-content;
   @media (max-width: 650px) {
     width: 100%;
@@ -706,7 +763,7 @@ const StyleUserSocial = styled.div`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #b9b9b9;
+  color: #82ebff;
 `;
 const StyleIcons = styled.div`
   display: flex;
@@ -726,7 +783,9 @@ const StyleIcons = styled.div`
 const StylePersonalRight = styled.div`
   margin-left: 50px;
   display: flex;
-  gap: 14px;
+  justify-content: right;
+  flex-direction: column;
+  gap: 20px;
   width: 55%;
   @media (max-width: 1120px) {
     width: 100%;
@@ -889,9 +948,10 @@ const StyleRequest = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  width: "100%";
+  width: 100%;
+  flex: 1;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: left;
   padding: 20px;
   gap: 50px;
   @media (max-width: 1250px) {
@@ -913,7 +973,10 @@ const Wrapper = styled.div`
   }
 `;
 const WrapperContentRight = styled.div`
-  width: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   @media (max-width: 1250px) {
     width: 100%;
   }
@@ -933,4 +996,25 @@ const WrapperCategori = styled.div`
     align-items: center;
     justify-content: center;
   }
+`;
+
+const StyleContentFlex = styled.div`
+  display: flex;
+  align-items: start;
+  gap: 50px;
+`;
+
+const StyleTotal = styled.div`
+  display: flex;
+  align-items: center;
+  width: 215px;
+  gap: 10px;
+`;
+
+const StyleChips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 4px 0;
+  color: #ffff !important;
 `;
