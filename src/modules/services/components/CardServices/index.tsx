@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import imageCard from "@/assets/images/image-card-service.svg";
 import Image from "next/image";
-import { Checkbox, Divider, Typography } from "@mui/material";
+import { Box, Checkbox, Divider, Modal, Typography } from "@mui/material";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useRouter } from "next/navigation";
 import { TService } from "@/types/service";
+import { useBoolean } from "@/hooks/useBoolean";
+import ModalPaymentSections from "@/components/ModalPayment";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -12,6 +14,7 @@ interface IPropCardServices {
   dataCardServices: TService;
 }
 export default function CardServices({ dataCardServices }: IPropCardServices) {
+  const openModalPayment = useBoolean();
   const router = useRouter();
   return (
     <StyleWrapperCard>
@@ -33,17 +36,47 @@ export default function CardServices({ dataCardServices }: IPropCardServices) {
           </Options>
           <ButtonPrimary
             style={{ width: "100%" }}
-            onClick={() =>
-              router.push(`/services/payment/${dataCardServices?.jobId}`)
-            }
+            // onClick={() =>
+            //   router.push(`/services/payment/${dataCardServices?.jobId}`)
+            // }
+            onClick={openModalPayment.onToggle}
           >
             <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
           </ButtonPrimary>
         </CardBottom>
       </CardContent>
+      <Modal
+        open={openModalPayment.value}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ModalBoxCustom>
+          <ModalPaymentSections />
+        </ModalBoxCustom>
+      </Modal>
     </StyleWrapperCard>
   );
 }
+
+const ModalBoxCustom = styled(Box)`
+  overflow-x: scroll;
+  height: 750px;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400;
+  background-color: #2e2e2e;
+  border: 1px solid #2e2e2e;
+  color: #fff;
+  box-shadow: 24;
+  padding: 80px 40px;
+`;
 
 const StyleWrapperCard = styled.div`
   padding: 10px;
