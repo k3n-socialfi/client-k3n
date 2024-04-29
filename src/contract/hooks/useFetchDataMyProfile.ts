@@ -16,10 +16,10 @@ const useFetchDataMyProfile = () => {
       setDataPersonal(data?.data);
       if (data?.data?.username) {
         const arrayPost: any = await getPostUser(data?.data?.username);
-        setDataPosts(arrayPost);
+        setDataPosts(arrayPost?.data?.data?.posts);
       }
     } catch (error) {
-      setAlertError(`Fail`, `${error}`);
+      setAlertError(`Get user's posts Error`, `${error}`);
     } finally {
       setIsLoading(false);
     }
