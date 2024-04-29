@@ -78,6 +78,10 @@ export const updateProfile = (data: any) => {
   return axiosInstance.put(`api/v1/users/profile/update`, data);
 };
 
+export const getPostUser = (username: any) => {
+  return axiosInstance.get(`api/v1/users/posts/${username}`);
+};
+
 export const createServices = (data: TService) => {
   return axiosInstance.post(`/api/v1/jobs/create`, data);
 };

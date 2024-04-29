@@ -1,3 +1,4 @@
+import { TwitterInfo } from "./users.interface";
 export interface ITrendingKols {
   createdAt: number;
   updatedAt: number;
@@ -16,4 +17,8 @@ export interface ITrendingKols {
   externalUrl: string;
   numberOfTweets: number;
   creationDate: string;
+  twitterInfo?: {
+    avatar?: string;
+    totalPoints?: string;
+  };
 }

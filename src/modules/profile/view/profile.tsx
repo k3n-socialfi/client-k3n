@@ -24,6 +24,8 @@ import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import { useProfileContext } from "@/contexts/ProfileContext";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -169,24 +171,9 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const [dataPersonal, setDataPersonal] = useState<any>();
-  const [isLoading, setIsLoading] = useState(true);
   const { dataPopularServices } = useServicesContext();
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
 
   return (
     <StyleContainer>
