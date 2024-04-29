@@ -7,9 +7,9 @@ export default function Experience({ experience }: any) {
     <StyleBox>
       <Container>
         <StyleTitle>Experience</StyleTitle>
-        <ExperienceRight>
+        {/* <ExperienceRight>
           {experience && <SeeAll>See all</SeeAll>}
-        </ExperienceRight>
+        </ExperienceRight> */}
       </Container>
 
       {experience && <StyleBorder />}
