@@ -182,10 +182,10 @@ export default function ClientProfile(props: IUserProfileProps) {
       <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <Posts widthNotData={dataPosts.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               <PostSkeleton />
-            ) : dataPosts.length > 0 ? (
+            ) : dataPosts?.length > 0 ? (
               dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />

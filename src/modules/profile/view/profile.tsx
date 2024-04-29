@@ -194,10 +194,10 @@ export default function UserProfile(props: IUserProfileProps) {
           ) : (
             <StyleTitle>Post</StyleTitle>
           )}
-          <Posts widthNotData={dataPosts.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPosts.length > 0 ? (
+            ) : dataPosts?.length > 0 ? (
               dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
