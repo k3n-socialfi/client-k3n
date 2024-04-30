@@ -665,7 +665,9 @@ const StyleSubTitle = styled.div`
 const StylePersonal = styled.div`
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 0 14px 24px 14px;
+  gap: 20px;
   @media (max-width: 1120px) {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -706,9 +708,9 @@ const StyleImage = styled(Image)`
   border-radius: 50%;
 `;
 const StylePersonalLeft = styled.div`
-  width: 60%;
+  width: 70%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 32px;
   @media (max-width: 850px) {
     justify-content: center;
@@ -752,6 +754,7 @@ const StyleUserDes = styled.div<IPropUserDes>`
   font-weight: 400;
   line-height: 20px;
   background-color: #393939;
+  /* white-space: pre-wrap; */
   border-radius: 12px;
   color: ${({ color }) => (color ? color : "#82EBFF")};
   width: fit-content;
@@ -786,7 +789,7 @@ const StylePersonalRight = styled.div`
   justify-content: right;
   flex-direction: column;
   gap: 20px;
-  width: 55%;
+  width: 30%;
   @media (max-width: 1120px) {
     width: 100%;
     margin-left: 250px;
@@ -1001,6 +1004,7 @@ const WrapperCategori = styled.div`
 const StyleContentFlex = styled.div`
   display: flex;
   align-items: start;
+  flex-wrap: wrap;
   gap: 50px;
 `;
 
