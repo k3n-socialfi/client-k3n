@@ -1,14 +1,15 @@
-import styled from "styled-components";
 import imageCard from "@/assets/images/image-card-service.svg";
-import Image from "next/image";
-import { Checkbox, Divider, Typography } from "@mui/material";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { TService } from "@/types/service";
+import { Checkbox, Divider, Typography } from "@mui/material";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface IPropCardServices {
-  dataCardServices: any;
+  dataCardServices: TService;
 }
 export default function CardServices({ dataCardServices }: IPropCardServices) {
   const router = useRouter();
@@ -32,7 +33,9 @@ export default function CardServices({ dataCardServices }: IPropCardServices) {
           </Options>
           <ButtonPrimary
             style={{ width: "100%" }}
-            onClick={() => router.push("/services/payment")}
+            onClick={() =>
+              router.push(`/services/payment/${dataCardServices?.jobId}`)
+            }
           >
             <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
           </ButtonPrimary>

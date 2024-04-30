@@ -1,20 +1,21 @@
 "use client";
 import React, { createContext, useContext } from "react";
 import useFetchDataServices from "../Hook/useFetchDataServices";
+import { TService } from "@/types/service";
 
 interface IPropsServicesContextProvider {
   children: React.ReactNode;
 }
 interface IServicesContextTypes {
-  dataServices: any;
-  dataPopularServices: any;
+  dataServices: TService[];
+  dataPopularServices: TService[];
   isLoading: boolean;
   error?: any;
 }
 
 const ServicesContextTypes = {
-  dataServices: [{}],
-  dataPopularServices: [{}],
+  dataServices: [],
+  dataPopularServices: [],
   isLoading: true,
   error: "",
 };
