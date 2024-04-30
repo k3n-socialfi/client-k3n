@@ -87,8 +87,6 @@ const ModalPayment03 = () => {
 
 export default ModalPayment03;
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
