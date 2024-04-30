@@ -24,6 +24,8 @@ import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import { useProfileContext } from "@/contexts/ProfileContext";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -122,13 +124,12 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
           {dataPersonal.bio && <StyleUserDes>{dataPersonal.bio}</StyleUserDes>}
           <div style={{ display: "flex", gap: "16px" }}>
             <StyleUserDes>Influencer</StyleUserDes>
-            {dataPersonal.location && <StyleContentOverview>
-              <StyleDesOverview>Location</StyleDesOverview>
-              <StyleSubTitle>
-                {dataPersonal.location}
-              </StyleSubTitle>
-            </StyleContentOverview>
-            }
+            {dataPersonal.location && (
+              <StyleContentOverview>
+                <StyleDesOverview>Location</StyleDesOverview>
+                <StyleSubTitle>{dataPersonal.location}</StyleSubTitle>
+              </StyleContentOverview>
+            )}
           </div>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
@@ -154,7 +155,9 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
           </StyleButtonTitle>
         </StyleButtons>
         <ButtonPrimary onClick={() => openModal?.onTrue()}>
-          <Typography sx={{ p: "8px 0" }}>DM to {dataPersonal?.fullName}</Typography>
+          <Typography sx={{ p: "8px 0" }}>
+            DM to {dataPersonal?.fullName}
+          </Typography>
         </ButtonPrimary>
       </StylePersonalRight>
       {isOpenEditProfile.value && (
@@ -169,24 +172,9 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const [dataPersonal, setDataPersonal] = useState<any>();
-  const [isLoading, setIsLoading] = useState(true);
   const { dataPopularServices } = useServicesContext();
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
 
   return (
     <StyleContainer>
@@ -197,7 +185,7 @@ export default function UserProfile(props: IUserProfileProps) {
       ) : (
         <PersonSkeleton />
       )}
-      { }
+      {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
         <PostLeft>
@@ -206,11 +194,11 @@ export default function UserProfile(props: IUserProfileProps) {
           ) : (
             <StyleTitle>Post</StyleTitle>
           )}
-          <Posts widthNotData={dataPersonal?.posts?.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPersonal?.posts.length > 0 ? (
-              dataPersonal?.posts.map((item: any, index: number) => (
+            ) : dataPosts?.length > 0 ? (
+              dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>

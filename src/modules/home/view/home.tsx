@@ -19,6 +19,7 @@ import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import { IconTop1 } from "@/assets/icons";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
 import styled from "styled-components";
+import { BG_COLOR_TOP, DATA_TOP } from "@/constant/dataMockupTop";
 
 export interface IHomeProps {}
 
@@ -185,15 +186,14 @@ export default function Home({}: IHomeProps) {
                     <CardTrendingKolsSkeleton />
                   </div>
                 ))
-              : trendingKols.map((item) => (
+              : trendingKols.map((item, index) => (
                   <StyleTrendingCard key={item?.userId}>
                     <CardTrendingKOLs
-                      rank={<IconTop1 />}
-                      backgroundColor="
-                #42362E"
+                      rank={DATA_TOP[index] ?? index + 1}
+                      backgroundColor={BG_COLOR_TOP[index] ?? "#252525"}
                       name={item?.username}
-                      point={item?.totalPoints}
-                      urlAvatar={item?.avatar}
+                      point={item?.twitterInfo?.totalPoints}
+                      urlAvatar={item?.twitterInfo?.avatar}
                     />
                   </StyleTrendingCard>
                 ))}

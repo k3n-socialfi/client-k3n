@@ -7,6 +7,7 @@ interface IPropsProfileContextProvider {
 }
 interface IProfileContextTypes {
   dataPersonal: any;
+  dataPosts: any;
   isLoading: boolean;
   error?: any;
   fetchData: () => void;
@@ -14,6 +15,7 @@ interface IProfileContextTypes {
 
 const ProfileContextTypes = {
   dataPersonal: [{}],
+  dataPosts: [{}],
   isLoading: true,
   error: "",
   fetchData: () => undefined,
@@ -23,10 +25,13 @@ const MyProfileContext =
 const MyProfileContextProvider = ({
   children,
 }: IPropsProfileContextProvider) => {
-  const { dataPersonal, isLoading, fetchData } = useFetchDataMyProfile();
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useFetchDataMyProfile();
 
   return (
-    <MyProfileContext.Provider value={{ dataPersonal, isLoading, fetchData }}>
+    <MyProfileContext.Provider
+      value={{ dataPersonal, dataPosts, isLoading, fetchData }}
+    >
       {children}
     </MyProfileContext.Provider>
   );

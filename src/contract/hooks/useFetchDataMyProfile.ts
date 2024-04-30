@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
-import { getMyProfile } from "@/services";
+import { getMyProfile, getPostUser } from "@/services";
+import { useAlert } from "@/contexts/AlertContext";
 
 const useFetchDataMyProfile = () => {
   const [dataPersonal, setDataPersonal] = useState<any>();
-
+  const [dataPosts, setDataPosts] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>();
+  const { setAlertError } = useAlert();
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
       const { data }: any = await getMyProfile();
       setDataPersonal(data?.data);
+      if (data?.data?.username) {
+        const arrayPost: any = await getPostUser(data?.data?.username);
+        setDataPosts(arrayPost?.data?.data?.posts);
+      }
     } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
+      setAlertError(`Get user's posts Error`, `${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -27,6 +33,7 @@ const useFetchDataMyProfile = () => {
 
   return {
     dataPersonal,
+    dataPosts,
     isLoading,
     error,
     fetchData,

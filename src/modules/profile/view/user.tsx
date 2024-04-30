@@ -166,7 +166,9 @@ const Personal = ({ userProfile }: any) => {
 };
 
 export default function ClientProfile(props: IUserProfileProps) {
-  const { isLoading, userProfile, getUserProfile } = useProfileContext();
+  const { isLoading, userProfile, dataPosts, getUserProfile } =
+    useProfileContext();
+
   const { dataPopularServices } = useServicesContext();
   const { username } = useParams();
   useEffect(() => {
@@ -180,11 +182,11 @@ export default function ClientProfile(props: IUserProfileProps) {
       <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <Posts widthNotData={userProfile?.posts?.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               <PostSkeleton />
-            ) : userProfile?.posts?.length > 0 ? (
-              userProfile?.posts?.map((item: any, index: number) => (
+            ) : dataPosts?.length > 0 ? (
+              dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
