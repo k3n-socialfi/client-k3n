@@ -20,8 +20,6 @@ export default function CardPopularServices({
 
   const router = useRouter();
 
-  const openModalPayment = useBoolean();
-
   return (
     <StyleSelection>
       <StyleForm>
@@ -97,26 +95,6 @@ export default function CardPopularServices({
     </StyleSelection>
   );
 }
-
-const ModalBoxCustom = styled(Box)`
-  overflow-x: scroll;
-  height: 750px;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400;
-  background-color: #2e2e2e;
-  border: 1px solid #2e2e2e;
-  color: #fff;
-  box-shadow: 24;
-  padding: 80px 40px;
-`;
 
 const StyleSelection = styled.div`
   border-radius: 8px;

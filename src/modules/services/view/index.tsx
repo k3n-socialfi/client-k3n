@@ -1,5 +1,4 @@
 "use client";
-
 import styled from "styled-components";
 import CardPopularServices from "../components/CardPopularServices";
 import {
@@ -8,6 +7,12 @@ import {
   IconReset,
   IconSearch,
 } from "@/assets/icons";
+import { Autocomplete, TextField, Typography } from "@mui/material";
+import CardServices from "../components/CardServices";
+import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import CardServicesSkeleton from "../components/CardServices/CardServicesSkeleton";
+import PopularServicesSkeleton from "../components/CardPopularServices/PopularServicesSkeleton";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 const top100Films = [
   { title: "A The Shawshank Redemption", year: 1994 },
@@ -18,13 +23,6 @@ const top100Films = [
   { title: "E Schindler's List", year: 1993 },
   { title: "A Pulp Fiction", year: 1994 },
 ];
-import { Autocomplete, TextField, Typography } from "@mui/material";
-import CardServices from "../components/CardServices";
-import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import CardServicesSkeleton from "../components/CardServices/CardServicesSkeleton";
-import PopularServicesSkeleton from "../components/CardPopularServices/PopularServicesSkeleton";
-import LoadingSkeleton from "@/components/LoadingSkeleton";
-
 export default function Services() {
   const options = top100Films.map((option) => {
     const firstLetter = option.title[0].toUpperCase();
@@ -35,7 +33,6 @@ export default function Services() {
   });
 
   const { dataServices, isLoading, dataPopularServices } = useServicesContext();
-  console.log("🚀 ~ Services ~ dataServices:", dataServices);
 
   return (
     <StyleContainerServices>

@@ -1,8 +1,7 @@
 import imageCard from "@/assets/images/image-card-service.svg";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import { useBoolean } from "@/hooks/useBoolean";
 import { TService } from "@/types/service";
-import { Box, Checkbox, Divider, Typography } from "@mui/material";
+import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -13,7 +12,6 @@ interface IPropCardServices {
   dataCardServices: TService;
 }
 export default function CardServices({ dataCardServices }: IPropCardServices) {
-  const openModalPayment = useBoolean();
   const router = useRouter();
   return (
     <StyleWrapperCard>
@@ -46,26 +44,6 @@ export default function CardServices({ dataCardServices }: IPropCardServices) {
     </StyleWrapperCard>
   );
 }
-
-const ModalBoxCustom = styled(Box)`
-  overflow-x: scroll;
-  height: 750px;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400;
-  background-color: #2e2e2e;
-  border: 1px solid #2e2e2e;
-  color: #fff;
-  box-shadow: 24;
-  padding: 80px 40px;
-`;
 
 const StyleWrapperCard = styled.div`
   padding: 10px;
