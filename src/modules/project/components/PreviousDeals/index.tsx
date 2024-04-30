@@ -6,7 +6,7 @@ export default function PreviousDeals() {
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>Previous Deals</StyleTitle>
+        <StyleTitle>Experience</StyleTitle>
         <ExperienceRight>
           <SeeAll>See all</SeeAll>
         </ExperienceRight>

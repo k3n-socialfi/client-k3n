@@ -15,7 +15,7 @@ export default function AvailableDeals() {
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>Available Deals</StyleTitle>
+        <StyleTitle>Services</StyleTitle>
         <ServicesRight>
           <SeeAll>See all</SeeAll>
           <ButtonSecondary variant="outlined" colorBt="#F23581">
