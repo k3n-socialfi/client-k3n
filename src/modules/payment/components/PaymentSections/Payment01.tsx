@@ -1,24 +1,14 @@
 "use client";
-import { Divider, FormControl, InputBase, Typography } from "@mui/material";
-import React from "react";
+import { ButtonPrimary } from "@/components/ButtonCustom";
+import { Typography } from "@mui/material";
 import styled from "styled-components";
-import {
-  ButtonPrimary,
-  ButtonSecondary,
-  ButtonText,
-} from "../../../../components/ButtonCustom";
 
 import LINK_VIDEO from "@/assets/images/Video_Short.png";
 import Image from "next/image";
 import { useServiceDetailCtx } from "../../contexts/ServiceDetailCtx";
 import useServiceContract from "../../hooks/useServiceContract";
 
-interface IPayment01Props {
-  nextScreen?: () => void;
-  prevScreen?: () => void;
-}
-
-const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
+const Payment01 = () => {
   const { serviceDetail, isLoading } = useServiceDetailCtx();
   const {
     createServiceContract,
@@ -28,98 +18,38 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
 
   return (
     <Container>
-      <Left>
-        <Title>
-          <Typography color="#FFF">{serviceDetail?.jobDescription}</Typography>
-        </Title>
-        <Invoice>
-          <Typography color="#FFF">{serviceDetail?.projectName}</Typography>
+      <Title>
+        <TitleLeft>
+          <Image width={200} height={125} src={LINK_VIDEO} alt="video" />
+        </TitleLeft>
+        <TitleRight>
+          <Typography variant="h5">{serviceDetail?.projectName}</Typography>
           <Price>
-            <Typography color="#B9B9B9">Price: </Typography>
-            <Typography color="#82EBFF">${serviceDetail?.price}</Typography>
+            <Typography variant="h5" color={"#B9B9B9"}>
+              Price:
+            </Typography>
+            <Typography variant="h5" color={"#82EBFF"}>
+              ${serviceDetail?.price}
+            </Typography>
           </Price>
           <PaymentType>
-            <Typography color="#B9B9B9">Payment type: </Typography>
-            <Typography color="#82EBFF">
+            <Typography variant="h5" color={"#B9B9B9"}>
+              Payment type:
+            </Typography>
+            <Typography variant="h5" color={"#82EBFF"}>
               {serviceDetail?.paymentMethod}
             </Typography>
           </PaymentType>
-        </Invoice>
-        <Divider />
-        <Order>
-          <ButtonSecondary fullWidth>DM to Elena</ButtonSecondary>
-          <ButtonPrimary
-            fullWidth
-            isLoading={isLoadingCtc}
-            onClick={() =>
-              serviceDetail && createServiceContract(serviceDetail)
-            }
-          >
-            Order now
-          </ButtonPrimary>
-          <ButtonPrimary
-            fullWidth
-            isLoading={isLoadingCtc}
-            onClick={() =>
-              serviceDetail?.jobId && completedServiceContract(serviceDetail)
-            }
-          >
-            Completed
-          </ButtonPrimary>
-        </Order>
-      </Left>
-      <Right>
-        <ShortVideo>
-          <Video>
-            {/* <video
-              style={{ borderRadius: "16px" }}
-              width={150}
-              height={100}
-              src={LINK_VIDEO.src}
-              muted
-              autoPlay
-              loop
-            /> */}
-
-            <Image
-              width={270}
-              height={140}
-              alt="Elena TikTok video thumbnail"
-              src={serviceDetail?.img ?? LINK_VIDEO}
-            />
-          </Video>
-          <TitleVideo>
-            <Typography>{serviceDetail?.projectName}</Typography>
-          </TitleVideo>
-        </ShortVideo>
-        <Divider />
-        <Apply>
-          <DiscountCode>
-            <FormControlCustom fullWidth>
-              <InputBase
-                id="serviceFee"
-                defaultValue=""
-                sx={{ p: "4px 20px", color: "#FFF" }}
-                placeholder="Discount Code"
-                inputProps={{ "aria-label": "Discount Code" }}
-                color="primary"
-                // {...register("serviceFee")}
-              />
-            </FormControlCustom>
-          </DiscountCode>
-          <ApplyCode>
-            <ButtonText
-              fullWidth
-              borderRadius="5px"
-              colorBt="#FFF"
-              backgroundColorBt="#753250"
-            >
-              Apply
-            </ButtonText>
-          </ApplyCode>
-        </Apply>
-        <Divider />
-        <DetailInvoice>
+        </TitleRight>
+      </Title>
+      <Description>
+        <Typography variant="subtitle1">
+          {serviceDetail?.jobDescription}
+        </Typography>
+      </Description>
+      <Total>
+        <Line></Line>
+        <TotalTop>
           <Subtotal>
             <Typography>Subtotal</Typography>
             <Typography>{serviceDetail?.price}</Typography>
@@ -132,13 +62,33 @@ const Payment01 = ({ nextScreen, prevScreen }: IPayment01Props) => {
             <Typography>Discount</Typography>
             <Typography>0.00</Typography>
           </Discount>
-        </DetailInvoice>
-        <Divider />
-        <Total>
-          <Typography>Total</Typography>
-          <Typography color="#82EBFF">0.00</Typography>
-        </Total>
-      </Right>
+        </TotalTop>
+        <Line></Line>
+        <TotalBottom>
+          <Typography variant="h5" color={"#fff"}>
+            Total
+          </Typography>
+          <Typography variant="h5" color={"#82EBFF"}>
+            {serviceDetail?.price}
+          </Typography>
+        </TotalBottom>
+      </Total>
+      <ButtonPrimary
+        fullWidth
+        isLoading={isLoadingCtc}
+        onClick={() => serviceDetail && createServiceContract(serviceDetail)}
+      >
+        Order now
+      </ButtonPrimary>
+      <ButtonPrimary
+        fullWidth
+        isLoading={isLoadingCtc}
+        onClick={() =>
+          serviceDetail?.jobId && completedServiceContract(serviceDetail)
+        }
+      >
+        Completed
+      </ButtonPrimary>
     </Container>
   );
 };
@@ -147,132 +97,84 @@ export default Payment01;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 50px;
-  @media (max-width: 1270px) {
-    flex-wrap: wrap-reverse;
-  }
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding: 80px 40px;
+  background: #000;
+  overflow: auto;
+  border-radius: 12px;
 `;
-const Left = styled.div`
+
+const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 24px;
+`;
+const TitleLeft = styled.div``;
+const TitleRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 80%;
-  @media (max-width: 1270px) {
-    width: 100%;
-  }
-`;
-const Title = styled.div``;
-const Invoice = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background-color: #404356;
-  padding: 20px;
-  width: 100%;
-  color: #fff;
-  border-radius: 10px;
 `;
 const Price = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
 `;
 const PaymentType = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
 `;
-const Order = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 50px;
-  width: 100%;
-  white-space: nowrap;
-  @media (max-width: 335px) {
-    flex-direction: column;
-    gap: 10px;
-  }
+const Description = styled.div`
+  font-size: 24px;
 `;
-const Right = styled.div`
+const Total = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: #fff;
-  width: 20%;
-  @media (max-width: 1270px) {
-    width: 100%;
-  }
-`;
-const ShortVideo = styled.div`
-  @media (max-width: 1270px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-const Video = styled.div`
-  width: 270px;
-  height: 140px;
+  background-color: #292d32;
+  border-radius: 20px;
+  width: 100%;
+  padding: 20px;
+  font-size: 24px;
 `;
 
-const TitleVideo = styled.div``;
+const Line = styled.div`
+  border: 2px dashed #b9b9b9;
+`;
 
-const Apply = styled.div`
+const TotalTop = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  width: 100%;
   gap: 20px;
-`;
-
-const DiscountCode = styled.div`
-  width: 100%;
-  white-space: nowrap;
-`;
-
-const FormControlCustom = styled(FormControl)`
-  background-color: #353535;
   color: #fff;
-  border-radius: 5px;
-  width: 100%;
 `;
-
-const ApplyCode = styled.div`
-  width: 100%;
-`;
-
-const DetailInvoice = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
 const Subtotal = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
   justify-content: space-between;
+  gap: 20px;
 `;
 const Tax = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
   justify-content: space-between;
+  gap: 20px;
 `;
 const Discount = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
   justify-content: space-between;
+  gap: 20px;
 `;
-
-const Total = styled.div`
+const TotalBottom = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
   justify-content: space-between;
+  gap: 20px;
+  font-size: 32px !important;
 `;

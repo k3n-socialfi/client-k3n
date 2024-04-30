@@ -8,19 +8,21 @@ import {
   TOKEN_PROGRAM_ID,
   getAssociatedTokenAddress,
 } from "@solana/spl-token";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function useServiceContract() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const walletSol = useWallet();
   const anchorWallet = useAnchorWallet();
-
+  const { push } = useRouter();
+  const path = usePathname();
   const { connection, provider, program } = useProviderConnect();
   const seed = new anchor.BN(1);
   const newKol = anchor.web3.Keypair.generate();
 
   const createServiceContract = async (dt: TService) => {
     setIsLoading(true);
-
+    push(path + `?step_payment=2`);
     try {
       let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
         [
@@ -61,9 +63,11 @@ export default function useServiceContract() {
         const serialized = txhash?.serialize();
         const txId = await connection.sendRawTransaction(serialized as any);
         const result = await connection.confirmTransaction(txId);
+        push(path + `?step_payment=2`);
         setIsLoading(false);
       }
     } catch (error) {
+      console.log("🚀 ~ createServiceContract ~ error:", error);
       setIsLoading(false);
     }
   };

@@ -1,14 +1,13 @@
+import { IconStar } from "@/assets/icons";
+import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
-import { Box, Checkbox, Divider, Modal, Typography } from "@mui/material";
-import Image from "next/image";
-import styled from "styled-components";
-import tiktokImage from "@/assets/images/image-tiktok.svg";
-import { useRouter } from "next/navigation";
-import { IconStar } from "@/assets/icons";
-import { TService } from "@/types/service";
-import ModalPaymentSections from "@/components/ModalPayment";
 import { useBoolean } from "@/hooks/useBoolean";
+import { TService } from "@/types/service";
+import { Box, Checkbox, Divider, Typography } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import styled from "styled-components";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface IPropsCarPopular {
@@ -86,25 +85,15 @@ export default function CardPopularServices({
             </Options>
             <ButtonPrimary
               fullWidth
-              // onClick={() =>
-              //   router.push(`/services/payment/${dataPopularServices.jobId}`)
-              // }
-              onClick={openModalPayment.onToggle}
+              onClick={() =>
+                router.push(`/services/payment/${dataPopularServices.jobId}`)
+              }
             >
               <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
             </ButtonPrimary>
           </RightTransfer>
         </Transfer>
       </StyleForm>
-      <Modal
-        open={openModalPayment.value}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <ModalBoxCustom>
-          <ModalPaymentSections />
-        </ModalBoxCustom>
-      </Modal>
     </StyleSelection>
   );
 }

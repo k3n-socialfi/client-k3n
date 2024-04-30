@@ -14,7 +14,7 @@ function Payment({}: Props) {
     <ServiceDetailCtxProvider>
       <ContainerCustom>
         <PaymentSections />
-        <ComPletedProjectTable>
+        {/* <ComPletedProjectTable>
           <TitleTable>
             <Typography variant="h4" color={"#FFF"}>
               Completed Project
@@ -25,7 +25,7 @@ function Payment({}: Props) {
             </ViewAll>
           </TitleTable>
           <ComPletedProject />
-        </ComPletedProjectTable>
+        </ComPletedProjectTable> */}
       </ContainerCustom>
     </ServiceDetailCtxProvider>
   );
@@ -34,31 +34,8 @@ function Payment({}: Props) {
 const ContainerCustom = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 100px;
-`;
-
-const ComPletedProjectTable = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-const TitleTable = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  @media (max-width: 520px) {
-    flex-direction: column;
-    h4 {
-      font-size: 25px;
-    }
-  }
-`;
-const ViewAll = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
+  max-width: 918px;
+  margin: auto;
 `;
 
 export default Payment;

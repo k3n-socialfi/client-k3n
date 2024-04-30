@@ -1,12 +1,11 @@
-import styled from "styled-components";
 import imageCard from "@/assets/images/image-card-service.svg";
-import Image from "next/image";
-import { Box, Checkbox, Divider, Modal, Typography } from "@mui/material";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import { useRouter } from "next/navigation";
-import { TService } from "@/types/service";
 import { useBoolean } from "@/hooks/useBoolean";
-import ModalPaymentSections from "@/components/ModalPayment";
+import { TService } from "@/types/service";
+import { Box, Checkbox, Divider, Typography } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -36,24 +35,14 @@ export default function CardServices({ dataCardServices }: IPropCardServices) {
           </Options>
           <ButtonPrimary
             style={{ width: "100%" }}
-            // onClick={() =>
-            //   router.push(`/services/payment/${dataCardServices?.jobId}`)
-            // }
-            onClick={openModalPayment.onToggle}
+            onClick={() =>
+              router.push(`/services/payment/${dataCardServices?.jobId}`)
+            }
           >
             <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
           </ButtonPrimary>
         </CardBottom>
       </CardContent>
-      <Modal
-        open={openModalPayment.value}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <ModalBoxCustom>
-          <ModalPaymentSections />
-        </ModalBoxCustom>
-      </Modal>
     </StyleWrapperCard>
   );
 }
