@@ -10,19 +10,20 @@ const useFetchDataMyProfile = () => {
   const { setAlertError } = useAlert();
 
   const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-      if (data?.data?.username) {
-        const arrayPost: any = await getPostUser(data?.data?.username);
-        setDataPosts(arrayPost?.data?.data?.posts);
+    if (localStorage.getItem("accessToken"))
+      try {
+        setIsLoading(true);
+        const { data }: any = await getMyProfile();
+        setDataPersonal(data?.data);
+        if (data?.data?.username) {
+          const arrayPost: any = await getPostUser(data?.data?.username);
+          setDataPosts(arrayPost?.data?.data?.posts);
+        }
+      } catch (error) {
+        setAlertError(`Get user's posts Error`, `${error}`);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      setAlertError(`Get user's posts Error`, `${error}`);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   useEffect(() => {

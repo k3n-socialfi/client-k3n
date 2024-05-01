@@ -29,9 +29,10 @@ import { useServiceDetailCtx } from "../../contexts/ServiceDetailCtx";
 
 interface IPayment02Props {
   completeService: () => void;
+  isLoading: boolean;
 }
 
-const Payment02 = ({ completeService }: IPayment02Props) => {
+const Payment02 = ({ completeService, isLoading }: IPayment02Props) => {
   //need checking discount code
   return (
     <>
@@ -88,7 +89,7 @@ const Payment02 = ({ completeService }: IPayment02Props) => {
           </ApplyCode>
         </Apply>
       </SelectCrypto>
-      <ButtonPrimary fullWidth onClick={completeService}>
+      <ButtonPrimary fullWidth isLoading={isLoading} onClick={completeService}>
         <Typography variant="subtitle1"> Pay now</Typography>
       </ButtonPrimary>
     </>
