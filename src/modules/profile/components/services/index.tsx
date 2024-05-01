@@ -13,7 +13,7 @@ import { useAlert } from "@/contexts/AlertContext";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ services, dataPopularServices }: any) {
+export default function Services({ username, services, dataPopularServices, listServices }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
 
   const IMG2 =
@@ -41,19 +41,19 @@ export default function Services({ services, dataPopularServices }: any) {
         </ServicesRight>
       </Container>
       <StyleContent>
-        {dataPopularServices ? (
-          dataPopularServices.map((item: any) => (
+        {dataPopularServices &&
+          dataPopularServices?.map((item: any) => (
             <StyleSelection key={item?.jobId}>
               <StyleForm>
                 <ServicesTitle>{item?.projectName}</ServicesTitle>
                 <StyleItem>
                   <StyleTotal>
                     <StyleDesOverview>Completed:</StyleDesOverview>
-                    <StyleSubTitle>32</StyleSubTitle>
+                    <StyleSubTitle>{item?.completed}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Review:</StyleDesOverview>
-                    <StyleSubTitle>28</StyleSubTitle>
+                    <StyleSubTitle>{item?.review}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
@@ -68,28 +68,9 @@ export default function Services({ services, dataPopularServices }: any) {
                 </StyleItem>
                 <SubTitle>{item?.jobDescription}</SubTitle>
                 <StyleChips>
-                  <Chips
-                    label="X Content"
-                    variant="outlined"
-                    sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
-                  />
-                  <Chips
-                    label="Research"
-                    variant="outlined"
-                    sx={{ color: "#3EAABE", backgroundColor: "#EBFCFF" }}
-                    color="primary"
-                  />
-                  <Chips
-                    label="SocialFi"
-                    variant="outlined"
-                    sx={{ color: "#F23581", backgroundColor: "#FFD7F4" }}
-                    color="secondary"
-                  />
-                  <Chips
-                    label="Ethereum"
-                    color="secondary"
-                    sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
-                  />
+                  {item?.tags?.map((listTag: string, index: number) => (
+                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                  ))}
                 </StyleChips>
                 <Transfer>
                   <StyleServicesImg
@@ -116,11 +97,68 @@ export default function Services({ services, dataPopularServices }: any) {
               </StyleForm>
             </StyleSelection>
           ))
-        ) : (
+        }
+        {username && listServices?.length < 1 &&
           <DescriptionNotData>
             {`You don't have any work services yet.`}
-          </DescriptionNotData>
-        )}
+          </DescriptionNotData>}
+        {!username && dataPopularServices?.length < 1 &&
+          <DescriptionNotData>
+            {`You don't have any work services yet.`}
+          </DescriptionNotData>}
+        {listServices &&
+          listServices?.map((item: any) => (
+            <StyleSelection key={item?.job?.jobId}>
+              <StyleForm>
+                <ServicesTitle>{item?.job?.projectName}</ServicesTitle>
+                <StyleItem>
+                  <StyleTotal>
+                    <StyleDesOverview>Completed:</StyleDesOverview>
+                    <StyleSubTitle>{item?.job?.completed}</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleTotal>
+                    <StyleDesOverview>Review:</StyleDesOverview>
+                    <StyleSubTitle>{item?.job?.review}</StyleSubTitle>
+                  </StyleTotal>
+                  <StyleTotal>
+                    <StyleDesOverview>Ranting:</StyleDesOverview>
+                    <StyleIcons>
+                      {Array.from({ length: item?.job?.rating }, (_, i) => i + 1).map(item => <IconStar key={item} />)}
+                    </StyleIcons>
+                  </StyleTotal>
+                </StyleItem>
+                <SubTitle>{item?.job?.jobDescription}</SubTitle>
+                <StyleChips>
+                  {item?.job?.tags?.map((listTag: string, index: number) => (
+                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                  ))}
+                </StyleChips>
+                <Transfer>
+                  <StyleServicesImg
+                    width={150}
+                    height={130}
+                    src={IMG2}
+                    alt="igs"
+                  />
+                  <RightTransfer>
+                    <Options>
+                      <Price>Contact me</Price>
+                      <Checkbox {...label} />
+                    </Options>
+                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
+                    <Options>
+                      <TitlePrice>{item?.job?.paymentMethod}</TitlePrice>
+                      <Checkbox {...label} defaultChecked />
+                    </Options>
+                    <ButtonPrimary style={{ width: "100%" }}>
+                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                    </ButtonPrimary>
+                  </RightTransfer>
+                </Transfer>
+              </StyleForm>
+            </StyleSelection>
+          ))
+        }
       </StyleContent>
       <CreateServices
         isShowModal={isShowModal}

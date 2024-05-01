@@ -175,7 +175,7 @@ const ImgCustom = styled.div`
 `;
 const HeaderWrapper = styled.div`
   position: fixed;
-  z-index: 999;
+  z-index: 999999999;
   width: 100%;
   padding: 15px 20px;
   background: #393939;
