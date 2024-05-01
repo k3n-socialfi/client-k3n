@@ -32,35 +32,25 @@ const PaymentSections = (props: Props) => {
       case 2:
         return (
           <Payment02
+            isLoading={isLoadingCtc}
             completeService={() =>
               serviceDetail && completedServiceContract(serviceDetail)
             }
           />
         );
       case 3:
-        return <Payment03 />;
+        return <Payment03 serviceDetail={serviceDetail} />;
       default:
         return (
-          <>
-            <ButtonPrimary
-              fullWidth
-              isLoading={isLoadingCtc}
-              onClick={() =>
-                serviceDetail && createServiceContract(serviceDetail)
-              }
-            >
-              Order now
-            </ButtonPrimary>
-            <ButtonPrimary
-              fullWidth
-              isLoading={isLoadingCtc}
-              onClick={() =>
-                serviceDetail?.jobId && completedServiceContract(serviceDetail)
-              }
-            >
-              Completed
-            </ButtonPrimary>
-          </>
+          <ButtonPrimary
+            fullWidth
+            isLoading={isLoadingCtc}
+            onClick={() =>
+              serviceDetail && createServiceContract(serviceDetail)
+            }
+          >
+            Order now
+          </ButtonPrimary>
         );
     }
   };

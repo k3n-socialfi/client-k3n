@@ -1,7 +1,7 @@
 import { TService } from "@/types/service";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getServiceDetail } from "../services";
+import { apiCreateOffer, getServiceDetail } from "../services";
 
 export default function useServiceDetail() {
   const [serviceDetail, setServiceDetail] = useState<TService>();
@@ -20,9 +20,21 @@ export default function useServiceDetail() {
       setIsLoading(false);
     }
   };
+
+  const createOffer = async () => {
+    if (!id) return;
+    setIsLoading(true);
+    try {
+      await apiCreateOffer(id.toString());
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchServiceDetail();
   }, [id]);
 
-  return { serviceDetail, isLoading };
+  return { serviceDetail, createOffer, isLoading };
 }

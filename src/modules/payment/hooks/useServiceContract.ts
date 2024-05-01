@@ -9,6 +9,8 @@ import {
   getAssociatedTokenAddress,
 } from "@solana/spl-token";
 import { usePathname, useRouter } from "next/navigation";
+import { PublicKey } from "@solana/web3.js";
+import useServiceDetail from "./useServiceDetail";
 
 export default function useServiceContract() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -16,13 +18,13 @@ export default function useServiceContract() {
   const anchorWallet = useAnchorWallet();
   const { push } = useRouter();
   const path = usePathname();
+  const { createOffer } = useServiceDetail();
   const { connection, provider, program } = useProviderConnect();
   const seed = new anchor.BN(1);
   const newKol = anchor.web3.Keypair.generate();
 
   const createServiceContract = async (dt: TService) => {
     setIsLoading(true);
-    push(path + `?step_payment=2`);
     try {
       let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
         [
@@ -38,7 +40,7 @@ export default function useServiceContract() {
           program.instruction.createService(
             seed,
             dt.jobId,
-            newKol.publicKey,
+            new PublicKey(dt?.kolWallet ?? ""),
             dt.projectName,
             dt.platform,
             new anchor.BN(+dt.price),
@@ -89,7 +91,7 @@ export default function useServiceContract() {
             accounts: {
               hirer: provider.publicKey,
               service: serviceGened,
-              kol: provider.publicKey,
+              kol: new PublicKey(dt?.kolWallet ?? ""),
               systemProgram: anchor.web3.SystemProgram.programId,
             },
             signers: [walletSol as any],
@@ -189,7 +191,7 @@ export default function useServiceContract() {
         //transfer nft
         const destination = await getAssociatedTokenAddress(
           mintAddress,
-          newKol.publicKey,
+          new PublicKey(dt?.kolWallet ?? ""),
           //KOL_ADDRESS
         );
         let txTransfer = new anchor.web3.Transaction().add(
@@ -197,7 +199,7 @@ export default function useServiceContract() {
             accounts: {
               authority: provider.publicKey,
               tokenAccount: tokenAccount,
-              newOwner: newKol.publicKey,
+              newOwner: new PublicKey(dt?.kolWallet ?? ""),
               mint: mintAddress,
               destinationAccount: destination,
               tokenProgram: TOKEN_PROGRAM_ID,
@@ -230,6 +232,8 @@ export default function useServiceContract() {
     try {
       await handleCompleteServiceSM(dt);
       await handleMintNFT(dt);
+      await createOffer();
+      push(path + `?step_payment=3`);
     } catch (error) {}
   };
   return { createServiceContract, completedServiceContract, isLoading };

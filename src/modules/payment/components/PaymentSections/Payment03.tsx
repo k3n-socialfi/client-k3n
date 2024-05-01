@@ -2,11 +2,19 @@
 import { IconCertification, IconUSDT } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { TService } from "@/types/service";
 import { Divider, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-const ModalPayment03 = () => {
+type TModalPayment03Props = {
+  serviceDetail?: TService;
+};
+
+const ModalPayment03 = ({ serviceDetail }: TModalPayment03Props) => {
   const { dataPersonal } = useMyProfileContext();
+  const { push } = useRouter();
+
   return (
     <Container>
       <Notification>
@@ -43,13 +51,17 @@ const ModalPayment03 = () => {
             <Typography variant="subtitle2" color="#9B9CA0">
               Name of Service
             </Typography>
-            <Typography color="#FFF"> Short Video on Tiktok</Typography>
+            <Typography color="#FFF">
+              {serviceDetail?.projectName ?? ""}
+            </Typography>
           </InfoItem>
           <InfoItem>
             <Typography variant="subtitle2" color="#9B9CA0">
               Payment type
             </Typography>
-            <Typography color="#FFF"> One time Payment </Typography>
+            <Typography color="#FFF">
+              {serviceDetail?.paymentMethod ?? ""}{" "}
+            </Typography>
           </InfoItem>
           <InfoItem>
             <PaymentMethod>
@@ -58,14 +70,14 @@ const ModalPayment03 = () => {
                 Payment method
               </Typography>
             </PaymentMethod>
-            <Typography color="#FFF"> USDT - Cryptocurrency</Typography>
+            <Typography color="#FFF"> SOL - Cryptocurrency</Typography>
           </InfoItem>
           <InfoItem>
             <Typography variant="subtitle2" color="#9B9CA0">
               Total
             </Typography>
             <Typography color="#82EBFF  " variant="h5">
-              $7,077.50
+              {serviceDetail?.price ?? 0}
             </Typography>
           </InfoItem>
         </InfoOrder>
@@ -77,7 +89,7 @@ const ModalPayment03 = () => {
           <Typography>Need help?</Typography>
           <Typography color="#82EBFF">Contact us</Typography>
         </NeedHelp>
-        <ButtonPrimary fullWidth>
+        <ButtonPrimary fullWidth onClick={() => push("/services")}>
           <Typography variant="subtitle1"> Place a New Order</Typography>
         </ButtonPrimary>
       </Order>

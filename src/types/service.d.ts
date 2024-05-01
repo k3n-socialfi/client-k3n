@@ -12,6 +12,7 @@ export type TService = {
   isPublic?: boolean;
   jobType?: string;
   jobId?: string;
+  kolWallet?: string;
 };
 
 export interface TServiceSubmit extends TService {

@@ -10,11 +10,8 @@ import useServiceContract from "../../hooks/useServiceContract";
 
 const Payment01 = () => {
   const { serviceDetail, isLoading } = useServiceDetailCtx();
-  const {
-    createServiceContract,
-    completedServiceContract,
-    isLoading: isLoadingCtc,
-  } = useServiceContract();
+  const { createServiceContract, isLoading: isLoadingCtc } =
+    useServiceContract();
 
   return (
     <Container>
@@ -79,15 +76,6 @@ const Payment01 = () => {
         onClick={() => serviceDetail && createServiceContract(serviceDetail)}
       >
         Order now
-      </ButtonPrimary>
-      <ButtonPrimary
-        fullWidth
-        isLoading={isLoadingCtc}
-        onClick={() =>
-          serviceDetail?.jobId && completedServiceContract(serviceDetail)
-        }
-      >
-        Completed
       </ButtonPrimary>
     </Container>
   );

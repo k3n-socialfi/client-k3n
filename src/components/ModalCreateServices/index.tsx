@@ -44,6 +44,7 @@ const CreateServices = (props: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const openGotIt = useBoolean();
   const openButton = useBoolean();
+  const wallet = useWallet();
 
   const { setAlertSuccess, setAlertError } = useAlert();
 
@@ -71,6 +72,11 @@ const CreateServices = (props: Props) => {
     data.tags = ["tag test"];
     data.isPublic = true;
     data.price = +data.price;
+    data.kolWallet = wallet.publicKey?.toBase58();
+    console.log(
+      "🚀 ~ onSubmitForm ~ wallet.publicKey?.toBase58():",
+      wallet.publicKey?.toBase58(),
+    );
     try {
       const res = await createServices(data);
       setIsLoading(false);
