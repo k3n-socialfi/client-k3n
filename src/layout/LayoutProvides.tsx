@@ -95,7 +95,7 @@ const StyleChildren = styled.div`
     width: 100%;
   }
   @media (max-width: 768px) {
-    padding: 16px;
+    padding: 0px;
   }
   @media (max-width: 610px) {
     margin-top: 132px;
