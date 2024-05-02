@@ -93,3 +93,5 @@ export { default as IconInformation } from "./IconInformation";
 export { default as IconCloseAlert } from "./IconCloseAlert";
 export { default as IconList } from "./IconList";
 export { default as IconSharePost } from "./IconSharePost";
+export { default as IconDown } from "./IconDown";
+export { default as IconStarKols } from "./IconStarKols";
