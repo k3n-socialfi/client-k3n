@@ -225,13 +225,13 @@ export default function TableTrending(props: ITableTopRankingProps) {
             />
           )}
         />
-        <ItemFilters
+        <ResetFilters
           onClick={() => replace(path, undefined)}
           style={{ cursor: "pointer" }}
         >
           <IconReset />
           Reset Filter
-        </ItemFilters>
+        </ResetFilters>
       </Filter>
       <TableContainer component={Paper} sx={{ width: "100%" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -365,8 +365,22 @@ export default function TableTrending(props: ITableTopRankingProps) {
     </div>
   );
 }
+// const AutocompleteCustom = styled(Autocomplete)`
+//   & .MuiAutocomplete-root {
+//     border: none;
+//   }
+// `;
 
 const ItemFilters = styled.div`
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 15%;
+  font-size: 14px !important;
+`;
+const ResetFilters = styled.div`
   display: flex;
   gap: 4px;
   justify-content: center;
