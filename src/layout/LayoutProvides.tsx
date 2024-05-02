@@ -87,14 +87,15 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
-  padding: 50px;
+  padding: 50px 0;
   background-color: #292d32;
+  overflow: hidden;
 
   @media (max-width: 1599px) {
     width: 100%;
   }
   @media (max-width: 768px) {
-    padding: 16px;
+    padding: 0px;
   }
   @media (max-width: 610px) {
     margin-top: 132px;

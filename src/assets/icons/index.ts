@@ -91,3 +91,5 @@ export { default as IconSuccess } from "./IconSuccess";
 export { default as IconError } from "./IconError";
 export { default as IconInformation } from "./IconInformation";
 export { default as IconCloseAlert } from "./IconCloseAlert";
+export { default as IconList } from "./IconList";
+export { default as IconSharePost } from "./IconSharePost";

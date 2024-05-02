@@ -12,6 +12,7 @@ import RecentPosts from "../components/RecentPost";
 import Personal from "../components/Personal";
 import KeyMetrics from "../components/KeyMetrics";
 import Overview from "../components/Overview";
+import { useServicesContext } from "@/modules/services/context/ServicesContext";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -19,6 +20,7 @@ const IMG_NFT =
 interface IProjectsDetail {}
 export default function ProjectDetail(props: IProjectsDetail) {
   const { dataProjectDetail, isLoading, dataJobsDetail } = useProjectContext();
+  const { dataPopularServices } = useServicesContext();
   return (
     <StyleContainer>
       {isLoading ? (
@@ -77,7 +79,7 @@ export default function ProjectDetail(props: IProjectsDetail) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PreviousDeals />
               <TableProject />
-              <AvailableDeals />
+              <AvailableDeals dataService={dataPopularServices} />
               <RecentPosts
                 dataPosts={dataProjectDetail?.tweets}
                 isLoading={isLoading}
@@ -176,6 +178,7 @@ const Wrapper = styled.div`
   }
   @media (max-width: 768px) {
     flex-direction: column;
+    padding: 0;
   }
   @media (max-width: 420px) {
     flex-direction: column;

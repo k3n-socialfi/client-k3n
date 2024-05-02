@@ -175,7 +175,7 @@ export default function Personal({
             </StyleChips>
             <StyleTotal>
               <StyleDesOverview>X Followers::</StyleDesOverview>
-              <StyleSubTitle>12,314</StyleSubTitle>
+              <StyleSubTitle>12,000</StyleSubTitle>
             </StyleTotal>
             <ButtonPrimary style={{ width: "100%" }}>
               <Typography sx={{ p: "8px 0" }}>DM to Elena</Typography>
@@ -282,6 +282,12 @@ const StyleContentFlex = styled.div`
   align-items: start;
   flex-wrap: wrap;
   gap: 50px;
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;
 
 const StyleUserDes = styled.div<IPropUserDes>`
@@ -295,6 +301,13 @@ const StyleUserDes = styled.div<IPropUserDes>`
   width: fit-content;
   @media (max-width: 650px) {
     width: 100%;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 `;
 
@@ -336,6 +349,11 @@ const StyleTotal = styled.div`
   align-items: center;
   width: 215px;
   gap: 10px;
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const StyleDesOverview = styled.div`
@@ -384,6 +402,11 @@ const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 const StyleButtonTitle = styled.div`
   padding: 4px 8px;
@@ -402,4 +425,9 @@ const StyleChips = styled.div`
   gap: 12px;
   padding: 4px 0;
   color: #ffff !important;
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
