@@ -1,6 +1,7 @@
 "use client";
 import {
   IconDown,
+  IconDownFill,
   IconFilter,
   IconNFT,
   IconReset,
@@ -37,6 +38,16 @@ import styled from "styled-components";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
+}
+
+interface IPropItemFillter {
+  color?: string;
+}
+
+interface IPCustomTableCell {
+  background?: string;
+  padding?: string;
+  borderLeftColor?: string;
 }
 
 export default function TableTrending(props: ITableTopRankingProps) {
@@ -111,7 +122,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
   return (
     <div>
       <Filter>
-        <ItemFilters>
+        <ItemFilters color="#fff">
           <IconFilter />
           Filters by
         </ItemFilters>
@@ -225,31 +236,42 @@ export default function TableTrending(props: ITableTopRankingProps) {
             />
           )}
         />
-        <ResetFilters
+        <ItemFilters
+          color="#82EBFF"
           onClick={() => replace(path, undefined)}
           style={{ cursor: "pointer" }}
         >
           <IconReset />
           Reset Filter
-        </ResetFilters>
+        </ItemFilters>
       </Filter>
       <TableContainer component={Paper} sx={{ width: "100%" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <CustomTableRow>
-              <CustomTableCell align="left" style={{ borderLeft: "0px" }}>
+              <CustomTableCell
+                padding="0 40px"
+                align="left"
+                style={{ borderLeft: "0px" }}
+              >
                 KOL
               </CustomTableCell>
               <CustomTableCell align="center">KYC Badge</CustomTableCell>
-              <CustomTableCell align="center">X Follower</CustomTableCell>
-              <CustomTableCell
-                align="center"
-                sortDirection="asc"
-                padding="none"
-              >
-                Price
+              <CustomTableCell padding="25px 56px" align="center">
+                X Follower
               </CustomTableCell>
-              <CustomTableCell align="center">Reviews</CustomTableCell>
+              <CustomTableCell align="center" sortDirection="asc">
+                <Fillter>
+                  Price
+                  <IconDownFill />
+                </Fillter>
+              </CustomTableCell>
+              <CustomTableCell align="center">
+                <Fillter>
+                  Reviews
+                  <IconDownFill />
+                </Fillter>
+              </CustomTableCell>
               <CustomTableCell align="center">Tags</CustomTableCell>
             </CustomTableRow>
           </TableHead>
@@ -267,7 +289,11 @@ export default function TableTrending(props: ITableTopRankingProps) {
                   cursor: "pointer",
                 }}
               >
-                <CustomTableCell align="center" style={{ borderLeft: "0px" }}>
+                <CustomTableCell
+                  borderLeftColor="#50505f"
+                  align="center"
+                  style={{ borderLeft: "0px" }}
+                >
                   <NameKOL>
                     <Avatar
                       sx={{ width: 35, height: 35 }}
@@ -277,7 +303,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     {row?.name}
                   </NameKOL>
                 </CustomTableCell>
-                <CustomTableCell align="center">
+                <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Cell>
                     {row?.badge ? (
                       <>
@@ -292,10 +318,14 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     )}
                   </Cell>
                 </CustomTableCell>
-                <CustomTableCell align="center">
+                <CustomTableCell
+                  borderLeftColor="#50505f"
+                  background="#3f3e45"
+                  align="center"
+                >
                   <Cell>{row?.follower}</Cell>
                 </CustomTableCell>
-                <CustomTableCell align="center">
+                <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Cell>
                     {row?.minPrice ? (
                       <>
@@ -307,19 +337,22 @@ export default function TableTrending(props: ITableTopRankingProps) {
                     )}
                   </Cell>
                 </CustomTableCell>
-                <CustomTableCell align="center">
+                <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Cell>
                     {row?.review ? (
                       <>
                         <IconStarKols />
-                        {row?.review}
+                        <Fillter>
+                          {row?.review}
+                          <span>(1.256)</span>
+                        </Fillter>
                       </>
                     ) : (
                       <></>
                     )}
                   </Cell>
                 </CustomTableCell>
-                <CustomTableCell align="center">
+                <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Tags>
                     {row?.tags.map((item: string, index: number) => (
                       <Chips
@@ -365,30 +398,17 @@ export default function TableTrending(props: ITableTopRankingProps) {
     </div>
   );
 }
-// const AutocompleteCustom = styled(Autocomplete)`
-//   & .MuiAutocomplete-root {
-//     border: none;
-//   }
-// `;
 
-const ItemFilters = styled.div`
+const ItemFilters = styled.div<IPropItemFillter>`
   display: flex;
   gap: 4px;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: ${({ color }) => (color ? color : "#fff")};
   width: 15%;
   font-size: 14px !important;
 `;
-const ResetFilters = styled.div`
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-  align-items: center;
-  color: #82ebff;
-  width: 15%;
-  font-size: 14px !important;
-`;
+
 const Filter = styled.div`
   display: flex;
   align-items: center;
@@ -404,10 +424,22 @@ const CustomTableRow = styled(TableRow)`
   background-color: #3f3e45;
 `;
 
-const CustomTableCell = styled(TableCell)`
+const CustomTableCell = styled(TableCell)<IPCustomTableCell>`
   color: #ffd7f4 !important;
   font-weight: 700;
-  border-left: 1px solid #ffd7f4;
+  border-left: 1px solid
+    ${({ borderLeftColor }) => (borderLeftColor ? borderLeftColor : "#ffd7f4")};
+  padding: ${({ padding }) => (padding ? padding : "auto")};
+  background: ${({ background }) => (background ? background : "transparent")};
+  white-space: nowrap;
+`;
+
+const Fillter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
 `;
 
 const Cell = styled.div`
@@ -416,6 +448,7 @@ const Cell = styled.div`
   justify-content: center;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
 `;
 
 const NameKOL = styled.div`
