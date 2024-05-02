@@ -9,7 +9,7 @@ import { IconStar } from "@/assets/icons";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface IPropsCarPopular {
-  dataPopularServices: any;
+  dataPopularServices?: any;
 }
 export default function CardPopularServices({
   dataPopularServices,

@@ -175,7 +175,7 @@ export default function Personal({
             </StyleChips>
             <StyleTotal>
               <StyleDesOverview>X Followers::</StyleDesOverview>
-              <StyleSubTitle>12,314</StyleSubTitle>
+              <StyleSubTitle>12,000</StyleSubTitle>
             </StyleTotal>
             <ButtonPrimary style={{ width: "100%" }}>
               <Typography sx={{ p: "8px 0" }}>DM to Elena</Typography>
