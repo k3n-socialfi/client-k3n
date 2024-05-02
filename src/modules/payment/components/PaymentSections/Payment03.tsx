@@ -1,187 +1,115 @@
 "use client";
-import { Divider, FormControl, InputBase, Typography } from "@mui/material";
-import styled from "styled-components";
-import { ButtonPrimary } from "../../../../components/ButtonCustom";
 import { IconCertification, IconUSDT } from "@/assets/icons";
-import LINK_VIDEO from "@/assets/images/Video_Short.png";
-import Image from "next/image";
+import { ButtonPrimary } from "@/components/ButtonCustom";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { TService } from "@/types/service";
+import { Divider, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
-interface IPayment03Props {
-  nextScreen?: () => void;
-  prevScreen?: () => void;
-}
+type TModalPayment03Props = {
+  serviceDetail?: TService;
+};
 
-const Payment03 = ({ nextScreen, prevScreen }: IPayment03Props) => {
+const ModalPayment03 = ({ serviceDetail }: TModalPayment03Props) => {
+  const { dataPersonal } = useMyProfileContext();
+  const { push } = useRouter();
+
   return (
     <Container>
-      <Left>
-        <Notification>
-          <IconCertification width={50} height={50} />
-          <Title>
-            <Typography variant="subtitle2" color="#667085">
-              Confirmation
-            </Typography>
-            <Typography color="#FFF">Thank you, ABC!</Typography>
-          </Title>
-        </Notification>
+      <Notification>
+        <IconCertification width={50} height={50} />
+        <Title>
+          <Typography variant="subtitle2" color="#667085">
+            Confirmation
+          </Typography>
+          <Typography color="#FFF">
+            Thank you, {dataPersonal?.fullName ?? ""}!
+          </Typography>
+        </Title>
+      </Notification>
 
-        <Confirmed>
-          <ConfirmedTop>
-            <Typography color="#FFF">Your order is confirmed</Typography>
+      <Confirmed>
+        <ConfirmedTop>
+          <Typography color="#FFF">Your order is confirmed</Typography>
+          <Typography variant="subtitle2" color="#9B9CA0">
+            You’ll get a confirmation email with your order number soon.
+          </Typography>
+        </ConfirmedTop>
+        <ConfirmedBottom>
+          <IconCertification />
+          <Typography color="#9B9CA0" variant="subtitle2">
+            Email me with news and offers
+          </Typography>
+        </ConfirmedBottom>
+      </Confirmed>
+
+      <OrderDetail>
+        <Title>Order details</Title>
+        <InfoOrder>
+          <InfoItem>
             <Typography variant="subtitle2" color="#9B9CA0">
-              You’ll get a confirmation email with your order number soon.
+              Name of Service
             </Typography>
-          </ConfirmedTop>
-          <ConfirmedBottom>
-            <IconCertification />
-            <Typography color="#9B9CA0" variant="subtitle2">
-              Email me with news and offers
+            <Typography color="#FFF">
+              {serviceDetail?.projectName ?? ""}
             </Typography>
-          </ConfirmedBottom>
-        </Confirmed>
-
-        <OrderDetail>
-          <OrderDetailTop>
-            <Title>Order details</Title>
-            <InfoOrder>
-              <InfoOrderLeft>
-                <InfoItem>
-                  <Typography color="#FFF">Name of Service</Typography>
-                  <Typography variant="subtitle2" color="#9B9CA0">
-                    Short Video on Tiktok
-                  </Typography>
-                </InfoItem>
-                <InfoItem>
-                  <Typography color="#FFF">Payment type</Typography>
-                  <Typography variant="subtitle2" color="#9B9CA0">
-                    One time Payment
-                  </Typography>
-                </InfoItem>
-              </InfoOrderLeft>
-              <InfoOrderRight>
-                <InfoItem>
-                  <Typography color="#FFF">Payment method</Typography>
-                  <PaymentMethod>
-                    <IconUSDT />
-                    <Typography variant="subtitle2" color="#9B9CA0">
-                      USDT - Cryptocurrency
-                    </Typography>
-                  </PaymentMethod>
-                </InfoItem>
-              </InfoOrderRight>
-            </InfoOrder>
-          </OrderDetailTop>
-          <OrderDetailBottom>
-            <IconCertification />
-            <Typography color="#9B9CA0" variant="subtitle2">
-              Save my information for a faster checkout
+          </InfoItem>
+          <InfoItem>
+            <Typography variant="subtitle2" color="#9B9CA0">
+              Payment type
             </Typography>
-          </OrderDetailBottom>
-        </OrderDetail>
+            <Typography color="#FFF">
+              {serviceDetail?.paymentMethod ?? ""}{" "}
+            </Typography>
+          </InfoItem>
+          <InfoItem>
+            <PaymentMethod>
+              <IconUSDT />
+              <Typography variant="subtitle2" color="#9B9CA0">
+                Payment method
+              </Typography>
+            </PaymentMethod>
+            <Typography color="#FFF"> SOL - Cryptocurrency</Typography>
+          </InfoItem>
+          <InfoItem>
+            <Typography variant="subtitle2" color="#9B9CA0">
+              Total
+            </Typography>
+            <Typography color="#82EBFF  " variant="h5">
+              {serviceDetail?.price ?? 0}
+            </Typography>
+          </InfoItem>
+        </InfoOrder>
+      </OrderDetail>
 
-        <Divider />
-        <Order>
-          <NeedHelp>
-            <Typography>Need help?</Typography>
-            <Typography color="#82EBFF">Contact us</Typography>
-          </NeedHelp>
-          <ButtonPrimary fullWidth>Place a New Order</ButtonPrimary>
-        </Order>
-      </Left>
-      <Right>
-        <ShortVideo>
-          <Video>
-            {/* <video
-              style={{ borderRadius: "16px" }}
-              width={150}
-              height={100}
-              src={LINK_VIDEO.src}
-              muted
-              autoPlay
-              loop
-            /> */}
-
-            <Image
-              // layout="fill"
-              width={270}
-              height={140}
-              alt="Elena TikTok video thumbnail"
-              src={LINK_VIDEO}
-            />
-          </Video>
-          <TitleVideo>
-            <Typography>Short Video on Tiktok</Typography>
-          </TitleVideo>
-        </ShortVideo>
-        <Divider />
-        <Apply>
-          <DiscountCode>
-            <FormControlCustom fullWidth>
-              <InputBase
-                id="serviceFee"
-                defaultValue=""
-                sx={{ p: "4px 20px", color: "#FFF" }}
-                placeholder="Discount Code"
-                inputProps={{ "aria-label": "Discount Code" }}
-                color="primary"
-                // {...register("serviceFee")}
-              />
-            </FormControlCustom>
-          </DiscountCode>
-          <ApplyCode>
-            <ButtonPrimary fullWidth borderRadius="5px">
-              Apply
-            </ButtonPrimary>
-          </ApplyCode>
-        </Apply>
-        <Divider />
-        <DetailInvoice>
-          <Subtotal>
-            <Typography>Subtotal</Typography>
-            <Typography>0.00</Typography>
-          </Subtotal>
-          <Tax>
-            <Typography>Tax</Typography>
-            <Typography>0.00</Typography>
-          </Tax>
-          <Discount>
-            <Typography>Discount</Typography>
-            <Typography>0.00</Typography>
-          </Discount>
-        </DetailInvoice>
-        <Divider />
-        <Total>
-          <Typography>Total</Typography>
-          <Typography color={"#82EBFF"}>0.00</Typography>
-        </Total>
-      </Right>
+      <Divider />
+      <Order>
+        <NeedHelp>
+          <Typography>Need help?</Typography>
+          <Typography color="#82EBFF">Contact us</Typography>
+        </NeedHelp>
+        <ButtonPrimary fullWidth onClick={() => push("/services")}>
+          <Typography variant="subtitle1"> Place a New Order</Typography>
+        </ButtonPrimary>
+      </Order>
     </Container>
   );
 };
 
-export default Payment03;
-
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
+export default ModalPayment03;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 50px;
-  width: 100%;
-  @media (max-width: 1270px) {
-    flex-wrap: wrap-reverse;
-  }
-`;
-const Left = styled.div`
-  display: flex;
   flex-direction: column;
+  width: 100%;
+  /* justify-content: center; */
   gap: 20px;
-  width: 80%;
-  @media (max-width: 1270px) {
-    width: 100%;
-  }
+  padding: 80px 40px;
+  background: #000;
+  overflow: auto;
 `;
+
 const Notification = styled.div`
   display: flex;
   flex-direction: row;
@@ -189,11 +117,12 @@ const Notification = styled.div`
 `;
 
 const Confirmed = styled.div`
-  padding: 10px;
+  border-radius: 10px;
 `;
 const ConfirmedTop = styled.div`
-  padding: 10px;
-  background-color: #404356;
+  padding: 14px;
+  background-color: #292d32;
+  border-radius: 10px 10px 0 0;
 `;
 const ConfirmedBottom = styled.div`
   display: flex;
@@ -201,16 +130,15 @@ const ConfirmedBottom = styled.div`
   gap: 10px;
   padding: 10px;
   background-color: #393939;
+  border-radius: 0 0 10px 10px;
 `;
 const OrderDetail = styled.div`
-  padding: 10px;
-`;
-const OrderDetailTop = styled.div`
-  padding: 10px;
-  background-color: #404356;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding: 14px;
+  background-color: #292d32;
+  border-radius: 10px;
 `;
 
 const InfoOrder = styled.div`
@@ -219,29 +147,12 @@ const InfoOrder = styled.div`
   justify-content: space-between;
   gap: 10px;
 `;
-const InfoOrderLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
 const InfoItem = styled.div``;
 const PaymentMethod = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
   align-items: center;
-`;
-const InfoOrderRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-const OrderDetailBottom = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding: 10px;
-  background-color: #393939;
 `;
 
 const Title = styled.div`
@@ -266,84 +177,4 @@ const NeedHelp = styled.div`
   flex-direction: row;
   gap: 10px;
   align-items: center;
-`;
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  color: #fff;
-  width: 20%;
-  @media (max-width: 1270px) {
-    width: 100%;
-  }
-`;
-const ShortVideo = styled.div`
-  @media (max-width: 1270px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-const Video = styled.div`
-  width: 270px;
-  height: 140px;
-`;
-
-const TitleVideo = styled.div``;
-
-const Apply = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  gap: 20px;
-`;
-
-const DiscountCode = styled.div`
-  width: 100%;
-  white-space: nowrap;
-`;
-
-const FormControlCustom = styled(FormControl)`
-  background-color: #353535;
-  color: #fff;
-  border-radius: 5px;
-  width: 100%;
-`;
-
-const ApplyCode = styled.div`
-  width: 100%;
-`;
-
-const DetailInvoice = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const Subtotal = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-between;
-`;
-const Tax = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-between;
-`;
-const Discount = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-between;
-`;
-
-const Total = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-between;
 `;

@@ -1,15 +1,17 @@
+import { IconStar } from "@/assets/icons";
+import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
-import { Checkbox, Divider, Typography } from "@mui/material";
+import { useBoolean } from "@/hooks/useBoolean";
+import { TService } from "@/types/service";
+import { Box, Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
-import styled from "styled-components";
-import tiktokImage from "@/assets/images/image-tiktok.svg";
 import { useRouter } from "next/navigation";
-import { IconStar } from "@/assets/icons";
+import styled from "styled-components";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface IPropsCarPopular {
-  dataPopularServices?: any;
+  dataPopularServices: TService;
 }
 export default function CardPopularServices({
   dataPopularServices,
@@ -81,7 +83,9 @@ export default function CardPopularServices({
             </Options>
             <ButtonPrimary
               fullWidth
-              onClick={() => router.push("/services/payment")}
+              onClick={() =>
+                router.push(`/services/payment/${dataPopularServices.jobId}`)
+              }
             >
               <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
             </ButtonPrimary>

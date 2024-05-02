@@ -44,10 +44,8 @@ const CreateServices = (props: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const openGotIt = useBoolean();
   const openButton = useBoolean();
-  const walletSol = useWallet();
-  const anchorWallet = useAnchorWallet();
+  const wallet = useWallet();
 
-  const { connection, provider, program } = useProviderConnect();
   const { setAlertSuccess, setAlertError } = useAlert();
 
   const {
@@ -74,6 +72,11 @@ const CreateServices = (props: Props) => {
     data.tags = ["tag test"];
     data.isPublic = true;
     data.price = +data.price;
+    data.kolWallet = wallet.publicKey?.toBase58();
+    console.log(
+      "🚀 ~ onSubmitForm ~ wallet.publicKey?.toBase58():",
+      wallet.publicKey?.toBase58(),
+    );
     try {
       const res = await createServices(data);
       setIsLoading(false);
@@ -89,63 +92,6 @@ const CreateServices = (props: Props) => {
         `${error?.data?.message[0] ?? "Create Error"}`,
       );
     }
-    // const newKol = anchor.web3.Keypair.generate();
-    // const seed = new anchor.BN(1);
-
-    // let serviceId: string = `${Math.random()}`;
-
-    // data.kol = newKol.publicKey;
-    // data.serviceFee = new anchor.BN(+data.serviceFee);
-    // data.paymentMethod = "OnetimePayment";
-
-    // try {
-    //   let [serviceGened, bump] = await anchor.web3.PublicKey.findProgramAddress(
-    //     [
-    //       Buffer.from("K3N"),
-    //       seed.toArrayLike(Buffer, "le", 8),
-    //       Buffer.from(serviceId),
-    //     ],
-    //     program.programId,
-    //   );
-
-    //   if (anchorWallet) {
-    //     let tx = new anchor.web3.Transaction().add(
-    //       program.instruction.createService(
-    //         seed,
-    //         serviceId,
-    //         data.kol,
-    //         data.serviceName,
-    //         data.platform,
-    //         data.serviceFee,
-    //         data.currency,
-    //         data.paymentMethod,
-    //         data.description,
-    //         {
-    //           accounts: {
-    //             hirer: provider.publicKey,
-    //             service: serviceGened,
-    //             systemProgram: anchor.web3.SystemProgram.programId,
-    //           },
-    //           signers: [walletSol as any],
-    //         },
-    //       ),
-    //     );
-    //     let blockhash = (await connection.getLatestBlockhash("confirmed"))
-    //       .blockhash;
-    //     tx.feePayer = anchorWallet?.publicKey as any;
-    //     tx.recentBlockhash = blockhash;
-    //     const txhash = await anchorWallet?.signTransaction(tx);
-    //     const serialized = txhash?.serialize();
-    //     const txId = await connection.sendRawTransaction(serialized as any);
-    //     const result = await connection.confirmTransaction(txId);
-    //   }
-
-    //   getServices(serviceGened);
-    //   setIsLoading(false);
-    //   openGotIt.onTrue();
-    // } catch (error) {
-    //   setIsLoading(false);
-    // }
   };
 
   const checkForm = watch();

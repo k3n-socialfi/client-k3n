@@ -24,6 +24,8 @@ import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import { useProfileContext } from "@/contexts/ProfileContext";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -34,7 +36,6 @@ const IMG_NFT =
 
 const Overview = ({ overview }: any) => {
   const openModal = useBoolean();
-
   return overview ? (
     <StyleOverview>
       <StyleLeft>
@@ -79,9 +80,9 @@ const Overview = ({ overview }: any) => {
             <StyleSubTitle>$12,450</StyleSubTitle>
           </StyleContentOverview>
         </PrimaryTitleRight>
-        <ButtonPrimary onClick={() => openModal?.onTrue()}>
+        {/* <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-        </ButtonPrimary>
+        </ButtonPrimary> */}
       </StyleRight>
       {openModal?.value && (
         <div style={{ width: "300ox", height: "300px" }}>
@@ -101,7 +102,7 @@ const Overview = ({ overview }: any) => {
 
 const Personal = ({ dataPersonal, resetPage }: any) => {
   const isOpenEditProfile = useBoolean();
-
+  const openModal = useBoolean();
   return (
     <StylePersonal>
       <StylePersonalLeft>
@@ -120,8 +121,16 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
             <IconPointProfile />
             {dataPersonal?.twitterInfo?.totalPoints ?? 0}
           </PointProfile>
-          <StyleUserDes>{dataPersonal?.bio}</StyleUserDes>
-          <StyleUserDes>Influencer</StyleUserDes>
+          {dataPersonal.bio && <StyleUserDes>{dataPersonal.bio}</StyleUserDes>}
+          <div style={{ display: "flex", gap: "16px" }}>
+            <StyleUserDes>Influencer</StyleUserDes>
+            {dataPersonal.location && (
+              <StyleContentOverview>
+                <StyleDesOverview>Location</StyleDesOverview>
+                <StyleSubTitle>{dataPersonal.location}</StyleSubTitle>
+              </StyleContentOverview>
+            )}
+          </div>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
             {dataPersonal?.socialProfiles?.map(
@@ -145,6 +154,11 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
             Add to watchlist
           </StyleButtonTitle>
         </StyleButtons>
+        <ButtonPrimary onClick={() => openModal?.onTrue()}>
+          <Typography sx={{ p: "8px 0" }}>
+            DM to {dataPersonal?.fullName}
+          </Typography>
+        </ButtonPrimary>
       </StylePersonalRight>
       {isOpenEditProfile.value && (
         <EditProfile
@@ -158,24 +172,9 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const [dataPersonal, setDataPersonal] = useState<any>();
-  const [isLoading, setIsLoading] = useState(true);
   const { dataPopularServices } = useServicesContext();
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const { data }: any = await getMyProfile();
-      setDataPersonal(data?.data);
-    } catch (error) {
-      return { message: "Database Error: Get Data Personal Failed" };
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
 
   return (
     <StyleContainer>
@@ -195,11 +194,11 @@ export default function UserProfile(props: IUserProfileProps) {
           ) : (
             <StyleTitle>Post</StyleTitle>
           )}
-          <Posts widthNotData={dataPersonal?.posts?.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPersonal?.posts.length > 0 ? (
-              dataPersonal?.posts.map((item: any, index: number) => (
+            ) : dataPosts?.length > 0 ? (
+              dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
@@ -391,6 +390,9 @@ const PointProfile = styled.div`
   gap: 8px;
 `;
 const StyleUserDes = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 4px 12px;
   font-size: 16px;
   font-weight: 400;
@@ -415,6 +417,7 @@ const StyleIcons = styled.div`
 const StylePersonalRight = styled.div`
   margin-left: 50px;
   display: flex;
+  flex-direction: column;
   gap: 14px;
   width: 40%;
   @media (max-width: 520px) {

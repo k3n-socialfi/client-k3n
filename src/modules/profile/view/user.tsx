@@ -14,7 +14,7 @@ import { useBoolean } from "@/hooks/useBoolean";
 import { Box, Divider, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
@@ -24,6 +24,7 @@ import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import { getJobsUser } from "../services";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -166,11 +167,23 @@ const Personal = ({ userProfile }: any) => {
 };
 
 export default function ClientProfile(props: IUserProfileProps) {
-  const { isLoading, userProfile, getUserProfile } = useProfileContext();
+  const [listServices, setListServices] = useState<any[]>()
+  const { isLoading, userProfile, dataPosts, getUserProfile } =
+    useProfileContext();
+
   const { dataPopularServices } = useServicesContext();
   const { username } = useParams();
+
+  const fetchData = async () => {
+    await getUserProfile(username?.toString());
+    const dataServices : any = await getJobsUser(username?.toString())
+    setListServices(dataServices?.data?.data)
+  }
+
   useEffect(() => {
-    getUserProfile(username?.toString());
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
   }, [username]);
 
   return (
@@ -180,11 +193,11 @@ export default function ClientProfile(props: IUserProfileProps) {
       <Content>
         <PostLeft>
           <StyleTitle>Post</StyleTitle>
-          <Posts widthNotData={userProfile?.posts?.length > 0}>
+          <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
               <PostSkeleton />
-            ) : userProfile?.posts?.length > 0 ? (
-              userProfile?.posts?.map((item: any, index: number) => (
+            ) : dataPosts?.length > 0 ? (
+              dataPosts.map((item: any, index: number) => (
                 <>
                   <PostUser item={item} />
                 </>
@@ -211,8 +224,9 @@ export default function ClientProfile(props: IUserProfileProps) {
               <Experience experience={userProfile} />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Services
-                dataPopularServices={dataPopularServices}
+                listServices={listServices}
                 services={userProfile}
+                username={username}
               />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
             </>

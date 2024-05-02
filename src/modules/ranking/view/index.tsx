@@ -10,7 +10,7 @@ import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
 import { useTableRankingContext } from "@/contexts/TableTopRanking";
 
-export interface IRankingProps {}
+export interface IRankingProps { }
 
 export default function Ranking(props: IRankingProps) {
   const { dataRanking, isLoading, error } = useTableRankingContext();
@@ -35,7 +35,7 @@ export default function Ranking(props: IRankingProps) {
       ) : (
         <MyRanking dataPersonal={dataPersonal} />
       )}
-      <Typography
+      {/* <Typography
         variant="h3"
         marginLeft={"20px"}
         fontWeight={"700"}
@@ -49,7 +49,7 @@ export default function Ranking(props: IRankingProps) {
         ))
       ) : (
         <TableTopRanking dataRanking={dataRanking} />
-      )}
+      )} */}
     </Container>
   );
 }
