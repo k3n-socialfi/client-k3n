@@ -99,7 +99,7 @@ const StyleContent = styled.div`
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 24px;
-  margin-right: 40px;
+  /* margin-right: 40px; */
   @media (max-width: 520px) {
     margin-right: 0px;
   }
@@ -153,7 +153,7 @@ const StyleTitle = styled.div`
 `;
 const StyleBorder = styled.div`
   position: absolute;
-  width: 50%;
+  width: 74.5%;
   margin-top: 7px;
   display: flex;
   border-top: 2px solid #82ebff;

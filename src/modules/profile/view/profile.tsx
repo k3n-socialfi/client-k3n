@@ -5,6 +5,7 @@ import {
   IconPointProfile,
   IconStarNormal,
   IconVerify,
+  IconStar
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { SOCIAL } from "@/constant/social";
@@ -26,6 +27,8 @@ import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { useProfileContext } from "@/contexts/ProfileContext";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import Chips from "@/components/Chip";
+import CompletedProject from "../components/CompletedProject";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -121,22 +124,53 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
             <IconPointProfile />
             {dataPersonal?.twitterInfo?.totalPoints ?? 0}
           </PointProfile>
-          {dataPersonal.bio && <StyleUserDes>{dataPersonal.bio}</StyleUserDes>}
+          <StyleContentFlex>
+            <StyleContentUser>
+              <StyleUserDes>{dataPersonal?.bio ?? "Data null"}</StyleUserDes>
+              <StyleUserDes>Influencer</StyleUserDes>
+              <StyleUserSocial>Social</StyleUserSocial>
+              <StyleIcons>
+                {dataPersonal?.socialProfiles?.map(
+                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
+                )}
+              </StyleIcons>
+            </StyleContentUser>
+            <StyleContentUser>
+              <StyleTotal>
+                <StyleDesOverview>Total Achievements:</StyleDesOverview>
+                <StyleSubTitle>32</StyleSubTitle>
+              </StyleTotal>
+              <StyleTotal>
+                <StyleDesOverview>Review:</StyleDesOverview>
+                <StyleSubTitle>{dataPersonal?.review}</StyleSubTitle>
+              </StyleTotal>
+              <StyleIcons>
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+              </StyleIcons>
+            </StyleContentUser>
+            <StyleContentUser>
+              <StyleDesOverview>Location</StyleDesOverview>
+              <StyleSubTitle>{dataPersonal.location ? dataPersonal.location : "-"}</StyleSubTitle>
+            </StyleContentUser>
+          </StyleContentFlex>
+          {/* {dataPersonal.bio && <StyleUserDes>{dataPersonal.bio}</StyleUserDes>}
           <div style={{ display: "flex", gap: "16px" }}>
             <StyleUserDes>Influencer</StyleUserDes>
-            {dataPersonal.location && (
-              <StyleContentOverview>
-                <StyleDesOverview>Location</StyleDesOverview>
-                <StyleSubTitle>{dataPersonal.location}</StyleSubTitle>
-              </StyleContentOverview>
-            )}
+            <StyleContentOverview>
+              <StyleDesOverview>Location</StyleDesOverview>
+              <StyleSubTitle>{dataPersonal.location ? dataPersonal.location : "-"}</StyleSubTitle>
+            </StyleContentOverview>
           </div>
           <StyleUserSocial>Social</StyleUserSocial>
           <StyleIcons>
             {dataPersonal?.socialProfiles?.map(
               (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
             )}
-          </StyleIcons>
+          </StyleIcons> */}
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
@@ -151,9 +185,20 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
           </StyleButtonTitle>
           <StyleButtonTitle>
             <IconStarNormal />
-            Add to watchlist
+            Follow <strong>{dataPersonal?.fullName}</strong>
           </StyleButtonTitle>
         </StyleButtons>
+        <StyleChips>
+          {dataPersonal?.tags?.map((listTag: string, index: number) => (
+            <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+          ))}
+        </StyleChips>
+        <StyleContentUser style={{ paddingTop: "12px" }}>
+          <StyleTotal>
+            <StyleDesOverview>X Followers:</StyleDesOverview>
+            <StyleSubTitle>{dataPersonal?.twitterInfo?.followers}</StyleSubTitle>
+          </StyleTotal>
+        </StyleContentUser>
         <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>
             DM to {dataPersonal?.fullName}
@@ -188,7 +233,7 @@ export default function UserProfile(props: IUserProfileProps) {
       {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
-        <PostLeft>
+        {/* <PostLeft>
           {isLoading ? (
             <LoadingSkeleton width="200px" height="30px" />
           ) : (
@@ -207,7 +252,7 @@ export default function UserProfile(props: IUserProfileProps) {
               <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
             )}
           </Posts>
-        </PostLeft>
+        </PostLeft> */}
         <ContentRight>
           {isLoading ? (
             <>
@@ -216,18 +261,38 @@ export default function UserProfile(props: IUserProfileProps) {
               <ServicesSkeleton />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <ServicesSkeleton />
+              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <PostSkeleton />
             </>
           ) : (
             <>
-              <Overview overview={dataPersonal} />
+              {/* <Overview overview={dataPersonal} /> */}
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={dataPersonal} />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
+              <Post>
+                <StyleTitle>Completed Project</StyleTitle>
+                <CompletedProject />
+              </Post>
               <Services
                 dataPopularServices={dataPopularServices}
                 services={dataPersonal}
               />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <Post>
+                <StyleTitle>Recent posts</StyleTitle>
+                <Posts widthNotData={dataPosts?.length > 0}>
+                  {dataPosts?.length > 0 ? (
+                    dataPosts.map((item: any, index: number) => (
+                      <>
+                        <PostUser item={item} />
+                      </>
+                    ))
+                  ) : (
+                    <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
+                  )}
+                </Posts>
+              </Post>
+              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
             </>
           )}
         </ContentRight>
@@ -235,6 +300,37 @@ export default function UserProfile(props: IUserProfileProps) {
     </StyleContainer>
   );
 }
+
+
+const StyleChips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 4px 0;
+  color: #ffff !important;
+`;
+
+
+const StyleTotal = styled.div`
+  display: flex;
+  align-items: center;
+  width: 215px;
+  gap: 10px;
+`;
+
+const StyleContentFlex = styled.div`
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 36px;
+`;
+
+const Post = styled.div`
+  padding: 24px 14px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-top: 24px;
+`
 
 const Content = styled.div`
   display: flex;
@@ -245,7 +341,7 @@ const Content = styled.div`
 `;
 
 const ContentRight = styled.div`
-  width: 70%;
+  width: 100%;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -278,19 +374,14 @@ const PostLeft = styled.div`
 
 const Posts = styled.div<IUserProfileProps>`
   display: flex;
-  flex-direction: column;
   gap: 15px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 1260px;
-  width: 100%;
-  height: auto;
-
+  overflow-x: auto;
+  width: 70%;
+  padding: 24px 0px;
   &::-webkit-scrollbar {
     display: none;
   }
-
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
 `;
 
 const PostNotData = styled.div`
