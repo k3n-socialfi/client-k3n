@@ -87,7 +87,7 @@ const StyleChildren = styled.div`
   justify-content: space-between;
   width: 80%;
   margin-top: 80px;
-  padding: 50px 0;
+  padding: 24px;
   background-color: #292d32;
   overflow: hidden;
 
