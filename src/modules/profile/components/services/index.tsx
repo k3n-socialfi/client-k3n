@@ -192,7 +192,7 @@ const Transfer = styled.div`
   justify-content: center;
   gap: 14px;
   @media (max-width: 520px) {
-    gap: 4px;
+    gap: 8px;
   }
 `;
 const Options = styled.div`
@@ -234,11 +234,15 @@ const SeeAll = styled.div`
   color: #f23581;
   font-size: 18px;
   font-weight: 700;
+  @media (max-width: 520px) {
+    font-size: 10px;
+  }
 `;
 const StyleBox = styled.div`
   padding: 24px 14px;
   width: 100%;
   overflow-x: hidden;
+  margin-top: 24px;
 `;
 const StyleForm = styled.div`
   width: 580px;
@@ -259,13 +263,12 @@ const StyleContent = styled.div`
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 24px;
-  margin-right: 40px;
+  /* margin-right: 40px; */
   @media (max-width: 520px) {
     margin-right: 0px;
   }
 `;
 const StyleSelection = styled.div`
-  width: 100%;
   background-color: rgba(70, 70, 70, 1);
   border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -309,6 +312,7 @@ const StyleItem = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   background: #393939;
   padding: 5px;
   border-radius: 5px;

@@ -35,7 +35,7 @@ export default function Ranking(props: IRankingProps) {
       ) : (
         <MyRanking dataPersonal={dataPersonal} />
       )}
-      {/* <Typography
+      <Typography
         variant="h3"
         marginLeft={"20px"}
         fontWeight={"700"}
@@ -49,7 +49,7 @@ export default function Ranking(props: IRankingProps) {
         ))
       ) : (
         <TableTopRanking dataRanking={dataRanking} />
-      )} */}
+      )}
     </Container>
   );
 }

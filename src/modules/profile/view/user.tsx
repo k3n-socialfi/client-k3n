@@ -25,6 +25,8 @@ import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { getJobsUser } from "../services";
+import Chips from "@/components/Chip";
+import CompletedProject from "../components/CompletedProject";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -35,7 +37,6 @@ const IMG_NFT =
 
 const Overview = ({ overView }: any) => {
   const openModal = useBoolean();
-
   return overView ? (
     <StyleOverview>
       <StyleLeft>
@@ -133,7 +134,7 @@ const Personal = ({ userProfile }: any) => {
               </StyleTotal>
               <StyleTotal>
                 <StyleDesOverview>Review:</StyleDesOverview>
-                <StyleSubTitle>28</StyleSubTitle>
+                <StyleSubTitle>{userProfile?.review}</StyleSubTitle>
               </StyleTotal>
               <StyleIcons>
                 <IconStar />
@@ -142,6 +143,10 @@ const Personal = ({ userProfile }: any) => {
                 <IconStar />
                 <IconStar />
               </StyleIcons>
+            </StyleContentUser>
+            <StyleContentUser>
+              <StyleDesOverview>Location</StyleDesOverview>
+              <StyleSubTitle>{userProfile.location ? userProfile.location : "-"}</StyleSubTitle>
             </StyleContentUser>
           </StyleContentFlex>
         </StyleContentUser>
@@ -158,9 +163,25 @@ const Personal = ({ userProfile }: any) => {
           </StyleButtonTitle>
           <StyleButtonTitle>
             <IconStarNormal />
-            Add to watchlist
+            Follow <strong>{userProfile?.fullName}</strong>
           </StyleButtonTitle>
         </StyleButtons>
+        <StyleChips>
+          {userProfile?.tags?.map((listTag: string, index: number) => (
+            <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+          ))}
+        </StyleChips>
+        <StyleContentUser style={{ paddingTop: "12px" }}>
+          <StyleTotal>
+            <StyleDesOverview>X Followers:</StyleDesOverview>
+            <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
+          </StyleTotal>
+        </StyleContentUser>
+        <ButtonPrimary>
+          <Typography sx={{ p: "8px 0" }}>
+            DM to {userProfile?.fullName}
+          </Typography>
+        </ButtonPrimary>
       </StylePersonalRight>
     </StylePersonal>
   );
@@ -176,7 +197,7 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   const fetchData = async () => {
     await getUserProfile(username?.toString());
-    const dataServices : any = await getJobsUser(username?.toString())
+    const dataServices: any = await getJobsUser(username?.toString())
     setListServices(dataServices?.data?.data)
   }
 
@@ -191,7 +212,7 @@ export default function ClientProfile(props: IUserProfileProps) {
       {isLoading ? <PersonSkeleton /> : <Personal userProfile={userProfile} />}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
-        <PostLeft>
+        {/* <PostLeft>
           <StyleTitle>Post</StyleTitle>
           <Posts widthNotData={dataPosts?.length > 0}>
             {isLoading ? (
@@ -206,7 +227,7 @@ export default function ClientProfile(props: IUserProfileProps) {
               <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
             )}
           </Posts>
-        </PostLeft>
+        </PostLeft> */}
         <ContentRight>
           {isLoading ? (
             <>
@@ -216,19 +237,38 @@ export default function ClientProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <ServicesSkeleton />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <PostSkeleton />
             </>
           ) : (
             <>
-              <Overview overView={userProfile} />
+              {/* <Overview overView={userProfile} /> */}
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={userProfile} />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
+              <Post>
+                <StyleTitle>Completed Project</StyleTitle>
+                <CompletedProject />
+              </Post>
               <Services
                 listServices={listServices}
                 services={userProfile}
                 username={username}
               />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <Post>
+                <StyleTitle>Recent posts</StyleTitle>
+                <Posts widthNotData={dataPosts?.length > 0}>
+                  {dataPosts?.length > 0 ? (
+                    dataPosts.map((item: any, index: number) => (
+                      <>
+                        <PostUser item={item} />
+                      </>
+                    ))
+                  ) : (
+                    <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
+                  )}
+                </Posts>
+              </Post>
+              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
             </>
           )}
         </ContentRight>
@@ -237,6 +277,19 @@ export default function ClientProfile(props: IUserProfileProps) {
   );
 }
 
+const Post = styled.div`
+  padding: 24px 14px;
+  width: 100%;
+  overflow-x: hidden;
+  margin-top: 24px;
+`
+const StyleChips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 4px 0;
+  color: #ffff !important;
+`;
 const Content = styled.div`
   display: flex;
   width: 100%;
@@ -246,7 +299,7 @@ const Content = styled.div`
 `;
 
 const ContentRight = styled.div`
-  width: 70%;
+  width: 100%;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -306,6 +359,7 @@ const StyleButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+  padding-bottom: 12px;
   @media (max-width: 520px) {
     flex-wrap: nowrap;
     gap: 4px;
@@ -348,7 +402,6 @@ const StyleDesOverview = styled.div`
 `;
 const StyleContentOverview = styled.div``;
 const StyleSubTitle = styled.div`
-  padding-top: 8px;
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
@@ -421,6 +474,7 @@ const StyleIcons = styled.div`
 const StylePersonalRight = styled.div`
   margin-left: 50px;
   display: flex;
+  flex-direction: column;
   gap: 14px;
   width: 40%;
   @media (max-width: 520px) {
@@ -541,7 +595,8 @@ const StyleRequest = styled.div`
 const StyleContentFlex = styled.div`
   display: flex;
   align-items: start;
-  gap: 50px;
+  flex-wrap: wrap;
+  gap: 36px;
 `;
 
 const StyleTotal = styled.div`
