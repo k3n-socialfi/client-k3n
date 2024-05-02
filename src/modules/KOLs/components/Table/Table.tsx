@@ -1,12 +1,15 @@
 "use client";
 import {
+  IconDown,
   IconFilter,
   IconNFT,
   IconReset,
   IconStar,
+  IconStarKols,
   IconVerify,
 } from "@/assets/icons";
 import IconUnverify from "@/assets/icons/IconUverify";
+import Chips from "@/components/Chip";
 import {
   FOLLOWER_RANGE,
   OPTIONS_KYC,
@@ -17,6 +20,7 @@ import { useHomeContext } from "@/contexts/HomeContext";
 import {
   Autocomplete,
   Avatar,
+  Chip,
   Paper,
   Table,
   TableBody,
@@ -119,6 +123,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           onChange={(event, val) =>
             push(path + "?" + createQueryString("type", val?.value ?? ""))
           }
+          popupIcon={<IconDown />}
           sx={{
             height: 40,
             width: 250,
@@ -137,6 +142,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           )}
         />
         <Autocomplete
+          popupIcon={<IconDown />}
           size="small"
           id="grouped-demo"
           options={OPTIONS_KYC}
@@ -163,6 +169,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           )}
         />
         <Autocomplete
+          popupIcon={<IconDown />}
           size="small"
           id="grouped-demo"
           options={FOLLOWER_RANGE}
@@ -192,6 +199,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           )}
         />
         <Autocomplete
+          popupIcon={<IconDown />}
           size="small"
           id="grouped-demo"
           options={TAGS}
@@ -303,7 +311,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                   <Cell>
                     {row?.review ? (
                       <>
-                        <IconStar />
+                        <IconStarKols />
                         {row?.review}
                       </>
                     ) : (
@@ -314,7 +322,27 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 <CustomTableCell align="center">
                   <Tags>
                     {row?.tags.map((item: string, index: number) => (
-                      <ItemTags key={index}>{item}</ItemTags>
+                      <Chips
+                        key={item}
+                        label={item}
+                        variant="outlined"
+                        sx={{
+                          color: `${
+                            index === 0
+                              ? "#F23581"
+                              : index === 1
+                              ? "#3EAABE"
+                              : "#25002D"
+                          }`,
+                          backgroundColor: `${
+                            index === 0
+                              ? "#ffd7f4"
+                              : index === 1
+                              ? "#EBFCFF"
+                              : "#F6CCFF"
+                          }`,
+                        }}
+                      />
                     ))}
                   </Tags>
                 </CustomTableCell>
@@ -352,7 +380,7 @@ const Filter = styled.div`
   align-items: center;
   gap: 8px;
   width: 100%;
-  background-color: #9b9ae526;
+  background: #54575b;
   color: #fff;
   margin-bottom: 12px;
   border-radius: 8px;
