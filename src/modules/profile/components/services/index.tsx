@@ -16,11 +16,10 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 export default function Services({
   username,
   services,
-  dataPopularServices,
+  listServicesProfile,
   listServices,
 }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
-
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -46,8 +45,8 @@ export default function Services({
         </ServicesRight>
       </Container>
       <StyleContent>
-        {listServices &&
-          listServices?.map((item: any) => (
+        {listServicesProfile &&
+          listServicesProfile?.map((item: any) => (
             <StyleSelection key={item?.job?.jobId}>
               <StyleForm>
                 <ServicesTitle>{item?.job?.projectName}</ServicesTitle>
@@ -63,11 +62,12 @@ export default function Services({
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
                     <StyleIcons>
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
+                      {Array.from(
+                        { length: item?.job?.rating },
+                        (_, i) => i + 1,
+                      ).map((item) => (
+                        <IconStar key={item} />
+                      ))}
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
@@ -111,12 +111,13 @@ export default function Services({
               </StyleForm>
             </StyleSelection>
           ))}
-        {username && listServices?.length < 1 && (
+        {username && listServices.job && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
         )}
-        {!username && listServices?.length < 1 && (
+
+        {!username && listServicesProfile.job && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
@@ -341,6 +342,7 @@ const StyleItem = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 18px;
   background: #393939;
   padding: 5px;
   border-radius: 5px;
@@ -349,8 +351,7 @@ const StyleItem = styled.div`
 const StyleTotal = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
-  gap: 10px;
+  gap: 4px;
 `;
 
 const StyleDesOverview = styled.div`

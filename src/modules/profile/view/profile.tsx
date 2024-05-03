@@ -22,9 +22,19 @@ const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
 export default function UserProfile(props: IUserProfileProps) {
-  const { dataPopularServices } = useServicesContext();
   const { dataPersonal, dataPosts, isLoading, fetchData } =
     useMyProfileContext();
+  const [listServicesProfile, setListServicesProfile] = useState<any[]>();
+  const fetchDataServices = async () => {
+    const dataServices: any = await getJobsProfile();
+    setListServicesProfile(dataServices?.data?.data);
+  };
+
+  useEffect(() => {
+    fetchDataServices()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
 
   return (
     <StyleContainer>
@@ -83,7 +93,7 @@ export default function UserProfile(props: IUserProfileProps) {
                 <CompletedProject />
               </Post>
               <Services
-                dataPopularServices={dataPopularServices}
+                listServicesProfile={listServicesProfile}
                 services={dataPersonal}
               />
               <StyleBox>
