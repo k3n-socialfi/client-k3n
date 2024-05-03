@@ -13,9 +13,8 @@ import { useAlert } from "@/contexts/AlertContext";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ username, services, dataPopularServices, listServices }: any) {
+export default function Services({ username, services, listServicesProfile, listServices }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
-
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
@@ -41,34 +40,30 @@ export default function Services({ username, services, dataPopularServices, list
         </ServicesRight>
       </Container>
       <StyleContent>
-        {dataPopularServices &&
-          dataPopularServices?.map((item: any) => (
-            <StyleSelection key={item?.jobId}>
+        {listServicesProfile &&
+          listServicesProfile?.map((item: any) => (
+            <StyleSelection key={item?.job?.jobId}>
               <StyleForm>
-                <ServicesTitle>{item?.projectName}</ServicesTitle>
+                <ServicesTitle>{item?.job?.projectName}</ServicesTitle>
                 <StyleItem>
                   <StyleTotal>
                     <StyleDesOverview>Completed:</StyleDesOverview>
-                    <StyleSubTitle>{item?.completed}</StyleSubTitle>
+                    <StyleSubTitle>{item?.job?.completed}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Review:</StyleDesOverview>
-                    <StyleSubTitle>{item?.review}</StyleSubTitle>
+                    <StyleSubTitle>{item?.job?.review}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
                     <StyleIcons>
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
-                      <IconStar />
+                      {Array.from({ length: item?.job?.rating }, (_, i) => i + 1).map(item => <IconStar key={item} />)}
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
-                <SubTitle>{item?.jobDescription}</SubTitle>
+                <SubTitle>{item?.job?.jobDescription}</SubTitle>
                 <StyleChips>
-                  {item?.tags?.map((listTag: string, index: number) => (
+                  {item?.job?.tags?.map((listTag: string, index: number) => (
                     <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
                   ))}
                 </StyleChips>
@@ -86,7 +81,7 @@ export default function Services({ username, services, dataPopularServices, list
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
                     <Options>
-                      <TitlePrice>{item?.paymentMethod}</TitlePrice>
+                      <TitlePrice>{item?.job?.paymentMethod}</TitlePrice>
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
@@ -98,11 +93,11 @@ export default function Services({ username, services, dataPopularServices, list
             </StyleSelection>
           ))
         }
-        {username && listServices?.length < 1 &&
+        {username && listServices.job  &&
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>}
-        {!username && dataPopularServices?.length < 1 &&
+        {!username && listServicesProfile.job &&
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>}
@@ -313,6 +308,7 @@ const StyleItem = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 18px;
   background: #393939;
   padding: 5px;
   border-radius: 5px;
@@ -321,8 +317,7 @@ const StyleItem = styled.div`
 const StyleTotal = styled.div`
   display: flex;
   align-items: center;
-  width: 250px;
-  gap: 10px;
+  gap: 4px;
 `;
 
 const StyleDesOverview = styled.div`
