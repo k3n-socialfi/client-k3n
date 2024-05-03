@@ -11,6 +11,7 @@ import {
   textAction,
   textStatus,
 } from "@/constant/dataMockupCompletedProfile";
+import { getListOffer } from "@/services";
 import {
   Paper,
   Table,
@@ -20,6 +21,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface ICompletedProjectProps {
@@ -32,6 +34,15 @@ interface IStatus {
 }
 
 const CompletedProject = (props: ICompletedProjectProps) => {
+  const [listOffer, setListOffer] = useState([]);
+  useEffect(() => {
+    const getDataListOffer = async () => {
+      const { data } = await getListOffer();
+      setListOffer(data?.data);
+    };
+
+    getDataListOffer();
+  }, []);
   return (
     <TableContainer
       component={Paper}
@@ -63,7 +74,57 @@ const CompletedProject = (props: ICompletedProjectProps) => {
           </TableRowHeadCustom>
         </TableHead>
         <TableBody>
-          {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
+          {listOffer.length > 0 &&
+            listOffer.map((item: any, index) => {
+              return (
+                <TableRowBodyCustom key={index}>
+                  <CustomTableBodyCell
+                    component="th"
+                    scope="row"
+                    align="center"
+                  >
+                    {index + 1}
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell component="th" scope="row">
+                    {item?.job?.projectName}
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell align="center">
+                    {item?.job?.platform}
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell align="center">
+                    {item?.job?.createdAt}
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell align="center">
+                    {item?.job?.price}
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell align="center">
+                    <StatusCustom status={item?.jobs?.completed}>
+                      {
+                        textStatus[
+                          item?.jobs?.completed as keyof ICompletedProfileStatus
+                        ]
+                      }
+                    </StatusCustom>
+                  </CustomTableBodyCell>
+
+                  <CustomTableBodyCell align="center">
+                    <ActionCustom action={item?.jobs?.tags[0]}>
+                      {
+                        textAction[
+                          item?.jobs?.tags[0] as keyof ICompletedProfileAction
+                        ]
+                      }
+                    </ActionCustom>
+                  </CustomTableBodyCell>
+                </TableRowBodyCustom>
+              );
+            })}
+          {/* {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
             <TableRowBodyCustom key={row?.id}>
               <CustomTableBodyCell component="th" scope="row" align="center">
                 {index + 1}
@@ -97,7 +158,7 @@ const CompletedProject = (props: ICompletedProjectProps) => {
                 </ActionCustom>
               </CustomTableBodyCell>
             </TableRowBodyCustom>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>

@@ -85,3 +85,7 @@ export const getPostUser = (username: any) => {
 export const createServices = (data: TService) => {
   return axiosInstance.post(`/api/v1/jobs/create`, data);
 };
+
+export const getListOffer = () => {
+  return axiosInstance.get(`/api/v1/jobs/list-offers`);
+};
