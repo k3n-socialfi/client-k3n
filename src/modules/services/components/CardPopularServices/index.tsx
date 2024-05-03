@@ -84,7 +84,7 @@ export default function CardPopularServices({
             <ButtonPrimary
               fullWidth
               onClick={() =>
-                router.push(`/services/payment/${dataPopularServices.jobId}`)
+                router.push(`/services/payment/${dataPopularServices?.jobId}`)
               }
             >
               <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>

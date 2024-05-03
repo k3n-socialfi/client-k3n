@@ -1,9 +1,7 @@
 "use client";
 import { IconCertification, IconClose } from "@/assets/icons";
-import { DATASELECTTYPEOFREQUEST } from "@/constant/dataMockupSelectType";
 import { useBoolean } from "@/hooks/useBoolean";
-import { requestCollaborationSchema_ } from "@/validations/requestCollaborationSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import {
   Box,
   FormControl,
@@ -86,7 +84,7 @@ const EditProfile = ({
   const checkForm = watch();
   useEffect(() => {
     const allValuesFilled = Object.values(checkForm).some(
-      (value) => value === ""
+      (value) => value === "",
     );
 
     if (allValuesFilled) {

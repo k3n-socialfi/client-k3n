@@ -28,6 +28,7 @@ const useFetchDataHomePage = () => {
   ]);
 
   const [kols, setKols] = useState<IFeatureKols[]>([]);
+  const [totalItemKols, setTotalItemKols] = useState<number>(0);
 
   const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>([
     initialHomeContextTypes.featureProjects,
@@ -59,11 +60,12 @@ const useFetchDataHomePage = () => {
           upperLimit: upperLimit ? +upperLimit : undefined,
           tags: tags ? tags.split(",") : undefined,
           page: page ? page : 0,
-          limit: limit ? limit : 100,
+          limit: limit ? limit : 10,
           top: 100,
         };
         const { data } = await getKolsFilter(params);
         setKols(data.data.users);
+        setTotalItemKols(data?.data?.totalItems ?? 0)
       } catch (err) {
         console.error(err);
       }
@@ -107,6 +109,7 @@ const useFetchDataHomePage = () => {
     isLoading,
     error,
     kols,
+    totalItemKols
   };
 };
 
