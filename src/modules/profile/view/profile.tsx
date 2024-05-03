@@ -13,6 +13,8 @@ import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import CompletedProject from "../components/CompletedProject";
 import PersonalUserProfile from "../components/PersonalUserProfile";
+import { useEffect, useState } from "react";
+import { getJobsProfile } from "../services";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
