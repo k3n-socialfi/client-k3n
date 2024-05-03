@@ -46,19 +46,19 @@ export default function Services({
         </ServicesRight>
       </Container>
       <StyleContent>
-        {dataPopularServices &&
-          dataPopularServices?.map((item: any) => (
-            <StyleSelection key={item?.jobId}>
+        {listServices &&
+          listServices?.map((item: any) => (
+            <StyleSelection key={item?.job?.jobId}>
               <StyleForm>
-                <ServicesTitle>{item?.projectName}</ServicesTitle>
+                <ServicesTitle>{item?.job?.projectName}</ServicesTitle>
                 <StyleItem>
                   <StyleTotal>
                     <StyleDesOverview>Completed:</StyleDesOverview>
-                    <StyleSubTitle>{item?.completed}</StyleSubTitle>
+                    <StyleSubTitle>{item?.job?.completed}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Review:</StyleDesOverview>
-                    <StyleSubTitle>{item?.review}</StyleSubTitle>
+                    <StyleSubTitle>{item?.job?.review}</StyleSubTitle>
                   </StyleTotal>
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
@@ -71,9 +71,9 @@ export default function Services({
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
-                <SubTitle>{item?.jobDescription}</SubTitle>
+                <SubTitle>{item?.job?.jobDescription}</SubTitle>
                 <StyleChips>
-                  {item?.tags?.map((listTag: string, index: number) => (
+                  {item?.job?.tags?.map((listTag: string, index: number) => (
                     <Chips
                       key={index}
                       label={listTag}
@@ -91,16 +91,18 @@ export default function Services({
                   />
                   <RightTransfer>
                     <Options>
-                      <Price>Contact me</Price>
+                      <Price>${item?.job?.price}</Price>
                       <Checkbox {...label} />
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
                     <Options>
-                      <TitlePrice>{item?.paymentMethod}</TitlePrice>
+                      <TitlePrice>{item?.job?.paymentMethod}</TitlePrice>
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
-                      <LinkCustom href={`/services/payment/${item?.jobId}`}>
+                      <LinkCustom
+                        href={`/services/payment/${item?.job?.jobId}`}
+                      >
                         <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
                       </LinkCustom>
                     </ButtonPrimary>
@@ -109,12 +111,12 @@ export default function Services({
               </StyleForm>
             </StyleSelection>
           ))}
-        {username && dataPopularServices?.length < 1 && (
+        {username && listServices?.length < 1 && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
         )}
-        {!username && dataPopularServices?.length < 1 && (
+        {!username && listServices?.length < 1 && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
@@ -165,7 +167,7 @@ export default function Services({
                   />
                   <RightTransfer>
                     <Options>
-                      <Price>Contact me</Price>
+                      <Price>${item?.job?.price}</Price>
                       <Checkbox {...label} />
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -174,7 +176,11 @@ export default function Services({
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
-                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      <LinkCustom
+                        href={`/services/payment/${item?.job?.jobId}`}
+                      >
+                        <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      </LinkCustom>
                     </ButtonPrimary>
                   </RightTransfer>
                 </Transfer>

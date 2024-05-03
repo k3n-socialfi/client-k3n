@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
-import Services from "../components/services";
+import Services from "../components/Services";
 import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
@@ -37,6 +37,8 @@ export default function ClientProfile(props: IUserProfileProps) {
     const dataServices: any = await getJobsUser(username?.toString());
     setListServices(dataServices?.data?.data);
   };
+
+  console.log("listServices", listServices);
 
   useEffect(() => {
     fetchData()
@@ -94,7 +96,6 @@ export default function ClientProfile(props: IUserProfileProps) {
                 listServices={listServices}
                 services={userProfile}
                 username={username}
-                dataPopularServices={dataPopularServices}
               />
               <StyleBox>
                 <Post>

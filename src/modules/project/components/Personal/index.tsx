@@ -181,7 +181,7 @@ export default function Personal({
             <ButtonPrimary style={{ width: "100%" }}>
               <LinkCustom
                 target="_blank"
-                href={`${dataProjectDetail?.website}`}
+                href={`https://twitter.com/${dataProjectDetail?.social?.twitter}`}
               >
                 <Typography sx={{ p: "8px 0" }}>Subscribe</Typography>
               </LinkCustom>
