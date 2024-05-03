@@ -7,7 +7,6 @@ import {
   DATAPLATFORM,
 } from "@/constant/dataMockupCreateCampaign";
 import { useBoolean } from "@/hooks/useBoolean";
-import useProviderConnect from "@/hooks/useProviderConnect";
 import { TService } from "@/types/service";
 import { createServicesSchema_ } from "@/validations/createServicesSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,8 +21,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import * as anchor from "@project-serum/anchor";
-import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

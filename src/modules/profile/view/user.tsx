@@ -1,7 +1,7 @@
 "use client";
 
 import { useProfileContext } from "@/contexts/ProfileContext";
-import { Box, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
