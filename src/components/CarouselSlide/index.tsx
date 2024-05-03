@@ -1,5 +1,4 @@
-import FireIcon from "@/assets/icons/IconFire";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -20,7 +19,7 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) =>
-        prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+        prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
       );
     }, interval);
     return () => clearInterval(timer);
@@ -28,13 +27,13 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
 
   const goToNextSlide = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === slides.length - 1 ? 0 : prevSlide + 1
+      prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
     );
   };
 
   const goToPreviousSlide = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? slides.length - 1 : prevSlide - 1
+      prevSlide === 0 ? slides.length - 1 : prevSlide - 1,
     );
   };
 

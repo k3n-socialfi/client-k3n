@@ -1,19 +1,22 @@
 "use client";
-import * as React from "react";
-import styled from "styled-components";
+import { IconStar } from "@/assets/icons";
 import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
+import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 import Chips from "@/components/Chip";
+import CreateServices from "@/components/ModalCreateServices";
 import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
-import CreateServices from "@/components/ModalCreateServices";
-import Link from "next/link";
-import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
-import { IconStar } from "@/assets/icons";
-import { useAlert } from "@/contexts/AlertContext";
+import * as React from "react";
+import styled from "styled-components";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ username, services, listServicesProfile, listServices }: any) {
+export default function Services({
+  username,
+  services,
+  listServicesProfile,
+  listServices,
+}: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -57,14 +60,24 @@ export default function Services({ username, services, listServicesProfile, list
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
                     <StyleIcons>
-                      {Array.from({ length: item?.job?.rating }, (_, i) => i + 1).map(item => <IconStar key={item} />)}
+                      {Array.from(
+                        { length: item?.job?.rating },
+                        (_, i) => i + 1,
+                      ).map((item) => (
+                        <IconStar key={item} />
+                      ))}
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
                 <SubTitle>{item?.job?.jobDescription}</SubTitle>
                 <StyleChips>
                   {item?.job?.tags?.map((listTag: string, index: number) => (
-                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                    <Chips
+                      key={index}
+                      label={listTag}
+                      color="secondary"
+                      sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+                    />
                   ))}
                 </StyleChips>
                 <Transfer>
@@ -76,7 +89,7 @@ export default function Services({ username, services, listServicesProfile, list
                   />
                   <RightTransfer>
                     <Options>
-                      <Price>Contact me</Price>
+                      <Price>${item?.job?.price}</Price>
                       <Checkbox {...label} />
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -85,22 +98,28 @@ export default function Services({ username, services, listServicesProfile, list
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
-                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      <LinkCustom
+                        href={`/services/payment/${item?.job?.jobId}`}
+                      >
+                        <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      </LinkCustom>
                     </ButtonPrimary>
                   </RightTransfer>
                 </Transfer>
               </StyleForm>
             </StyleSelection>
-          ))
-        }
-        {username && listServices?.job  &&
+          ))}
+        {username && listServices?.job && (
+          <DescriptionNotData>
+            {`You don't have any work services yet. `}
+          </DescriptionNotData>
+        )}
+
+        {!username && listServicesProfile?.job && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
-          </DescriptionNotData>}
-        {!username && listServicesProfile?.job &&
-          <DescriptionNotData>
-            {`You don't have any work services yet.`}
-          </DescriptionNotData>}
+          </DescriptionNotData>
+        )}
         {listServices &&
           listServices?.map((item: any) => (
             <StyleSelection key={item?.job?.jobId}>
@@ -118,14 +137,24 @@ export default function Services({ username, services, listServicesProfile, list
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
                     <StyleIcons>
-                      {Array.from({ length: item?.job?.rating }, (_, i) => i + 1).map(item => <IconStar key={item} />)}
+                      {Array.from(
+                        { length: item?.job?.rating },
+                        (_, i) => i + 1,
+                      ).map((item) => (
+                        <IconStar key={item} />
+                      ))}
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
                 <SubTitle>{item?.job?.jobDescription}</SubTitle>
                 <StyleChips>
                   {item?.job?.tags?.map((listTag: string, index: number) => (
-                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                    <Chips
+                      key={index}
+                      label={listTag}
+                      color="secondary"
+                      sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+                    />
                   ))}
                 </StyleChips>
                 <Transfer>
@@ -137,7 +166,7 @@ export default function Services({ username, services, listServicesProfile, list
                   />
                   <RightTransfer>
                     <Options>
-                      <Price>Contact me</Price>
+                      <Price>${item?.job?.price}</Price>
                       <Checkbox {...label} />
                     </Options>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
@@ -146,14 +175,17 @@ export default function Services({ username, services, listServicesProfile, list
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
-                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      <LinkCustom
+                        href={`/services/payment/${item?.job?.jobId}`}
+                      >
+                        <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      </LinkCustom>
                     </ButtonPrimary>
                   </RightTransfer>
                 </Transfer>
               </StyleForm>
             </StyleSelection>
-          ))
-        }
+          ))}
       </StyleContent>
       <CreateServices
         isShowModal={isShowModal}
