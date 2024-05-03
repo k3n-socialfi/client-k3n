@@ -13,7 +13,12 @@ import { useAlert } from "@/contexts/AlertContext";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ username, services, dataPopularServices, listServices }: any) {
+export default function Services({
+  username,
+  services,
+  dataPopularServices,
+  listServices,
+}: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
 
   const IMG2 =
@@ -69,7 +74,12 @@ export default function Services({ username, services, dataPopularServices, list
                 <SubTitle>{item?.jobDescription}</SubTitle>
                 <StyleChips>
                   {item?.tags?.map((listTag: string, index: number) => (
-                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                    <Chips
+                      key={index}
+                      label={listTag}
+                      color="secondary"
+                      sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+                    />
                   ))}
                 </StyleChips>
                 <Transfer>
@@ -90,22 +100,25 @@ export default function Services({ username, services, dataPopularServices, list
                       <Checkbox {...label} defaultChecked />
                     </Options>
                     <ButtonPrimary style={{ width: "100%" }}>
-                      <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      <LinkCustom href={`/services/payment/${item?.jobId}`}>
+                        <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
+                      </LinkCustom>
                     </ButtonPrimary>
                   </RightTransfer>
                 </Transfer>
               </StyleForm>
             </StyleSelection>
-          ))
-        }
-        {username && listServices?.length < 1 &&
+          ))}
+        {username && dataPopularServices?.length < 1 && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
-          </DescriptionNotData>}
-        {!username && dataPopularServices?.length < 1 &&
+          </DescriptionNotData>
+        )}
+        {!username && dataPopularServices?.length < 1 && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
-          </DescriptionNotData>}
+          </DescriptionNotData>
+        )}
         {listServices &&
           listServices?.map((item: any) => (
             <StyleSelection key={item?.job?.jobId}>
@@ -123,14 +136,24 @@ export default function Services({ username, services, dataPopularServices, list
                   <StyleTotal>
                     <StyleDesOverview>Ranting:</StyleDesOverview>
                     <StyleIcons>
-                      {Array.from({ length: item?.job?.rating }, (_, i) => i + 1).map(item => <IconStar key={item} />)}
+                      {Array.from(
+                        { length: item?.job?.rating },
+                        (_, i) => i + 1,
+                      ).map((item) => (
+                        <IconStar key={item} />
+                      ))}
                     </StyleIcons>
                   </StyleTotal>
                 </StyleItem>
                 <SubTitle>{item?.job?.jobDescription}</SubTitle>
                 <StyleChips>
                   {item?.job?.tags?.map((listTag: string, index: number) => (
-                    <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
+                    <Chips
+                      key={index}
+                      label={listTag}
+                      color="secondary"
+                      sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
+                    />
                   ))}
                 </StyleChips>
                 <Transfer>
@@ -157,8 +180,7 @@ export default function Services({ username, services, dataPopularServices, list
                 </Transfer>
               </StyleForm>
             </StyleSelection>
-          ))
-        }
+          ))}
       </StyleContent>
       <CreateServices
         isShowModal={isShowModal}

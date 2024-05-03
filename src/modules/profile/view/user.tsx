@@ -1,18 +1,7 @@
 "use client";
-import {
-  IconBlue,
-  IconEdit,
-  IconPointProfile,
-  IconStar,
-  IconStarNormal,
-  IconVerify,
-} from "@/assets/icons";
-import { ButtonPrimary } from "@/components/ButtonCustom";
-import { SOCIAL } from "@/constant/social";
+
 import { useProfileContext } from "@/contexts/ProfileContext";
-import { useBoolean } from "@/hooks/useBoolean";
-import { Box, Divider, TextField, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box, Divider } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -25,8 +14,8 @@ import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { getJobsUser } from "../services";
-import Chips from "@/components/Chip";
 import CompletedProject from "../components/CompletedProject";
+import PersonalClientUser from "../components/PersonalClientUser";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -35,160 +24,8 @@ export interface IUserProfileProps {
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
-const Overview = ({ overView }: any) => {
-  const openModal = useBoolean();
-  return overView ? (
-    <StyleOverview>
-      <StyleLeft>
-        <StyleTitle>Overview</StyleTitle>
-        <PrimaryTitleLeft>
-          <StyleContentOverview>
-            <StyleDesOverview>Primary Job Title</StyleDesOverview>
-            <StyleSubTitle>Researcher - Builder</StyleSubTitle>
-          </StyleContentOverview>
-          <StyleContentOverview>
-            <StyleDesOverview>Primary Organization</StyleDesOverview>
-            <StyleSubTitle>Azuki</StyleSubTitle>
-          </StyleContentOverview>
-        </PrimaryTitleLeft>
-        <PrimaryTitleLeft>
-          <StyleContentOverview>
-            <StyleDesOverview>Gender</StyleDesOverview>
-            <StyleSubTitle>Female</StyleSubTitle>
-          </StyleContentOverview>
-          <StyleContentOverview>
-            <StyleDesOverview>Type of KOLs</StyleDesOverview>
-            <StyleSubTitle>Influencer</StyleSubTitle>
-          </StyleContentOverview>
-          <StyleContentOverview>
-            <StyleDesOverview>Location</StyleDesOverview>
-            <StyleSubTitle>New York, NYC</StyleSubTitle>
-          </StyleContentOverview>
-        </PrimaryTitleLeft>
-      </StyleLeft>
-      <StyleRight>
-        <PrimaryTitleRight>
-          <StyleContentOverview>
-            <StyleDesOverview>Twitter</StyleDesOverview>
-            <StyleSubTitle>{overView?.twitterInfo?.followers}</StyleSubTitle>
-          </StyleContentOverview>
-          <StyleContentOverview>
-            <StyleDesOverview>Primary per post</StyleDesOverview>
-            <StyleSubTitle>$12,450</StyleSubTitle>
-          </StyleContentOverview>
-        </PrimaryTitleRight>
-        <ButtonPrimary onClick={() => openModal.onTrue()}>
-          <Typography sx={{ p: "8px 0" }}>Hire Me</Typography>
-        </ButtonPrimary>
-      </StyleRight>
-      {openModal.value && (
-        <div style={{ width: "300ox", height: "300px" }}>
-          {/* <ModalRequestCollaboration openHireMe={openModal.onFalse} /> */}
-        </div>
-      )}
-    </StyleOverview>
-  ) : (
-    <ContentNotData>
-      <StyleTitle>OverView</StyleTitle>
-      <DescriptionNotData>
-        {`You don't have any work Overview yet.`}
-      </DescriptionNotData>
-    </ContentNotData>
-  );
-};
-
-const Personal = ({ userProfile }: any) => {
-  return (
-    <StylePersonal>
-      <StylePersonalLeft>
-        <StyleImage
-          src={userProfile?.twitterInfo?.avatar ?? IMG_NFT}
-          alt="avatar profile"
-          width={220}
-          height={220}
-        />
-        <StyleContentUser>
-          <StyleTitle>
-            {userProfile?.fullName ?? "User Name"}
-            {userProfile?.twitterInfo?.verificationStatus && <IconVerify />}
-          </StyleTitle>
-          <PointProfile>
-            <IconPointProfile />
-            {userProfile?.twitterInfo?.totalPoints ?? 0}
-          </PointProfile>
-          <StyleContentFlex>
-            <StyleContentUser>
-              <StyleUserDes>{userProfile?.bio ?? "Data null"}</StyleUserDes>
-              <StyleUserDes>Influencer</StyleUserDes>
-              <StyleUserSocial>Social</StyleUserSocial>
-              <StyleIcons>
-                {userProfile?.socialProfiles?.map(
-                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
-                )}
-              </StyleIcons>
-            </StyleContentUser>
-            <StyleContentUser>
-              <StyleTotal>
-                <StyleDesOverview>Total Achievements:</StyleDesOverview>
-                <StyleSubTitle>32</StyleSubTitle>
-              </StyleTotal>
-              <StyleTotal>
-                <StyleDesOverview>Review:</StyleDesOverview>
-                <StyleSubTitle>{userProfile?.review}</StyleSubTitle>
-              </StyleTotal>
-              <StyleIcons>
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-              </StyleIcons>
-            </StyleContentUser>
-            <StyleContentUser>
-              <StyleDesOverview>Location</StyleDesOverview>
-              <StyleSubTitle>{userProfile.location ? userProfile.location : "-"}</StyleSubTitle>
-            </StyleContentUser>
-          </StyleContentFlex>
-        </StyleContentUser>
-      </StylePersonalLeft>
-      <StylePersonalRight>
-        <StyleButtons>
-          <StyleButtonTitle>
-            <IconEdit />
-            <div>Edit</div>
-          </StyleButtonTitle>
-          <StyleButtonTitle>
-            <IconBlue />
-            Share
-          </StyleButtonTitle>
-          <StyleButtonTitle>
-            <IconStarNormal />
-            Follow <strong>{userProfile?.fullName}</strong>
-          </StyleButtonTitle>
-        </StyleButtons>
-        <StyleChips>
-          {userProfile?.tags?.map((listTag: string, index: number) => (
-            <Chips key={index} label={listTag} color="secondary" sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }} />
-          ))}
-        </StyleChips>
-        <StyleContentUser style={{ paddingTop: "12px" }}>
-          <StyleTotal>
-            <StyleDesOverview>X Followers:</StyleDesOverview>
-            <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
-          </StyleTotal>
-        </StyleContentUser>
-        <ButtonPrimary>
-          <Typography sx={{ p: "8px 0" }}>
-            DM to {userProfile?.fullName}
-          </Typography>
-        </ButtonPrimary>
-      </StylePersonalRight>
-    </StylePersonal>
-  );
-};
-
 export default function ClientProfile(props: IUserProfileProps) {
-  const [listServices, setListServices] = useState<any[]>()
+  const [listServices, setListServices] = useState<any[]>();
   const { isLoading, userProfile, dataPosts, getUserProfile } =
     useProfileContext();
 
@@ -197,9 +34,9 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   const fetchData = async () => {
     await getUserProfile(username?.toString());
-    const dataServices: any = await getJobsUser(username?.toString())
-    setListServices(dataServices?.data?.data)
-  }
+    const dataServices: any = await getJobsUser(username?.toString());
+    setListServices(dataServices?.data?.data);
+  };
 
   useEffect(() => {
     fetchData()
@@ -209,7 +46,11 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   return (
     <StyleContainer>
-      {isLoading ? <PersonSkeleton /> : <Personal userProfile={userProfile} />}
+      {isLoading ? (
+        <PersonSkeleton />
+      ) : (
+        <PersonalClientUser userProfile={userProfile} />
+      )}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
         {/* <PostLeft>
@@ -253,21 +94,22 @@ export default function ClientProfile(props: IUserProfileProps) {
                 listServices={listServices}
                 services={userProfile}
                 username={username}
+                dataPopularServices={dataPopularServices}
               />
-              <Post>
-                <StyleTitle>Recent posts</StyleTitle>
-                <Posts widthNotData={dataPosts?.length > 0}>
-                  {dataPosts?.length > 0 ? (
-                    dataPosts.map((item: any, index: number) => (
-                      <>
-                        <PostUser item={item} />
-                      </>
-                    ))
-                  ) : (
-                    <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-                  )}
-                </Posts>
-              </Post>
+              <StyleBox>
+                <Post>
+                  <StyleTitle>Recent posts</StyleTitle>
+                  <Posts widthNotData={dataPosts?.length > 0}>
+                    {dataPosts?.length > 0 ? (
+                      dataPosts.map((item: any, index: number) => (
+                        <PostUser key={index} item={item} />
+                      ))
+                    ) : (
+                      <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
+                    )}
+                  </Posts>
+                </Post>
+              </StyleBox>
               {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
             </>
           )}
@@ -282,14 +124,8 @@ const Post = styled.div`
   width: 100%;
   overflow-x: hidden;
   margin-top: 24px;
-`
-const StyleChips = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 4px 0;
-  color: #ffff !important;
 `;
+
 const Content = styled.div`
   display: flex;
   width: 100%;
@@ -305,43 +141,13 @@ const ContentRight = styled.div`
   }
 `;
 
-const ContentNotData = styled.div`
-  padding: 20px 15px;
-`;
-
-const DescriptionNotData = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 300px;
-  color: #f23581;
-`;
-
-const NotData = styled.div`
-  padding: 20px;
-`;
-
-const PostLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 30%;
-  padding: 12px;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
 const Posts = styled.div<IUserProfileProps>`
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: ${(props) => (props.widthNotData ? "1260px" : "100px")};
-  width: 100%;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 24px;
+  margin-right: 40px;
+  margin-top: 50px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -355,225 +161,15 @@ const PostNotData = styled.div`
   color: #f23581;
 `;
 
-const StyleButtons = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  padding-bottom: 12px;
-  @media (max-width: 520px) {
-    flex-wrap: nowrap;
-    gap: 4px;
-  }
-`;
-const StyleButtonTitle = styled.div`
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #393939;
-
-  color: #b9b9b9;
-  border-radius: 6px;
-`;
 const StyleContainer = styled.div`
   background-color: #292d32;
   color: #ffffff;
 `;
-const PrimaryTitleLeft = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 60px;
-  padding: 24px 0;
-`;
 
-const PrimaryTitleRight = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 60px;
-  padding: 24px 0;
-`;
-
-const StyleDesOverview = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 21px;
-  color: #b9b9b9;
-`;
-const StyleContentOverview = styled.div``;
-const StyleSubTitle = styled.div`
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 24px;
-  color: #82ebff;
-`;
-const StylePersonal = styled.div`
-  display: flex;
-  align-items: flex-start;
-  padding: 24px 14px;
-  @media (max-width: 520px) {
-    flex-wrap: wrap;
-    padding: 8px;
-    justify-content: center;
-  }
-`;
-const StyleImage = styled(Image)`
-  border: 2px solid #fff;
-  border-radius: 50%;
-`;
-const StylePersonalLeft = styled.div`
-  width: 60%;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  @media (max-width: 520px) {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-`;
-const StyleContentUser = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
 const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
   font-weight: 700;
-`;
-
-const PointProfile = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-`;
-
-const StyleUserDes = styled.div`
-  padding: 4px 12px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
-  background-color: #393939;
-  border-radius: 12px;
-  color: #ffd7f4;
-  width: fit-content;
-`;
-const StyleUserSocial = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-  color: #b9b9b9;
-`;
-const StyleIcons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const StylePersonalRight = styled.div`
-  margin-left: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 40%;
-  @media (max-width: 520px) {
-    width: 100%;
-    margin-left: 0px;
-    margin-top: 30px;
-  }
-`;
-const StyleOverview = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 20px;
-  gap: 100px;
-  @media (max-width: 520px) {
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 14px;
-  }
-`;
-const StyleLeft = styled.div`
-  width: 100%;
-`;
-
-const StyleRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-`;
-const StyleModalBox = styled(Box)`
-  position: fixed;
-  z-index: 99999999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400;
-  background-color: #2e2e2e;
-  border: 1px solid #2e2e2e;
-  color: #fff;
-  box-shadow: 24;
-  padding: 0;
-`;
-
-const StyleTop = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 10px;
-`;
-
-const StyleButtonClose = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  :hover {
-    opacity: 0.8;
-  }
-`;
-
-const StyleBottom = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* gap: 5px; */
-  flex-wrap: nowrap;
-  background-color: #252525;
-  border-radius: 10px;
-  width: 100%;
-  padding: 20px 50px;
-`;
-
-const StyleLabel = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-bottom: 8px;
-`;
-
-const StyleBottomSubmit = styled.div`
-  width: 100%;
-  margin-top: 20px;
-`;
-
-const StyleBottomGotIt = styled.div`
-  width: 100%;
-  margin: 20px 0;
-`;
-
-const StyleInput = styled(TextField)`
-  border-radius: 20px;
-  color: #fff;
-  background-color: #353535;
-  border: 0px #353535 solid;
 `;
 
 export const StyleError = styled.p`
@@ -583,25 +179,8 @@ export const StyleError = styled.p`
   white-space: normal;
 `;
 
-const StyleRequest = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  color: #f23581;
-  margin-top: 15px;
-`;
-
-const StyleContentFlex = styled.div`
-  display: flex;
-  align-items: start;
-  flex-wrap: wrap;
-  gap: 36px;
-`;
-
-const StyleTotal = styled.div`
-  display: flex;
-  align-items: center;
-  width: 215px;
-  gap: 10px;
+const StyleBox = styled.div`
+  padding: 24px 14px;
+  width: 100%;
+  overflow-x: hidden;
 `;

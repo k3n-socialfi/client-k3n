@@ -17,6 +17,7 @@ import {
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 
 interface IPropUserDes {
   color?: string;
@@ -178,7 +179,12 @@ export default function Personal({
               <StyleSubTitle>12,000</StyleSubTitle>
             </StyleTotal>
             <ButtonPrimary style={{ width: "100%" }}>
-              <Typography sx={{ p: "8px 0" }}>DM to Elena</Typography>
+              <LinkCustom
+                target="_blank"
+                href={`${dataProjectDetail?.website}`}
+              >
+                <Typography sx={{ p: "8px 0" }}>Subscribe</Typography>
+              </LinkCustom>
             </ButtonPrimary>
           </>
         )}
