@@ -28,6 +28,7 @@ const useFetchDataHomePage = () => {
   ]);
 
   const [kols, setKols] = useState<IFeatureKols[]>([]);
+  const [totalItemKols, setTotalItemKols] = useState<number>(0);
 
   const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>([
     initialHomeContextTypes.featureProjects,
@@ -64,6 +65,7 @@ const useFetchDataHomePage = () => {
         };
         const { data } = await getKolsFilter(params);
         setKols(data.data.users);
+        setTotalItemKols(data?.data?.totalItems ?? 0)
       } catch (err) {
         console.error(err);
       }
@@ -107,6 +109,7 @@ const useFetchDataHomePage = () => {
     isLoading,
     error,
     kols,
+    totalItemKols
   };
 };
 

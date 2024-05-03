@@ -51,7 +51,7 @@ interface IPCustomTableCell {
 }
 
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { kols: dataTableKols, isLoading } = useHomeContext();
+  const { kols: dataTableKols, isLoading ,totalItemKols } = useHomeContext();
   const { push, replace } = useRouter();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -387,7 +387,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           sx={{ padding: "50px", backgroundColor: "#3f3e45", color: "#FFF" }}
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
-          count={data.length}
+          count={totalItemKols}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
