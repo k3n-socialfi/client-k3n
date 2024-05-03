@@ -144,17 +144,9 @@ const ContentRight = styled.div`
 
 const Posts = styled.div<IUserProfileProps>`
   display: flex;
-  gap: 12px;
+  gap: 15px;
   overflow-x: auto;
-  padding-bottom: 24px;
-  margin-right: 40px;
-  margin-top: 50px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  scrollbar-width: none;
+  padding: 12px 0;
 `;
 
 const PostNotData = styled.div`
