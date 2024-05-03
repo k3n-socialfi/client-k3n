@@ -13,6 +13,7 @@ import Personal from "../components/Personal";
 import KeyMetrics from "../components/KeyMetrics";
 import Overview from "../components/Overview";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
+import KeyMetricsV2 from "../components/KeyMetricsV2";
 
 const IMG_NFT =
   "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -80,6 +81,10 @@ export default function ProjectDetail(props: IProjectsDetail) {
               <PreviousDeals />
               <TableProject />
               <AvailableDeals dataService={dataPopularServices} />
+              <KeyMetricsV2
+                dataMetrics={dataProjectDetail}
+                isLoading={isLoading}
+              />
               <RecentPosts
                 dataPosts={dataProjectDetail?.tweets}
                 isLoading={isLoading}
