@@ -8,6 +8,7 @@ import {
   IconStar,
   IconStarKols,
   IconVerify,
+  IconThunder
 } from "@/assets/icons";
 import IconUnverify from "@/assets/icons/IconUverify";
 import Chips from "@/components/Chip";
@@ -89,6 +90,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
       name: item?.fullName,
       badge: item?.twitterInfo?.verificationStatus,
       follower: item?.twitterInfo?.followers,
+      totalPoints: item?.twitterInfo?.totalPoints,
       minPrice: "0",
       maxPrice: "100",
       review: item?.review ?? "0",
@@ -262,16 +264,16 @@ export default function TableTrending(props: ITableTopRankingProps) {
               </CustomTableCell>
               <CustomTableCell align="center" sortDirection="asc">
                 <Fillter>
-                  Price
+                  Shill score
                   <IconDownFill />
                 </Fillter>
               </CustomTableCell>
-              <CustomTableCell align="center">
+              {/* <CustomTableCell align="center">
                 <Fillter>
                   Reviews
                   <IconDownFill />
                 </Fillter>
-              </CustomTableCell>
+              </CustomTableCell> */}
               <CustomTableCell align="center">Tags</CustomTableCell>
             </CustomTableRow>
           </TableHead>
@@ -327,25 +329,10 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 </CustomTableCell>
                 <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Cell>
-                    {row?.minPrice ? (
+                    {row?.totalPoints ? (
                       <>
-                        <IconNFT />
-                        {`${row?.minPrice}-${row?.maxPrice}`}
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </Cell>
-                </CustomTableCell>
-                <CustomTableCell borderLeftColor="#50505f" align="center">
-                  <Cell>
-                    {row?.review ? (
-                      <>
-                        <IconStarKols />
-                        <Fillter>
-                          {row?.review}
-                          <span>(1.256)</span>
-                        </Fillter>
+                        <IconThunder />
+                        {row?.totalPoints}
                       </>
                     ) : (
                       <></>

@@ -336,18 +336,9 @@ const PostLeft = styled.div`
 
 const Posts = styled.div<IUserProfileProps>`
   display: flex;
-  flex-direction: column;
   gap: 15px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: ${(props) => (props.widthNotData ? "1260px" : "100px")};
-  width: 100%;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  scrollbar-width: none;
+  overflow-x: auto;
+  padding: 12px 0;
 `;
 
 const PostNotData = styled.div`

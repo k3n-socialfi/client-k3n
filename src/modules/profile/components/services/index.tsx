@@ -93,11 +93,11 @@ export default function Services({ username, services, listServicesProfile, list
             </StyleSelection>
           ))
         }
-        {username && listServices?.job  &&
+        {username && listServices?.length < 1  &&
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>}
-        {!username && listServicesProfile?.job &&
+        {!username && listServicesProfile?.length < 1 &&
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>}
@@ -173,7 +173,6 @@ const DescriptionNotData = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 300px;
   color: #f23581;
 `;
 

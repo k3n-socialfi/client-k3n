@@ -92,10 +92,11 @@ const StyleMainCard = styled.div`
   border: 1px solid gray;
   border-radius: 8px;
   min-width: 400px;
+  height: max-content;
 `;
 const StylePostImg = styled(Image)`
   width: 100%;
-  height: 284px;
+  height: auto;
   border-top: 2px solid#5d5b5b;
   margin-top: 12px;
 `;
