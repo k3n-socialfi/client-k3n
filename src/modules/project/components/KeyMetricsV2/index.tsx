@@ -1,5 +1,5 @@
 import LoadingSkeleton from "@/components/LoadingSkeleton";
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 type Props = { dataMetrics: any; isLoading: boolean };
@@ -7,18 +7,21 @@ type Props = { dataMetrics: any; isLoading: boolean };
 const KeyMetricsV2 = (props: Props) => {
   const { dataMetrics, isLoading } = props;
 
-  const dateString = dataMetrics?.athDate;
-  const date = new Date(dateString);
+  const ethDate = useMemo(() => {
+    const dateString = dataMetrics?.athDate;
+    const date = new Date(dateString);
 
-  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")} ${date
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date
-    .getSeconds()
-    .toString()
-    .padStart(2, "0")}.${date.getMilliseconds().toString().padStart(3, "0")}`;
+    const formattedAthDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")} ${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}.${date.getMilliseconds().toString().padStart(3, "0")}`;
+    return formattedAthDate;
+  }, [dataMetrics?.athDate]);
 
   return isLoading ? (
     <LoadingSkeleton width="200px" height="20px" />
@@ -28,7 +31,7 @@ const KeyMetricsV2 = (props: Props) => {
       <BoxCustom>
         <ItemKeyMetrics>
           <TittleItem>Price</TittleItem>
-          <ValueItem>{dataMetrics?.price ?? 0}</ValueItem>
+          <ValueItem>${dataMetrics?.price ?? 0}</ValueItem>
         </ItemKeyMetrics>
         <ItemKeyMetrics>
           <TittleItem>Circulating Supply</TittleItem>
@@ -48,11 +51,11 @@ const KeyMetricsV2 = (props: Props) => {
         </ItemKeyMetrics>
         <ItemKeyMetrics>
           <TittleItem>ATH</TittleItem>
-          <ValueItem>{dataMetrics?.ath ?? 0}</ValueItem>
+          <ValueItem>${dataMetrics?.ath ?? 0}</ValueItem>
         </ItemKeyMetrics>
         <ItemKeyMetrics>
           <TittleItem>ATH Date</TittleItem>
-          <ValueItem>{formattedDate ?? 0}</ValueItem>
+          <ValueItem>{ethDate ?? 0}</ValueItem>
         </ItemKeyMetrics>
         <ItemKeyMetrics>
           <TittleItem>FDV</TittleItem>
