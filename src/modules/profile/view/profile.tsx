@@ -29,6 +29,7 @@ import { useProfileContext } from "@/contexts/ProfileContext";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import Chips from "@/components/Chip";
 import CompletedProject from "../components/CompletedProject";
+import { getJobsProfile } from "../services";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -217,9 +218,19 @@ const Personal = ({ dataPersonal, resetPage }: any) => {
 };
 
 export default function UserProfile(props: IUserProfileProps) {
-  const { dataPopularServices } = useServicesContext();
   const { dataPersonal, dataPosts, isLoading, fetchData } =
     useMyProfileContext();
+  const [listServicesProfile, setListServicesProfile] = useState<any[]>()
+  const fetchDataServices = async () => {
+    const dataServices: any = await getJobsProfile()
+    setListServicesProfile(dataServices?.data?.data)
+  }
+
+  useEffect(() => {
+    fetchDataServices()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
 
   return (
     <StyleContainer>
@@ -275,7 +286,7 @@ export default function UserProfile(props: IUserProfileProps) {
                 <CompletedProject />
               </Post>
               <Services
-                dataPopularServices={dataPopularServices}
+                listServicesProfile={listServicesProfile}
                 services={dataPersonal}
               />
               <Post>
