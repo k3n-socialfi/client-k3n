@@ -78,13 +78,13 @@ export default function ProjectDetail(props: IProjectsDetail) {
           <Wrapper style={{ display: "flex", width: "100%" }}>
             <WrapperContentRight style={{ width: "100%" }}>
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <PreviousDeals />
-              <TableProject />
-              <AvailableDeals dataService={dataPopularServices} />
+              {/* <PreviousDeals /> */}
+              {/* <TableProject /> */}
               <KeyMetricsV2
                 dataMetrics={dataProjectDetail}
                 isLoading={isLoading}
               />
+               <AvailableDeals dataService={dataPopularServices} />
               <RecentPosts
                 dataPosts={dataProjectDetail?.tweets}
                 isLoading={isLoading}
