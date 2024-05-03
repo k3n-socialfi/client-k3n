@@ -59,7 +59,7 @@ const useFetchDataHomePage = () => {
           upperLimit: upperLimit ? +upperLimit : undefined,
           tags: tags ? tags.split(",") : undefined,
           page: page ? page : 0,
-          limit: limit ? limit : 100,
+          limit: limit ? limit : 10,
           top: 100,
         };
         const { data } = await getKolsFilter(params);
