@@ -111,13 +111,13 @@ export default function Services({
               </StyleForm>
             </StyleSelection>
           ))}
-        {username && listServices.job && (
+        {username && listServices?.job && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
         )}
 
-        {!username && listServicesProfile.job && (
+        {!username && listServicesProfile?.job && (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
