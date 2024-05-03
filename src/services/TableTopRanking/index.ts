@@ -5,7 +5,7 @@ export const kolRanking = () => {
     params: {
       top: 100,
       page: 1,
-      limit: 10,
+      limit: 100,
     },
   });
 };
