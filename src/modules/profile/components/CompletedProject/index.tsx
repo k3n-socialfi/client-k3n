@@ -1,10 +1,17 @@
-import { IconArrowDownChange, IconArrowUpChange } from "@/assets/icons";
+import { IconArrowDownStatus } from "@/assets/icons";
 import {
+  bgAction,
+  bgStatus,
+  colorAction,
+  colorStatus,
   DATA_COMPLETED_PROJECT,
   DATA_HEAD_CP,
-} from "@/constant/dataMockupCompletedProject";
+  ICompletedProfileAction,
+  ICompletedProfileStatus,
+  textAction,
+  textStatus,
+} from "@/constant/dataMockupCompletedProfile";
 import {
-  Avatar,
   Paper,
   Table,
   TableBody,
@@ -13,11 +20,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
 import styled from "styled-components";
 
 interface ICompletedProjectProps {
   arrowChange?: string;
+}
+
+interface IStatus {
+  status?: string;
+  action?: string;
 }
 
 const CompletedProject = (props: ICompletedProjectProps) => {
@@ -26,7 +37,7 @@ const CompletedProject = (props: ICompletedProjectProps) => {
       component={Paper}
       sx={{
         width: "100%",
-        marginTop: "12px"
+        marginTop: "12px",
       }}
     >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -35,9 +46,18 @@ const CompletedProject = (props: ICompletedProjectProps) => {
             {DATA_HEAD_CP.map((item, index) => (
               <CustomTableHeadCell
                 key={index}
-                align={`${item === "Project" ? "left" : "center"}`}
+                align={`${item === "Service" ? "left" : "center"}`}
               >
-                <CellAll>{item}</CellAll>
+                {item === "Status" ? (
+                  <CellStatus>
+                    <NameItem>{item}</NameItem>
+                    <IconCustom>
+                      <IconArrowDownStatus />
+                    </IconCustom>
+                  </CellStatus>
+                ) : (
+                  <CellAll>{item}</CellAll>
+                )}
               </CustomTableHeadCell>
             ))}
           </TableRowHeadCustom>
@@ -50,42 +70,31 @@ const CompletedProject = (props: ICompletedProjectProps) => {
               </CustomTableBodyCell>
 
               <CustomTableBodyCell component="th" scope="row">
-                <Project>
-                  <Avatar
-                    sx={{ width: 35, height: 35 }}
-                    alt={`avatar_${row?.fullName}`}
-                    src={row?.project?.avatarUrl}
-                  />
-                  {row?.project?.fullName}
-                </Project>
+                {row?.service}
+              </CustomTableBodyCell>
+
+              <CustomTableBodyCell align="center">
+                {row?.kol}
               </CustomTableBodyCell>
 
               <CustomTableBodyCell align="center">
                 {row?.date}
               </CustomTableBodyCell>
+
               <CustomTableBodyCell align="center">
                 {row?.price}
               </CustomTableBodyCell>
+
               <CustomTableBodyCell align="center">
-                {row?.newATH}
+                <StatusCustom status={row?.status}>
+                  {textStatus[row?.status as keyof ICompletedProfileStatus]}
+                </StatusCustom>
               </CustomTableBodyCell>
+
               <CustomTableBodyCell align="center">
-                {row?.currentPrice}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                {row?.date}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                <Change arrowChange={row?.change?.arrow}>
-                  <ChangeArrow>
-                    {row?.change?.arrow === "up" ? (
-                      <IconArrowUpChange />
-                    ) : (
-                      <IconArrowDownChange />
-                    )}
-                  </ChangeArrow>
-                  <ChangeNumber>{row?.change?.number}</ChangeNumber>
-                </Change>
+                <ActionCustom action={row?.action}>
+                  {textAction[row?.action as keyof ICompletedProfileAction]}
+                </ActionCustom>
               </CustomTableBodyCell>
             </TableRowBodyCustom>
           ))}
@@ -104,12 +113,34 @@ const TableRowHeadCustom = styled(TableRow)`
 const CustomTableHeadCell = styled(TableCell)`
   color: #ffd7f4 !important;
   font-weight: 700;
+  font-size: 18px;
 `;
 
 const CustomTableBodyCell = styled(TableCell)`
   color: #fff !important;
   font-weight: 700;
   white-space: nowrap;
+  font-size: 16px;
+`;
+
+const StatusCustom = styled.div<IStatus>`
+  color: ${(props) =>
+    colorStatus[props?.status as keyof ICompletedProfileStatus] ??
+    "#fff !important"};
+  background-color: ${(props) =>
+    bgStatus[props?.status as keyof ICompletedProfileStatus] ?? "none"};
+  border-radius: 50px;
+  padding: 5px 0;
+`;
+
+const ActionCustom = styled.div<IStatus>`
+  color: ${(props) =>
+    colorAction[props?.action as keyof ICompletedProfileAction] ??
+    "#fff !important"};
+  background-color: ${(props) =>
+    bgAction[props?.action as keyof ICompletedProfileAction] ?? "none"};
+  border-radius: 50px;
+  padding: 5px 0;
 `;
 
 const CellAll = styled.div`
@@ -117,6 +148,26 @@ const CellAll = styled.div`
   font-size: 18px !important;
   background-color: #393939;
   white-space: nowrap;
+`;
+
+const CellStatus = styled(CellAll)`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const NameItem = styled.div`
+  display: flex;
+  width: 60%;
+  justify-content: end;
+`;
+
+const IconCustom = styled.div`
+  display: flex;
+  width: 40%;
+  justify-content: end;
 `;
 
 const TableRowBodyCustom = styled(TableRow)`
