@@ -1,17 +1,16 @@
 import { IconArrowDownStatus } from "@/assets/icons";
 import {
   bgAction,
-  bgStatus,
   colorAction,
-  colorStatus,
-  DATA_COMPLETED_PROJECT,
   DATA_HEAD_CP,
+  ENUM_STATUS_OFFER,
+  ENUM_STATUS_OFFER_BG,
+  ENUM_STATUS_OFFER_BUTTON,
+  ENUM_STATUS_OFFER_COLOR,
   ICompletedProfileAction,
-  ICompletedProfileStatus,
-  textAction,
-  textStatus,
 } from "@/constant/dataMockupCompletedProfile";
-import { getListOffer } from "@/services";
+import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import useServiceContract from "@/modules/payment/hooks/useServiceContract";
 import {
   Paper,
   Table,
@@ -21,8 +20,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import styled from "styled-components";
+import useMyOffer from "../../hooks/useMyOffer";
 
 interface ICompletedProjectProps {
   arrowChange?: string;
@@ -34,15 +34,10 @@ interface IStatus {
 }
 
 const CompletedProject = (props: ICompletedProjectProps) => {
-  const [listOffer, setListOffer] = useState([]);
-  useEffect(() => {
-    const getDataListOffer = async () => {
-      const { data } = await getListOffer();
-      setListOffer(data?.data);
-    };
+  const { dataPersonal } = useMyProfileContext();
+  const { listOffer, acceptOffer, isLoading } = useMyOffer();
+  const { completedServiceContract } = useServiceContract();
 
-    getDataListOffer();
-  }, []);
   return (
     <TableContainer
       component={Paper}
@@ -91,11 +86,11 @@ const CompletedProject = (props: ICompletedProjectProps) => {
                   </CustomTableBodyCell>
 
                   <CustomTableBodyCell align="center">
-                    {item?.job?.platform}
+                    {dataPersonal?.fullName}
                   </CustomTableBodyCell>
 
                   <CustomTableBodyCell align="center">
-                    {item?.job?.createdAt}
+                    {dayjs(item?.job?.createdAt).format("MMMM D, YYYY")}
                   </CustomTableBodyCell>
 
                   <CustomTableBodyCell align="center">
@@ -103,62 +98,41 @@ const CompletedProject = (props: ICompletedProjectProps) => {
                   </CustomTableBodyCell>
 
                   <CustomTableBodyCell align="center">
-                    <StatusCustom status={item?.jobs?.completed}>
+                    <StatusCustom status={item?.job.jobState}>
                       {
-                        textStatus[
-                          item?.jobs?.completed as keyof ICompletedProfileStatus
+                        ENUM_STATUS_OFFER[
+                          item?.job.jobState as keyof typeof ENUM_STATUS_OFFER
                         ]
                       }
                     </StatusCustom>
                   </CustomTableBodyCell>
 
                   <CustomTableBodyCell align="center">
-                    <ActionCustom action={item?.jobs?.tags[0]}>
-                      {
-                        textAction[
-                          item?.jobs?.tags[0] as keyof ICompletedProfileAction
-                        ]
-                      }
-                    </ActionCustom>
+                    {item.job.jobState !== ENUM_STATUS_OFFER.Completed && (
+                      <ActionCustom
+                        action={item.job.jobState}
+                        onClick={() =>
+                          item.job.jobState === ENUM_STATUS_OFFER.Pending
+                            ? acceptOffer({
+                                jobId: item.job.jobId,
+                                subscriber: dataPersonal.userId,
+                                creator: item?.job?.creator,
+                              })
+                            : completedServiceContract(item)
+                        }
+                      >
+                        {isLoading
+                          ? "Loading..."
+                          : ENUM_STATUS_OFFER_BUTTON[
+                              item.job
+                                .jobState as keyof typeof ENUM_STATUS_OFFER_BUTTON
+                            ]}
+                      </ActionCustom>
+                    )}
                   </CustomTableBodyCell>
                 </TableRowBodyCustom>
               );
             })}
-          {/* {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
-            <TableRowBodyCustom key={row?.id}>
-              <CustomTableBodyCell component="th" scope="row" align="center">
-                {index + 1}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell component="th" scope="row">
-                {row?.service}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                {row?.kol}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                {row?.date}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                {row?.price}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                <StatusCustom status={row?.status}>
-                  {textStatus[row?.status as keyof ICompletedProfileStatus]}
-                </StatusCustom>
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                <ActionCustom action={row?.action}>
-                  {textAction[row?.action as keyof ICompletedProfileAction]}
-                </ActionCustom>
-              </CustomTableBodyCell>
-            </TableRowBodyCustom>
-          ))} */}
         </TableBody>
       </Table>
     </TableContainer>
@@ -186,15 +160,18 @@ const CustomTableBodyCell = styled(TableCell)`
 
 const StatusCustom = styled.div<IStatus>`
   color: ${(props) =>
-    colorStatus[props?.status as keyof ICompletedProfileStatus] ??
-    "#fff !important"};
+    ENUM_STATUS_OFFER_COLOR[
+      props?.status as keyof typeof ENUM_STATUS_OFFER_COLOR
+    ] ?? "#fff !important"};
   background-color: ${(props) =>
-    bgStatus[props?.status as keyof ICompletedProfileStatus] ?? "none"};
+    ENUM_STATUS_OFFER_BG[props?.status as keyof typeof ENUM_STATUS_OFFER_BG] ??
+    "none"};
   border-radius: 50px;
   padding: 5px 0;
 `;
 
 const ActionCustom = styled.div<IStatus>`
+  cursor: pointer;
   color: ${(props) =>
     colorAction[props?.action as keyof ICompletedProfileAction] ??
     "#fff !important"};
@@ -202,6 +179,9 @@ const ActionCustom = styled.div<IStatus>`
     bgAction[props?.action as keyof ICompletedProfileAction] ?? "none"};
   border-radius: 50px;
   padding: 5px 0;
+  width: 100px;
+  padding: 4px 16px;
+  margin: auto;
 `;
 
 const CellAll = styled.div`

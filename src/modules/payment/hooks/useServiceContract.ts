@@ -1,16 +1,15 @@
 import useProviderConnect from "@/hooks/useProviderConnect";
 import { TService } from "@/types/service";
-import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 import * as anchor from "@project-serum/anchor";
-import { useState } from "react";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   TOKEN_PROGRAM_ID,
   getAssociatedTokenAddress,
 } from "@solana/spl-token";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { usePathname, useRouter } from "next/navigation";
-import { PublicKey } from "@solana/web3.js";
-import useServiceDetail from "./useServiceDetail";
+import { useState } from "react";
 
 export default function useServiceContract() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,10 +17,8 @@ export default function useServiceContract() {
   const anchorWallet = useAnchorWallet();
   const { push } = useRouter();
   const path = usePathname();
-  const { createOffer } = useServiceDetail();
   const { connection, provider, program } = useProviderConnect();
   const seed = new anchor.BN(1);
-  const newKol = anchor.web3.Keypair.generate();
 
   const createServiceContract = async (dt: TService) => {
     setIsLoading(true);
@@ -43,7 +40,7 @@ export default function useServiceContract() {
             new PublicKey(dt?.kolWallet ?? ""),
             dt.projectName,
             dt.platform,
-            new anchor.BN(+dt.price),
+            new anchor.BN(+dt.price * LAMPORTS_PER_SOL),
             dt.currency[0],
             dt.paymentMethod,
             dt.jobDescription,
@@ -118,7 +115,7 @@ export default function useServiceContract() {
         [Buffer.from("K3N"), seed?.toArrayLike(Buffer, "le", 8)],
         program.programId,
       );
-      const price = new anchor.BN(dt.price).toNumber();
+      const price = new anchor.BN(dt.price * LAMPORTS_PER_SOL).toNumber();
       const cant = new anchor.BN(1);
       let uri: string =
         "https://raw.githubusercontent.com/687c/solana-nft-native-client/main/metadata.json";
@@ -232,8 +229,6 @@ export default function useServiceContract() {
     try {
       await handleCompleteServiceSM(dt);
       await handleMintNFT(dt);
-      await createOffer();
-      push(path + `?step_payment=3`);
     } catch (error) {}
   };
   return { createServiceContract, completedServiceContract, isLoading };

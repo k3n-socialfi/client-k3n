@@ -20,13 +20,12 @@ export interface IUserProfileProps {
   widthNotData?: boolean;
 }
 
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
 export default function UserProfile(props: IUserProfileProps) {
   const { dataPersonal, dataPosts, isLoading, fetchData } =
     useMyProfileContext();
+
   const [listServicesProfile, setListServicesProfile] = useState<any[]>();
+
   const fetchDataServices = async () => {
     const dataServices: any = await getJobsProfile();
     setListServicesProfile(dataServices?.data?.data);
@@ -53,26 +52,6 @@ export default function UserProfile(props: IUserProfileProps) {
       {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
-        {/* <PostLeft>
-          {isLoading ? (
-            <LoadingSkeleton width="200px" height="30px" />
-          ) : (
-            <StyleTitle>Post</StyleTitle>
-          )}
-          <Posts widthNotData={dataPosts?.length > 0}>
-            {isLoading ? (
-              [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPosts?.length > 0 ? (
-              dataPosts.map((item: any, index: number) => (
-                <>
-                  <PostUser item={item} />
-                </>
-              ))
-            ) : (
-              <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-            )}
-          </Posts>
-        </PostLeft> */}
         <ContentRight>
           {isLoading ? (
             <>
@@ -89,9 +68,8 @@ export default function UserProfile(props: IUserProfileProps) {
               {/* <Overview overview={dataPersonal} /> */}
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={dataPersonal} />
-              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
               <Post>
-                <StyleTitle>Completed Project</StyleTitle>
+                <StyleTitle>Project</StyleTitle>
                 <CompletedProject />
               </Post>
               <Services

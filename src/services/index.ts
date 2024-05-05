@@ -89,3 +89,7 @@ export const createServices = (data: TService) => {
 export const getListOffer = () => {
   return axiosInstance.get(`/api/v1/jobs/list-offers`);
 };
+
+export const getListMyOffer = () => {
+  return axiosInstance.get(`/api/v1/jobs/my-offers`);
+};

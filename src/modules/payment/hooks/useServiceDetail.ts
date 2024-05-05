@@ -1,12 +1,13 @@
 import { TService } from "@/types/service";
-import { useParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { apiCreateOffer, getServiceDetail } from "../services";
 
 export default function useServiceDetail() {
   const [serviceDetail, setServiceDetail] = useState<TService>();
   const [isLoading, setIsLoading] = useState(false);
-
+  const { push } = useRouter();
+  const path = usePathname();
   const { id } = useParams();
 
   const fetchServiceDetail = async () => {
@@ -26,6 +27,7 @@ export default function useServiceDetail() {
     setIsLoading(true);
     try {
       await apiCreateOffer(id.toString());
+      push(path + `?step_payment=3`);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

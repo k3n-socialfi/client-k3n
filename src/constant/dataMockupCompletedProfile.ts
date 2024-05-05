@@ -38,47 +38,49 @@ export const DATA_COMPLETED_PROJECT = [
   },
 ];
 
-export interface ICompletedProfileStatus {
-  // [_: string]: string;
-  pendingPayment?: string;
-  inProgress?: string;
-  canceled?: string;
-}
-
-export const textStatus: ICompletedProfileStatus = {
-  pendingPayment: "Pending Payment",
-  inProgress: "InProgress",
-  canceled: "Canceled",
+export const ENUM_STATUS_OFFER_BUTTON = {
+  Pending: "Accept",
+  Progress: "Pay",
+  Completed: "Completed",
 };
 
-export const colorStatus: ICompletedProfileStatus = {
-  pendingPayment: "#25002D",
-  inProgress: "#3EAABE",
-  canceled: "#F23581",
+export const ENUM_STATUS_OFFER = {
+  Pending: "Pending",
+  Progress: "Progress",
+  Completed: "Completed",
+  Canceled: "Canceled",
 };
 
-export const bgStatus: ICompletedProfileStatus = {
-  pendingPayment: "#F6CCFF",
-  inProgress: "#EBFCFF",
-  canceled: "#FFD7F4",
+export const ENUM_STATUS_OFFER_COLOR = {
+  Pending: "#25002D",
+  Progress: "#3EAABE",
+  Completed: "#F23581",
+  Canceled: "#F23581",
+};
+
+export const ENUM_STATUS_OFFER_BG = {
+  Pending: "#F6CCFF",
+  Progress: "#EBFCFF",
+  Completed: "#FFD7F4",
+  Canceled: "#FFD7F4",
 };
 
 export interface ICompletedProfileAction {
-  pay?: string;
-  view?: string;
+  Pending?: string;
+  Progress?: string;
 }
 
 export const textAction: ICompletedProfileAction = {
-  pay: "Pay",
-  view: "View",
+  Pending: "Pay",
+  Progress: "View",
 };
 
 export const colorAction: ICompletedProfileAction = {
-  pay: "#82EBFF",
-  view: "#EBFCFF",
+  Pending: "#82EBFF",
+  Progress: "rgba(130, 235, 255, 1)",
 };
 
 export const bgAction: ICompletedProfileAction = {
-  pay: "#393939",
-  view: "#393939",
+  Pending: "#393939",
+  Progress: "#393939",
 };
