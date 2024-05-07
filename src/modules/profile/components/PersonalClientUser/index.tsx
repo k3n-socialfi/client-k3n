@@ -166,6 +166,8 @@ const StylePersonalLeft = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
+    padding-top: 12px;
   }
 `;
 

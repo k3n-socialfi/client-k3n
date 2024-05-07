@@ -278,7 +278,7 @@ const StyleForm = styled.div`
   padding: 24px;
   border-radius: 8px;
   @media (max-width: 520px) {
-    width: 330px;
+    width: 360px;
     height: 438px;
     padding: 12px;
   }
