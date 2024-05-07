@@ -7,14 +7,7 @@ import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
-import {
-  IconMenuBar,
-  IconNotification,
-  IconOpenSideBar,
-  IconSearch,
-  IconThunder,
-  IconTwitter,
-} from "@/assets/icons";
+import { IconMenuBar, IconSearch, IconThunder } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
@@ -30,7 +23,6 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { show, setShow, nodeRef } = useClickOutside();
   const {
     handleLoginTwitter,
     buttonState,
@@ -42,11 +34,8 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
     handleClick,
     base58Pubkey,
     popupProfile,
+    nodeRef,
   } = useWalletCustom();
-
-  const handlePopup = () => {
-    setShow(!show);
-  };
 
   useEffect(() => {
     setIsClient(true);
@@ -95,7 +84,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
                 <TypographyCustom className="header-user__info__text">
                   {dataPersonal?.twitterInfo?.totalPoints ?? 0}
                 </TypographyCustom>
-                <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
+                <HeaderAvatar ref={nodeRef}>
                   <AvatarCustom
                     className="header-user__info__avatar"
                     alt="Cindy Baker"
