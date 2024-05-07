@@ -8,11 +8,17 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { checkExists, loginSolana, loginTwitterSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
+import useClickOutside from "./useClickOutside";
 
 export default function useWalletCustom() {
+  const {
+    show: popupProfile,
+    setShow: setPopupProfile,
+    nodeRef,
+  } = useClickOutside();
   const { setVisible: setModalVisible } = useWalletModal();
+  // const [popupProfile, setPopupProfile] = useState(false);
   const [popup, setPopup] = useState(false);
-  const [popupProfile, setPopupProfile] = useState(false);
   const [signature, setSignature] = useState<any>();
   const searchParams = useSearchParams();
   const search = searchParams.get("accessToken");
@@ -107,9 +113,8 @@ export default function useWalletCustom() {
           createLog({
             status: "success",
             method: "signIn",
-            message: `Message signed: ${JSON.stringify(signedMessage)} by ${
-              account.address
-            } with signature ${JSON.stringify(signature)}`,
+            message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address
+              } with signature ${JSON.stringify(signature)}`,
           });
         }
       } catch (error: any) {
@@ -181,5 +186,6 @@ export default function useWalletCustom() {
     handleClick,
     base58Pubkey,
     popupProfile,
+    nodeRef,
   };
 }
