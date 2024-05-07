@@ -348,6 +348,7 @@ const StyleButtonTitle = styled.div`
   &:hover {
     transform: scale(0.9);
     color: #FFFFFF;
+    transition: all 0.5s;
   }
 `;
 

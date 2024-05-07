@@ -204,7 +204,6 @@ const DescriptionNotData = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 300px;
   color: #f23581;
 `;
 

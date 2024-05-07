@@ -179,7 +179,6 @@ export const StyleError = styled.p`
 `;
 
 const StyleBox = styled.div`
-  padding: 24px 14px;
   width: 100%;
   overflow-x: hidden;
 `;
