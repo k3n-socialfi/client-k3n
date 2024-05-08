@@ -147,12 +147,11 @@ const Posts = styled.div<IUserProfileProps>`
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  width: 70%;
+  width: 100%;
   padding: 24px 0px;
   &::-webkit-scrollbar {
     display: none;
   }
-  /* scrollbar-width: none; */
 `;
 
 const PostNotData = styled.div`
@@ -179,7 +178,6 @@ export const StyleError = styled.p`
 `;
 
 const StyleBox = styled.div`
-  padding: 24px 14px;
   width: 100%;
   overflow-x: hidden;
 `;

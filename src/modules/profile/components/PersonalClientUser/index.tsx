@@ -81,10 +81,6 @@ export default function PersonalClientUser({ userProfile }: any) {
       <StylePersonalRight>
         <StyleButtons>
           <StyleButtonTitle>
-            <IconEdit />
-            <div>Edit</div>
-          </StyleButtonTitle>
-          <StyleButtonTitle>
             <IconBlue />
             Share
           </StyleButtonTitle>
@@ -170,6 +166,8 @@ const StylePersonalLeft = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
+    padding-top: 12px;
   }
 `;
 
@@ -345,10 +343,15 @@ const StyleButtonTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #393939;
-
+  background-color: #39393985;
+  cursor: pointer;
   color: #ffd7f4;
   border-radius: 6px;
+  &:hover {
+    transform: scale(0.9);
+    color: #FFFFFF;
+    transition: all 0.5s;
+  }
 `;
 
 const StyleChips = styled.div`

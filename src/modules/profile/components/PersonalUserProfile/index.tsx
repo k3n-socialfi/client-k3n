@@ -373,9 +373,14 @@ const StyleButtonTitle = styled.div`
   align-items: center;
   gap: 8px;
   background-color: #393939;
-
+  cursor: pointer;
   color: #ffd7f4;
   border-radius: 6px;
+  &:hover {
+    transform: scale(0.9);
+    color: #FFFFFF;
+    transition: all 0.5s;
+  }
 `;
 
 const StyleChips = styled.div`

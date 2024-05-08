@@ -93,6 +93,9 @@ const StyleMainCard = styled.div`
   border-radius: 8px;
   min-width: 400px;
   height: max-content;
+  @media (max-width: 520px) {
+    min-width: 360px;
+  }
 `;
 const StylePostImg = styled(Image)`
   width: 100%;

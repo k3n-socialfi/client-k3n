@@ -165,6 +165,7 @@ const ImgCustom = styled.div`
     transform: scale(0.9);
     background-color: pink;
     border-radius: 16px;
+    transition: all 0.5s;
   }
   @media (max-width: 1024px) {
     width: 100px;
