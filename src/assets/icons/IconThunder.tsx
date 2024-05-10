@@ -1,10 +1,15 @@
 import React from "react";
 
-export default function IconThunder() {
+export interface IIconThunderProps {
+  width?: number;
+  height?: number;
+}
+
+export default function IconThunder({ width, height }: IIconThunderProps) {
   return (
     <svg
-      width={12}
-      height={20}
+      width={width ?? 12}
+      height={height ?? 20}
       viewBox="0 0 12 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
