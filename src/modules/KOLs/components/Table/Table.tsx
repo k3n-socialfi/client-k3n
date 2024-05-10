@@ -52,7 +52,7 @@ interface IPCustomTableCell {
 }
 
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { kols: dataTableKols, isLoading ,totalItemKols } = useHomeContext();
+  const { kols: dataTableKols, isLoading, totalItemKols } = useHomeContext();
   const { push, replace } = useRouter();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -113,7 +113,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
   const createAnyQueryString = useCallback(
     (names: string[], values: string[]) => {
       const params = new URLSearchParams(searchParams.toString());
-      for (let i = 0; i < names.length; i++) {
+      for (let i = 0; i < names?.length; i++) {
         params.set(names[i], values[i]);
       }
       return params.toString();
@@ -163,8 +163,8 @@ export default function TableTrending(props: ITableTopRankingProps) {
           onChange={(event, val) =>
             push(
               path +
-                "?" +
-                createQueryString("kyc", val?.value?.toString() ?? ""),
+              "?" +
+              createQueryString("kyc", val?.value?.toString() ?? ""),
             )
           }
           sx={{
@@ -190,11 +190,11 @@ export default function TableTrending(props: ITableTopRankingProps) {
           onChange={async (event, val) =>
             push(
               path +
-                "?" +
-                createAnyQueryString(
-                  ["lowerLimit", "upperLimit"],
-                  [val?.value.lowerLimit ?? "", val?.value.upperLimit ?? ""],
-                ),
+              "?" +
+              createAnyQueryString(
+                ["lowerLimit", "upperLimit"],
+                [val?.value.lowerLimit ?? "", val?.value.upperLimit ?? ""],
+              ),
             )
           }
           sx={{
@@ -347,20 +347,18 @@ export default function TableTrending(props: ITableTopRankingProps) {
                         label={item}
                         variant="outlined"
                         sx={{
-                          color: `${
-                            index === 0
+                          color: `${index === 0
                               ? "#F23581"
                               : index === 1
-                              ? "#3EAABE"
-                              : "#25002D"
-                          }`,
-                          backgroundColor: `${
-                            index === 0
+                                ? "#3EAABE"
+                                : "#25002D"
+                            }`,
+                          backgroundColor: `${index === 0
                               ? "#ffd7f4"
                               : index === 1
-                              ? "#EBFCFF"
-                              : "#F6CCFF"
-                          }`,
+                                ? "#EBFCFF"
+                                : "#F6CCFF"
+                            }`,
                         }}
                       />
                     ))}
@@ -411,7 +409,7 @@ const CustomTableRow = styled(TableRow)`
   background-color: #3f3e45;
 `;
 
-const CustomTableCell = styled(TableCell)<IPCustomTableCell>`
+const CustomTableCell = styled(TableCell) <IPCustomTableCell>`
   color: #ffd7f4 !important;
   font-weight: 700;
   border-left: 1px solid

@@ -179,7 +179,7 @@ const HeaderWrapper = styled.div`
   z-index: 999999999;
   width: 100%;
   padding: 15px 20px;
-  background: #393939;
+  background: var(--background-primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
