@@ -133,9 +133,8 @@ const MenuItemCustom = styled(MenuItem)`
     height: 50px;
     width: 100%;
     padding: 10px 5px !important;
-    background: #032a51 !important;
+    background: #191d24 !important;
     color: #b9fafd;
-    border: 1px solid #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -177,6 +176,11 @@ const Item = styled.div`
   height: 100%;
   gap: 5px;
   padding-left: 10px;
+  color: #57617b;
+
+  &:hover {
+    color: #fff;
+  }
 `;
 
 const LabelError = styled.span`

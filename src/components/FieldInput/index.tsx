@@ -69,12 +69,15 @@ const WrapperField = styled.div`
 `;
 const TextFieldCustom = styled(TextField)`
   width: 100%;
+  & .MuiInputBase-root[type="date"] {
+    background: #191d24;
+  }
   & .MuiInputBase-root {
     height: 44px;
     background-color: transparent;
     border-radius: 10px;
     padding: 0px 15px;
-    color: #57617b;
+    color: #fff;
     border: 2px solid #57617b !important;
     &:hover {
       border-color: #57617b;
@@ -85,9 +88,6 @@ const TextFieldCustom = styled(TextField)`
     input {
       padding: 12px 12px;
     }
-  }
-  & .MuiInputBase-root[type="date"] {
-    background: #191d24;
   }
 
   & .MuiFilledInput-underline:before,
