@@ -41,9 +41,9 @@ export default function PersonalClientUser({ userProfile }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              <StyleUserDes color="#FFD7F4">
-                {userProfile?.bio ?? "Data null"}
-              </StyleUserDes>
+              {userProfile.bio && <StyleUserDes color="#FFD7F4">
+                {userProfile.bio}
+              </StyleUserDes>}
               <StyleUserDes>Influencer</StyleUserDes>
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
@@ -69,11 +69,17 @@ export default function PersonalClientUser({ userProfile }: any) {
                 <IconStar />
               </StyleIcons>
             </StyleContentUser>
-            <StyleContentUser>
+            <StyleContentUser style={{ flexDirection: "column", alignItems: "flex-start" }}>
               <StyleDesOverview>Location</StyleDesOverview>
               <StyleSubTitle>
                 {userProfile.location ? userProfile.location : "-"}
               </StyleSubTitle>
+            </StyleContentUser>
+            <StyleContentUser>
+              <StyleTotal>
+                <StyleDesOverview>X Followers:</StyleDesOverview>
+                <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
+              </StyleTotal>
             </StyleContentUser>
           </StyleContentFlex>
         </StyleContentUser>
@@ -99,12 +105,6 @@ export default function PersonalClientUser({ userProfile }: any) {
             />
           ))}
         </StyleChips>
-        <StyleContentUser style={{ paddingTop: "12px" }}>
-          <StyleTotal>
-            <StyleDesOverview>X Followers:</StyleDesOverview>
-            <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
-          </StyleTotal>
-        </StyleContentUser>
         <ButtonPrimary>
           <Typography sx={{ p: "8px 0" }}>
             DM to {userProfile?.fullName}
@@ -295,7 +295,6 @@ const StyleDesOverview = styled.div`
 `;
 
 const StyleSubTitle = styled.div`
-  padding-top: 8px;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -358,7 +357,7 @@ const StyleChips = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 4px 0;
+  padding: 16px 0;
   color: #ffff !important;
   @media (max-width: 1024px) {
     display: flex;

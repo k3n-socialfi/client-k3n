@@ -19,21 +19,21 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) =>
-        prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
+        prevSlide === slides?.length - 1 ? 0 : prevSlide + 1,
       );
     }, interval);
     return () => clearInterval(timer);
-  }, [slides.length, interval]);
+  }, [slides?.length, interval]);
 
   const goToNextSlide = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === slides.length - 1 ? 0 : prevSlide + 1,
+      prevSlide === slides?.length - 1 ? 0 : prevSlide + 1,
     );
   };
 
   const goToPreviousSlide = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? slides.length - 1 : prevSlide - 1,
+      prevSlide === 0 ? slides?.length - 1 : prevSlide - 1,
     );
   };
 
@@ -62,7 +62,7 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
             Projects Owners and KOLs
           </Typography>
           <Typography variant="caption" sx={{ color: "white" }}>
-            {currentSlide + 1} / {slides.length}
+            {currentSlide + 1} / {slides?.length}
           </Typography>
         </StackCustom>
         {/* <IconButton onClick={goToNextSlide}>

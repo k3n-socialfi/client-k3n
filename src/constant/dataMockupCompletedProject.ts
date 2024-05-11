@@ -2,9 +2,8 @@ export const DATA_HEAD_CP = [
   "No",
   "Project",
   "Date",
-  "Price",
-  "Gender",
-  "New ETH",
+  "Price at mentions",
+  "ATH after mention",
   "Current Price",
   "Change",
 ];

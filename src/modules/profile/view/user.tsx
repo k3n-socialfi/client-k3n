@@ -38,8 +38,6 @@ export default function ClientProfile(props: IUserProfileProps) {
     setListServices(dataServices?.data?.data);
   };
 
-  console.log("listServices", listServices);
-
   useEffect(() => {
     fetchData()
       // make sure to catch any error
@@ -55,22 +53,6 @@ export default function ClientProfile(props: IUserProfileProps) {
       )}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
-        {/* <PostLeft>
-          <StyleTitle>Post</StyleTitle>
-          <Posts widthNotData={dataPosts?.length > 0}>
-            {isLoading ? (
-              <PostSkeleton />
-            ) : dataPosts?.length > 0 ? (
-              dataPosts.map((item: any, index: number) => (
-                <>
-                  <PostUser item={item} />
-                </>
-              ))
-            ) : (
-              <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-            )}
-          </Posts>
-        </PostLeft> */}
         <ContentRight>
           {isLoading ? (
             <>
@@ -78,25 +60,13 @@ export default function ClientProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <ServicesSkeleton />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <ServicesSkeleton />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PostSkeleton />
             </>
           ) : (
             <>
-              {/* <Overview overView={userProfile} /> */}
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={userProfile} />
-              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
-              <Post>
-                <StyleTitle>Completed Project</StyleTitle>
-                <CompletedProject />
-              </Post>
-              <Services
-                listServices={listServices}
-                services={userProfile}
-                username={username}
-              />
+              <CompletedProject />
               <StyleBox>
                 <Post>
                   <StyleTitle>Recent posts</StyleTitle>
@@ -111,7 +81,6 @@ export default function ClientProfile(props: IUserProfileProps) {
                   </Posts>
                 </Post>
               </StyleBox>
-              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
             </>
           )}
         </ContentRight>
@@ -143,6 +112,7 @@ const ContentRight = styled.div`
 `;
 
 const Posts = styled.div<IUserProfileProps>`
+  margin-left: 40px;
   display: flex;
   gap: 15px;
   overflow-x: auto;
@@ -155,7 +125,6 @@ const PostNotData = styled.div`
 `;
 
 const StyleContainer = styled.div`
-  background-color: #292d32;
   color: #ffffff;
 `;
 
