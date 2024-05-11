@@ -5,14 +5,10 @@ export const schemaProfile = yup
     fullName: yup.string().required(),
     gender: yup.string().required(),
     birthday: yup.string().required(),
-    email: yup.string().required(),
-    phoneNumber: yup.string().required(),
+    email: yup.string().required().email(),
+    phoneNumber: yup.number().required(),
     location: yup.string().required(),
     jobTitle: yup.string().required(),
     bio: yup.string().required(),
-    // twitter: yup.string().required(),
-    // tiktok: yup.string().required(),
-    // youtube: yup.string().required(),
-    // facebook: yup.string().required(),
   })
   .required();

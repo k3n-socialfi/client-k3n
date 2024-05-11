@@ -28,11 +28,12 @@ export default function EditProfileView() {
   const handleEdit = async (value: any) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("accessToken");
-      const { data } = await UpdateProfile(
-        { ...value, type: "KOL", pricePerPost: 0, dob: "" },
-        `${token}`,
-      );
+      const { data } = await UpdateProfile({
+        ...value,
+        type: "KOL",
+        pricePerPost: 0,
+        dob: "",
+      });
       setAlertSuccess("Update success", `${data?.message}`);
       setLoading(false);
     } catch (error: any) {
@@ -243,9 +244,8 @@ const WrapperField = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  margin-top: 25px;
   padding: 0 30px;
-  margin-bottom: 40px;
+  margin: 25px 0 40px 0;
 `;
 
 const FieldFlex = styled.div`
