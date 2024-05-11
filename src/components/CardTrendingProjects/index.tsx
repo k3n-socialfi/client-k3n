@@ -1,9 +1,9 @@
 import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
-import Chips from "../Chip";
 import { ButtonText } from "../ButtonCustom";
 import { LinkCustom } from "../CardFeaturedKOLs/style";
+import styled from "styled-components";
 
-export interface ICardProjectProps {}
+export interface ICardProjectProps { }
 
 export default function CardTrendingProjects(props: any) {
   return (
@@ -12,7 +12,7 @@ export default function CardTrendingProjects(props: any) {
       {...props}
     >
       <LinkCustom href={`/project/${props?.id}`}>
-        <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
+        <CustomCardContent>
           <Stack
             direction="row"
             spacing={2}
@@ -50,15 +50,22 @@ export default function CardTrendingProjects(props: any) {
                   gutterBottom
                   variant="subtitle2"
                   component="span"
-                  color={"gray"}
+                  color={"white"}
                 >
                   #{props?.mention} mentions
                 </Typography>
               </Stack>
             </Stack>
           </Stack>
-        </CardContent>
+        </CustomCardContent>
       </LinkCustom>
     </Card>
   );
 }
+
+const CustomCardContent = styled(CardContent)`
+  display: flex;
+  justify-content: space-between;
+  padding: 11.5px !important;
+  background-color: var(--background-primary) !important;
+`
