@@ -45,7 +45,7 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              {dataPersonal.bio && <StyleUserDes color="#FFD7F4">
+              {dataPersonal?.bio && <StyleUserDes color="#FFD7F4">
                 {dataPersonal.bio}
               </StyleUserDes>}
               <StyleUserDes>Influencer</StyleUserDes>
