@@ -246,7 +246,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
   },
   border: "none",
   justifyContent: "space-between",
-  background: "#393939",
+  background: "var(--background-primary)",
   color: "#fff",
   gap: "100px",
   "@media (max-width: 1250px)": {

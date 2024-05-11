@@ -71,7 +71,6 @@ export { default as IconIdProject } from "./IconIdProject";
 export { default as IconPaper } from "./IconPaper";
 export { default as IconProject } from "./IconProject";
 export { default as IconUserDealCard } from "./IconUserDealCard";
-// export { default as IconTime } from "./IconTime";
 export { default as IconOpenSideBar } from "./IconOpenSideBar";
 export { default as IconCloseSideBar } from "./IconCloseSideBar";
 export { default as IconMenuBar } from "./IconMenuBar";

@@ -45,9 +45,9 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              <StyleUserDes color="#FFD7F4">
-                {dataPersonal?.bio ?? "Data null"}
-              </StyleUserDes>
+              {dataPersonal?.bio && <StyleUserDes color="#FFD7F4">
+                {dataPersonal.bio}
+              </StyleUserDes>}
               <StyleUserDes>Influencer</StyleUserDes>
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
@@ -74,26 +74,20 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
               </StyleIcons>
             </StyleContentUser>
             <StyleContentUser>
-              <StyleDesOverview>Location</StyleDesOverview>
-              <StyleSubTitle>
-                {dataPersonal.location ? dataPersonal.location : "-"}
-              </StyleSubTitle>
+              <StyleTotal style={{ flexDirection: "column", alignItems: "flex-start" }}>
+                <StyleDesOverview>Location</StyleDesOverview>
+                <StyleSubTitle>
+                  {dataPersonal.location ? dataPersonal.location : "-"}
+                </StyleSubTitle>
+              </StyleTotal>
+              <StyleTotal>
+                <StyleDesOverview>X Followers:</StyleDesOverview>
+                <StyleSubTitle>
+                  {dataPersonal?.twitterInfo?.followers}
+                </StyleSubTitle>
+              </StyleTotal>
             </StyleContentUser>
           </StyleContentFlex>
-          {/* {dataPersonal.bio && <StyleUserDes>{dataPersonal.bio}</StyleUserDes>}
-            <div style={{ display: "flex", gap: "16px" }}>
-              <StyleUserDes>Influencer</StyleUserDes>
-              <StyleContentOverview>
-                <StyleDesOverview>Location</StyleDesOverview>
-                <StyleSubTitle>{dataPersonal.location ? dataPersonal.location : "-"}</StyleSubTitle>
-              </StyleContentOverview>
-            </div>
-            <StyleUserSocial>Social</StyleUserSocial>
-            <StyleIcons>
-              {dataPersonal?.socialProfiles?.map(
-                (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
-              )}
-            </StyleIcons> */}
         </StyleContentUser>
       </StylePersonalLeft>
       <StylePersonalRight>
@@ -121,14 +115,6 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
             />
           ))}
         </StyleChips>
-        <StyleContentUser style={{ paddingTop: "12px" }}>
-          <StyleTotal>
-            <StyleDesOverview>X Followers:</StyleDesOverview>
-            <StyleSubTitle>
-              {dataPersonal?.twitterInfo?.followers}
-            </StyleSubTitle>
-          </StyleTotal>
-        </StyleContentUser>
         <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>
             DM to {dataPersonal?.fullName}
@@ -324,7 +310,6 @@ const StyleDesOverview = styled.div`
 `;
 
 const StyleSubTitle = styled.div`
-  padding-top: 8px;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -387,7 +372,7 @@ const StyleChips = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 4px 0;
+  padding: 16px 0;
   color: #ffff !important;
   @media (max-width: 1024px) {
     display: flex;

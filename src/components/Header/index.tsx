@@ -10,10 +10,8 @@ import useClickOutside from "@/hooks/useClickOutside";
 import {
   IconMenuBar,
   IconNotification,
-  IconOpenSideBar,
   IconSearch,
   IconThunder,
-  IconTwitter,
 } from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
@@ -30,7 +28,6 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { show, setShow, nodeRef } = useClickOutside();
   const {
     handleLoginTwitter,
     buttonState,
@@ -42,11 +39,8 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
     handleClick,
     base58Pubkey,
     popupProfile,
+    nodeRef,
   } = useWalletCustom();
-
-  const handlePopup = () => {
-    setShow(!show);
-  };
 
   useEffect(() => {
     setIsClient(true);
@@ -95,7 +89,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
                 <TypographyCustom className="header-user__info__text">
                   {dataPersonal?.twitterInfo?.totalPoints ?? 0}
                 </TypographyCustom>
-                <HeaderAvatar onClick={handlePopup} ref={nodeRef}>
+                <HeaderAvatar ref={nodeRef}>
                   <AvatarCustom
                     className="header-user__info__avatar"
                     alt="Cindy Baker"
@@ -179,7 +173,7 @@ const HeaderWrapper = styled.div`
   z-index: 99;
   width: 100%;
   padding: 15px 20px;
-  background: #080a0c;
+  background: var(--background-primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
