@@ -88,7 +88,7 @@ const StyleChildren = styled.div`
   width: 80%;
   margin-top: 80px;
   padding: 24px;
-  background-color: #292d32;
+  background-color: #080a0c;
   overflow: hidden;
 
   @media (max-width: 1599px) {

@@ -97,3 +97,5 @@ export { default as IconDown } from "./IconDown";
 export { default as IconStarKols } from "./IconStarKols";
 export { default as IconDownFill } from "./IconDownFill";
 export { default as IconShareProject } from "./IconShareProject";
+export { default as IconUpload } from "./IconUpload";
+export { default as IconHome } from "./IconHome";
