@@ -41,7 +41,7 @@ export default function PersonalClientUser({ userProfile }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              {userProfile.bio && <StyleUserDes color="#FFD7F4">
+              {userProfile?.bio && <StyleUserDes color="#FFD7F4">
                 {userProfile.bio}
               </StyleUserDes>}
               <StyleUserDes>Influencer</StyleUserDes>

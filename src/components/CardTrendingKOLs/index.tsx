@@ -1,4 +1,5 @@
 "use client";
+import { IconThunder } from "@/assets/icons";
 import { Avatar, Card, Typography } from "@mui/material";
 import Link from "next/link";
 import * as React from "react";
@@ -26,7 +27,7 @@ export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
             />
             <Typography sx={{ fontWeight: "700" }}>{props?.name}</Typography>
           </Name>
-          <Point>{props?.point}</Point>
+          <Point><IconThunder />{props?.point}</Point>
         </Container>
       </LinkCustom>
     </CardCustom>
@@ -85,7 +86,6 @@ const Name = styled.div`
   width: 70%;
   gap: 10px;
   padding: 4px 20px;
-  border-right: 2px #fff solid;
   @media (max-width: 600px) {
     border-right: 2px #fff solid;
     border-left: 2px #fff solid;
@@ -107,6 +107,9 @@ const LinkCustom = styled(Link)`
   text-decoration: none;
 `;
 const Point = styled.div`
+  display: flex;
+  gap: 4px;
+  justify-content: center;
   padding: 10px 20px;
   width: 25%;
   @media (max-width: 540px) {
