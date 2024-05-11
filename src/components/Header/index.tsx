@@ -80,10 +80,10 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
         <HeaderUserMobile>
           {label === "Disconnect" || buttonState === "connected" ? (
             <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
-              <UserNotification>
+              {/* <UserNotification>
                 <IconNotification />
                 <NumberNotification>15</NumberNotification>
-              </UserNotification>
+              </UserNotification> */}
               <HeaderUserInfo>
                 <IconThunder />
                 <TypographyCustom className="header-user__info__text">
@@ -336,17 +336,7 @@ const HeaderUserInfo = styled.div`
   padding: 0 5px;
 `;
 
-const HeaderAvatar = styled.div`
-  clip-path: polygon(
-    51% 7%,
-    90% 20%,
-    100% 60%,
-    75% 100%,
-    25% 100%,
-    0% 60%,
-    10% 20%
-  );
-`;
+const HeaderAvatar = styled.div``;
 
 const HeaderButton = styled.div`
   display: flex;
@@ -357,6 +347,7 @@ const HeaderButton = styled.div`
 `;
 const AvatarCustom = styled(Avatar)`
   cursor: pointer;
+  border: 3px solid #82ebff;
 `;
 const TypographyCustom = styled(Typography)`
   color: #fff;

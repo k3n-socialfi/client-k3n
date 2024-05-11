@@ -1,5 +1,5 @@
 "use client";
-import { IconStar, IconJob, IconTime } from "@/assets/icons";
+import { IconJob, IconStar, IconTime } from "@/assets/icons";
 import styled from "styled-components";
 
 export default function Experience({ experience }: any) {
@@ -20,13 +20,20 @@ export default function Experience({ experience }: any) {
                 <StyleFlex>
                   <StyleUserDes>2023-12</StyleUserDes>
                   <StyleIcons>
-                    <IconStar />4.5
+                    <IconStar />
+                    4.5
                   </StyleIcons>
                 </StyleFlex>
                 <StyleSubTitle>Product X KOL Campaign</StyleSubTitle>
                 <StyleDate>
-                  <StyleDiv><IconJob />KOL Booker</StyleDiv>
-                  <StyleDiv><IconTime />2024-03 - Present</StyleDiv>
+                  <StyleDiv>
+                    <IconJob />
+                    KOL Booker
+                  </StyleDiv>
+                  <StyleDiv>
+                    <IconTime />
+                    2024-03 - Present
+                  </StyleDiv>
                 </StyleDate>
               </StyleForm>
             </StyleSelection>
@@ -124,7 +131,7 @@ const StyleSubTitle = styled.div`
   font-size: 18px;
   font-weight: 700;
   line-height: 22px;
-  color: #F45796;
+  color: #f45796;
   font-weight: 700;
 `;
 
