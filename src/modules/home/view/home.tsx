@@ -213,7 +213,7 @@ export default function Home({ }: IHomeProps) {
                   <CardTrendingProjectsSkeleton />
                 </div>
               ))
-              : trendingProjects?.slice(1, 8)?.map((item, index) => (
+              : trendingProjects?.slice(0, 7)?.map((item, index) => (
                 <>
                   <StyleTrendingCard key={item.id}>
                     <Typography component={"h4"} color={"#949292"}>
