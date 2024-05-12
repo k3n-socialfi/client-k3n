@@ -53,6 +53,7 @@ export default function MarketingServicesView() {
                   projectName={item?.projectName}
                   price={`${item?.price}`}
                   paymentMethod={item?.paymentMethod}
+                  jobId={item?.jobId}
                 />
               ))}
         </Services>
