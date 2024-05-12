@@ -5,14 +5,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { ButtonText } from "../ButtonCustom";
-import Chips from "../Chip";
 import { StyleChips, StyleSubscribe } from "./style";
-import Link from "next/link";
 import { LinkCustom } from "../CardFeaturedKOLs/style";
+import styled from "styled-components";
 
 export default function CardFeaturedProjects(props: any) {
+  const IMG2 =
+    "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
   return (
-    <Card sx={{ minWidth: 350, background: "#252525" }} {...props}>
+    <Card
+      sx={{ minWidth: 350, minHeight: 350, background: "#252525" }}
+      {...props}
+    >
       <LinkCustom href={`/project/${props?.id}`}>
         <div style={{ position: "relative" }}>
           <StyleSubscribe>
@@ -30,32 +34,43 @@ export default function CardFeaturedProjects(props: any) {
 
           <CardMedia
             sx={{ height: "222px" }}
-            image={props?.thumbnail}
+            image={props?.thumbnail ?? IMG2}
             title="green iguana"
           />
         </div>
-        <CardContent>
-          <Typography variant="h5" color={"#82EBFF"}>
-            {props?.name}
-          </Typography>
-
-          <StyleChips>
-            {props?.wallet?.map((item: any) => (
-              <>
-                <ButtonText
-                  size="small"
-                  borderColorBt={item?.background}
-                  backgroundColorBt={item?.background}
-                >
-                  <Typography color={item?.color} sx={{ padding: "0 5px" }}>
-                    {item?.label}
-                  </Typography>
-                </ButtonText>
-              </>
-            ))}
-          </StyleChips>
-        </CardContent>
       </LinkCustom>
+      <CardContentCustoms>
+        <TypographyCustoms variant="h5" color={"#82EBFF"}>
+          {props?.name}
+        </TypographyCustoms>
+        <StyleChips>
+          {props?.wallet?.map((item: any) => (
+            <>
+              <ButtonText
+                size="small"
+                borderColorBt={item?.background}
+                backgroundColorBt={item?.background}
+              >
+                <Typography color={item?.color} sx={{ padding: "0 5px" }}>
+                  {item?.label}
+                </Typography>
+              </ButtonText>
+            </>
+          ))}
+        </StyleChips>
+      </CardContentCustoms>
     </Card>
   );
 }
+
+const CardContentCustoms = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const TypographyCustoms = styled(Typography)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
