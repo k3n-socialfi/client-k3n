@@ -24,9 +24,7 @@ type THeaderProp = {
 };
 
 export const Header = ({ handleToggleSidebar }: THeaderProp) => {
-  const token =
-    typeof window !== "undefined" && localStorage.getItem("accessToken");
-  const router = useRouter();
+  const { push } = useRouter();
   const [isClient, setIsClient] = useState(false);
   const {
     handleLoginTwitter,
@@ -56,7 +54,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
         </ToggleSideBar>
         <ImgCustom>
           <Image
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
             alt="logo"
             src={logo}
             layout="fill"
@@ -120,6 +118,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
                   backgroundColorBtHover="#191D24"
                   borderColorBtHover="#191D24"
                   borderRadius="10px"
+                  onClick={() => push("/sign-up")}
                 >
                   Sign Up
                 </ButtonSecondary>

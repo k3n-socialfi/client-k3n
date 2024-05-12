@@ -145,8 +145,8 @@ export const DATASIDEBARTOKEN = [
         id: 21,
         label: "Create Offer",
         icon: <IconCreateOffer />,
-        link: "",
-        isCommingSoon: false,
+        link: "/view-offer",
+        isCommingSoon: true,
         color: "#fff",
       },
       {
