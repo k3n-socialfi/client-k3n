@@ -56,6 +56,84 @@ export const DATASIDEBAR = [
       },
     ],
   },
+
+  {
+    id: 3,
+    label: "Comming soon",
+    color: "#FDDDEA",
+    colorArrow: "#FDDDEA",
+    icon: "",
+    children: [
+      {
+        id: 31,
+        label: "Dashboard",
+        icon: <IconDashboard />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
+      },
+      {
+        id: 32,
+        label: "Boot",
+        icon: <IconBoot />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
+      },
+      {
+        id: 33,
+        label: "Holder Benefit",
+        icon: <IconHolderBenefit />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
+      },
+    ],
+  },
+];
+export const DATASIDEBARTOKEN = [
+  {
+    id: 0,
+    label: "Home page",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 11,
+        label: "Home page",
+        icon: <IconHome />,
+        link: "/",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
+  {
+    id: 1,
+    label: "Discover",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 11,
+        label: "KOls",
+        icon: <IconKOLs />,
+        link: "/KOLs",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+      {
+        id: 14,
+        label: "Top 100 Ranking",
+        icon: <IconMarketingServices />,
+        link: "/top-ranking",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
   {
     id: 2,
     label: "Offer Board",
