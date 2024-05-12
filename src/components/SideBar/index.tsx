@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
 import { CloseSideBar, Discover } from "./style";
+import zIndex from "@mui/material/styles/zIndex";
 
 type TSidebar = {
   handleToggleSidebar?: () => void;
@@ -67,7 +68,11 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
       }}
     >
       <CssBaseline />
-      <Discover>
+      <Discover
+        style={{
+          zIndex: 10,
+        }}
+      >
         <Drawer variant="permanent" open={open}>
           <div
             style={{
@@ -76,7 +81,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
               width: "100%",
             }}
           >
-            <DrawerHeader sx={{ justifyContent: "center" }}>
+            <DrawerHeader sx={{ justifyContent: "center", zIndex: 10 }}>
               {/* {open && (
               <Image
                 height={50}
@@ -380,7 +385,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  background: "#080a0c",
+  background: "transparent",
 
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
