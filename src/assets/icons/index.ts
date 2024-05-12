@@ -97,4 +97,8 @@ export { default as IconStarKols } from "./IconStarKols";
 export { default as IconDownFill } from "./IconDownFill";
 export { default as IconShareProject } from "./IconShareProject";
 export { default as IconJob } from "./IconJob";
+export { default as IconDelete } from "./IconDelete";
+export { default as IconAdd } from "./IconAdd";
+export { default as IconArrowDownStatus } from "./IconArrowDownStatus";
+
 
