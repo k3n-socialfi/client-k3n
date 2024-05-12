@@ -1,5 +1,4 @@
 "use client";
-
 import { useProfileContext } from "@/contexts/ProfileContext";
 import { Divider } from "@mui/material";
 import { useParams } from "next/navigation";
@@ -7,13 +6,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
-import Services from "../components/ListServices";
 import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
-import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import { getJobsUser } from "../services";
+import { getMentionedProject } from "../services";
 import CompletedProject from "../components/CompletedProject";
 import PersonalClientUser from "../components/PersonalClientUser";
 
@@ -21,21 +18,15 @@ export interface IUserProfileProps {
   widthNotData?: boolean;
 }
 
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
 export default function ClientProfile(props: IUserProfileProps) {
-  const [listServices, setListServices] = useState<any[]>();
-  const { isLoading, userProfile, dataPosts, getUserProfile } =
-    useProfileContext();
-
-  const { dataPopularServices } = useServicesContext();
+  const [listProjects, setListProject] = useState<any[]>();
+  const { isLoading, userProfile, dataPosts, getUserProfile } = useProfileContext();
   const { username } = useParams();
 
   const fetchData = async () => {
     await getUserProfile(username?.toString());
-    const dataServices: any = await getJobsUser(username?.toString());
-    setListServices(dataServices?.data?.data);
+    const dataServices: any = await getMentionedProject(username?.toString());
+    setListProject(dataServices?.data?.data);
   };
 
   useEffect(() => {
@@ -66,7 +57,7 @@ export default function ClientProfile(props: IUserProfileProps) {
             <>
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <Experience experience={userProfile} />
-              <CompletedProject />
+              <CompletedProject listProjects={listProjects} />
               <StyleBox>
                 <Post>
                   <StyleTitle>Recent posts</StyleTitle>

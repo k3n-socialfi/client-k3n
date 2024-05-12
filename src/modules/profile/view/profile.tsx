@@ -1,42 +1,36 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
-import Services from "../components/ListServices";
 import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
-import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import CompletedProject from "../components/CompletedProject";
 import PersonalUserProfile from "../components/PersonalUserProfile";
-import { useEffect, useState } from "react";
-import { getJobsProfile } from "../services";
+import { getMentionedProject } from "../services";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
 }
 
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
 export default function UserProfile(props: IUserProfileProps) {
-  const { dataPersonal, dataPosts, isLoading, fetchData } =
-    useMyProfileContext();
-  const [listServicesProfile, setListServicesProfile] = useState<any[]>();
-  const fetchDataServices = async () => {
-    const dataServices: any = await getJobsProfile();
-    setListServicesProfile(dataServices?.data?.data);
+  const [listProjects, setListProject] = useState<any[]>();
+  const { dataPersonal, dataPosts, isLoading, fetchData } = useMyProfileContext();
+
+  const fetchDataMentioned = async () => {
+    const dataServices: any = await getMentionedProject(dataPersonal?.username?.toString());
+    setListProject(dataServices?.data?.data);
   };
 
   useEffect(() => {
-    fetchDataServices()
+    fetchDataMentioned()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
+  }, [dataPersonal?.username]);
 
   return (
     <StyleContainer>
@@ -53,26 +47,6 @@ export default function UserProfile(props: IUserProfileProps) {
       {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
-        {/* <PostLeft>
-          {isLoading ? (
-            <LoadingSkeleton width="200px" height="30px" />
-          ) : (
-            <StyleTitle>Post</StyleTitle>
-          )}
-          <Posts widthNotData={dataPosts?.length > 0}>
-            {isLoading ? (
-              [1, 2, 3, 4, 5].map((item) => <PostSkeleton key={item} />)
-            ) : dataPosts?.length > 0 ? (
-              dataPosts.map((item: any, index: number) => (
-                <>
-                  <PostUser item={item} />
-                </>
-              ))
-            ) : (
-              <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-            )}
-          </Posts>
-        </PostLeft> */}
         <ContentRight>
           {isLoading ? (
             <>
@@ -86,7 +60,7 @@ export default function UserProfile(props: IUserProfileProps) {
             <>
               <Divider sx={{ borderColor: "rgba(180, 186, 202, 1) " }} />
               <Experience experience={dataPersonal} />
-              <CompletedProject />
+              <CompletedProject listProjects={listProjects} />
               <StyleBox>
                 <Post>
                   <StyleTitle>Recent posts</StyleTitle>
