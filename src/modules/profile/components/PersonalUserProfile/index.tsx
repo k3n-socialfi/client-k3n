@@ -50,11 +50,13 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
               </StyleUserDes>}
               <StyleUserDes>Influencer</StyleUserDes>
               <StyleUserSocial>Social</StyleUserSocial>
-              <StyleIcons>
-                {dataPersonal?.socialProfiles?.map(
-                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
-                )}
-              </StyleIcons>
+              <a target="_blank" href={dataPersonal?.twitterInfo?.externalUrl}>
+                <StyleIcons>
+                  {dataPersonal?.socialProfiles?.map(
+                    (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
+                  )}
+                </StyleIcons>
+              </a>
             </StyleContentUser>
             <StyleContentUser>
               <StyleTotal>
@@ -63,15 +65,8 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
               </StyleTotal>
               <StyleTotal>
                 <StyleDesOverview>Review:</StyleDesOverview>
-                <StyleSubTitle>{dataPersonal?.review}</StyleSubTitle>
+                <StyleSubTitle>{dataPersonal?.review}  <IconStar /></StyleSubTitle>
               </StyleTotal>
-              <StyleIcons>
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-              </StyleIcons>
             </StyleContentUser>
             <StyleContentUser>
               <StyleTotal style={{ flexDirection: "column", alignItems: "flex-start" }}>
@@ -278,6 +273,7 @@ const StyleIcons = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
   @media (min-width: 1024px) {
     flex-wrap: wrap;
   }
@@ -315,6 +311,9 @@ const StyleSubTitle = styled.div`
   line-height: 24px;
   color: #82ebff;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 `;
 
 const StylePersonalRight = styled.div`

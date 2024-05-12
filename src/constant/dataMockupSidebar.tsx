@@ -143,7 +143,7 @@ export const DATASIDEBARTOKEN = [
     children: [
       {
         id: 21,
-        label: "Create Offer",
+        label: "My Offer",
         icon: <IconCreateOffer />,
         link: "/view-offer",
         isCommingSoon: true,
