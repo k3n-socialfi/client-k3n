@@ -1,20 +1,17 @@
 "use client";
-import {
-  IconKOLSignUp,
-  IconUserSignUp,
-  IconXAccountConnected,
-} from "@/assets/icons";
+import { IconKOLSignUp, IconUserSignUp } from "@/assets/icons";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import CardChoose from "../CardChoose";
-import { Typography } from "@mui/material";
-import Hexagon from "../Hexagon";
 import WrapperConnectX from "../WrapperConnectX";
+import useFetchDataMyProfile from "@/contract/hooks/useFetchDataMyProfile";
 
 type Props = {};
 
 const Individual = (props: Props) => {
   const { push } = useRouter();
+  const { dataPersonal } = useFetchDataMyProfile();
+  const isDisabled = dataPersonal?.twitterInfo?.totalPoints < 30;
 
   return (
     <WrapperConnectX showConnected>
@@ -27,6 +24,7 @@ const Individual = (props: Props) => {
         <CardChoose
           icon={<IconKOLSignUp />}
           name="KOL"
+          isDisabled={isDisabled}
           onClick={() => push("/sign-up/individual/kol")}
         />
       </Select>

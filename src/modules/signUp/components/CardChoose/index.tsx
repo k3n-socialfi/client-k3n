@@ -1,4 +1,5 @@
 "use client";
+import { Tooltip } from "@mui/material";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -6,13 +7,25 @@ type Props = {
   icon?: ReactNode;
   name?: string;
   onClick?: () => void;
+  isDisabled?: boolean;
 };
 
 const CardChoose = (props: Props) => {
-  const { icon, name, onClick } = props;
+  const { icon, name, onClick, isDisabled } = props;
 
+  if (isDisabled)
+    return (
+      <Tooltip title="Shill score must be greater than 30 to create a KOL">
+        <Container isDisabled={isDisabled}>
+          <SectionChild>
+            <Icon>{icon}</Icon>
+            <Name>{name}</Name>
+          </SectionChild>
+        </Container>
+      </Tooltip>
+    );
   return (
-    <Container onClick={onClick}>
+    <Container onClick={onClick} isDisabled={isDisabled}>
       <SectionChild>
         <Icon>{icon}</Icon>
         <Name>{name}</Name>
@@ -23,8 +36,8 @@ const CardChoose = (props: Props) => {
 
 export default CardChoose;
 
-const Container = styled.div`
-  cursor: pointer;
+const Container = styled.div<any>`
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -11,6 +11,7 @@ import Chips from "@/components/Chip";
 import { SOCIAL } from "@/constant/social";
 import { Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface IPropUserDes {
@@ -41,14 +42,23 @@ export default function PersonalClientUser({ userProfile }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              {userProfile?.bio && <StyleUserDes color="#FFD7F4">
-                {userProfile.bio}
-              </StyleUserDes>}
+              {userProfile?.bio && (
+                <StyleUserDes color="#FFD7F4">{userProfile.bio}</StyleUserDes>
+              )}
               <StyleUserDes>Influencer</StyleUserDes>
               <StyleUserSocial>Social</StyleUserSocial>
               <StyleIcons>
                 {userProfile?.socialProfiles?.map(
-                  (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
+                  (item: any, index: number) =>
+                    (
+                      <Link
+                        key={index}
+                        href={`https://twitter.com/${item?.username}`}
+                        target="_blank"
+                      >
+                        {SOCIAL[item?.social]}
+                      </Link>
+                    ) ?? <></>,
                 )}
               </StyleIcons>
             </StyleContentUser>
@@ -69,7 +79,9 @@ export default function PersonalClientUser({ userProfile }: any) {
                 <IconStar />
               </StyleIcons>
             </StyleContentUser>
-            <StyleContentUser style={{ flexDirection: "column", alignItems: "flex-start" }}>
+            <StyleContentUser
+              style={{ flexDirection: "column", alignItems: "flex-start" }}
+            >
               <StyleDesOverview>Location</StyleDesOverview>
               <StyleSubTitle>
                 {userProfile.location ? userProfile.location : "-"}
@@ -78,7 +90,9 @@ export default function PersonalClientUser({ userProfile }: any) {
             <StyleContentUser>
               <StyleTotal>
                 <StyleDesOverview>X Followers:</StyleDesOverview>
-                <StyleSubTitle>{userProfile?.twitterInfo?.followers}</StyleSubTitle>
+                <StyleSubTitle>
+                  {userProfile?.twitterInfo?.followers}
+                </StyleSubTitle>
               </StyleTotal>
             </StyleContentUser>
           </StyleContentFlex>
@@ -348,7 +362,7 @@ const StyleButtonTitle = styled.div`
   border-radius: 6px;
   &:hover {
     transform: scale(0.9);
-    color: #FFFFFF;
+    color: #ffffff;
     transition: all 0.5s;
   }
 `;

@@ -8,11 +8,12 @@ import {
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import CardChoose from "../components/CardChoose";
 import WrapperConnectX from "../components/WrapperConnectX";
 import { useAlert } from "@/contexts/AlertContext";
+import { API_URL } from "@/configs/env.config";
 
 type Props = {};
 
@@ -20,13 +21,18 @@ const SignUp = (props: Props) => {
   const { push } = useRouter();
   const [screen, setScreen] = useState(-1);
   const { setAlert } = useAlert();
+  const token =
+    typeof window !== "undefined" && localStorage.getItem("accessToken");
 
-  const handlePrevScreen = () => {
-    setScreen((prev) => prev - 1);
-  };
+  useEffect(() => {
+    if (token) setScreen(0);
+  }, []);
 
-  const handleNextScreen = () => {
-    setScreen((prev) => prev + 1);
+  const handleLoginTwitter = () => {
+    push(`${API_URL}/api/v1/oauth/twitter`);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("isSignUp", "true");
+    }
   };
 
   const defaultSignUp = useMemo(() => {
@@ -57,11 +63,13 @@ const SignUp = (props: Props) => {
             fullWidth
             colorBt="primary.enabled"
             borderRadius="10px"
-            onClick={handleNextScreen}
+            onClick={handleLoginTwitter}
           >
             <ContentBt>
               <IconX />
-              <Typography variant="h5">Continue with X</Typography>
+              <Typography variant="h5" color="#fff">
+                Continue with X
+              </Typography>
             </ContentBt>
           </ButtonPrimary>
         );
@@ -72,27 +80,6 @@ const SignUp = (props: Props) => {
 };
 
 export default SignUp;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-`;
-
-const ConnectedX = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  padding: 16px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const LogoIconX = styled.div`
-  cursor: pointer;
-`;
 
 const ContentBt = styled.div`
   display: flex;

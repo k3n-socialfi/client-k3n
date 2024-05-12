@@ -19,6 +19,8 @@ import ListItemText from "@mui/material/ListItemText";
 import { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
+import { apiCreateUser } from "../../services";
+import { useAlert } from "@/contexts/AlertContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -69,10 +71,11 @@ interface ISelect {
 
 const FormCreateIndividual = ({ showConnected }: Props) => {
   const currentUrl = usePathname();
-  const router = useRouter();
+  const { push } = useRouter();
   const openDoneSubmit = useBoolean();
   const [roleName, setRoleName] = useState<string[]>([]);
   const [tagName, setTagName] = useState<string[]>([]);
+  const { setAlertSuccess, setAlertError } = useAlert();
 
   const handleChangeRoles = (event: SelectChangeEvent<typeof roleName>) => {
     const {
@@ -101,16 +104,22 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
   });
 
   const onSubmitForm = async (data: any) => {
-    openDoneSubmit.onTrue();
     showConnected(false);
-    console.log("🚀 ~ FormCreateIndividual ~ data:", data);
+    try {
+      const dataForm = { ...data, role: data.role[0], isProjectAccount: false };
+      await apiCreateUser(dataForm);
+      openDoneSubmit.onTrue();
+    } catch (error) {
+      setAlertError(
+        "Create user",
+        "User already exists, please connect wallet and log in",
+      );
+    }
   };
 
   const handleBack = () => {
-    // router.back();
     const modifiedUrl = currentUrl.replace(/\/[^/]+\/?$/, "");
-
-    router.push(modifiedUrl);
+    push(modifiedUrl);
   };
 
   return !openDoneSubmit.value ? (
@@ -189,13 +198,13 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
             <Typography>Tag</Typography>
           </Label>
           <FormControl fullWidth sx={{ width: "100%" }}>
-            <InputLabel id="tag">Select new tag </InputLabel>
+            <InputLabel id="tags">Select new tag </InputLabel>
             <SelectCustom
-              labelId="tag"
-              id="tag"
+              labelId="tags"
+              id="tags"
               multiple
               value={tagName}
-              {...register("tag")}
+              {...register("tags")}
               input={<OutlinedInput label="Select new tag" />}
               renderValue={(selected: any) => selected.join(", ")}
               MenuProps={MenuProps}
@@ -219,15 +228,15 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
             </Label>
 
             <FormControl fullWidth sx={{ width: "100%" }}>
-              <InputLabel id="region" sx={{ color: "#637592" }}>
-                Select your region
+              <InputLabel id="platform" sx={{ color: "#637592" }}>
+                Select your platform
               </InputLabel>
               <SelectCustom
-                id="region"
-                labelId="region"
+                id="platform"
+                labelId="platform"
                 // value={""}
                 label="Select your region"
-                {...register("region")}
+                {...register("platform")}
                 // onChange={handleChangeSelect}
               >
                 {PLATFORM.map((option) => (
@@ -236,7 +245,7 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
                   </MenuItem>
                 ))}
               </SelectCustom>
-              <Error>{errors.region?.message as string}</Error>
+              <Error>{errors.platform?.message as string}</Error>
             </FormControl>
           </SelectCreate>
 
@@ -295,7 +304,12 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
         Thank you for registering <br /> We are reviewing your request
       </Typography>
 
-      <ButtonPrimary type="submit" borderRadius="10px" fullWidth>
+      <ButtonPrimary
+        type="submit"
+        borderRadius="10px"
+        onClick={() => push("/")}
+        fullWidth
+      >
         <Typography variant="h5" sx={{ padding: "8px 0" }}>
           Continue
         </Typography>

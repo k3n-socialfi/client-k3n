@@ -4,15 +4,13 @@ import styled from "styled-components";
 import { Typography } from "@mui/material";
 import FormCreateIndividual from "../../FormCreateIndividual";
 import { IconThunder } from "@/assets/icons";
+import useFetchDataMyProfile from "@/contract/hooks/useFetchDataMyProfile";
 
 type Props = {};
 
 const KOL = (props: Props) => {
   const [screen, setScreen] = useState(-1);
-
-  const handlePrevScreen = () => {
-    setScreen((prev) => prev - 1);
-  };
+  const { dataPersonal } = useFetchDataMyProfile();
 
   const handleNextScreen = () => {
     setScreen((prev) => prev + 1);
@@ -31,7 +29,7 @@ const KOL = (props: Props) => {
             <Score>
               <IconThunder width={48} height={48} />
               <Typography variant="h4" color={"#FFF"}>
-                100
+                {dataPersonal?.twitterInfo?.totalPoints}
               </Typography>
             </Score>
           </Box>
