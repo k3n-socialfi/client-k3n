@@ -105,3 +105,9 @@ export { default as IconXAccountConnected } from "./IconXAccountConnected";
 export { default as IconUpload } from "./IconUpload";
 export { default as IconHome } from "./IconHome";
 export { default as IconJob } from "./IconJob";
+export { default as IconDelete } from "./IconDelete";
+export { default as IconAdd } from "./IconAdd";
+export { default as IconArrowDownStatus } from "./IconArrowDownStatus";
+
+
+export { default as IconCheck } from "./IconCheck";

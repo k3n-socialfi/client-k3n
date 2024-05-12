@@ -25,16 +25,6 @@ export const LIST_POPUPITEM: PopupItem[] = [
     href: "/edit-profile",
   },
   {
-    name: "Holder Benefits",
-    icon: IconDashboard,
-    href: "/",
-  },
-  {
-    name: " Invite Friends",
-    icon: IconFriends,
-    href: "/",
-  },
-  {
     name: "Help Center",
     icon: IconCrileInfo,
     href: "/",

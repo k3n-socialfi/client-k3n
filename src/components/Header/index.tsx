@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "@/assets/images/Logo.png";
-import { ButtonPrimary } from "@/components/ButtonCustom";
+import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
 import {
@@ -24,9 +24,7 @@ type THeaderProp = {
 };
 
 export const Header = ({ handleToggleSidebar }: THeaderProp) => {
-  let token =
-    typeof window !== "undefined" && localStorage.getItem("accessToken");
-  const router = useRouter();
+  const { push } = useRouter();
   const [isClient, setIsClient] = useState(false);
   const {
     handleLoginTwitter,
@@ -56,7 +54,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
         </ToggleSideBar>
         <ImgCustom>
           <Image
-            onClick={() => router.push("/")}
+            onClick={() => push("/")}
             alt="logo"
             src={logo}
             layout="fill"
@@ -100,24 +98,31 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
             </HeaderUser>
           ) : (
             <HeaderButton className="header-button">
-              <ButtonPrimary
-                disabled={
-                  buttonState === "connecting" ||
-                  buttonState === "disconnecting"
-                }
-                onClick={handleClick}
-              >
-                {label}
-              </ButtonPrimary>
-              {/* {!token && (
+              <Button>
                 <ButtonPrimary
-                  onClick={handleLoginTwitter}
-                  style={{ display: "flex", gap: "5px" }}
+                  fullWidth
+                  borderRadius="10px"
+                  disabled={
+                    buttonState === "connecting" ||
+                    buttonState === "disconnecting"
+                  }
+                  onClick={handleClick}
                 >
-                  <IconTwitter />
-                  Connect Twitter
+                  Connect Wallet
                 </ButtonPrimary>
-              )} */}
+              </Button>
+              <Button>
+                <ButtonSecondary
+                  fullWidth
+                  borderColorBt="#191D24"
+                  backgroundColorBtHover="#191D24"
+                  borderColorBtHover="#191D24"
+                  borderRadius="10px"
+                  onClick={() => push("/sign-up")}
+                >
+                  Sign Up
+                </ButtonSecondary>
+              </Button>
             </HeaderButton>
           )}
           {popup && (
@@ -351,4 +356,8 @@ const AvatarCustom = styled(Avatar)`
 `;
 const TypographyCustom = styled(Typography)`
   color: #fff;
+`;
+
+const Button = styled.div`
+  width: 178px;
 `;

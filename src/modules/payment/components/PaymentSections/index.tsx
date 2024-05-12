@@ -11,16 +11,15 @@ import Image from "next/image";
 import { useServiceDetailCtx } from "../../contexts/ServiceDetailCtx";
 import useServiceContract from "../../hooks/useServiceContract";
 import styled from "styled-components";
+import useServiceDetail from "../../hooks/useServiceDetail";
 
 type Props = {};
 
 const PaymentSections = (props: Props) => {
-  const { serviceDetail, isLoading } = useServiceDetailCtx();
-  const {
-    createServiceContract,
-    completedServiceContract,
-    isLoading: isLoadingCtc,
-  } = useServiceContract();
+  const { serviceDetail } = useServiceDetailCtx();
+  const { createOffer } = useServiceDetail();
+  const { createServiceContract, isLoading: isLoadingCtc } =
+    useServiceContract();
 
   const search = useSearchParams();
   const step = useMemo(() => {
@@ -33,9 +32,7 @@ const PaymentSections = (props: Props) => {
         return (
           <Payment02
             isLoading={isLoadingCtc}
-            completeService={() =>
-              serviceDetail && completedServiceContract(serviceDetail)
-            }
+            completeService={() => serviceDetail && createOffer()}
           />
         );
       case 3:

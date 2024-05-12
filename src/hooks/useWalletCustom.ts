@@ -113,8 +113,9 @@ export default function useWalletCustom() {
           createLog({
             status: "success",
             method: "signIn",
-            message: `Message signed: ${JSON.stringify(signedMessage)} by ${account.address
-              } with signature ${JSON.stringify(signature)}`,
+            message: `Message signed: ${JSON.stringify(signedMessage)} by ${
+              account.address
+            } with signature ${JSON.stringify(signature)}`,
           });
         }
       } catch (error: any) {

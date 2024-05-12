@@ -5,223 +5,69 @@
     {
       "name": "createService",
       "accounts": [
-        {
-          "name": "hirer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "service",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "hirer", "isMut": true, "isSigner": true },
+        { "name": "service", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": [
-        {
-          "name": "seed",
-          "type": "u64"
-        },
-        {
-          "name": "serviceId",
-          "type": "string"
-        },
-        {
-          "name": "kol",
-          "type": "publicKey"
-        },
-        {
-          "name": "serviceName",
-          "type": "string"
-        },
-        {
-          "name": "platform",
-          "type": "string"
-        },
-        {
-          "name": "serviceFee",
-          "type": "u64"
-        },
-        {
-          "name": "currency",
-          "type": "string"
-        },
-        {
-          "name": "paymentMethod",
-          "type": "string"
-        },
-        {
-          "name": "description",
-          "type": "string"
-        }
+        { "name": "seed", "type": "u64" },
+        { "name": "serviceId", "type": "string" },
+        { "name": "kol", "type": "publicKey" },
+        { "name": "serviceName", "type": "string" },
+        { "name": "platform", "type": "string" },
+        { "name": "serviceFee", "type": "u64" },
+        { "name": "currency", "type": "string" },
+        { "name": "paymentMethod", "type": "string" },
+        { "name": "description", "type": "string" }
       ]
     },
     {
       "name": "completeService",
       "accounts": [
-        {
-          "name": "service",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "hirer",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "kol",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "service", "isMut": true, "isSigner": false },
+        { "name": "hirer", "isMut": false, "isSigner": true },
+        { "name": "kol", "isMut": true, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": []
     },
     {
       "name": "createSingleNft",
       "accounts": [
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "payer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "mint",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "rent",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "metadataProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "masterEditionAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "nftMetadata",
-          "isMut": true,
-          "isSigner": false
-        }
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "payer", "isMut": true, "isSigner": true },
+        { "name": "mint", "isMut": true, "isSigner": false },
+        { "name": "tokenAccount", "isMut": true, "isSigner": false },
+        { "name": "associatedTokenProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false },
+        { "name": "metadataProgram", "isMut": false, "isSigner": false },
+        { "name": "masterEditionAccount", "isMut": true, "isSigner": false },
+        { "name": "nftMetadata", "isMut": true, "isSigner": false }
       ],
       "args": [
-        {
-          "name": "id",
-          "type": "u64"
-        },
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "symbol",
-          "type": "string"
-        },
-        {
-          "name": "uri",
-          "type": "string"
-        },
-        {
-          "name": "price",
-          "type": "f32"
-        },
-        {
-          "name": "cant",
-          "type": "u64"
-        }
+        { "name": "id", "type": "u64" },
+        { "name": "name", "type": "string" },
+        { "name": "symbol", "type": "string" },
+        { "name": "uri", "type": "string" },
+        { "name": "price", "type": "f32" },
+        { "name": "cant", "type": "u64" }
       ]
     },
     {
       "name": "transferNft",
       "accounts": [
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "tokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "newOwner",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "destinationAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "associatedTokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "tokenAccount", "isMut": true, "isSigner": false },
+        { "name": "newOwner", "isMut": false, "isSigner": false },
+        { "name": "mint", "isMut": false, "isSigner": false },
+        { "name": "destinationAccount", "isMut": true, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "associatedTokenProgram", "isMut": false, "isSigner": false }
       ],
-      "args": [
-        {
-          "name": "destination",
-          "type": "publicKey"
-        }
-      ]
+      "args": [{ "name": "destination", "type": "publicKey" }]
     }
   ],
   "accounts": [
@@ -230,46 +76,16 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "serviceName",
-            "type": "string"
-          },
-          {
-            "name": "serviceId",
-            "type": "string"
-          },
-          {
-            "name": "platform",
-            "type": "string"
-          },
-          {
-            "name": "serviceFee",
-            "type": "u64"
-          },
-          {
-            "name": "currency",
-            "type": "string"
-          },
-          {
-            "name": "paymentMethod",
-            "type": "string"
-          },
-          {
-            "name": "kol",
-            "type": "publicKey"
-          },
-          {
-            "name": "hirer",
-            "type": "publicKey"
-          },
-          {
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "name": "isCompleted",
-            "type": "bool"
-          }
+          { "name": "serviceName", "type": "string" },
+          { "name": "serviceId", "type": "string" },
+          { "name": "platform", "type": "string" },
+          { "name": "serviceFee", "type": "u64" },
+          { "name": "currency", "type": "string" },
+          { "name": "paymentMethod", "type": "string" },
+          { "name": "kol", "type": "publicKey" },
+          { "name": "hirer", "type": "publicKey" },
+          { "name": "description", "type": "string" },
+          { "name": "isCompleted", "type": "bool" }
         ]
       }
     }
@@ -279,14 +95,7 @@
       "name": "PaymentType",
       "type": {
         "kind": "enum",
-        "variants": [
-          {
-            "name": "OnetimePayment"
-          },
-          {
-            "name": "Milestone"
-          }
-        ]
+        "variants": [{ "name": "OnetimePayment" }, { "name": "Milestone" }]
       }
     }
   ],
@@ -294,31 +103,11 @@
     {
       "name": "CreatedServiceEvent",
       "fields": [
-        {
-          "name": "serviceId",
-          "type": "string",
-          "index": false
-        },
-        {
-          "name": "serviceCreated",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "serviceName",
-          "type": "string",
-          "index": false
-        },
-        {
-          "name": "kol",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "hier",
-          "type": "publicKey",
-          "index": false
-        }
+        { "name": "serviceId", "type": "string", "index": false },
+        { "name": "serviceCreated", "type": "publicKey", "index": false },
+        { "name": "serviceName", "type": "string", "index": false },
+        { "name": "kol", "type": "publicKey", "index": false },
+        { "name": "hier", "type": "publicKey", "index": false }
       ]
     }
   ],
