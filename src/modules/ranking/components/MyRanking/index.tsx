@@ -63,6 +63,10 @@ export default function MyRanking({ dataPersonal }: IMyRankingProps) {
               You have {dataPersonal?.twitterInfo?.totalPoints ?? 0} Shill Score
             </Typography>
           </Point>
+          <YourRank>
+            <TitleYourRank>Your rank</TitleYourRank>
+            <Rank>100</Rank>
+          </YourRank>
           <Total>
             <Typography color={"#B9BDD1"}>Total Shill Score</Typography>
             <Stack sx={{ display: "flex", gap: "5px", flexDirection: "row" }}>
@@ -156,3 +160,20 @@ const StyleBottom = styled.div`
 `;
 
 const StyleTop = styled.div``;
+
+const YourRank = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+const TitleYourRank = styled.span`
+  font-size: 18px;
+  color: #919191;
+  font-weight: 700;
+`;
+const Rank = styled.span`
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+`;
