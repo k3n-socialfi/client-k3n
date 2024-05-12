@@ -1,8 +1,5 @@
 import { IconArrowDownChange, IconArrowUpChange } from "@/assets/icons";
-import {
-  DATA_COMPLETED_PROJECT,
-  DATA_HEAD_CP,
-} from "@/constant/dataMockupCompletedProject";
+import { DATA_HEAD_CP } from "@/constant/dataMockupCompletedProject";
 import {
   Avatar,
   Paper,
@@ -15,15 +12,19 @@ import {
 } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import dayjs from "dayjs"
 
 interface ICompletedProjectProps {
   arrowChange?: string;
+  listProjects?: any
 }
 
 const CompletedProject = (props: ICompletedProjectProps) => {
+  const { listProjects } = props
+
   return (
     <Container>
-      <StyleTitle>Completed Project</StyleTitle>
+      <StyleTitle>Mentioned Project</StyleTitle>
       <TableContainer component={Paper} sx={{ width: "auto", marginLeft: "40px" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -39,7 +40,7 @@ const CompletedProject = (props: ICompletedProjectProps) => {
             </TableRowHeadCustom>
           </TableHead>
           <TableBody>
-            {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
+            {listProjects?.map((row: any, index: number) => (
               <TableRowBodyCustom key={row?.id}>
                 <CustomTableBodyCell component="th" scope="row" align="center">
                   {index + 1}
@@ -50,34 +51,35 @@ const CompletedProject = (props: ICompletedProjectProps) => {
                     <Avatar
                       sx={{ width: 35, height: 35 }}
                       alt={`avatar_${row?.fullName}`}
-                      src={row?.project?.avatarUrl}
+                      src={row?.image}
                     />
-                    {row?.project?.fullName}
+                    {row?.tokenName}
                   </Project>
                 </CustomTableBodyCell>
 
                 <CustomTableBodyCell align="center">
-                  {row?.date}
+                  {dayjs(row?.firstTweetDate).format("MMMM D, YYYY")}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.price}
+                  {row?.shillPrice?.toLocaleString() || "-"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.currentPrice}
+                  {row?.ath?.toLocaleString() || "-"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.date}
+                  {row?.currentPrice?.toLocaleString() || "-"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  <Change arrowChange={row?.change?.arrow}>
-                    <ChangeArrow>
-                      {row?.change?.arrow === "up" ? (
-                        <IconArrowUpChange />
-                      ) : (
-                        <IconArrowDownChange />
-                      )}
-                    </ChangeArrow>
-                    <ChangeNumber>{row?.change?.number}</ChangeNumber>
+                  <Change arrowChange={row?.pnl}>
+                    {row?.pnl &&
+                      <ChangeArrow>
+                        {row?.pnl >= 0 ? (
+                          <IconArrowUpChange />
+                        ) : (
+                          <IconArrowDownChange />
+                        )}
+                      </ChangeArrow>}
+                    <ChangeNumber>{row?.pnl?.toLocaleString() || "-"}</ChangeNumber>
                   </Change>
                 </CustomTableBodyCell>
               </TableRowBodyCustom>
@@ -85,9 +87,11 @@ const CompletedProject = (props: ICompletedProjectProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <DescriptionNotData>
-        {`You don't have any work services yet.`}
-      </DescriptionNotData> */}
+      {listProjects < 1 &&
+        <DescriptionNotData>
+          {`You don't have any work services yet.`}
+        </DescriptionNotData>
+      }
     </Container>
   );
 };
@@ -99,6 +103,7 @@ const DescriptionNotData = styled.div`
   justify-content: center;
   width: 100%;
   color: #f23581;
+  padding-top: 24px;
 `;
 const Container = styled.div`
   padding: 24px 14px;

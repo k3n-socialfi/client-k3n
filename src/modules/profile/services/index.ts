@@ -7,3 +7,7 @@ export const getJobsUser = (username: string) => {
 export const getJobsProfile = () => {
     return axiosInstance.get(`/api/v1/jobs/list-offers`);
 };
+
+export const getMentionedProject = (username: string) => {
+    return axiosInstance.get(`/api/v1/twitter/user/portfolio?username=${username}`)
+}
