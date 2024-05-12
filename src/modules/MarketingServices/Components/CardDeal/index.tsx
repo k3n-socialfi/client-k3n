@@ -70,7 +70,7 @@ const WrapperCardDeal = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
 `;
 
@@ -82,6 +82,7 @@ const DealContent = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
+  background: #191d24;
   gap: 10px;
 `;
 
