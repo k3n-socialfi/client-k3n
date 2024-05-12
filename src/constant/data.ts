@@ -22,7 +22,7 @@ export const LIST_POPUPITEM: PopupItem[] = [
   {
     name: "Setting Profile",
     icon: IconSetting,
-    href: "/",
+    href: "/edit-profile",
   },
   {
     name: "Help Center",

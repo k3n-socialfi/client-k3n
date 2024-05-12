@@ -1,8 +1,5 @@
 import { IconCertification, IconLightning } from "@/assets/icons";
-import { ButtonSecondary } from "@/components/ButtonCustom";
-import { getMyProfile } from "@/services";
 import { Avatar, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export interface IMyRankingProps {
@@ -94,7 +91,7 @@ const Container = styled.div`
   align-items: center;
   padding: 30px 20px;
   width: 100%;
-  background-color: #404356;
+  background: var(--Card-Card, rgba(25, 29, 36, 1));
   border-radius: 20px;
   gap: 20px;
   @media (max-width: 798px) {

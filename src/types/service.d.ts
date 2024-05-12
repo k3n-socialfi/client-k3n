@@ -8,7 +8,7 @@ export type TService = {
   paymentMethod: string;
   jobDescription: string;
   tags?: any[];
-  img?: string;
+  image?: string;
   isPublic?: boolean;
   jobType?: string;
   jobId?: string;

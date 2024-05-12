@@ -4,10 +4,15 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "@/assets/images/Logo.png";
-import { ButtonPrimary } from "@/components/ButtonCustom";
+import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
 import { Avatar, Typography } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
-import { IconMenuBar, IconSearch, IconThunder } from "@/assets/icons";
+import {
+  IconMenuBar,
+  IconNotification,
+  IconSearch,
+  IconThunder,
+} from "@/assets/icons";
 import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
@@ -19,7 +24,7 @@ type THeaderProp = {
 };
 
 export const Header = ({ handleToggleSidebar }: THeaderProp) => {
-  let token =
+  const token =
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -64,7 +69,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
           <IconSearch />
         </HeaderIcon>
         <TextSearch>
-          <TextField type="text" placeholder="Search" />
+          <TextField type="text" placeholder="Collection, item or User" />
         </TextSearch>
         <HeaderIcon>
           <IconChevronDown />
@@ -76,9 +81,9 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
           {label === "Disconnect" || buttonState === "connected" ? (
             <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
               {/* <UserNotification>
-              <IconNotification />
-              <NumberNotification>15</NumberNotification>
-            </UserNotification> */}
+                <IconNotification />
+                <NumberNotification>15</NumberNotification>
+              </UserNotification> */}
               <HeaderUserInfo>
                 <IconThunder />
                 <TypographyCustom className="header-user__info__text">
@@ -95,24 +100,30 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
             </HeaderUser>
           ) : (
             <HeaderButton className="header-button">
-              <ButtonPrimary
-                disabled={
-                  buttonState === "connecting" ||
-                  buttonState === "disconnecting"
-                }
-                onClick={handleClick}
-              >
-                {label}
-              </ButtonPrimary>
-              {/* {!token && (
+              <Button>
                 <ButtonPrimary
-                  onClick={handleLoginTwitter}
-                  style={{ display: "flex", gap: "5px" }}
+                  fullWidth
+                  borderRadius="10px"
+                  disabled={
+                    buttonState === "connecting" ||
+                    buttonState === "disconnecting"
+                  }
+                  onClick={handleClick}
                 >
-                  <IconTwitter />
-                  Connect Twitter
+                  Connect Wallet
                 </ButtonPrimary>
-              )} */}
+              </Button>
+              <Button>
+                <ButtonSecondary
+                  fullWidth
+                  borderColorBt="#191D24"
+                  backgroundColorBtHover="#191D24"
+                  borderColorBtHover="#191D24"
+                  borderRadius="10px"
+                >
+                  Sign Up
+                </ButtonSecondary>
+              </Button>
             </HeaderButton>
           )}
           {popup && (
@@ -165,7 +176,7 @@ const ImgCustom = styled.div`
 `;
 const HeaderWrapper = styled.div`
   position: fixed;
-  z-index: 999999999;
+  z-index: 99;
   width: 100%;
   padding: 15px 20px;
   background: var(--background-primary);
@@ -177,6 +188,7 @@ const HeaderWrapper = styled.div`
   }
   @media (max-width: 610px) {
     flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 
@@ -185,14 +197,15 @@ const HeaderLogo = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 100px;
-  width: 20%;
+  width: 70%;
   @media (max-width: 1599px) {
     gap: 10px;
-    width: 30%;
+    width: 70%;
   }
 
   @media (max-width: 768px) {
     align-items: center;
+    width: 40%;
   }
 
   @media (max-width: 610px) {
@@ -204,13 +217,13 @@ const HeaderLogo = styled.div`
   }
 `;
 const HeaderSearch = styled.div`
-  background: #b9b9b9;
+  background: #191d24;
   display: flex;
   align-items: center;
   gap: 5px;
-  min-width: 395px;
+  max-width: 356px;
   padding: 5px 10px;
-  border-radius: 16px;
+  border-radius: 12px;
   width: 20%;
   @media (max-width: 1599px) {
     width: 30%;
@@ -283,7 +296,10 @@ const TextField = styled.input`
   outline: none;
   background: none;
   flex: 1;
-  color: #fff;
+  color: #637592;
+  ::placeholder {
+    color: #637592;
+  }
 `;
 
 const HeaderUser = styled.div`
@@ -321,7 +337,7 @@ const HeaderUserInfo = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #3d3d3d;
+  background: transparent;
   border-radius: 10px;
   padding: 0 5px;
 `;
@@ -337,7 +353,12 @@ const HeaderButton = styled.div`
 `;
 const AvatarCustom = styled(Avatar)`
   cursor: pointer;
+  border: 3px solid #82ebff;
 `;
 const TypographyCustom = styled(Typography)`
   color: #fff;
+`;
+
+const Button = styled.div`
+  width: 178px;
 `;

@@ -6,6 +6,7 @@ import {
   IconDocs,
   IconFeedback,
   IconHolderBenefit,
+  IconHome,
   IconKOLs,
   IconMarketingServices,
   IconViewOffer,
@@ -14,10 +15,27 @@ import {
 
 export const DATASIDEBAR = [
   {
+    id: 0,
+    label: "Home page",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 11,
+        label: "Home page",
+        icon: <IconHome />,
+        link: "/",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
+  {
     id: 1,
     label: "Discover",
-    color: "#DB3678",
-    colorArrow: "#DB3678",
+    color: "#F23581",
+    colorArrow: "#F23581",
     icon: "",
     children: [
       {
@@ -26,58 +44,24 @@ export const DATASIDEBAR = [
         icon: <IconKOLs />,
         link: "/KOLs",
         isCommingSoon: true,
+        color: "#fff",
       },
-      // {
-      //   id: 12,
-      //   label: "Web3 Projects",
-      //   icon: <IconWeb3Projects />,
-      //   link: "/",
-      //   isCommingSoon: false,
-      // },
-      // {
-      //   id: 13,
-      //   label: "Marketing Services",
-      //   icon: <IconMarketingServices />,
-      //   link: "/",
-      //   isCommingSoon: false,
-      // },
       {
         id: 14,
         label: "Top 100 Ranking",
         icon: <IconMarketingServices />,
         link: "/top-ranking",
         isCommingSoon: true,
+        color: "#fff",
       },
     ],
   },
-  {
-    id: 2,
-    label: "Offer Board",
-    color: "#DB3678",
-    colorArrow: "#DB3678",
-    icon: "",
-    children: [
-      {
-        id: 21,
-        label: "Create Offer",
-        icon: <IconCreateOffer />,
-        link: "",
-        isCommingSoon: false,
-      },
-      {
-        id: 22,
-        label: "View Offer",
-        icon: <IconViewOffer />,
-        link: "/view-offer",
-        isCommingSoon: true,
-      },
-    ],
-  },
+
   {
     id: 3,
     label: "Comming soon",
-    color: "#FFD7F4",
-    colorArrow: "#FFD7F4",
+    color: "#FDDDEA",
+    colorArrow: "#FDDDEA",
     icon: "",
     children: [
       {
@@ -86,6 +70,7 @@ export const DATASIDEBAR = [
         icon: <IconDashboard />,
         link: "",
         isCommingSoon: false,
+        color: "#637592",
       },
       {
         id: 32,
@@ -93,6 +78,7 @@ export const DATASIDEBAR = [
         icon: <IconBoot />,
         link: "",
         isCommingSoon: false,
+        color: "#637592",
       },
       {
         id: 33,
@@ -100,6 +86,109 @@ export const DATASIDEBAR = [
         icon: <IconHolderBenefit />,
         link: "",
         isCommingSoon: false,
+        color: "#637592",
+      },
+    ],
+  },
+];
+export const DATASIDEBARTOKEN = [
+  {
+    id: 0,
+    label: "Home page",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 11,
+        label: "Home page",
+        icon: <IconHome />,
+        link: "/",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
+  {
+    id: 1,
+    label: "Discover",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 11,
+        label: "KOls",
+        icon: <IconKOLs />,
+        link: "/KOLs",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+      {
+        id: 14,
+        label: "Top 100 Ranking",
+        icon: <IconMarketingServices />,
+        link: "/top-ranking",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
+  {
+    id: 2,
+    label: "Offer Board",
+    color: "#F23581",
+    colorArrow: "#F23581",
+    icon: "",
+    children: [
+      {
+        id: 21,
+        label: "Create Offer",
+        icon: <IconCreateOffer />,
+        link: "",
+        isCommingSoon: false,
+        color: "#fff",
+      },
+      {
+        id: 22,
+        label: "Marketing Services",
+        icon: <IconViewOffer />,
+        link: "/marketing-services",
+        isCommingSoon: true,
+        color: "#fff",
+      },
+    ],
+  },
+  {
+    id: 3,
+    label: "Comming soon",
+    color: "#FDDDEA",
+    colorArrow: "#FDDDEA",
+    icon: "",
+    children: [
+      {
+        id: 31,
+        label: "Dashboard",
+        icon: <IconDashboard />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
+      },
+      {
+        id: 32,
+        label: "Boot",
+        icon: <IconBoot />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
+      },
+      {
+        id: 33,
+        label: "Holder Benefit",
+        icon: <IconHolderBenefit />,
+        link: "",
+        isCommingSoon: false,
+        color: "#637592",
       },
     ],
   },
