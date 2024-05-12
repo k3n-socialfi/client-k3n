@@ -35,10 +35,11 @@ import { useAlert } from "@/contexts/AlertContext";
 type Props = {
   isShowModal: boolean;
   setIsShowModal: any;
+  fetchDataServices?: any;
 };
 
 const CreateServices = (props: Props) => {
-  const { isShowModal, setIsShowModal } = props;
+  const { isShowModal, setIsShowModal, fetchDataServices } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const openGotIt = useBoolean();
   const openButton = useBoolean();
@@ -83,6 +84,7 @@ const CreateServices = (props: Props) => {
         "Create success",
         `${res?.data?.message ?? "Create Success"}`,
       );
+      fetchDataServices();
     } catch (error: any) {
       setIsLoading(false);
       setAlertError(
@@ -149,7 +151,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("platform")}
-                  // onChange={handleChangeSelect}
+                // onChange={handleChangeSelect}
                 >
                   {DATAPLATFORM.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
@@ -266,7 +268,7 @@ const CreateServices = (props: Props) => {
                         border: "0px #353535 solid",
                       }}
                       {...register("currency")}
-                      // onChange={handleChangeSelect}
+                    // onChange={handleChangeSelect}
                     >
                       {DATACURRENCY.map((option) => (
                         <MenuItem key={option.id} value={option.value}>
@@ -304,7 +306,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("paymentMethod")}
-                  // onChange={handleChangeSelect}
+                // onChange={handleChangeSelect}
                 >
                   {DATAPAYMENTMETHOD.map((option) => (
                     <MenuItem key={option.id} value={option.value}>

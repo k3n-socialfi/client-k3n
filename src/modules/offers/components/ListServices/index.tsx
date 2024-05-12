@@ -1,88 +1,72 @@
 "use client";
-import { IconEdit } from "@/assets/icons";
-import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
-import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
-import Chips from "@/components/Chip";
-import CreateServices from "@/components/ModalCreateServices";
-import { Checkbox, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import styled from "styled-components";
+import { Checkbox, Divider } from "@mui/material";
+import { ButtonSecondary, ButtonPrimary } from "@/components/ButtonCustom";
+import CreateServices from "@/components/ModalCreateServices";
+import { IconEdit, IconDelete, IconAdd } from "@/assets/icons";
+import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ listServicesProfile }: any) {
+export default function Services({ listServicesProfile, fetchDataServices }: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
   const IMG2 = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>My Services(${listServicesProfile?.length})</StyleTitle>
+        <StyleTitle>My Services({listServicesProfile?.length})</StyleTitle>
         <ServicesRight>
           <LinkCustom href={`/services`}>
             <SeeAll>See all</SeeAll>
           </LinkCustom>
-          <ButtonSecondary
-            variant="outlined"
-            colorBt="#F23581"
-            onClick={() => {
-              setIsShowModal(!isShowModal);
-            }}
-          >
-            Add New Services
-          </ButtonSecondary>
+          <CustomButtonPrimary onClick={() => { setIsShowModal(!isShowModal) }}>
+            <IconAdd />
+            Create New Service
+          </CustomButtonPrimary>
         </ServicesRight>
       </Container>
       <StyleContent>
         {listServicesProfile ? (listServicesProfile?.map((item: any) => (
-          <StyleSelection key={item?.job?.jobId}>
-            <StyleForm>
-              <StyleServicesImg
-                width={343}
-                height={240}
-                src={IMG2}
-                alt="igs"
-              />
-              <Content>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <SubTitle>{item?.job?.projectName}</SubTitle>
-                  <StyleChips>
-                    {item?.job?.tags?.map((listTag: string, index: number) => (
-                      <Chips
-                        key={index}
-                        label={listTag}
-                        color="secondary"
-                        sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
-                      />
-                    ))}
-                  </StyleChips>
-                </div>
-                <Transfer>
-                  <RightTransfer>
-                    <Options>
+          <StyleForm key={item?.job?.jobId}>
+            <StyleServicesImg
+              width={345}
+              height={240}
+              src={IMG2}
+              alt="igs"
+            />
+            <Content>
+              <Title>{item?.job?.projectName}</Title>
+              <Transfer>
+                <RightTransfer>
+                  <Options style={{ flexWrap: "wrap" }}>
+                    <ContentPrice>
                       <Prices>Price:</Prices>
-                      <Price>${item?.job?.price}</Price>
-                      <Checkbox {...label} />
-                    </Options>
-                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
-                    <Options>
-                      <TitlePrice>{item?.job?.paymentMethod}</TitlePrice>
-                      <Checkbox {...label} defaultChecked />
-                    </Options>
-                    <CustomButton colorBt="#F23581" variant="outlined">
+                      <Price>${item?.job?.price.toLocaleString()}</Price>
+                    </ContentPrice>
+                    <Checkbox {...label} defaultChecked sx={{ color: "wheat" }} />
+                  </Options>
+                  <Divider sx={{ borderColor: "#B9B9B9 " }} />
+                  <Options>
+                    <TitlePrice>{item?.job?.paymentMethod === "onetimePayment" && "One time payment"}</TitlePrice>
+                    <Checkbox {...label} defaultChecked sx={{ color: "pink" }} />
+                  </Options>
+                  <Options>
+                    <CustomButtonPrimary >
                       <IconEdit />
-                      <LinkCustom
-                        href={`/services/payment/${item?.job?.jobId}`}
-                      >
-                        <Typography sx={{ p: "8px 0" }}>Edit service</Typography>
-                      </LinkCustom>
+                      Edit
+                    </CustomButtonPrimary>
+                    <CustomButton>
+                      <IconDelete />
+                      Delete
                     </CustomButton>
-                  </RightTransfer>
-                </Transfer>
-              </Content>
-            </StyleForm>
-          </StyleSelection>
+                  </Options>
+                </RightTransfer>
+              </Transfer>
+            </Content>
+          </StyleForm>
         ))) : (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
@@ -92,31 +76,50 @@ export default function Services({ listServicesProfile }: any) {
       <CreateServices
         isShowModal={isShowModal}
         setIsShowModal={setIsShowModal}
+        fetchDataServices={fetchDataServices}
       />
     </StyleBox>
   );
 }
 
-const CustomButton = styled(ButtonSecondary)`
- width: 100%;
+const ContentPrice = styled.div`
+ display: flex;
+ align-items: center;
+ gap: 4px;
+`
+
+const CustomButtonPrimary = styled(ButtonPrimary)`
+ width: 80%;
  display: flex;
  justify-content: center;
  align-items: center;
  gap: 8px;
- color: red !important;
  &:hover {
   transform: scale(0.9);
-  color: black !important;
   transition: all 0.5s;
   }
 `
+const CustomButton = styled(ButtonSecondary)`
+ width: 80%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 8px;
+ color: #FFFFFF;
+ &:hover {
+  transform: scale(0.9);
+  transition: all 0.5s;
+  color: red;
+  background-color: var(--background-primary) !important;
+  }
+`
 const Prices = styled.div`
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   color: #FFFFFF;
 `
 const Content = styled.div`
- padding: 0 12px;
+ padding: 12px;
 `
 const DescriptionNotData = styled.div`
   display: flex;
@@ -128,7 +131,8 @@ const DescriptionNotData = styled.div`
 `;
 
 const StyleServicesImg = styled(Image)`
-  border-radius: 8px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 `;
 const Transfer = styled.div`
   display: flex;
@@ -141,14 +145,16 @@ const Transfer = styled.div`
 `;
 const Options = styled.div`
   display: flex;
+  gap: 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 4px 0;
 `;
 const Price = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   color: #82ebff;
+  text-overflow: ellipsis;
   @media (max-width: 520px) {
     font-size: 14px;
   }
@@ -168,7 +174,9 @@ const RightTransfer = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  align-items: center;  
+  gap: 12px;
+  padding-bottom: 24px;
 `;
 const ServicesRight = styled.div`
   display: flex;
@@ -177,9 +185,12 @@ const ServicesRight = styled.div`
 `;
 const SeeAll = styled.div`
   border-radius: 12px;
-  padding: 4px 16px;
+  padding: 4px 20px;
+  width: 150px;
+  text-align: center;
   color: #82EBFF;
   background-color: #191D24;
+  cursor: pointer;
   @media (max-width: 520px) {
     font-size: 10px;
   }
@@ -192,10 +203,9 @@ const StyleBox = styled.div`
 `;
 const StyleForm = styled.div`
   width: 345px;
-  height: 567px;
   gap: 12px;
-  border: 1px solid #b9b9b9;
-  border-radius: 8px;
+  border-radius: 14px;
+  box-shadow:  3px 3px 5px rgba(242, 53, 129, 1), -3px -3px 5px rgba(130, 235, 255, 0.63);
   @media (max-width: 520px) {
     width: 360px;
     height: 438px;
@@ -210,31 +220,26 @@ const StyleContent = styled.div`
     margin-right: 0px;
   }
 `;
-const StyleSelection = styled.div`
-  border-radius: 8px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-`;
 
-const StyleChips = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 2px 0;
-  color: #ffff !important;
-`;
-const SubTitle = styled.div`
-  padding: 8px 0;
-  font-size: 18px;
+const Title = styled.div`
+  font-size: 24px;
   font-weight: 700;
-  line-height: 24px;
+  line-height: 28px;
   color: #82ebff;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  @media (max-width: 520px) {
+    font-size: 14px;
+    padding-bottom: 0px;
+  }
 `;
 const StyleTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
   line-height: 38px;
   color: #FFFFFF;
-  padding-bottom: 24px;
   @media (max-width: 520px) {
     font-size: 20px;
     padding-bottom: 0px;
