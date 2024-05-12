@@ -25,7 +25,7 @@ export const FOLLOWER_RANGE = [
   },
   {
     title: "10.000 - 20.000",
-    value: { lowerLimit: "1000", upperLimit: "20000" },
+    value: { lowerLimit: "10000", upperLimit: "20000" },
   },
   {
     title: "Under 10.000 ",

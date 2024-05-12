@@ -69,15 +69,10 @@ export default function PersonalClientUser({ userProfile }: any) {
               </StyleTotal>
               <StyleTotal>
                 <StyleDesOverview>Review:</StyleDesOverview>
-                <StyleSubTitle>{userProfile?.review}</StyleSubTitle>
+                <StyleSubTitle>
+                  {userProfile?.review} <IconStar />
+                </StyleSubTitle>
               </StyleTotal>
-              <StyleIcons>
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-                <IconStar />
-              </StyleIcons>
             </StyleContentUser>
             <StyleContentUser
               style={{ flexDirection: "column", alignItems: "flex-start" }}
@@ -277,6 +272,7 @@ const StyleIcons = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
   @media (min-width: 1024px) {
     flex-wrap: wrap;
   }
@@ -314,6 +310,9 @@ const StyleSubTitle = styled.div`
   line-height: 24px;
   color: #82ebff;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 `;
 
 const StylePersonalRight = styled.div`

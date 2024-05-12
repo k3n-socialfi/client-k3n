@@ -72,7 +72,6 @@ export default function Home({ }: IHomeProps) {
       verificationStatus: item?.twitterInfo?.verificationStatus,
     };
   });
-
   const DATACARDFEATUREDPROJECTS = featureProjects.map((item) => {
     return {
       id: item?.jobId,
@@ -191,7 +190,9 @@ export default function Home({ }: IHomeProps) {
                   <StyleTrendingCard key={item?.userId}>
                     <CardTrendingKOLs
                       rank={DATA_TOP[index] ?? index + 1}
-                      backgroundColor={BG_COLOR_TOP[index] ?? "var(--background-primary)"}
+                      backgroundColor={
+                        BG_COLOR_TOP[index] ?? "var(--background-primary)"
+                      }
                       name={item?.username}
                       point={item?.twitterInfo?.totalPoints}
                       urlAvatar={item?.twitterInfo?.avatar}
@@ -230,7 +231,7 @@ export default function Home({ }: IHomeProps) {
                   <Divider sx={{ borderColor: "#B9B9B9 " }} />
                 </>
               ))}
-            <ButtonPrimary fullWidth colorBt="primary.enabled">
+            <ButtonPrimary fullWidth colorBt="primary.whiteText">
               <Typography sx={{ padding: "8px 0" }}>Check It Out</Typography>
             </ButtonPrimary>
           </StyleTrendingProjectsCard>
@@ -274,7 +275,8 @@ const StyleBottom = styled.div`
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  scrollbar-width: none;
+  padding-bottom: 15px;
+  /* scrollbar-width: none; */
 `;
 
 const StyleLeft = styled.div`
