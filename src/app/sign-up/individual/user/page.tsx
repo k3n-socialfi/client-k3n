@@ -1,4 +1,4 @@
-import User from "@/modules/signUp/components/User";
+import User from "@/modules/signUp/components/Individual/User";
 import React from "react";
 
 type Props = {};

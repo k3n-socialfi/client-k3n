@@ -1,4 +1,4 @@
-import KOL from "@/modules/signUp/components/KOL";
+import KOL from "@/modules/signUp/components/Individual/KOL";
 import React from "react";
 
 type Props = {};

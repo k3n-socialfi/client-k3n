@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import FormCreateAccount from "../FormCreateAccount";
+import FormCreateProject from "../FormCreateProject";
 
 type Props = {};
 
 const Project = (props: Props) => {
-  return <FormCreateAccount />;
+  return <FormCreateProject />;
 };
 
 export default Project;

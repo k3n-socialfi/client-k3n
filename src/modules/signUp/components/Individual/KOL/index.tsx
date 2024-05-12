@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import FormCreateAccount from "../FormCreateAccount";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
+import FormCreateIndividual from "../../FormCreateIndividual";
 import { IconThunder } from "@/assets/icons";
 
 type Props = {};
@@ -35,7 +35,7 @@ const KOL = (props: Props) => {
               </Typography>
             </Score>
           </Box>
-          <FormCreateAccount />
+          <FormCreateIndividual showConnected={() => false} />
         </Container>
       );
     default:

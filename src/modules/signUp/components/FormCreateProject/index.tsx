@@ -1,10 +1,7 @@
 "use client";
-import {
-  ButtonPrimary,
-  ButtonSecondary,
-  ButtonText,
-} from "@/components/ButtonCustom";
+import { ButtonPrimary, ButtonText } from "@/components/ButtonCustom";
 import { CHAIN, PLATFORM } from "@/constant/dataMockupSignUp";
+import { useBoolean } from "@/hooks/useBoolean";
 import {
   FormControl,
   InputBase,
@@ -13,17 +10,17 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import Loading from "../Loading";
 
 type Props = {};
 
-const FormCreateAccount = (props: Props) => {
+const FormCreateProject = (props: Props) => {
   const currentUrl = usePathname();
-
   const router = useRouter();
+  const openDoneSubmit = useBoolean();
 
   const {
     register,
@@ -38,7 +35,8 @@ const FormCreateAccount = (props: Props) => {
   });
 
   const onSubmitForm = async (data: any) => {
-    console.log("🚀 ~ FormCreateAccount ~ data:", data);
+    openDoneSubmit.onTrue();
+    console.log("🚀 ~ FormCreateProject ~ data:", data);
   };
 
   const handleBack = () => {
@@ -48,7 +46,7 @@ const FormCreateAccount = (props: Props) => {
     router.push(modifiedUrl);
   };
 
-  return (
+  return !openDoneSubmit.value ? (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Container>
         <Label>
@@ -166,10 +164,32 @@ const FormCreateAccount = (props: Props) => {
         </Button>
       </Container>
     </form>
+  ) : (
+    <ContainerDone>
+      <Loading />
+      <Typography variant="h5">
+        Thank you for registering <br /> We are reviewing your request
+      </Typography>
+
+      <ButtonPrimary type="submit" borderRadius="10px" fullWidth>
+        <Typography variant="h5" sx={{ padding: "8px 0" }}>
+          Continue
+        </Typography>
+      </ButtonPrimary>
+    </ContainerDone>
   );
 };
 
-export default FormCreateAccount;
+export default FormCreateProject;
+
+const ContainerDone = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  color: #fff;
+  text-align: center;
+`;
 
 const Container = styled.div`
   width: 598px;

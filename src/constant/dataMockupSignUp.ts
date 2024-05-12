@@ -13,3 +13,12 @@ export const CHAIN = [
   { id: 4, label: "Polygon", value: "polygon" },
   { id: 5, label: "Cronos", value: "cronos" },
 ];
+
+export const LANGUAGE = [
+  { id: 1, label: "English", value: "English" },
+  { id: 2, label: "Mandarin Chinese", value: "Mandarin Chinese" },
+  { id: 3, label: "French", value: "French" },
+  { id: 4, label: "Spanish", value: "Spanish" },
+  { id: 5, label: "Russian", value: "Russian" },
+  { id: 6, label: "Other", value: "Other" },
+];

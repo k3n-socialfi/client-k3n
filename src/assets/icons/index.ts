@@ -102,3 +102,4 @@ export { default as IconIndividual } from "./IconIndividual";
 export { default as IconKOLSignUp } from "./IconKOLSignUp";
 export { default as IconProjectSignUp } from "./IconProjectSignUp";
 export { default as IconUserSignUp } from "./IconUserSignUp";
+export { default as IconXAccountConnected } from "./IconXAccountConnected";

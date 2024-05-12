@@ -1,14 +1,17 @@
 import SignUpProvider from "@/layout/SignUpProvider";
 import SignUpWrapper from "@/modules/signUp/components/SignUpWrapper";
+import { ShowConnectedXProvider } from "@/modules/signUp/contexts/ShowConnectedXContext";
 import React, { ReactNode } from "react";
 
 type Props = { children: ReactNode };
 
 const LayoutSignUp = ({ children }: Props) => {
   return (
-    <SignUpProvider>
-      <SignUpWrapper>{children}</SignUpWrapper>
-    </SignUpProvider>
+    <ShowConnectedXProvider>
+      <SignUpProvider>
+        <SignUpWrapper>{children}</SignUpWrapper>
+      </SignUpProvider>
+    </ShowConnectedXProvider>
   );
 };
 
