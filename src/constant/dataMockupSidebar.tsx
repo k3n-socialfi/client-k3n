@@ -75,7 +75,7 @@ export const DATASIDEBAR = [
         id: 22,
         label: "Marketing Services",
         icon: <IconViewOffer />,
-        link: "/marketting-services",
+        link: "/marketing-services",
         isCommingSoon: true,
         color: "#fff",
       },
