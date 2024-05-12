@@ -99,3 +99,4 @@ export { default as IconShareProject } from "./IconShareProject";
 export { default as IconUpload } from "./IconUpload";
 export { default as IconHome } from "./IconHome";
 export { default as IconJob } from "./IconJob";
+export { default as IconCheck } from "./IconCheck";

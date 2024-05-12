@@ -21,7 +21,7 @@ export default function CardServicesSkeleton() {
 
 const StyleWrapperCard = styled.div`
   padding: 10px;
-  width: 300px;
+  width: 350px;
   height: 475px;
   background: #464646;
   border-radius: 8px;
