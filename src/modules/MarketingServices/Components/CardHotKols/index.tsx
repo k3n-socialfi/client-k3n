@@ -26,7 +26,7 @@ export default function CardHotKols({
         ></HotKolsAvartar>
         <HotKolsInfo>
           <HotKolsName>{name ?? "name"}</HotKolsName>
-          <HotKolsDes>{des ?? "des"}</HotKolsDes>
+          <HotKolsDes>{des ?? "202 jobs completed"}</HotKolsDes>
         </HotKolsInfo>
       </HotKolsContent>
     </WrapperCardHotKols>

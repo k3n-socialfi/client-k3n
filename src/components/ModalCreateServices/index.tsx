@@ -65,7 +65,7 @@ const CreateServices = (props: Props) => {
 
   const onSubmitForm = async (data: TService) => {
     setIsLoading(true);
-    data.img = IMAGES;
+    data.image = IMAGES;
     data.currency = [data.currency];
     data.tags = ["tag test"];
     data.isPublic = true;

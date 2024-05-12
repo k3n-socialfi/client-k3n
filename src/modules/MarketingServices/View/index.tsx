@@ -25,7 +25,10 @@ export default function MarketingServicesView() {
               <CardHotKolsSkeleton key={item} />
             ))
           : dataTableKols?.map((item, index) => (
-              <LinkCustom href={`/profile/${item?.username}`}>
+              <LinkCustom
+                key={item?.userId}
+                href={`/profile/${item?.username}`}
+              >
                 <CardHotKols
                   number={index + 1}
                   avatar={item?.twitterInfo?.avatar}
@@ -64,6 +67,7 @@ export default function MarketingServicesView() {
             ? [0, 1, 2, 3].map((item) => <CardServicesSkeleton key={item} />)
             : DATA_MARKETING_SERVICES?.map((item) => (
                 <CardDeal
+                  key={item?.id}
                   image={item?.image}
                   name={item?.name}
                   title={item?.title}
