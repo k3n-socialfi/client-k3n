@@ -74,11 +74,9 @@ export default function Personal({
               </PointProfile>
               <StyleContentFlex>
                 <StyleContentUser>
-                  <StyleUserDes>
-                    {dataProjectDetail?.description ??
-                      "data null" ??
-                      "Data null"}
-                  </StyleUserDes>
+                  {dataProjectDetail.description && <StyleUserDes>
+                    {dataProjectDetail.description}
+                  </StyleUserDes>}
                   <WrapperCategori>
                     {dataProjectDetail?.categories?.map((item: any) => {
                       return (

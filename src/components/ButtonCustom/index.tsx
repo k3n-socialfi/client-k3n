@@ -16,6 +16,8 @@ interface ICustomButtonProps extends ButtonProps {
   backgroundColorBtPressed?: string;
   backgroundColorBtDisElevated?: string;
   isLoading?: boolean;
+  fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 export const ButtonCustom: React.FC<ICustomButtonProps> = ({
@@ -32,6 +34,8 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
   backgroundColorBtDisElevated,
   children,
   isLoading = false,
+  fullWidth,
+  disabled,
   ...props
 }) => {
   return isLoading ? (
@@ -69,6 +73,8 @@ export const ButtonCustom: React.FC<ICustomButtonProps> = ({
   ) : (
     <Button
       {...props}
+      fullWidth={fullWidth ?? false}
+      disabled={disabled ?? false}
       sx={{
         borderRadius: `${borderRadius}`,
         textTransform: "inherit",
@@ -111,16 +117,18 @@ export const ButtonPrimary: React.FC<ICustomButtonProps> = ({
       variant="contained"
       color="primary"
       borderRadius={props.borderRadius ?? "50px"}
-      colorBt="primary.whiteText"
-      borderColorBt="primary.enabled"
+      colorBt={props.colorBt ?? "primary.whiteText"}
       backgroundColorBt={props.backgroundColorBt ?? "primary.enabled"}
+      backgroundColorBtHover={props.backgroundColorBtHover ?? "primary.hover"}
+      borderColorBt="primary.enabled"
       colorBtHover="primary.whiteText"
       borderColorBtHover="primary.hover"
-      backgroundColorBtHover="primary.hover"
       colorBtPressed="primary.whiteText"
       borderColorBtPressed="primary.pressed"
       backgroundColorBtPressed="primary.pressed"
       isLoading={isLoading}
+      fullWidth={props.fullWidth ?? false}
+      disabled={props.disabled ?? false}
     >
       {children}
     </ButtonCustom>
@@ -139,15 +147,17 @@ export const ButtonSecondary: React.FC<ICustomButtonProps> = ({
       color={props.color ?? "secondary"}
       borderRadius={props.borderRadius ?? "50px"}
       colorBt={props.colorBt ?? "primary.pinkText"}
-      borderColorBt="primary.enabled"
-      backgroundColorBt={props.backgroundColorBt}
+      backgroundColorBt={props.backgroundColorBt ?? "secondary.enabled"}
+      backgroundColorBtHover={props.backgroundColorBtHover ?? "secondary.hover"}
+      borderColorBt={props.borderColorBt ?? "primary.enabled"}
+      borderColorBtHover={props.borderColorBtHover ?? "primary.hover"}
       colorBtHover="primary.pinkText"
-      borderColorBtHover="primary.hover"
-      backgroundColorBtHover="secondary.hover"
       colorBtPressed="primary.whiteText"
       borderColorBtPressed="secondary.pressed"
       backgroundColorBtPressed="secondary.pressed"
       isLoading={isLoading}
+      fullWidth={props.fullWidth ?? false}
+      disabled={props.disabled ?? false}
     >
       {children}
     </ButtonCustom>
@@ -175,6 +185,8 @@ export const ButtonText: React.FC<ICustomButtonProps> = ({
       borderColorBtPressed="textCustom.pressed"
       backgroundColorBtPressed="textCustom.pressed"
       isLoading={isLoading}
+      fullWidth={props.fullWidth ?? false}
+      disabled={props.disabled ?? false}
     >
       {children}
     </ButtonCustom>
@@ -204,6 +216,8 @@ export const ButtonElevated: React.FC<ICustomButtonProps> = ({
       backgroundColorBtPressed="primary.pressed"
       backgroundColorBtDisElevated={`${backgroundColorBtDisElevated}`}
       isLoading={isLoading}
+      fullWidth={props.fullWidth ?? false}
+      disabled={props.disabled ?? false}
     >
       {children}
     </ButtonCustom>

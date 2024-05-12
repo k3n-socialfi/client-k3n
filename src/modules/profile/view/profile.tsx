@@ -50,7 +50,7 @@ export default function UserProfile(props: IUserProfileProps) {
       ) : (
         <PersonSkeleton />
       )}
-      {}
+      { }
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
         {/* <PostLeft>
@@ -80,24 +80,13 @@ export default function UserProfile(props: IUserProfileProps) {
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <ServicesSkeleton />
               <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <ServicesSkeleton />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
               <PostSkeleton />
             </>
           ) : (
             <>
-              {/* <Overview overview={dataPersonal} /> */}
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
+              <Divider sx={{ borderColor: "rgba(180, 186, 202, 1) " }} />
               <Experience experience={dataPersonal} />
-              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
-              <Post>
-                <StyleTitle>Completed Project</StyleTitle>
-                <CompletedProject />
-              </Post>
-              <Services
-                listServicesProfile={listServicesProfile}
-                services={dataPersonal}
-              />
+              <CompletedProject />
               <StyleBox>
                 <Post>
                   <StyleTitle>Recent posts</StyleTitle>
@@ -112,7 +101,6 @@ export default function UserProfile(props: IUserProfileProps) {
                   </Posts>
                 </Post>
               </StyleBox>
-              {/* <Divider sx={{ borderColor: "#B9B9B9 " }} /> */}
             </>
           )}
         </ContentRight>
@@ -144,6 +132,7 @@ const ContentRight = styled.div`
 `;
 
 const Posts = styled.div<IUserProfileProps>`
+  margin-left: 40px;
   display: flex;
   gap: 15px;
   overflow-x: auto;
@@ -160,7 +149,6 @@ const PostNotData = styled.div`
 `;
 
 const StyleContainer = styled.div`
-  background-color: #292d32;
   color: #ffffff;
 `;
 

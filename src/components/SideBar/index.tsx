@@ -1,7 +1,7 @@
 "use client";
 import { IconArrowDown, IconArrowUp, IconCloseSideBar } from "@/assets/icons";
 import { DATASIDEBAR, DATASIDEBARBOTTOM } from "@/constant/dataMockupSidebar";
-import { Collapse, IconButton } from "@mui/material";
+import { Collapse } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -56,12 +56,19 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
     <Box
       sx={{
         display: "flex",
+        background: "#080a0c",
       }}
     >
       <CssBaseline />
       <Discover>
         <Drawer variant="permanent" open={open}>
-          <div>
+          <div
+            style={{
+              background: "#080a0c",
+              height: "100%",
+              width: "100%",
+            }}
+          >
             <DrawerHeader sx={{ justifyContent: "center" }}>
               {/* {open && (
               <Image
@@ -83,7 +90,11 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
             {DATASIDEBAR.map((item, index) => {
               return (
                 <>
-                  <List>
+                  <List
+                    sx={{
+                      background: "#080a0c",
+                    }}
+                  >
                     <ListItemButton
                       onClick={() => {
                         handleItemClick(index);
@@ -119,7 +130,10 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                                   onClick={() => router.push(itemChild.link)}
                                 >
                                   {itemChild.icon}
-                                  <ListItemText primary={itemChild.label} />
+                                  <ListItemText
+                                    sx={{ color: itemChild.color }}
+                                    primary={itemChild.label}
+                                  />
                                 </ListItemButton>
                               ) : (
                                 <Tooltip
@@ -134,7 +148,10 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                                     onClick={() => router.push(itemChild.link)}
                                   >
                                     {itemChild.icon}
-                                    <ListItemText primary={itemChild.label} />
+                                    <ListItemText
+                                      sx={{ color: itemChild.color }}
+                                      primary={itemChild.label}
+                                    />
                                   </ListItemButton>
                                 </Tooltip>
                               )}
@@ -149,7 +166,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
             })}
           </div>
 
-          <List>
+          {/* <List>
             {DATASIDEBARBOTTOM.map((item, index) => (
               <ListItem
                 key={item.id}
@@ -208,7 +225,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                 )}
               </ListItem>
             ))}
-          </List>
+          </List> */}
         </Drawer>
       </Discover>
     </Box>
@@ -229,7 +246,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
   },
   border: "none",
   justifyContent: "space-between",
-  background: "#393939",
+  background: "var(--background-primary)",
   color: "#fff",
   gap: "100px",
   "@media (max-width: 1250px)": {
@@ -271,6 +288,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
+  background: "#080a0c",
+
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -282,12 +301,14 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
+  background: "#080a0c",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
+    background: "#080a0c",
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
@@ -304,6 +325,8 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  background: "#080a0c",
+
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),

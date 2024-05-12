@@ -75,6 +75,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
 
 const StyleSideBar = styled.div<ISideBar>`
   width: 20%;
+  background: var(--background-primary);
   @media (max-width: 1599px) {
     transition: all 1s;
     display: ${(props) => (props.isOpen ? "block" : "none")};
@@ -88,7 +89,7 @@ const StyleChildren = styled.div`
   width: 80%;
   margin-top: 80px;
   padding: 24px;
-  background-color: #292d32;
+  background-color: var(--background-primary);
   overflow: hidden;
 
   @media (max-width: 1599px) {
@@ -105,4 +106,5 @@ const StyleChildren = styled.div`
 const StyleMain = styled.div`
   width: 100%;
   display: flex;
+  background-color: var(--background-primary);
 `;

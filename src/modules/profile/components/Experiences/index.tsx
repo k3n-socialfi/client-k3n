@@ -1,5 +1,5 @@
 "use client";
-import { IconStar } from "@/assets/icons";
+import { IconJob, IconStar, IconTime } from "@/assets/icons";
 import styled from "styled-components";
 
 export default function Experience({ experience }: any) {
@@ -7,13 +7,8 @@ export default function Experience({ experience }: any) {
     <StyleBox>
       <Container>
         <StyleTitle>Experience</StyleTitle>
-        {/* <ExperienceRight>
-          {experience && <SeeAll>See all</SeeAll>}
-        </ExperienceRight> */}
       </Container>
-
       {experience && <StyleBorder />}
-
       <StyleContent>
         {experience ? (
           [1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
@@ -22,22 +17,23 @@ export default function Experience({ experience }: any) {
                 <StyleDot></StyleDot>
               </StyleDots>
               <StyleForm>
-                <StyleUserDes>2023-12</StyleUserDes>
-                <StyleSubTitle>Fashion KO KOL Fashionssss</StyleSubTitle>
-                <StyleIcons>
-                  <IconStar />
-                  <IconStar />
-                  <IconStar />
-                  <IconStar />
-                  <IconStar />
-                </StyleIcons>
+                <StyleFlex>
+                  <StyleUserDes>2023-12</StyleUserDes>
+                  <StyleIcons>
+                    <IconStar />
+                    4.5
+                  </StyleIcons>
+                </StyleFlex>
+                <StyleSubTitle>Product X KOL Campaign</StyleSubTitle>
                 <StyleDate>
-                  <StyleKOL>
-                    <StyleDiv>KOL Booker</StyleDiv>
-                  </StyleKOL>
-                  <StyleKOL>
-                    <StyleDiv>2024-03 - Present</StyleDiv>
-                  </StyleKOL>
+                  <StyleDiv>
+                    <IconJob />
+                    KOL Booker
+                  </StyleDiv>
+                  <StyleDiv>
+                    <IconTime />
+                    2024-03 - Present
+                  </StyleDiv>
                 </StyleDate>
               </StyleForm>
             </StyleSelection>
@@ -52,8 +48,10 @@ export default function Experience({ experience }: any) {
   );
 }
 
-const ContentNotData = styled.div`
-  padding: 20px 15px;
+const StyleFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const DescriptionNotData = styled.div`
@@ -62,7 +60,6 @@ const DescriptionNotData = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 300px;
   color: #f23581;
 `;
 
@@ -70,23 +67,15 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const ExperienceRight = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 24px;
-`;
-const SeeAll = styled.div`
-  color: #f23581;
-  font-size: 18px;
-  font-weight: 700;
-`;
+
 const StyleBox = styled.div`
   padding: 24px 14px;
   width: 100%;
   overflow-x: hidden;
 `;
 const StyleForm = styled.div`
-  width: 220px;
+  background: rgba(25, 29, 36, 1);
+  width: 275px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -95,11 +84,11 @@ const StyleForm = styled.div`
   border-radius: 8px;
 `;
 const StyleContent = styled.div`
+  margin-left: 40px;
   display: flex;
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 24px;
-  /* margin-right: 40px; */
   @media (max-width: 520px) {
     margin-right: 0px;
   }
@@ -117,8 +106,14 @@ const StyleUserDes = styled.div`
   color: #ffd7f4;
   width: fit-content;
 `;
-const StyleKOL = styled.div``;
-const StyleDiv = styled.div``;
+const StyleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  align-items: center;
+`;
 
 const StyleDate = styled.div`
   background-color: #9b9ae526;
@@ -129,29 +124,29 @@ const StyleDate = styled.div`
 `;
 const StyleIcons = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 4px 0;
+  gap: 4px;
 `;
 const StyleSubTitle = styled.div`
   padding-top: 8px;
   font-size: 18px;
   font-weight: 700;
-  line-height: 24px;
-  color: #82ebff;
+  line-height: 22px;
+  color: #f45796;
+  font-weight: 700;
 `;
 
 const StyleTitle = styled.div`
   font-size: 40px;
   line-height: 51px;
   font-weight: 700;
-  padding-bottom: 24px;
+  padding: 24px 0;
   @media (max-width: 520px) {
     font-size: 20px;
     padding-bottom: 0px;
   }
 `;
 const StyleBorder = styled.div`
+  margin-left: 40px;
   position: absolute;
   width: 74.5%;
   margin-top: 7px;

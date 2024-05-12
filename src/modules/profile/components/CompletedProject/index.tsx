@@ -22,78 +22,98 @@ interface ICompletedProjectProps {
 
 const CompletedProject = (props: ICompletedProjectProps) => {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        width: "100%",
-        marginTop: "12px"
-      }}
-    >
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRowHeadCustom>
-            {DATA_HEAD_CP.map((item, index) => (
-              <CustomTableHeadCell
-                key={index}
-                align={`${item === "Project" ? "left" : "center"}`}
-              >
-                <CellAll>{item}</CellAll>
-              </CustomTableHeadCell>
+    <Container>
+      <StyleTitle>Completed Project</StyleTitle>
+      <TableContainer component={Paper} sx={{ width: "auto", marginLeft: "40px" }}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRowHeadCustom>
+              {DATA_HEAD_CP.map((item, index) => (
+                <CustomTableHeadCell
+                  key={index}
+                  align={`${item === "Project" ? "left" : "center"}`}
+                >
+                  <CellAll>{item}</CellAll>
+                </CustomTableHeadCell>
+              ))}
+            </TableRowHeadCustom>
+          </TableHead>
+          <TableBody>
+            {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
+              <TableRowBodyCustom key={row?.id}>
+                <CustomTableBodyCell component="th" scope="row" align="center">
+                  {index + 1}
+                </CustomTableBodyCell>
+
+                <CustomTableBodyCell component="th" scope="row">
+                  <Project>
+                    <Avatar
+                      sx={{ width: 35, height: 35 }}
+                      alt={`avatar_${row?.fullName}`}
+                      src={row?.project?.avatarUrl}
+                    />
+                    {row?.project?.fullName}
+                  </Project>
+                </CustomTableBodyCell>
+
+                <CustomTableBodyCell align="center">
+                  {row?.date}
+                </CustomTableBodyCell>
+                <CustomTableBodyCell align="center">
+                  {row?.price}
+                </CustomTableBodyCell>
+                <CustomTableBodyCell align="center">
+                  {row?.currentPrice}
+                </CustomTableBodyCell>
+                <CustomTableBodyCell align="center">
+                  {row?.date}
+                </CustomTableBodyCell>
+                <CustomTableBodyCell align="center">
+                  <Change arrowChange={row?.change?.arrow}>
+                    <ChangeArrow>
+                      {row?.change?.arrow === "up" ? (
+                        <IconArrowUpChange />
+                      ) : (
+                        <IconArrowDownChange />
+                      )}
+                    </ChangeArrow>
+                    <ChangeNumber>{row?.change?.number}</ChangeNumber>
+                  </Change>
+                </CustomTableBodyCell>
+              </TableRowBodyCustom>
             ))}
-          </TableRowHeadCustom>
-        </TableHead>
-        <TableBody>
-          {DATA_COMPLETED_PROJECT.map((row: any, index: number) => (
-            <TableRowBodyCustom key={row?.id}>
-              <CustomTableBodyCell component="th" scope="row" align="center">
-                {index + 1}
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell component="th" scope="row">
-                <Project>
-                  <Avatar
-                    sx={{ width: 35, height: 35 }}
-                    alt={`avatar_${row?.fullName}`}
-                    src={row?.project?.avatarUrl}
-                  />
-                  {row?.project?.fullName}
-                </Project>
-              </CustomTableBodyCell>
-
-              <CustomTableBodyCell align="center">
-                {row?.date}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                {row?.price}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                {row?.newATH}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                {row?.currentPrice}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                {row?.date}
-              </CustomTableBodyCell>
-              <CustomTableBodyCell align="center">
-                <Change arrowChange={row?.change?.arrow}>
-                  <ChangeArrow>
-                    {row?.change?.arrow === "up" ? (
-                      <IconArrowUpChange />
-                    ) : (
-                      <IconArrowDownChange />
-                    )}
-                  </ChangeArrow>
-                  <ChangeNumber>{row?.change?.number}</ChangeNumber>
-                </Change>
-              </CustomTableBodyCell>
-            </TableRowBodyCustom>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <DescriptionNotData>
+        {`You don't have any work services yet.`}
+      </DescriptionNotData> */}
+    </Container>
   );
 };
+
+const DescriptionNotData = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #f23581;
+`;
+const Container = styled.div`
+  padding: 24px 14px;
+  width: 100%;
+`
+const StyleTitle = styled.div`
+  font-size: 40px;
+  line-height: 51px;
+  font-weight: 700;
+  padding: 24px 0;
+  @media (max-width: 520px) {
+    font-size: 20px;
+    padding-bottom: 0px;
+  } 
+`
 
 const TableRowHeadCustom = styled(TableRow)`
   background-color: #3f3e45;
@@ -107,6 +127,7 @@ const CustomTableHeadCell = styled(TableCell)`
 `;
 
 const CustomTableBodyCell = styled(TableCell)`
+  background-color: var(--background-primary) !important;
   color: #fff !important;
   font-weight: 700;
   white-space: nowrap;

@@ -8,7 +8,8 @@ import {
   IconStar,
   IconStarKols,
   IconVerify,
-  IconThunder
+  IconThunder,
+  IconArrowUpTop,
 } from "@/assets/icons";
 import IconUnverify from "@/assets/icons/IconUverify";
 import Chips from "@/components/Chip";
@@ -18,6 +19,7 @@ import {
   TAGS,
   TYPE_OF_KOL,
 } from "@/constant/FilterData";
+import { DATA_TOP } from "@/constant/dataMockupTop";
 import { useHomeContext } from "@/contexts/HomeContext";
 import {
   Autocomplete,
@@ -32,6 +34,7 @@ import {
   TablePagination,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -49,10 +52,11 @@ interface IPCustomTableCell {
   background?: string;
   padding?: string;
   borderLeftColor?: string;
+  isBorderLeft?: boolean;
 }
 
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { kols: dataTableKols, isLoading ,totalItemKols } = useHomeContext();
+  const { kols: dataTableKols, isLoading, totalItemKols } = useHomeContext();
   const { push, replace } = useRouter();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -75,11 +79,6 @@ export default function TableTrending(props: ITableTopRankingProps) {
 
   const path = usePathname();
   const searchParams = useSearchParams();
-  const type = searchParams.get("type");
-  const verification = searchParams.get("verification");
-  const lowerLimit = searchParams.get("lowerLimit");
-  const upperLimit = searchParams.get("upperLimit");
-  const tag = searchParams.get("tag");
 
   useEffect(() => {
     replace(path, undefined);
@@ -113,7 +112,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
   const createAnyQueryString = useCallback(
     (names: string[], values: string[]) => {
       const params = new URLSearchParams(searchParams.toString());
-      for (let i = 0; i < names.length; i++) {
+      for (let i = 0; i < names?.length; i++) {
         params.set(names[i], values[i]);
       }
       return params.toString();
@@ -247,34 +246,38 @@ export default function TableTrending(props: ITableTopRankingProps) {
           Reset Filter
         </ItemFilters>
       </Filter>
-      <TableContainer component={Paper} sx={{ width: "100%" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ width: "100%", background: "#000" }}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <CustomTableRow>
-              <CustomTableCell
-                padding="0 40px"
-                align="left"
-                style={{ borderLeft: "0px" }}
-              >
+              <CustomTh align="center">Rank</CustomTh>
+              <CustomTh padding="0 40px" align="left" isBorderLeft={true}>
                 KOL
-              </CustomTableCell>
-              <CustomTableCell align="center">KYC Badge</CustomTableCell>
-              <CustomTableCell padding="25px 56px" align="center">
+              </CustomTh>
+              <CustomTh align="center" isBorderLeft={true}>
+                KYC Badge
+              </CustomTh>
+              <CustomTh padding="25px 56px" align="center" isBorderLeft={true}>
                 X Follower
-              </CustomTableCell>
-              <CustomTableCell align="center" sortDirection="asc">
+              </CustomTh>
+              <CustomTh align="center" sortDirection="asc" isBorderLeft={true}>
                 <Fillter>
                   Shill score
                   <IconDownFill />
                 </Fillter>
-              </CustomTableCell>
-              {/* <CustomTableCell align="center">
+              </CustomTh>
+              {/* <CustomTh align="center">
                 <Fillter>
                   Reviews
                   <IconDownFill />
                 </Fillter>
-              </CustomTableCell> */}
-              <CustomTableCell align="center">Tags</CustomTableCell>
+              </CustomTh> */}
+              <CustomTh align="center" isBorderLeft={true}>
+                Tags
+              </CustomTh>
             </CustomTableRow>
           </TableHead>
 
@@ -287,10 +290,21 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 key={index}
                 sx={{
                   borderBottom: "5px solid rgba(0, 0, 0, 0.5)",
-                  background: "#3D3D3D",
+                  background: "#000",
                   cursor: "pointer",
                 }}
               >
+                <CustomTableCell>
+                  <Rank>
+                    <UpTop>
+                      <IconArrowUpTop />
+                      <Typography fontSize={11} color={"#54F209"}>
+                        +12
+                      </Typography>
+                    </UpTop>
+                    {DATA_TOP[index] ?? index + 1}
+                  </Rank>
+                </CustomTableCell>
                 <CustomTableCell
                   borderLeftColor="#50505f"
                   align="center"
@@ -322,7 +336,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 </CustomTableCell>
                 <CustomTableCell
                   borderLeftColor="#50505f"
-                  background="#3f3e45"
+                  // background="#191D24"
                   align="center"
                 >
                   <Cell>{row?.follower}</Cell>
@@ -341,29 +355,35 @@ export default function TableTrending(props: ITableTopRankingProps) {
                 </CustomTableCell>
                 <CustomTableCell borderLeftColor="#50505f" align="center">
                   <Tags>
-                    {row?.tags.map((item: string, index: number) => (
-                      <Chips
-                        key={item}
-                        label={item}
-                        variant="outlined"
-                        sx={{
-                          color: `${
-                            index === 0
-                              ? "#F23581"
-                              : index === 1
-                              ? "#3EAABE"
-                              : "#25002D"
-                          }`,
-                          backgroundColor: `${
-                            index === 0
-                              ? "#ffd7f4"
-                              : index === 1
-                              ? "#EBFCFF"
-                              : "#F6CCFF"
-                          }`,
-                        }}
-                      />
-                    ))}
+                    {row?.tags.map(
+                      (item: string, index: number) =>
+                        item && (
+                          <Chips
+                            key={item}
+                            label={item}
+                            variant="outlined"
+                            sx={{
+                              color: `${
+                                index === 0
+                                  ? "#F23581"
+                                  : index === 1
+                                  ? "#3EAABE"
+                                  : "#25002D"
+                              }`,
+                              backgroundColor: `${
+                                index === 0
+                                  ? "#ffd7f4"
+                                  : index === 1
+                                  ? "#EBFCFF"
+                                  : "#F6CCFF"
+                              }`,
+                              "&.MuiChip-root": {
+                                height: "24px",
+                              },
+                            }}
+                          />
+                        ),
+                    )}
                   </Tags>
                 </CustomTableCell>
               </TableRow>
@@ -371,7 +391,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           </TableBody>
         </Table>
         <TablePagination
-          sx={{ padding: "50px", backgroundColor: "#3f3e45", color: "#FFF" }}
+          sx={{ padding: "50px", backgroundColor: "#000", color: "#FFF" }}
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
           count={totalItemKols}
@@ -401,22 +421,34 @@ const Filter = styled.div`
   align-items: center;
   gap: 8px;
   width: 100%;
-  background: #54575b;
+  background: var(--Card-Card, rgba(25, 29, 36, 1));
   color: #fff;
   margin-bottom: 12px;
   border-radius: 8px;
   padding: 8px 0;
 `;
 const CustomTableRow = styled(TableRow)`
-  background-color: #3f3e45;
+  background-color: #000;
+`;
+
+const CustomTh = styled(TableCell)<IPCustomTableCell>`
+  color: #ffd7f4 !important;
+  font-weight: 700;
+  border-left: ${({ isBorderLeft, borderLeftColor }) =>
+    isBorderLeft &&
+    `1px solid ${borderLeftColor ? borderLeftColor : "#ffd7f4"} `};
+  padding: ${({ padding }) => (padding ? padding : "unset")};
+  background: ${({ background }) => (background ? background : "transparent")};
+  white-space: nowrap;
+  &:first {
+    border-left: unset;
+  }
 `;
 
 const CustomTableCell = styled(TableCell)<IPCustomTableCell>`
   color: #ffd7f4 !important;
   font-weight: 700;
-  border-left: 1px solid
-    ${({ borderLeftColor }) => (borderLeftColor ? borderLeftColor : "#ffd7f4")};
-  padding: ${({ padding }) => (padding ? padding : "auto")};
+  padding: ${({ padding }) => (padding ? padding : "unset")};
   background: ${({ background }) => (background ? background : "transparent")};
   white-space: nowrap;
 `;
@@ -458,8 +490,20 @@ const Tags = styled.div`
   padding: 10px;
 `;
 
-const ItemTags = styled.div`
-  padding: 5px;
-  background: #4c5270;
-  border-radius: 10px;
+const Rank = styled.div`
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  /* border-right: 2px #b9b9b9 solid; */
+  color: #fff;
+  padding: 20px;
+`;
+
+const UpTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
 `;
