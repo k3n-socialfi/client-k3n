@@ -74,7 +74,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
 }
 
 const StyleSideBar = styled.div<ISideBar>`
-  width: 20%;  
+  width: 20%;
   background: var(--background-primary);
   @media (max-width: 1599px) {
     transition: all 1s;
