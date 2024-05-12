@@ -111,7 +111,7 @@ export default function TabKOLs() {
 const CustomBox = styled(Box)`
   width: 100%;
   padding: 24px 0;
-  background: #353535;
+  background: var(--Background-Background, #080a0c);
   overflow: hidden;
   .MuiTabs-flexContainer {
     overflow-y: hidden;
