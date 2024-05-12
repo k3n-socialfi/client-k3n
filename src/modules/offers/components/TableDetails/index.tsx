@@ -9,7 +9,7 @@ import {
   ENUM_STATUS_OFFER_BG,
   ENUM_STATUS_OFFER_BUTTON,
   ENUM_STATUS_OFFER_COLOR,
-  ICompletedProfileAction
+  ICompletedProfileAction,
 } from "@/constant/dataTableDetails";
 import {
   Avatar,
@@ -24,7 +24,7 @@ import {
 import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import useMyOffer from "../../hooks/useMyOffer";
 import useServiceContract from "@/modules/payment/hooks/useServiceContract";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import { IconArrowDownStatus } from "@/assets/icons";
 import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 
@@ -40,13 +40,14 @@ interface IStatus {
 export default function TableDetails() {
   const { dataPersonal } = useMyProfileContext();
   const { listOffer, acceptOffer, isLoading } = useMyOffer();
-  const { completedServiceContract } = useServiceContract();
+  const { completedServiceContract, isLoading: isLoadingCallSM } =
+    useServiceContract();
   return (
     <StyleBox>
       <Container>
         <StyleTitle>Table Detail</StyleTitle>
         <LinkCustom href={`/services`}>
-            <SeeAll>See all</SeeAll>
+          <SeeAll>See all</SeeAll>
         </LinkCustom>
       </Container>
       <StyleContent>
@@ -98,12 +99,12 @@ export default function TableDetails() {
 
                       <CustomTableBodyCell align="center">
                         <User>
-                        <Avatar
-                          className="header-user__info__avatar"
-                          alt="Cindy Baker"
-                          src={dataPersonal?.twitterInfo?.avatar}
-                        />
-                        {dataPersonal?.fullName}
+                          <Avatar
+                            className="header-user__info__avatar"
+                            alt="Cindy Baker"
+                            src={dataPersonal?.twitterInfo?.avatar}
+                          />
+                          {dataPersonal?.fullName}
                         </User>
                       </CustomTableBodyCell>
 
@@ -119,7 +120,8 @@ export default function TableDetails() {
                         <StatusCustom status={item?.job.jobState}>
                           {
                             ENUM_STATUS_OFFER[
-                            item?.job.jobState as keyof typeof ENUM_STATUS_OFFER
+                              item?.job
+                                .jobState as keyof typeof ENUM_STATUS_OFFER
                             ]
                           }
                         </StatusCustom>
@@ -132,19 +134,19 @@ export default function TableDetails() {
                             onClick={() =>
                               item.job.jobState === ENUM_STATUS_OFFER.Pending
                                 ? acceptOffer({
-                                  jobId: item.job.jobId,
-                                  subscriber: dataPersonal.userId,
-                                  creator: item?.job?.creator,
-                                })
-                                : completedServiceContract(item)
+                                    jobId: item.job.jobId,
+                                    subscriber: dataPersonal.userId,
+                                    creator: item?.job?.creator,
+                                  })
+                                : completedServiceContract(item?.job)
                             }
                           >
-                            {isLoading
+                            {isLoading || isLoadingCallSM
                               ? "Loading..."
                               : ENUM_STATUS_OFFER_BUTTON[
-                              item.job
-                                .jobState as keyof typeof ENUM_STATUS_OFFER_BUTTON
-                              ]}
+                                  item.job
+                                    .jobState as keyof typeof ENUM_STATUS_OFFER_BUTTON
+                                ]}
                           </ActionCustom>
                         )}
                       </CustomTableBodyCell>
@@ -153,14 +155,15 @@ export default function TableDetails() {
                 })}
             </TableBody>
           </Table>
-          {listOffer.length < 1 &&
+          {listOffer.length < 1 && (
             <DescriptionNotData>
               {`You haven't received any job offers yet.`}
-            </DescriptionNotData>}
+            </DescriptionNotData>
+          )}
         </TableContainer>
-      </StyleContent >
-    </StyleBox >
-  )
+      </StyleContent>
+    </StyleBox>
+  );
 }
 
 const User = styled.div`
@@ -168,7 +171,7 @@ const User = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
-`
+`;
 const StyleBox = styled.div`
   padding: 24px 14px;
   width: 100%;
@@ -179,7 +182,7 @@ const StyleBox = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
   gap: 12px;
   padding-bottom: 24px;
 `;
@@ -188,7 +191,7 @@ const StyleTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
   line-height: 38px;
-  color: #FFFFFF;
+  color: #ffffff;
   @media (max-width: 520px) {
     font-size: 20px;
     padding-bottom: 0px;
@@ -200,8 +203,8 @@ const SeeAll = styled.div`
   padding: 4px 20px;
   width: 150px;
   text-align: center;
-  color: #82EBFF;
-  background-color: #191D24;
+  color: #82ebff;
+  background-color: #191d24;
   cursor: pointer;
   @media (max-width: 520px) {
     font-size: 10px;
@@ -254,7 +257,7 @@ const CustomTableBodyCell = styled(TableCell)`
 const StatusCustom = styled.div<IStatus>`
   color: ${(props) =>
     ENUM_STATUS_OFFER_COLOR[
-    props?.status as keyof typeof ENUM_STATUS_OFFER_COLOR
+      props?.status as keyof typeof ENUM_STATUS_OFFER_COLOR
     ] ?? "#fff !important"};
   background-color: ${(props) =>
     ENUM_STATUS_OFFER_BG[props?.status as keyof typeof ENUM_STATUS_OFFER_BG] ??
