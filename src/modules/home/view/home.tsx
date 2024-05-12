@@ -275,7 +275,8 @@ const StyleBottom = styled.div`
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  scrollbar-width: none;
+  padding-bottom: 15px;
+  /* scrollbar-width: none; */
 `;
 
 const StyleLeft = styled.div`

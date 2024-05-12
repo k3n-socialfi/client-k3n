@@ -15,7 +15,7 @@ import styled from "styled-components";
 import dayjs from "dayjs"
 
 interface ICompletedProjectProps {
-  arrowChange?: string;
+  arrowChange?: any;
   listProjects?: any
 }
 
@@ -56,30 +56,28 @@ const CompletedProject = (props: ICompletedProjectProps) => {
                     {row?.tokenName}
                   </Project>
                 </CustomTableBodyCell>
-
                 <CustomTableBodyCell align="center">
                   {dayjs(row?.firstTweetDate).format("MMMM D, YYYY")}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.shillPrice?.toLocaleString() || "-"}
+                  ${row?.shillPrice?.toLocaleString() || "0"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.ath?.toLocaleString() || "-"}
+                  ${row?.ath?.toLocaleString() || "0"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
-                  {row?.currentPrice?.toLocaleString() || "-"}
+                  ${row?.currentPrice?.toLocaleString() || "0"}
                 </CustomTableBodyCell>
                 <CustomTableBodyCell align="center">
                   <Change arrowChange={row?.pnl}>
-                    {row?.pnl &&
-                      <ChangeArrow>
-                        {row?.pnl >= 0 ? (
-                          <IconArrowUpChange />
-                        ) : (
-                          <IconArrowDownChange />
-                        )}
-                      </ChangeArrow>}
-                    <ChangeNumber>{row?.pnl?.toLocaleString() || "-"}</ChangeNumber>
+                    <ChangeArrow>
+                      {row?.pnl >= 0 ? (
+                        <IconArrowUpChange />
+                      ) : (
+                        <IconArrowDownChange />
+                      )}
+                    </ChangeArrow>
+                    <ChangeNumber>{row?.pnl?.toLocaleString() || "0"}%</ChangeNumber>
                   </Change>
                 </CustomTableBodyCell>
               </TableRowBodyCustom>
@@ -162,7 +160,7 @@ const Change = styled.div<ICompletedProjectProps>`
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  color: ${(props) => (props?.arrowChange === "up" ? "#54F209" : "#F95A2C")};
+  color: ${(props) => (props?.arrowChange > 0 ? "#54F209" : "#F95A2C")};
 `;
 
 const ChangeArrow = styled.div``;
