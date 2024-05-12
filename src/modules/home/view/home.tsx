@@ -79,17 +79,17 @@ export default function Home({}: IHomeProps) {
       numberLike: "1k",
       wallet: [
         {
-          label: item?.tags[0] ?? "NFT",
+          label: item?.tags[0],
           color: "chip.airdropsColor",
           background: "chip.airdropsBg",
         },
         {
-          label: item?.tags[1] ?? "Ethereum",
+          label: item?.tags[1],
           color: "chip.marketerColor",
           background: "chip.marketerBg",
         },
         {
-          label: item?.tags[2] ?? "Mid-cap",
+          label: item?.tags[2],
           color: "chip.injectiveColor",
           background: "chip.injectiveBg",
         },

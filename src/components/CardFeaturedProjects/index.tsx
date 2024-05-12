@@ -44,22 +44,24 @@ export default function CardFeaturedProjects(props: any) {
           {props?.name}
         </TypographyCustoms>
         <StyleChips>
-          {props?.wallet?.map((item: any) => (
-            <>
-              <ButtonText
-                size="small"
-                borderColorBt={item?.background}
-                backgroundColorBt={item?.background}
-              >
-                <Typography
-                  color={item?.color}
-                  sx={{ padding: "0 5px", whiteSpace: "nowrap" }}
+          {props?.wallet?.map(
+            (item: any) =>
+              item?.label && (
+                <ButtonText
+                  key={item?.label}
+                  size="small"
+                  borderColorBt={item?.background}
+                  backgroundColorBt={item?.background}
                 >
-                  {item?.label}
-                </Typography>
-              </ButtonText>
-            </>
-          ))}
+                  <Typography
+                    color={item?.color}
+                    sx={{ padding: "0 5px", whiteSpace: "nowrap" }}
+                  >
+                    {item?.label}
+                  </Typography>
+                </ButtonText>
+              ),
+          )}
         </StyleChips>
       </CardContentCustoms>
     </Card>
