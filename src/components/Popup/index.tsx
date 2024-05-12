@@ -1,22 +1,26 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonElevated } from "../ButtonCustom";
 import { useRouter } from "next/navigation";
 
 const PopupLogin = () => {
-    const [isShow, setIsShow] = useState(false)
-    const router = useRouter()
-    return (
-        <WrapperPopup>
-            <PopupItem>
-                <PopupTitle>
-                    You have successfully logged in with Twitter
-                </PopupTitle>
-                <ButtonElevated size="large" onClick={() => router.push("/")}>Ok</ButtonElevated >
-            </PopupItem>
-        </WrapperPopup>
-    );
+  const router = useRouter();
+  const isSignUp =
+    typeof window !== "undefined" && sessionStorage.getItem("isSignUp");
+  return (
+    <WrapperPopup>
+      <PopupItem>
+        <PopupTitle>You have successfully logged in with Twitter</PopupTitle>
+        <ButtonElevated
+          size="large"
+          onClick={() => router.push(isSignUp ? "/sign-up" : "/")}
+        >
+          Ok
+        </ButtonElevated>
+      </PopupItem>
+    </WrapperPopup>
+  );
 };
 
 const WrapperPopup = styled.div`

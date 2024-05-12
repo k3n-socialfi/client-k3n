@@ -58,6 +58,7 @@ const theme = createTheme({
       disabled: "#FFFFFF1A",
       like: "#9B9AE5",
       borderLike: "#61E4C5",
+      backCreateAccount: "#343B4A",
     },
     elevated: {
       main: "#F23581",

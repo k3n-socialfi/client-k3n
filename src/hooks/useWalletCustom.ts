@@ -9,6 +9,7 @@ import { checkExists, loginSolana, loginTwitterSolana } from "@/services";
 import { TYPE_WALLET } from "@/constant";
 import { createSignInData } from "@/utils/createSignInData";
 import useClickOutside from "./useClickOutside";
+import { API_URL } from "@/configs/env.config";
 
 export default function useWalletCustom() {
   const {
@@ -80,7 +81,7 @@ export default function useWalletCustom() {
   );
 
   const handleLoginTwitter = () => {
-    router.push("https://k3n-47ee74080457.herokuapp.com/api/v1/oauth/twitter");
+    router.push(`${API_URL}/api/v1/oauth/twitter`);
     if (typeof window !== "undefined") {
       sessionStorage.setItem("isTwitter", "true");
     }

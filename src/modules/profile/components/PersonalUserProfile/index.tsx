@@ -13,6 +13,7 @@ import { SOCIAL } from "@/constant/social";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface IPropUserDes {
@@ -45,18 +46,26 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
           </PointProfile>
           <StyleContentFlex>
             <StyleContentUser>
-              {dataPersonal?.bio && <StyleUserDes color="#FFD7F4">
-                {dataPersonal.bio}
-              </StyleUserDes>}
+              {dataPersonal?.bio && (
+                <StyleUserDes color="#FFD7F4">{dataPersonal.bio}</StyleUserDes>
+              )}
               <StyleUserDes>Influencer</StyleUserDes>
               <StyleUserSocial>Social</StyleUserSocial>
-              <a target="_blank" href={dataPersonal?.twitterInfo?.externalUrl}>
-                <StyleIcons>
-                  {dataPersonal?.socialProfiles?.map(
-                    (item: any, index: number) => SOCIAL[item?.social] ?? <></>,
-                  )}
-                </StyleIcons>
-              </a>
+
+              <StyleIcons>
+                {dataPersonal?.socialProfiles?.map(
+                  (item: any, index: number) =>
+                    (
+                      <Link
+                        key={index}
+                        href={`https://twitter.com/${item?.username}`}
+                        target="_blank"
+                      >
+                        {SOCIAL[item?.social]}
+                      </Link>
+                    ) ?? <></>,
+                )}
+              </StyleIcons>
             </StyleContentUser>
             <StyleContentUser>
               <StyleTotal>
@@ -65,11 +74,15 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
               </StyleTotal>
               <StyleTotal>
                 <StyleDesOverview>Review:</StyleDesOverview>
-                <StyleSubTitle>{dataPersonal?.review}  <IconStar /></StyleSubTitle>
+                <StyleSubTitle>
+                  {dataPersonal?.review} <IconStar />
+                </StyleSubTitle>
               </StyleTotal>
             </StyleContentUser>
             <StyleContentUser>
-              <StyleTotal style={{ flexDirection: "column", alignItems: "flex-start" }}>
+              <StyleTotal
+                style={{ flexDirection: "column", alignItems: "flex-start" }}
+              >
                 <StyleDesOverview>Location</StyleDesOverview>
                 <StyleSubTitle>
                   {dataPersonal.location ? dataPersonal.location : "-"}
@@ -362,7 +375,7 @@ const StyleButtonTitle = styled.div`
   border-radius: 6px;
   &:hover {
     transform: scale(0.9);
-    color: #FFFFFF;
+    color: #ffffff;
     transition: all 0.5s;
   }
 `;
