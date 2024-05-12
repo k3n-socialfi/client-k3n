@@ -51,7 +51,10 @@ export default function CardFeaturedProjects(props: any) {
                 borderColorBt={item?.background}
                 backgroundColorBt={item?.background}
               >
-                <Typography color={item?.color} sx={{ padding: "0 5px" }}>
+                <Typography
+                  color={item?.color}
+                  sx={{ padding: "0 5px", whiteSpace: "nowrap" }}
+                >
                   {item?.label}
                 </Typography>
               </ButtonText>
