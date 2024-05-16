@@ -5,6 +5,7 @@ import styled from "styled-components";
 import bg_Sign_up_k3N from "@/assets/images/BgSignUpK3N.png";
 import sign_up_k3N from "@/assets/images/SignUpK3N.png";
 import logoK3N from "@/assets/images/Logo.png";
+import { useRouter } from "next/navigation";
 
 interface ISignUpProps {
   children: ReactNode;
@@ -16,12 +17,14 @@ interface IIMG {
 }
 
 const SignUpProvider = ({ children }: ISignUpProps) => {
+  const { push } = useRouter();
+
   return (
     <Container bgSignUpK3N={bg_Sign_up_k3N.src}>
       <Opacity></Opacity>
       <Left signUpK3N={sign_up_k3N.src}></Left>
       <Right>
-        <Logo>
+        <Logo onClick={() => push("/")}>
           <Image src={logoK3N} title="logo" alt="logo k3n" layout="fill" />
         </Logo>
         <SectionSignUp>{children}</SectionSignUp>
@@ -56,6 +59,7 @@ const Left = styled.div<IIMG>`
   position: relative;
   width: 50%;
   height: 100%;
+  min-height: 100vh;
   /* background-image: url(${sign_up_k3N.src}); */
   background-image: url(${(props) => props.signUpK3N});
   background-size: cover;
@@ -80,6 +84,7 @@ const Logo = styled.div`
   position: relative;
   height: 65px;
   width: 200px;
+  cursor: pointer;
   @media (max-width: 460px) {
     height: 45px;
     width: 150px;

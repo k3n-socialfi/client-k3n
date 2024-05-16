@@ -19,13 +19,13 @@ const Individual = (props: Props) => {
         <CardChoose
           icon={<IconUserSignUp />}
           name="User"
-          onClick={() => push("/sign-up/individual/user")}
+          onClick={() => push("/auth/sign-up/individual/user")}
         />
         <CardChoose
           icon={<IconKOLSignUp />}
           name="KOL"
           isDisabled={isDisabled}
-          onClick={() => push("/sign-up/individual/kol")}
+          onClick={() => push("/auth/sign-up/individual/kol")}
         />
       </Select>
     </WrapperConnectX>

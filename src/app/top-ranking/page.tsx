@@ -1,5 +1,5 @@
+import React from "react";
 import Ranking from "@/modules/ranking/view";
-import * as React from "react";
 
 export interface ITopRankingProps {}
 

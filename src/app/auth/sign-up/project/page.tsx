@@ -1,5 +1,5 @@
-import Project from "@/modules/signUp/components/Project";
 import React from "react";
+import Project from "@/modules/signUp/components/Project";
 
 type Props = {};
 
