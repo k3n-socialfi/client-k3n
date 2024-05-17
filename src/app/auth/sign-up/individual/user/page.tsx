@@ -1,5 +1,5 @@
-import User from "@/modules/signUp/components/Individual/User";
 import React from "react";
+import User from "@/modules/signUp/components/Individual/User";
 
 type Props = {};
 

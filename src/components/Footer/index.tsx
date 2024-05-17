@@ -56,6 +56,7 @@ const Left = styled(Stack)`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 50px;
 `;
 
 const ImageCustom = styled.div`

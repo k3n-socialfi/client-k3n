@@ -1,5 +1,5 @@
-import SignUp from "@/modules/signUp/view";
 import React from "react";
+import SignUp from "@/modules/signUp/view";
 
 type Props = {};
 

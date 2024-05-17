@@ -26,6 +26,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.coingecko.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
       // https://assets.coingecko.com
     ],
   },

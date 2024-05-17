@@ -1,19 +1,14 @@
 "use client";
-import {
-  IconIndividual,
-  IconProjectSignUp,
-  IconX,
-  IconXAccountConnected,
-} from "@/assets/icons";
+import { IconIndividual, IconProjectSignUp, IconX } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import { API_URL } from "@/configs/env.config";
+import { useAlert } from "@/contexts/AlertContext";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import CardChoose from "../components/CardChoose";
 import WrapperConnectX from "../components/WrapperConnectX";
-import { useAlert } from "@/contexts/AlertContext";
-import { API_URL } from "@/configs/env.config";
 
 type Props = {};
 
@@ -44,12 +39,12 @@ const SignUp = (props: Props) => {
               <CardChoose
                 icon={<IconIndividual />}
                 name="Individual"
-                onClick={() => push("/sign-up/individual")}
+                onClick={() => push("/auth/sign-up/individual")}
               />
               <CardChoose
                 icon={<IconProjectSignUp />}
                 name="Project"
-                // onClick={() => push("/sign-up/project")}
+                // onClick={() => push("/auth/sign-up/project")}
                 onClick={() =>
                   setAlert(true, "Coming Soon", "Coming Soon", "warning")
                 }

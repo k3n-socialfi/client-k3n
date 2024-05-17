@@ -1,5 +1,5 @@
-import Individual from "@/modules/signUp/components/Individual";
 import React from "react";
+import Individual from "@/modules/signUp/components/Individual";
 
 type Props = {};
 
