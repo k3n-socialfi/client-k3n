@@ -1,16 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Typography } from "@mui/material";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import FormCreateIndividual from "../../FormCreateIndividual";
-import { IconThunder } from "@/assets/icons";
-import useFetchDataMyProfile from "@/contract/hooks/useFetchDataMyProfile";
 import WrapperSignUp from "../../WrapperSignUp";
 
 type Props = {};
 
 const KOL = (props: Props) => {
-  const { dataPersonal } = useFetchDataMyProfile();
+  const { dataPersonal } = useMyProfileContext();
 
   return (
     <WrapperSignUp showTitle showDescription>

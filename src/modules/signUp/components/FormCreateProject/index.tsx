@@ -124,7 +124,7 @@ const FormCreateProject = (props: Props) => {
           </FormControlCustom>
 
           <div style={{ width: "100%" }}>
-            <Error>{errors.projectName?.message as string}</Error>
+            <Error>{errors.projectName?.message as string} </Error>
           </div>
         </Columns>
 
@@ -146,7 +146,7 @@ const FormCreateProject = (props: Props) => {
           </FormControlCustom>
 
           <div style={{ width: "100%" }}>
-            <Error>{errors.tokenName?.message as string}</Error>
+            <Error>{errors.tokenName?.message as string} </Error>
           </div>
         </Columns>
       </Rows>
@@ -177,7 +177,7 @@ const FormCreateProject = (props: Props) => {
               </MenuItem>
             ))}
           </SelectCustom>
-          <Error>{errors.tag?.message as string}</Error>
+          <Error>{errors.tag?.message as string} </Error>
         </FormControl>
       </SelectCreate>
 
@@ -205,7 +205,7 @@ const FormCreateProject = (props: Props) => {
                 </MenuItem>
               ))}
             </SelectCustom>
-            <Error>{errors.projectChain?.message as string}</Error>
+            <Error>{errors.projectChain?.message as string} </Error>
           </FormControl>
         </SelectCreate>
 
@@ -232,7 +232,7 @@ const FormCreateProject = (props: Props) => {
                 </MenuItem>
               ))}
             </SelectCustom>
-            <Error>{errors.region?.message as string}</Error>
+            <Error>{errors.region?.message as string} </Error>
           </FormControl>
         </SelectCreate>
       </Rows>
@@ -325,6 +325,11 @@ const Rows = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0;
+  }
 `;
 
 const Columns = styled.div`
@@ -332,6 +337,9 @@ const Columns = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @media (max-width: 500px) {
+    gap: 0;
+  }
 `;
 
 const SelectCreate = styled.div`
@@ -354,6 +362,9 @@ const Button = styled.div`
   gap: 20px;
   width: 100%;
   margin-top: 20px;
+  @media (max-width: 500px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const FormControlCustom = styled(FormControl)`

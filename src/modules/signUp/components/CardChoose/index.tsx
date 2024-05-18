@@ -40,7 +40,8 @@ const Container = styled.div<any>`
   align-items: center;
   width: 176px;
   height: 128px;
-  padding: 32px 60px;
+  border: 4px solid #191d24;
+  padding: 28px 56px;
   gap: 22px;
   border-radius: 16px;
   background-color: #191d24;
@@ -48,7 +49,7 @@ const Container = styled.div<any>`
     opacity: 0.9;
   }
   &:active {
-    border: 4px solid #82ebff;
+    border-color: #82ebff;
   }
 `;
 

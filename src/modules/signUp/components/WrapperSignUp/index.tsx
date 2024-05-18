@@ -31,7 +31,7 @@ const WrapperSignUp = ({
         <Image src={logoK3N} title="logo" alt="logo k3n" layout="fill" />
       </Logo>
       <Title>
-        <h4>{showTitle ? "Create your account" : "Login"}</h4>
+        <h4>{showTitle ? "Create your Profile" : "Login"}</h4>
         <h6>
           {showDescription ? "" : "Connect to K3N using the options below"}
         </h6>
@@ -77,8 +77,9 @@ const Title = styled.div`
   width: 100%;
   gap: 16px;
   flex-wrap: nowrap;
+  margin-top: 60px;
   h4 {
-    font-size: clamp(24px, 4vw, 56px);
+    font-size: clamp(24px, 7vw, 55px);
     font-weight: 700;
     line-height: 67px;
     color: #fff;
@@ -88,18 +89,21 @@ const Title = styled.div`
     }
   }
   h6 {
-    font-size: clamp(12px, 4vw, 24px);
+    font-size: clamp(12px, 5vw, 24px);
     font-weight: 600;
     line-height: 29px;
     color: #fff;
     text-align: center;
     @media (max-width: 428px) {
-      line-height: 15px;
+      line-height: 22px;
     }
   }
   @media (max-width: 668px) {
     flex-wrap: wrap;
     text-align: center;
+  }
+  @media (max-width: 500px) {
+    margin-top: 0;
   }
 `;
 

@@ -400,6 +400,7 @@ const RegionAndProjectChain = styled.div`
   gap: 20px;
   @media (max-width: 428px) {
     flex-direction: column;
+    gap: 0;
   }
 `;
 

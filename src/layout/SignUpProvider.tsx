@@ -48,6 +48,9 @@ const Container = styled.div<IIMG>`
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  @media (max-width: 500px) {
+    min-height: 120vh;
+  }
 `;
 
 const Background = styled.div`
@@ -61,6 +64,10 @@ const Background = styled.div`
 const ImageCustom = styled(Image)`
   width: 885px;
   height: 885px;
+  padding-right: 250px;
+  @media (max-width: 1499px) {
+    padding-right: 0;
+  }
   @media (max-width: 1100px) {
     width: 785px;
   }

@@ -2,18 +2,31 @@
 import styled from "styled-components";
 import FormCreateIndividual from "../../FormCreateIndividual";
 import WrapperSignUp from "../../WrapperSignUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import { useRouter } from "next/navigation";
+import Loading from "../../Loading";
 
 type Props = {};
 
 const User = (props: Props) => {
   const [showPoint, setShowConnected] = useState(true);
+  const { dataPersonal, isLoading } = useMyProfileContext();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (dataPersonal?.twitterInfo?.totalPoints < 30) {
+      push("/");
+    }
+  }, [dataPersonal]);
 
   const handleShow = (value: boolean) => {
     setShowConnected(value);
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <WrapperSignUp showPoint={showPoint} showTitle>
       <FormCreateIndividual showPoint={handleShow} />
     </WrapperSignUp>
