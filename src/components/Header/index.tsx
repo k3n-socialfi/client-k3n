@@ -61,8 +61,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
           />
         </ImgCustom>
       </HeaderLogo>
-
-      <HeaderSearch>
+      {/* <HeaderSearch>
         <HeaderIcon>
           <IconSearch />
         </HeaderIcon>
@@ -72,8 +71,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
         <HeaderIcon>
           <IconChevronDown />
         </HeaderIcon>
-      </HeaderSearch>
-
+      </HeaderSearch> */}
       {isClient && (
         <HeaderUserMobile>
           {label === "Disconnect" || buttonState === "connected" ? (
@@ -101,27 +99,11 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
               <Button>
                 <ButtonPrimary
                   fullWidth
-                  borderRadius="10px"
-                  disabled={
-                    buttonState === "connecting" ||
-                    buttonState === "disconnecting"
-                  }
-                  onClick={handleClick}
-                >
-                  Connect Wallet
-                </ButtonPrimary>
-              </Button>
-              <Button>
-                <ButtonSecondary
-                  fullWidth
-                  borderColorBt="#191D24"
-                  backgroundColorBtHover="#191D24"
-                  borderColorBtHover="#191D24"
-                  borderRadius="10px"
+                  borderRadius="16px"
                   onClick={() => push("/sign-up")}
                 >
-                  Sign Up
-                </ButtonSecondary>
+                  Login
+                </ButtonPrimary>
               </Button>
             </HeaderButton>
           )}
@@ -183,6 +165,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  border-bottom: 1px solid var(--Card-Card900, rgba(52, 59, 74, 1));
   @media (max-width: 768px) {
   }
   @media (max-width: 610px) {
