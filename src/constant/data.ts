@@ -30,3 +30,5 @@ export const LIST_POPUPITEM: PopupItem[] = [
     href: "/",
   },
 ];
+
+export const FAKEDATA_SKELETON = [0, 1, 2, 3, 4];
