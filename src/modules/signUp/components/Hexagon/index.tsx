@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import IMGPoint from "@/assets/images/IMGPoint.png";
 
-const Hexagon = () => {
+interface ILinkIMG {
+  srcIMG: string;
+}
+
+const Hexagon = ({ srcIMG }: ILinkIMG) => {
   return (
     <OuterShape className="hexagon">
-      <InnerShape className="hexagon" />
+      <InnerShape className="hexagon" srcIMG={srcIMG} />
     </OuterShape>
   );
 };
@@ -18,19 +23,26 @@ const OuterShape = styled.div`
   height: 40px;
   /* width: calc(150px + 4vw); */
   width: 40px;
-  /* margin: 25px; */
+  padding: 1px;
   background-image: linear-gradient(to bottom right, #82ebff, #82ebff, #82ebff);
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  -webkit-clip-path: polygon(
+    50% 0%,
+    95% 25%,
+    95% 75%,
+    50% 100%,
+    5% 75%,
+    5% 25%
+  );
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 `;
 
-const InnerShape = styled.div`
+const InnerShape = styled.div<ILinkIMG>`
   /* height: calc(130px + 4vw); */
   height: 38px;
   /* width: calc(130px + 4vw); */
   width: 38px;
-  background: url(https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=faces)
-    no-repeat center;
+  background: url(${(props) => props.srcIMG ?? IMGPoint.src}) no-repeat center;
   background-size: cover;
   margin: auto;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 `;

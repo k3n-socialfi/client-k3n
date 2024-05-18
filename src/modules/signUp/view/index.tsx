@@ -8,7 +8,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import CardChoose from "../components/CardChoose";
-import WrapperConnectX from "../components/WrapperConnectX";
+import WrapperSignUp from "../components/WrapperSignUp";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import Loading from "../components/Loading";
 
 type Props = {};
 
@@ -16,17 +18,33 @@ const SignUp = (props: Props) => {
   const { push } = useRouter();
   const [screen, setScreen] = useState(-1);
   const { setAlert } = useAlert();
+  const { dataPersonal, isLoading } = useMyProfileContext();
   const token =
     typeof window !== "undefined" && localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (token) setScreen(0);
-  }, []);
+    if (dataPersonal) {
+      if (dataPersonal?.isUpdated) {
+        push("/");
+      } else {
+        setScreen(0);
+      }
+    }
+  }, [dataPersonal]);
 
   const handleLoginTwitter = () => {
     push(`${API_URL}/api/v1/oauth/twitter`);
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("isSignUp", "true");
+    // if (typeof window !== "undefined") {
+    //   sessionStorage.setItem("isSignUp", "true");
+    // }
+  };
+
+  const handleCheckPoint = () => {
+    if (dataPersonal?.twitterInfo?.totalPoints < 30) {
+      // push("/login/individual/kol");
+      push("/");
+    } else {
+      push("/login/individual");
     }
   };
 
@@ -34,39 +52,42 @@ const SignUp = (props: Props) => {
     switch (screen) {
       case 0:
         return (
-          <WrapperConnectX showConnected>
+          <WrapperSignUp showPoint>
             <Select>
               <CardChoose
                 icon={<IconIndividual />}
                 name="Individual"
-                onClick={() => push("/auth/sign-up/individual")}
+                // onClick={() => push("/login/individual")}
+                onClick={handleCheckPoint}
               />
               <CardChoose
                 icon={<IconProjectSignUp />}
                 name="Project"
-                // onClick={() => push("/auth/sign-up/project")}
-                onClick={() =>
-                  setAlert(true, "Coming Soon", "Coming Soon", "warning")
-                }
+                onClick={() => push("/login/project")}
+                // onClick={() =>
+                //   setAlert(true, "Coming Soon", "Coming Soon", "warning")
+                // }
               />
             </Select>
-          </WrapperConnectX>
+          </WrapperSignUp>
         );
       default:
         return (
-          <ButtonPrimary
-            fullWidth
-            colorBt="primary.enabled"
-            borderRadius="10px"
-            onClick={handleLoginTwitter}
-          >
-            <ContentBt>
-              <IconX />
-              <Typography variant="h5" color="#fff">
-                Continue with X
-              </Typography>
-            </ContentBt>
-          </ButtonPrimary>
+          <WrapperSignUp>
+            <ButtonPrimary
+              fullWidth
+              colorBt="primary.enabled"
+              borderRadius="10px"
+              onClick={handleLoginTwitter}
+            >
+              <ContentBt>
+                <IconX />
+                <Typography variant="h5" color="#fff">
+                  Continue with X
+                </Typography>
+              </ContentBt>
+            </ButtonPrimary>
+          </WrapperSignUp>
         );
     }
   }, [screen, push]);
@@ -91,5 +112,5 @@ const Select = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 46px;
+  gap: 36px;
 `;

@@ -1,7 +1,7 @@
 "use client";
 import { IconCertification, IconUSDT } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import { TService } from "@/types/service";
 import { Divider, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";

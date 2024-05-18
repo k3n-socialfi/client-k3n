@@ -17,19 +17,15 @@ const CardChoose = (props: Props) => {
     return (
       <Tooltip title="Shill score must be greater than 30 to create a KOL">
         <Container isDisabled={isDisabled}>
-          <SectionChild>
-            <Icon>{icon}</Icon>
-            <Name>{name}</Name>
-          </SectionChild>
+          <Icon>{icon}</Icon>
+          <Name>{name}</Name>
         </Container>
       </Tooltip>
     );
   return (
     <Container onClick={onClick} isDisabled={isDisabled}>
-      <SectionChild>
-        <Icon>{icon}</Icon>
-        <Name>{name}</Name>
-      </SectionChild>
+      <Icon>{icon}</Icon>
+      <Name>{name}</Name>
     </Container>
   );
 };
@@ -42,29 +38,20 @@ const Container = styled.div<any>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 296px;
-  height: 192px;
+  width: 176px;
+  height: 128px;
   padding: 32px 60px;
+  gap: 22px;
   border-radius: 16px;
   background-color: #191d24;
   &:hover {
     opacity: 0.9;
   }
   &:active {
-    border: 2px solid #82ebff;
+    border: 4px solid #82ebff;
   }
 `;
 
-const SectionChild = styled.div`
-  width: 296px;
-  height: 192px;
-  padding: 32px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 22px;
-`;
 const Icon = styled.div`
   width: 72px;
   height: 72px;

@@ -1,0 +1,36 @@
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPopover-paper.MuiMenu-paper {
+  border-radius: 10px !important;
+  ul {
+    background-color: #191D24 !important;
+    color: #FFF !important;
+    border-radius: 10px !important;
+  }
+  .Mui-selected {
+    background-color: #F0116A !important;
+  }
+  ul > li:hover {
+    background-color: #F0116A !important;
+  }
+
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.MuiSvgIcon-fontSizeMedium {
+  color: #FFF !important;
+}
+
+
+
+/* .MuiMenu-list{
+  background-color: #191D24;
+  color: #FFF;
+  border-radius: 10px;
+}
+
+.MuiMenu-list>.MuiMenuItem-gutters:hover{
+  background-color: #F0116A;
+} */
+

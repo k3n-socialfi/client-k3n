@@ -5,7 +5,7 @@ import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 import { TYPE_WALLET } from "@/constant";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 interface IPropPopupProfile {
   handleDisConnect?: any;
   base58Pubkey?: string;
@@ -37,9 +37,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
               {/* <ProfileDes className="profile-section__info__des">
                 {base58Pubkey?.slice(0, 4)}...{base58Pubkey?.slice(40, 44)}
               </ProfileDes> */}
-              <ProfileDes>
-                {myProfile?.jobTittle}
-              </ProfileDes>
+              <ProfileDes>{myProfile?.jobTittle}</ProfileDes>
             </ProfileText>
             <ProfileInfoText className="profile-section__info__text">
               <IconThunder />
