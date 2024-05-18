@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ReactNode, Suspense, createContext } from "react";
 import WalletContextProvider from "./WalletProvider";
+import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
@@ -20,7 +21,9 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
         <CustomAlert />
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <WalletContextProvider>{children}</WalletContextProvider>
+            <MyProfileContextProvider>
+              <WalletContextProvider>{children}</WalletContextProvider>
+            </MyProfileContextProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </AlertProvider>

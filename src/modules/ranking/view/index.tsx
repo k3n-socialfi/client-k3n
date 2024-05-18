@@ -5,7 +5,7 @@ import MyRanking from "../components/MyRanking";
 import TableTopRanking from "@/components/TableTopRanking";
 import styled from "styled-components";
 import { IconBoxArrowRight } from "@/assets/icons";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
 import { useTableRankingContext } from "@/contexts/TableTopRanking";

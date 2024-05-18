@@ -65,7 +65,7 @@ const useFetchDataHomePage = () => {
         };
         const { data } = await getKolsFilter(params);
         setKols(data.data.users);
-        setTotalItemKols(data?.data?.totalItems ?? 0)
+        setTotalItemKols(data?.data?.totalItems ?? 0);
       } catch (err) {
         console.error(err);
       }
@@ -109,7 +109,7 @@ const useFetchDataHomePage = () => {
     isLoading,
     error,
     kols,
-    totalItemKols
+    totalItemKols,
   };
 };
 

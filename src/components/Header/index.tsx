@@ -17,7 +17,7 @@ import { IconChevronDown } from "@/assets/icons";
 import { PopupProfile } from "./components/PopupProfile";
 import Popup from "./components/Popup";
 import useWalletCustom from "@/hooks/useWalletCustom";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 
 type THeaderProp = {
   handleToggleSidebar?: () => void;
@@ -100,7 +100,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
                 <ButtonPrimary
                   fullWidth
                   borderRadius="16px"
-                  onClick={() => push("/sign-up")}
+                  onClick={() => push("/login")}
                 >
                   Login
                 </ButtonPrimary>

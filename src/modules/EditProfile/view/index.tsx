@@ -10,7 +10,7 @@ import { schemaProfile } from "@/schema/schemaProfile";
 import { UpdateProfile } from "../services";
 import { useAlert } from "@/contexts/AlertContext";
 import { useState } from "react";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 
 export default function EditProfileView() {
   const { setAlertSuccess, setAlertError } = useAlert();

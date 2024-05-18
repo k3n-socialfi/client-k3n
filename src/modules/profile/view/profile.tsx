@@ -8,7 +8,7 @@ import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
 import PostSkeleton from "@/components/Skeleton/PostSkeleton";
 import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
 import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import CompletedProject from "../components/CompletedProject";
 import PersonalUserProfile from "../components/PersonalUserProfile";
 import { getMentionedProject } from "../services";
@@ -19,10 +19,13 @@ export interface IUserProfileProps {
 
 export default function UserProfile(props: IUserProfileProps) {
   const [listProjects, setListProject] = useState<any[]>();
-  const { dataPersonal, dataPosts, isLoading, fetchData } = useMyProfileContext();
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
 
   const fetchDataMentioned = async () => {
-    const dataServices: any = await getMentionedProject(dataPersonal?.username?.toString());
+    const dataServices: any = await getMentionedProject(
+      dataPersonal?.username?.toString(),
+    );
     setListProject(dataServices?.data?.data);
   };
 

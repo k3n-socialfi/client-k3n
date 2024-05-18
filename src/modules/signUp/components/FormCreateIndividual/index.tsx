@@ -1,6 +1,6 @@
 "use client";
 import { ButtonPrimary, ButtonText } from "@/components/ButtonCustom";
-import { CHAIN, LANGUAGE, PLATFORM } from "@/constant/dataMockupSignUp";
+import { CHAIN, LANGUAGE, PLATFORM, ROLES } from "@/constant/dataMockupSignUp";
 import { useBoolean } from "@/hooks/useBoolean";
 import {
   FormControl,
@@ -21,6 +21,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
 import { apiCreateUser } from "../../services";
 import { useAlert } from "@/contexts/AlertContext";
+import "../styles/styles.css";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,15 +33,6 @@ const MenuProps = {
     },
   },
 };
-
-const roles = [
-  "Celebrities",
-  "Experts",
-  "KOL",
-  "Influencers",
-  "Reseacher",
-  "Other",
-];
 
 const tags = [
   "NFT",
@@ -62,16 +54,17 @@ const tags = [
 ];
 
 interface Props {
-  showConnected: (value: boolean) => void;
+  showPoint: (value: boolean) => void;
+  showChain?: boolean;
 }
 
 interface ISelect {
   onChange?: any;
 }
 
-const FormCreateIndividual = ({ showConnected }: Props) => {
+const FormCreateIndividual = ({ showPoint, showChain }: Props) => {
   const currentUrl = usePathname();
-  const { push } = useRouter();
+  const { push, back } = useRouter();
   const openDoneSubmit = useBoolean();
   const [roleName, setRoleName] = useState<string[]>([]);
   const [tagName, setTagName] = useState<string[]>([]);
@@ -104,9 +97,9 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
   });
 
   const onSubmitForm = async (data: any) => {
-    showConnected(false);
+    showPoint(false);
     try {
-      const dataForm = { ...data, role: data.role[0], isProjectAccount: false };
+      const dataForm = { ...data, isProjectAccount: false };
       await apiCreateUser(dataForm);
       openDoneSubmit.onTrue();
     } catch (error) {
@@ -118,14 +111,14 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
   };
 
   const handleBack = () => {
-    const modifiedUrl = currentUrl.replace(/\/[^/]+\/?$/, "");
-    push(modifiedUrl);
+    back();
+    // const modifiedUrl = currentUrl.replace(/\/[^/]+\/?$/, "");
+    // push(modifiedUrl);
   };
 
   return !openDoneSubmit.value ? (
-    <form onSubmit={handleSubmit(onSubmitForm)}>
-      <Container>
-        {/* <Label>
+    <FormCustom onSubmit={handleSubmit(onSubmitForm)}>
+      {/* <Label>
           <Typography>Role</Typography>
         </Label>
 
@@ -145,7 +138,7 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
           <Error>{errors.role?.message as string}</Error>
         </div> */}
 
-        {/* <Label>
+      {/* <Label>
           <Typography>Tag</Typography>
         </Label>
 
@@ -165,138 +158,174 @@ const FormCreateIndividual = ({ showConnected }: Props) => {
           <Error>{errors.tag?.message as string}</Error>
         </div> */}
 
-        <SelectCreate>
-          <Label>
-            <Typography>Role</Typography>
-          </Label>
-          <FormControl fullWidth sx={{ width: "100%" }}>
-            <InputLabel id="role">Change Role</InputLabel>
-            <SelectCustom
-              labelId="role"
-              id="role"
-              // multiple
-              value={roleName}
-              {...register("role")}
-              input={<OutlinedInput label="Change Role" />}
-              renderValue={(selected: any) => selected.join(", ")}
-              MenuProps={MenuProps}
-              onChange={handleChangeRoles}
-            >
-              {roles.map((name) => (
-                <MenuItem key={name} value={name}>
-                  <Checkbox checked={roleName.indexOf(name) > -1} />
-                  <ListItemText primary={name} />
-                </MenuItem>
-              ))}
-            </SelectCustom>
-            <Error>{errors.role?.message as string}</Error>
-          </FormControl>
-        </SelectCreate>
+      <SelectCreate>
+        <Label>
+          <Typography>Role</Typography>
+        </Label>
 
-        <SelectCreate>
-          <Label>
-            <Typography>Tag</Typography>
-          </Label>
-          <FormControl fullWidth sx={{ width: "100%" }}>
-            <InputLabel id="tags">Select new tag </InputLabel>
-            <SelectCustom
-              labelId="tags"
-              id="tags"
-              multiple
-              value={tagName}
-              {...register("tags")}
-              input={<OutlinedInput label="Select new tag" />}
-              renderValue={(selected: any) => selected.join(", ")}
-              MenuProps={MenuProps}
-              onChange={handleChangeTags}
-            >
-              {tags.map((name) => (
-                <MenuItem key={name} value={name}>
-                  <Checkbox checked={tagName.indexOf(name) > -1} />
-                  <ListItemText primary={name} />
-                </MenuItem>
-              ))}
-            </SelectCustom>
-            <Error>{errors.tag?.message as string}</Error>
-          </FormControl>
-        </SelectCreate>
-
-        <RegionAndProjectChain>
-          <SelectCreate>
-            <Label>
-              <Typography>Region</Typography>
-            </Label>
-
-            <FormControl fullWidth sx={{ width: "100%" }}>
-              <InputLabel id="platform" sx={{ color: "#637592" }}>
-                Select your platform
-              </InputLabel>
-              <SelectCustom
-                id="platform"
-                labelId="platform"
-                // value={""}
-                label="Select your region"
-                {...register("platform")}
-                // onChange={handleChangeSelect}
-              >
-                {PLATFORM.map((option) => (
-                  <MenuItem key={option.id} value={option.value}>
-                    <ItemSelect>{option.label}</ItemSelect>
-                  </MenuItem>
-                ))}
-              </SelectCustom>
-              <Error>{errors.platform?.message as string}</Error>
-            </FormControl>
-          </SelectCreate>
-
-          <SelectCreate>
-            <Label>
-              <Typography>Language</Typography>
-            </Label>
-
-            <FormControl fullWidth sx={{ width: "100%" }}>
-              <InputLabel id="language" sx={{ color: "#637592" }}>
-                Select Language
-              </InputLabel>
-              <SelectCustom
-                id="language"
-                labelId="language"
-                // value={""}
-                label="Select Language"
-                {...register("language")}
-                // onChange={handleChangeSelect}
-              >
-                {LANGUAGE.map((option) => (
-                  <MenuItem key={option.id} value={option.value}>
-                    <ItemSelect>{option.label}</ItemSelect>
-                  </MenuItem>
-                ))}
-              </SelectCustom>
-              <Error>{errors.language?.message as string}</Error>
-            </FormControl>
-          </SelectCreate>
-        </RegionAndProjectChain>
-        <Button>
-          <ButtonText
-            fullWidth
-            backgroundColorBt="textCustom.backCreateAccount"
-            borderColorBt="textCustom.backCreateAccount"
-            borderRadius="10px"
-            onClick={handleBack}
+        <FormControl fullWidth sx={{ width: "100%" }}>
+          <InputLabel id="role" sx={{ color: "#637592" }}>
+            Change role
+          </InputLabel>
+          <SelectCustom
+            id="role"
+            labelId="role"
+            // value={""}
+            label="Change role"
+            {...register("role")}
+            // onChange={handleChangeSelect}
           >
-            <Typography variant="h5" sx={{ padding: "8px 0" }}>
-              Back
-            </Typography>
-          </ButtonText>
+            {ROLES.map((option) => (
+              <MenuItem key={option.id} value={option.value}>
+                <ItemSelect>{option.label}</ItemSelect>
+              </MenuItem>
+            ))}
+          </SelectCustom>
+          <Error>{errors.role?.message as string}</Error>
+        </FormControl>
+      </SelectCreate>
 
-          <ButtonPrimary type="submit" borderRadius="10px" fullWidth>
-            <Typography variant="h5" sx={{ padding: "8px 0" }}>
-              Continue
-            </Typography>
-          </ButtonPrimary>
-        </Button>
-      </Container>
-    </form>
+      <SelectCreate>
+        <Label>
+          <Typography>Tag</Typography>
+        </Label>
+        <FormControl fullWidth sx={{ width: "100%" }}>
+          <InputLabel id="tags" sx={{ color: "#637592" }}>
+            Select new tag{" "}
+          </InputLabel>
+          <SelectCustom
+            labelId="tags"
+            id="tags"
+            multiple
+            value={tagName}
+            {...register("tags")}
+            input={<OutlinedInput label="Select new tag" />}
+            renderValue={(selected: any) => selected.join(", ")}
+            MenuProps={MenuProps}
+            onChange={handleChangeTags}
+          >
+            {tags.map((name) => (
+              <MenuItem key={name} value={name}>
+                <Checkbox checked={tagName.indexOf(name) > -1} />
+                <ListItemText primary={name} />
+              </MenuItem>
+            ))}
+          </SelectCustom>
+          <Error>{errors.tag?.message as string}</Error>
+        </FormControl>
+      </SelectCreate>
+
+      {showChain && (
+        <SelectCreate>
+          <Label>
+            <Typography>Chain</Typography>
+          </Label>
+
+          <FormControl fullWidth sx={{ width: "100%" }}>
+            <InputLabel id="chain" sx={{ color: "#637592" }}>
+              Select Chain
+            </InputLabel>
+            <SelectCustom
+              id="chain"
+              labelId="chain"
+              // value={""}
+              label="Select Chain"
+              {...register("chain")}
+              // onChange={handleChangeSelect}
+            >
+              {CHAIN.map((option) => (
+                <MenuItem key={option.id} value={option.value}>
+                  <ItemSelect>
+                    {option?.icon}
+                    {option?.label}
+                  </ItemSelect>
+                </MenuItem>
+              ))}
+            </SelectCustom>
+            <Error>{errors.chain?.message as string}</Error>
+          </FormControl>
+        </SelectCreate>
+      )}
+
+      <RegionAndProjectChain>
+        <SelectCreate>
+          <Label>
+            <Typography>Region</Typography>
+          </Label>
+
+          <FormControl fullWidth sx={{ width: "100%" }}>
+            <InputLabel id="region" sx={{ color: "#637592" }}>
+              Select your region
+            </InputLabel>
+            <SelectCustom
+              id="region"
+              labelId="region"
+              // value={""}
+              label="Select your region"
+              {...register("region")}
+              // onChange={handleChangeSelect}
+            >
+              {PLATFORM.map((option) => (
+                <MenuItem key={option.id} value={option.value}>
+                  <ItemSelect>{option.label}</ItemSelect>
+                </MenuItem>
+              ))}
+            </SelectCustom>
+            <Error>{errors.region?.message as string}</Error>
+          </FormControl>
+        </SelectCreate>
+
+        <SelectCreate>
+          <Label>
+            <Typography>Language</Typography>
+          </Label>
+
+          <FormControl fullWidth sx={{ width: "100%" }}>
+            <InputLabel id="language" sx={{ color: "#637592" }}>
+              Select Language
+            </InputLabel>
+            <SelectCustom
+              id="language"
+              labelId="language"
+              // value={""}
+              label="Select Language"
+              {...register("language")}
+              // onChange={handleChangeSelect}
+            >
+              {LANGUAGE.map((option) => (
+                <MenuItem key={option.id} value={option.value}>
+                  <ItemSelect>{option.label}</ItemSelect>
+                </MenuItem>
+              ))}
+            </SelectCustom>
+            <Error>{errors.language?.message as string}</Error>
+          </FormControl>
+        </SelectCreate>
+      </RegionAndProjectChain>
+      <Button>
+        <ButtonText
+          fullWidth
+          backgroundColorBt="textCustom.backCreateAccount"
+          borderColorBt="textCustom.backCreateAccount"
+          borderRadius="40px"
+          onClick={handleBack}
+        >
+          <Typography
+            variant="h5"
+            sx={{ padding: "8px 0" }}
+            color={showChain ? "" : "#82EBFF"}
+          >
+            Back
+          </Typography>
+        </ButtonText>
+
+        <ButtonPrimary type="submit" borderRadius="40px" fullWidth>
+          <Typography variant="h5" sx={{ padding: "8px 0" }}>
+            Continue
+          </Typography>
+        </ButtonPrimary>
+      </Button>
+    </FormCustom>
   ) : (
     <ContainerDone>
       <Loading />
@@ -330,13 +359,23 @@ const ContainerDone = styled.div`
 `;
 
 const Container = styled.div`
-  width: 598px;
-  display: flex;
-  flex-direction: column;
-  color: #fff;
-  @media (max-width: 666px) {
+  /* width: 598px; */
+
+  /* @media (max-width: 666px) {
     width: 348px;
   }
+  @media (max-width: 428px) {
+    width: 100%;
+  } */
+`;
+
+const FormCustom = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  color: #fff;
 `;
 
 const Label = styled.div`
@@ -359,6 +398,10 @@ const RegionAndProjectChain = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+  @media (max-width: 428px) {
+    flex-direction: column;
+    gap: 0;
+  }
 `;
 
 const SelectCreate = styled.div`
@@ -381,6 +424,9 @@ const Button = styled.div`
   gap: 20px;
   width: 100%;
   margin-top: 20px;
+  @media (max-width: 428px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const FormControlCustom = styled(FormControl)`
@@ -394,8 +440,13 @@ const SelectCustom = styled(Select)<ISelect>`
   background: transparent !important;
   color: #58627c !important;
   border: 1px solid #58627c !important;
-  border-radius: 20px !important;
+  border-radius: 10px !important;
   color: #fff;
+  .MuiSelect-icon {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+  }
   &:focus-visible {
     border: none !important;
     outline: none !important;
