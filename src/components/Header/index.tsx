@@ -100,7 +100,7 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
                 <ButtonPrimary
                   fullWidth
                   borderRadius="16px"
-                  onClick={() => push("/sign-up")}
+                  onClick={() => push("/login")}
                 >
                   Login
                 </ButtonPrimary>
