@@ -3,12 +3,11 @@ import React, { useState } from "react";
 import { Stack } from "@mui/material";
 import styled from "styled-components";
 import MyRanking from "../components/MyRanking";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
-import { useTableRankingContext } from "@/contexts/TableTopRanking";
 import TableTopRanking from "../components/TableRanking";
 import { useHomeContext } from "@/contexts/HomeContext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 
 export interface IRankingProps { }
 
@@ -27,13 +26,7 @@ export default function Ranking(props: IRankingProps) {
         <MyRanking dataPersonal={dataPersonal} />
       )}
       <Title style={{ marginTop: "28px" }}>Top 100 Ranking</Title>
-      {isLoading ? (
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((row) => (
-          <SkeletonTableTopRanking key={row} />
-        ))
-      ) : (
-        <TableTopRanking />
-      )}
+      <TableTopRanking />
     </Container>
   );
 }
@@ -74,20 +67,5 @@ const MyRankingTop = styled(Stack)`
     h3 {
       font-size: 32px;
     }
-  }
-`;
-
-const TurnBack = styled(Stack)`
-  display: flex;
-  flex-direction: row !important;
-  gap: 5px !important;
-  padding: 4px 12px !important;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    transform: scale(0.9);
-    transition: all 0.5s;
-    background-color: #ffd7f4;
-    border-radius: 10px;
   }
 `;

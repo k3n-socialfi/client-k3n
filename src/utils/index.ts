@@ -14,15 +14,31 @@ export const getProvider = () => {
   return null;
 };
 
-export const solNetwork = ()=> {
+export const solNetwork = () => {
   switch (SOL_NETWORK) {
-    case 'mainnet':
-     return WalletAdapterNetwork.Mainnet  
-    case 'testnet':
-      return WalletAdapterNetwork.Testnet  
+    case "mainnet":
+      return WalletAdapterNetwork.Mainnet;
+    case "testnet":
+      return WalletAdapterNetwork.Testnet;
     default:
-        return WalletAdapterNetwork.Devnet  
+      return WalletAdapterNetwork.Devnet;
   }
-}
+};
 
-export  const endpoint = anchor.web3.clusterApiUrl(solNetwork());
+export const formatNumberToK = (x: number) => {
+  switch (true) {
+    case x >= 1000:
+      const kValue = x / 1000;
+      return `${kValue}K`;
+    case x >= 1000000:
+      const mValue = x / 1000;
+      return `${mValue}M`;
+    case x >= 1000000000:
+      const bValue = x / 1000;
+      return `${bValue}B`;
+    default:
+      return x;
+  }
+};
+
+export const endpoint = anchor.web3.clusterApiUrl(solNetwork());

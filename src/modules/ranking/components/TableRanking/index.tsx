@@ -243,7 +243,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
             />
           )}
         />
-        <ItemFilters color="#82EBFF" onClick={() => setFilter(defaultFilter)} style={{ cursor: "pointer" }}>
+        <ItemFilters color="#82EBFF" onClick={() => fetchData()} style={{ cursor: "pointer" }}>
           <IconReset />
           Reset Filter
         </ItemFilters>

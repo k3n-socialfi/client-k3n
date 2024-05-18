@@ -21,7 +21,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useMyProfileContext } from "@/contexts/MyProfileConext";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import useMyOffer from "../../hooks/useMyOffer";
 import useServiceContract from "@/modules/payment/hooks/useServiceContract";
 import dayjs from "dayjs";
