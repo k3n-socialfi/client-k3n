@@ -1,95 +1,87 @@
 "use client";
-import IconLike from "@/assets/icons/IconLike";
+import { IconCertification, IconStar, IconThunder } from "@/assets/icons";
+import TwitterIcon from "@/assets/icons/IconTwitter";
+import { Divider, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import Image from "next/image";
+import { ButtonText } from "../ButtonCustom";
 import {
+  CustomAvatar,
+  LinkCustom,
   StyleChips,
   StyleContentTitle,
   StyleFollower,
   StyleTitleLeft,
-  StyleTitleRight,
-  LinkCustom,
-  CustomAvatar,
-  CustomImage,
-  Subscribe,
+  UserPoint,
 } from "./style";
-import TwitterIcon from "@/assets/icons/IconTwitter";
-import { ButtonPrimary, ButtonText } from "../ButtonCustom";
-import { IconCertification } from "@/assets/icons";
-import { Divider, Typography } from "@mui/material";
-import Image from "next/image";
+import { formatNumberToK } from "@/utils";
+import Chip from "../Chip";
 
-const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+type TCardProps = {
+  data: IUserKOL;
+};
 
-export default function CardFeaturedKOLs(props: any) {
+export default function CardFeaturedKOLs({ data }: TCardProps) {
   return (
-    <Card sx={{ minWidth: 350, background: "#252525" }} {...props}>
-      <LinkCustom href={`profile/${props?.username}`}>
+    <LinkCustom href={`profile/${data?.username}`}>
+      <Card
+        sx={{
+          minWidth: "281px",
+          maxWidth: "281px",
+          padding: "19px",
+          background: "#252525",
+          borderRadius: "18px",
+        }}
+        {...data}
+      >
         <CustomAvatar>
-          <Subscribe>
-            <ButtonPrimary size="medium">subscribe</ButtonPrimary>
-          </Subscribe>
-          <CustomImage>
-            <Image
-              width={222}
-              height={222}
-              src={props?.thumbnail}
-              style={{
-                borderRadius: "50%",
-                margin: "-2px",
-                padding: "1px",
-              }}
-              alt="green iguana"
-            />
-          </CustomImage>
+          <Image
+            width={243}
+            height={243}
+            src={data?.twitterInfo?.avatar}
+            style={{
+              borderRadius: "18px",
+            }}
+            alt="green iguana"
+          />
+          <UserPoint>
+            <IconThunder />
+            <span>{data?.twitterInfo?.totalPoints}</span>
+            |
+            <IconStar />
+            <span>{data?.review}</span>
+          </UserPoint>
         </CustomAvatar>
-        <CardContent style={{ marginTop: "50px" }}>
+        <CardContent sx={{ padding: "16px 0" }}>
           <StyleContentTitle>
             <StyleTitleLeft>
-              {props?.name}
-              {props?.status && <IconCertification />}
+              {data?.fullName?.slice(0, 15)}
+              {data?.twitterInfo?.verificationStatus && <IconCertification />}
             </StyleTitleLeft>
-            <StyleTitleRight>
-              <CardActions sx={{ paddingLeft: "16px" }}>
-                <ButtonText
-                  startIcon={<IconLike />}
-                  size="medium"
-                  borderColorBt={"#4D4D5C"}
-                  backgroundColorBt={"#4D4D5C"}
-                >
-                  <Typography color={"#FFF"} sx={{ padding: "0 5px" }}>
-                    {props?.numberLike}
-                  </Typography>
-                </ButtonText>
-              </CardActions>
-            </StyleTitleRight>
           </StyleContentTitle>
           <StyleFollower>
             <TwitterIcon />
-            <Typography color={"#82EBFF"}>{props.follower} follower</Typography>
+            <Typography color={"#82EBFF"}>
+              {formatNumberToK(data?.twitterInfo?.followers)} follower
+            </Typography>
           </StyleFollower>
-          <Divider color={"#C4C4C4"} sx={{ m: 2 }} />
-
+          <StyleFollower
+            style={{
+              color: "var(--Text-Color-Text-Color600, rgba(145, 145, 145, 1))",
+              marginTop: "10px",
+            }}
+          >
+            Completed jobs <span style={{ color: "#fff" }}>{0}</span>
+          </StyleFollower>
           <StyleChips>
-            {props?.wallet?.map((item: any) => (
-              <>
-                <ButtonText
-                  size="small"
-                  borderColorBt={item?.background}
-                  backgroundColorBt={item?.background}
-                >
-                  <Typography color={item?.color} sx={{ padding: "0 5px" }}>
-                    {item.label}
-                  </Typography>
-                </ButtonText>
-              </>
-            ))}
+            {data?.tags?.map(
+              (item: string) =>
+                item && <Chip key={item} label={item} color="secondary" />,
+            )}
           </StyleChips>
         </CardContent>
-      </LinkCustom>
-    </Card>
+      </Card>
+    </LinkCustom>
   );
 }

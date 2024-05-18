@@ -7,8 +7,6 @@ import {
   getTrendingKols,
   getTrendingProjects,
 } from "@/services";
-import { initialHomeContextTypes } from "@/constant/dataInitialHomeContext";
-import { IUsers } from "@/interface/users.interface";
 import { ITrendingKols } from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
 import { IFeatureKols } from "@/interface/featureKols.interface";
@@ -16,23 +14,19 @@ import { IFeatureProjects } from "@/interface/featureProjects.interface";
 import { useSearchParams } from "next/navigation";
 
 const useFetchDataHomePage = () => {
-  const [users, setUsers] = useState<IUsers[]>([initialHomeContextTypes.users]);
-  const [trendingKols, setTrendingKols] = useState<ITrendingKols[]>([
-    initialHomeContextTypes.trendingKols,
-  ]);
+  const [users, setUsers] = useState<IUserKOL[]>([]);
+  const [trendingKols, setTrendingKols] = useState<ITrendingKols[]>([]);
   const [trendingProjects, setTrendingProjects] = useState<ITrendingProjects[]>(
-    [initialHomeContextTypes.trendingProjects],
+    [],
   );
-  const [featureKols, setFeatureKols] = useState<IFeatureKols[]>([
-    initialHomeContextTypes.featureKols,
-  ]);
+  const [featureKols, setFeatureKols] = useState<IUserKOL[]>([]);
 
-  const [kols, setKols] = useState<IFeatureKols[]>([]);
+  const [kols, setKols] = useState<IUserKOL[]>([]);
   const [totalItemKols, setTotalItemKols] = useState<number>(0);
 
-  const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>([
-    initialHomeContextTypes.featureProjects,
-  ]);
+  const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>(
+    [],
+  );
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>();
@@ -65,7 +59,7 @@ const useFetchDataHomePage = () => {
         };
         const { data } = await getKolsFilter(params);
         setKols(data.data.users);
-        setTotalItemKols(data?.data?.totalItems ?? 0)
+        setTotalItemKols(data?.data?.totalItems ?? 0);
       } catch (err) {
         console.error(err);
       }
@@ -109,7 +103,7 @@ const useFetchDataHomePage = () => {
     isLoading,
     error,
     kols,
-    totalItemKols
+    totalItemKols,
   };
 };
 

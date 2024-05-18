@@ -19,7 +19,11 @@ export const StyleTitleLeft = styled.div`
   gap: 5px;
   font-size: 18px;
   padding-bottom: 12px;
-  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  color: var(--Secondary-Secondary, rgba(130, 235, 255, 1));
 `;
 
 export const StyleTitleRight = styled.div`
@@ -53,19 +57,31 @@ export const LinkCustom = styled(Link)`
 `;
 
 export const CustomAvatar = styled.div`
-  padding-top: 20px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
-export const CustomImage = styled.div`
-  position: relative;
-  border: 2px solid #f23581;
-  width: 222px;
-  height: 222px;
-  border-radius: 50%;
-  /* border-image: linear-gradient(to right, #f23581, #a1f0ff); */
-  /* border-image-slice: 1; */
+export const UserPoint = styled.div`
+  position: absolute;
+  bottom: 18px;
+  left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 16px;
+  background: var(--Card-Card1000, rgba(35, 39, 49, 1));
+  color: #fff;
+  span {
+    color: #fff;
+    font-size: 14px;
+  }
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 `;

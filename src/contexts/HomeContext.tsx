@@ -1,5 +1,4 @@
 "use client";
-import { initialHomeContextTypes } from "@/constant/dataInitialHomeContext";
 import useFetchDataHomePage from "@/hooks/useFetchDataHomePage";
 import { IFeatureKols } from "@/interface/featureKols.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
@@ -13,25 +12,25 @@ interface IPropsHomeContextProvider {
   children: React.ReactNode;
 }
 interface IHomeContextTypes {
-  users: IUsers[];
+  users: IUserKOL[];
   trendingKols: ITrendingKols[];
   trendingProjects: ITrendingProjects[];
-  featureKols: IFeatureKols[];
-  kols: IFeatureKols[];
+  featureKols: IUserKOL[];
+  kols: IUserKOL[];
   featureProjects: IFeatureProjects[];
   isLoading: boolean;
-  totalItemKols: number
+  totalItemKols: number;
 }
 
 const HomeContextTypes = {
-  users: [initialHomeContextTypes.users],
-  trendingKols: [initialHomeContextTypes.trendingKols],
-  trendingProjects: [initialHomeContextTypes.trendingProjects],
-  featureKols: [initialHomeContextTypes.featureKols],
-  featureProjects: [initialHomeContextTypes.featureProjects],
+  users: [],
+  trendingKols: [],
+  trendingProjects: [],
+  featureKols: [],
+  featureProjects: [],
   kols: [],
   isLoading: false,
-  totalItemKols: 0
+  totalItemKols: 0,
 };
 const homeContext = createContext<IHomeContextTypes>(HomeContextTypes);
 const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
@@ -43,7 +42,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
     trendingProjects,
     isLoading,
     kols,
-    totalItemKols
+    totalItemKols,
   } = useFetchDataHomePage();
 
   return (
@@ -56,7 +55,7 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
         featureProjects,
         isLoading,
         kols,
-        totalItemKols
+        totalItemKols,
       }}
     >
       {children}
