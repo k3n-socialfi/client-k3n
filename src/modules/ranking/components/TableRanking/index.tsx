@@ -1,16 +1,10 @@
 "use client";
 import {
   IconDown,
-  IconDownFill,
   IconFilter,
-  IconNFT,
   IconReset,
-  IconStar,
-  IconStarKols,
-  IconVerify,
   IconThunder,
   IconArrowUpTop,
-  IconUnverify
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
@@ -30,12 +24,11 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   TextField,
   Typography,
   AvatarGroup,
-  TableSortLabel
+  Pagination,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -74,7 +67,6 @@ const defaultFilter = {
 export default function TableTopRanking(props: ITableTopRankingProps) {
   const { push } = useRouter();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(20);
   const [listRanking, setListRanking] = useState<any>();
   const [filter, setFilter] = useState<any>(defaultFilter);
   const [isFilter, setIsFilter] = useState(false)
@@ -96,29 +88,14 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
     });
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newRowsPerPage = parseInt(event.target.value, 10);
-    setRowsPerPage(newRowsPerPage);
-    setPage(0);
-    setFilter((prevFilter: any) => ({
-      ...prevFilter,
-      limit: newRowsPerPage,
-      page: 0
-    }));
-  };
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-    setFilter((prevFilter: any) => ({
-      ...prevFilter,
-      page: newPage
-    }));
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value - 1);
   };
 
   const fetchData = async () => {
     setLoading(true)
     try {
-      const { data } = await getTopRanking({ page: 0, limit: 20, top: 100 });
+      const { data } = await getTopRanking({ page: page, limit: 20, top: 100 });
       setListRanking(data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -141,14 +118,12 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
 
   useEffect(() => {
     fetchData();
-    console.log('a')
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (isFilter) {
       fetchDataFilter();
       setIsFilter(false);
-      console.log('abc')
     }
   }, [filter, isFilter]);
 
@@ -164,6 +139,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
       tags: item.tags,
       avatar: item?.twitterInfo?.avatar,
       href: `profile/${item?.username}`,
+      type: item?.type,
       pnl: "-200",
       groupAvatar: [
         "https://pbs.twimg.com/profile_images/1737288264292192256/6Y4tIHTt_400x400.jpg",
@@ -320,7 +296,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                     </NameKOL>
                   </CustomTableCell>
                   <CustomTableCell align="center">
-                    Caller  Caller
+                    {row?.type}
                   </CustomTableCell>
                   <CustomTableCell align="center">
                     <CustomAvatarGroup total={24}>
@@ -387,17 +363,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
               ))}
             </TableBody>
           </Table>
-          <TablePagination
-            sx={{ padding: "50px", backgroundColor: "#000", color: "#FFF" }}
-            rowsPerPageOptions={[20, 50, 100]}
-            component="div"
-            count={listRanking?.totalItems}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            labelRowsPerPage="List KOLs: "
-          />
+          <CustomPagination count={listRanking?.totalPages} page={page + 1} onChange={handleChangePage} />
         </TableContainer>) : (
           [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((row) => (
             <SkeletonTableTopRanking key={row} />
@@ -407,6 +373,20 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   );
 }
 
+const CustomPagination = styled(Pagination)`
+  background: #080a0c !important;
+  padding: 12px 0 !important;
+    ul{
+    justify-content: center !important;
+  }
+  .mui-cax5st-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+    background-color:  #E9E9E9 !important; 
+    color: #F23581 !important;
+  }
+  .mui-cax5st-MuiButtonBase-root-MuiPaginationItem-root{
+    color: #FFF !important;
+  }
+`
 const CustomAutocomplete = styled(Autocomplete)`
   height: 40;
   width: 250;
@@ -542,9 +522,9 @@ const Rank = styled.div`
   position: sticky;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  justify-content: space-between;
   color: #fff;
+  padding: 0 4px;
 `;
 
 const UpTop = styled.div`
