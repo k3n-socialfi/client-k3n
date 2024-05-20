@@ -1,11 +1,10 @@
 "use client";
 import IconArrowRight from "@/assets/icons/IconArrowRight";
-import IconRocket from "@/assets/icons/IconRocket";
 import BannerBG from "@/assets/images/Banner.png";
 import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
 import CardFeaturedKolsSkeleton from "@/components/CardFeaturedKOLs/CardFeaturedKolsSkeleton";
-import CardFeaturedProjects from "@/components/CardFeaturedProjects";
-import CardFeaturedProjectsSkeleton from "@/components/CardFeaturedProjects/CardFeaturedProjectsSkeleton";
+import CardServices from "@/components/CardServices";
+import CardServicesSkeleton from "@/components/CardServices/CardServicesSkeleton";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
@@ -13,6 +12,7 @@ import CardTrendingProjectsSkeleton from "@/components/CardTrendingProjects/Card
 import { FAKEDATA_SKELETON } from "@/constant/data";
 import { BG_COLOR_TOP, DATA_TOP } from "@/constant/dataMockupTop";
 import { useHomeContext } from "@/contexts/HomeContext";
+import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { Divider, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Marquee from "react-fast-marquee";
@@ -30,6 +30,8 @@ export default function Home({}: IHomeProps) {
     featureProjects,
     isLoading,
   } = useHomeContext();
+
+  const dataServices = useServicesContext();
 
   const DATACARDFEATUREDPROJECTS = featureProjects.map((item) => {
     return {
@@ -77,27 +79,22 @@ export default function Home({}: IHomeProps) {
       <StyleFeaturedProject>
         <StyleTop>
           <StyleLeft>
-            <IconRocket />
-            <Typography variant="h4">Featured Services</Typography>
+            <Typography variant="h4">Services</Typography>
           </StyleLeft>
-          <StyleRight></StyleRight>
+          <StyleRight onClick={() => router.push("/services")}>
+            <Typography color={"#F23581"}>View all</Typography>
+            <IconArrowRight />
+          </StyleRight>
         </StyleTop>
         <StyleBottom>
-          {isLoading
+          {dataServices?.isLoading
             ? FAKEDATA_SKELETON.map((item) => (
                 <div key={item}>
-                  <CardFeaturedProjectsSkeleton />
+                  <CardServicesSkeleton />
                 </div>
               ))
-            : DATACARDFEATUREDPROJECTS.map((item) => (
-                <CardFeaturedProjects
-                  key={item?.id}
-                  id={item?.id}
-                  numberLike={item?.numberLike}
-                  thumbnail={item?.thumbnail}
-                  name={item?.name}
-                  wallet={item?.wallet}
-                />
+            : dataServices?.dataServices.map((item: IServices) => (
+                <CardServices data={item} key={item?.jobId} />
               ))}
         </StyleBottom>
       </StyleFeaturedProject>
@@ -105,20 +102,19 @@ export default function Home({}: IHomeProps) {
         <StyleTrendingKOLs>
           <StyleTop>
             <Typography variant="h4">Trending KOLs</Typography>
-            <Stack
-              sx={{
-                display: "flex",
-                gap: "10px",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              direction="row"
-              onClick={() => router.push("/top-ranking")}
-            >
-              <Typography color={"#BB2D66"}>View all</Typography>
+            <MoreTrendingKols onClick={() => router.push("/top-ranking")}>
+              <Typography color={"#F23581"}>Explore more</Typography>
               <IconArrowRight />
-            </Stack>
+            </MoreTrendingKols>
           </StyleTop>
+
+          <TabD>
+            <ItemTabD>1D</ItemTabD>
+            <ItemTabD style={{ backgroundColor: "#191D24", color: "#FFF" }}>
+              7D
+            </ItemTabD>
+            <ItemTabD>30D</ItemTabD>
+          </TabD>
 
           <StyleTrendingTopCard>
             {isLoading
@@ -147,7 +143,7 @@ export default function Home({}: IHomeProps) {
         </StyleTrendingKOLs>
         <StyleTrendingProjects>
           <StyleTop>
-            <Typography variant="h4">Trending Project</Typography>
+            <Typography variant="h4">Web3 Projects</Typography>
           </StyleTop>
           <StyleTrendingProjectsCard>
             {isLoading
@@ -159,16 +155,10 @@ export default function Home({}: IHomeProps) {
               : trendingProjects?.slice(0, 7)?.map((item, index) => (
                   <>
                     <StyleTrendingCard key={item.id}>
-                      <Typography component={"h4"} color={"#949292"}>
+                      <Typography variant={"h5"} color={"#FFF"}>
                         {index + 1}
                       </Typography>
-                      <CardTrendingProjects
-                        id={item?.id}
-                        avatar={item?.small}
-                        name={item?.name}
-                        wallet="socialfi"
-                        mention={item?.marketCapRank}
-                      />
+                      <CardTrendingProjects data={item} />
                     </StyleTrendingCard>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
                   </>
@@ -188,11 +178,15 @@ const Banner = styled.div<any>`
   flex-direction: column;
   justify-content: flex-end;
   h1 {
-    font-size: 144px;
+    font-size: clamp(124px, 4vw, 144px);
     font-weight: 700;
     line-height: 172.8px;
     text-align: center;
     color: #fff;
+    @media (max-width: 500px) {
+      font-size: clamp(70px, 4vw, 124px);
+      line-height: 120px;
+    }
   }
   span {
     color: var(--Primary-Primary, rgba(242, 53, 129, 1));
@@ -219,11 +213,30 @@ const StyleTop = styled.div`
   color: white;
   margin: 20px 0;
   padding-top: 24px;
+  flex-wrap: wrap;
+  h4 {
+    font-size: 40px !important;
+  }
   @media (max-width: 520px) {
     padding-top: 0px;
+    padding-right: 10px;
+    padding-left: 10px;
     h4 {
       font-size: 25px;
     }
+  }
+`;
+
+const MoreTrendingKols = styled(Stack)<any>`
+  display: flex;
+  align-items: center;
+  flex-direction: row !important;
+  gap: 10px;
+  cursor: pointer;
+  .MuiTypography-body1 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
   }
 `;
 
@@ -233,6 +246,9 @@ const StyleBottom = styled.div`
   overflow-x: auto;
   padding-bottom: 15px;
   /* scrollbar-width: none; */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyleLeft = styled.div`
@@ -250,7 +266,15 @@ const StyleLeft = styled.div`
 `;
 const StyleRight = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 10px;
+  cursor: pointer;
+  .MuiTypography-body1 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
 `;
 
 const StyleTrending = styled.div`
@@ -269,10 +293,30 @@ const StyleTrendingKOLs = styled.div`
   width: 100%;
 `;
 
+const TabD = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  color: #fff;
+  padding: 6px 0;
+  gap: 4px;
+`;
+
+const ItemTabD = styled.div`
+  padding: 4px 18px;
+  border-radius: 99px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.2px;
+  color: #a7a7a7;
+  cursor: pointer;
+`;
+
 const StyleTrendingTopCard = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px;
 `;
 
 const StyleTrendingProjects = styled.div`
@@ -290,4 +334,9 @@ const StyleTrendingCard = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
+  &:hover {
+    .MuiTypography-h5 {
+      color: #82ebff;
+    }
+  }
 `;
