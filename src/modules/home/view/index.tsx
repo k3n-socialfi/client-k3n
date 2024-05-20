@@ -3,8 +3,8 @@ import IconArrowRight from "@/assets/icons/IconArrowRight";
 import BannerBG from "@/assets/images/Banner.png";
 import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
 import CardFeaturedKolsSkeleton from "@/components/CardFeaturedKOLs/CardFeaturedKolsSkeleton";
-import CardFeaturedProjects from "@/components/CardFeaturedProjects";
-import CardFeaturedProjectsSkeleton from "@/components/CardFeaturedProjects/CardFeaturedProjectsSkeleton";
+import CardServices from "@/components/CardServices";
+import CardServicesSkeleton from "@/components/CardServices/CardServicesSkeleton";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
@@ -81,27 +81,20 @@ export default function Home({}: IHomeProps) {
           <StyleLeft>
             <Typography variant="h4">Services</Typography>
           </StyleLeft>
-          <StyleRight>
+          <StyleRight onClick={() => router.push("/services")}>
             <Typography color={"#F23581"}>View all</Typography>
             <IconArrowRight />
           </StyleRight>
         </StyleTop>
         <StyleBottom>
-          {isLoading
+          {dataServices?.isLoading
             ? FAKEDATA_SKELETON.map((item) => (
                 <div key={item}>
-                  <CardFeaturedProjectsSkeleton />
+                  <CardServicesSkeleton />
                 </div>
               ))
-            : DATACARDFEATUREDPROJECTS.map((item) => (
-                <CardFeaturedProjects
-                  key={item?.id}
-                  id={item?.id}
-                  numberLike={item?.numberLike}
-                  thumbnail={item?.thumbnail}
-                  name={item?.name}
-                  wallet={item?.wallet}
-                />
+            : dataServices?.dataServices.map((item: IServices) => (
+                <CardServices data={item} key={item?.jobId} />
               ))}
         </StyleBottom>
       </StyleFeaturedProject>
@@ -339,7 +332,7 @@ const StyleTrendingProjects = styled.div`
 const StyleTrendingProjectsCard = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
+  gap: 10px;
 `;
 
 const StyleTrendingCard = styled.div`
@@ -347,4 +340,9 @@ const StyleTrendingCard = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
+  &:hover {
+    .MuiTypography-h5 {
+      color: #82ebff;
+    }
+  }
 `;
