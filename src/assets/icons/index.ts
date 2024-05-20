@@ -108,6 +108,7 @@ export { default as IconJob } from "./IconJob";
 export { default as IconDelete } from "./IconDelete";
 export { default as IconAdd } from "./IconAdd";
 export { default as IconArrowDownStatus } from "./IconArrowDownStatus";
+export { default as IconUnverify } from "./IconUnverify";
 
 
 export { default as IconCheck } from "./IconCheck";

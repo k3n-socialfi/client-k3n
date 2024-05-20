@@ -7,10 +7,10 @@ export interface IMyRankingProps {
 }
 
 export default function MyRanking({ dataPersonal }: IMyRankingProps) {
+  const accessToken = typeof window !== "undefined" && localStorage.getItem("accessToken");
   return (
-    <Container>
-      {dataPersonal ? (
-        <>
+      dataPersonal ? (
+        <Loginned>
           <Info>
             <Avatar
               alt=""
@@ -29,71 +29,63 @@ export default function MyRanking({ dataPersonal }: IMyRankingProps) {
               </Typography>
             </Account>
           </Info>
-          <Point>
-            <Slider>
-              <StyleTop>
-                <CrossBar></CrossBar>
-                <StyleMilestone
-                  style={{
-                    left: `${
-                      dataPersonal?.twitterInfo?.totalPoints === 0
-                        ? ""
-                        : "100px"
-                    }`,
-                  }}
-                ></StyleMilestone>
-              </StyleTop>
-              <StyleBottom>
-                <Typography variant="h6" color={"#B9BDD1"} fontWeight={"700"}>
-                  0
-                </Typography>
-                <Typography
-                  variant="h6"
-                  color={"#F23581"}
-                  fontWeight={"700"}
-                  sx={{ marginLeft: "80px" }}
-                >
-                  {dataPersonal?.twitterInfo?.totalPoints === 0
-                    ? ""
-                    : dataPersonal?.twitterInfo?.totalPoints}
-                </Typography>
-              </StyleBottom>
-            </Slider>
-            <Typography color={"#82EBFF"}>
-              You have {dataPersonal?.twitterInfo?.totalPoints ?? 0} Shill Score
-            </Typography>
-          </Point>
           <YourRank>
             <TitleYourRank>Your rank</TitleYourRank>
             <Rank>100</Rank>
           </YourRank>
           <Total>
-            <Typography color={"#B9BDD1"}>Total Shill Score</Typography>
-            <Stack sx={{ display: "flex", gap: "5px", flexDirection: "row" }}>
+            <TitleYourRank>Total Points</TitleYourRank>
+            <CustomStack>
               <IconLightning />
-              <Typography variant="h4" fontWeight={"700"} color={"#FFF"}>
+              <Rank>
                 {dataPersonal?.twitterInfo?.totalPoints ?? 0}
-              </Typography>
-            </Stack>
+              </Rank>
+            </CustomStack>
           </Total>
-        </>
+        </Loginned>
       ) : (
-        <>
-          <Typography color={"#B9BDD1"}>
+        <Unlogin>
+          <Typography color={"#D3D3D3"}>
             Please connect your wallet to view your ranking.
           </Typography>
-        </>
-      )}
-    </Container>
+        </Unlogin>
+      )
   );
 }
 
-const Container = styled.div`
+const CustomStack = styled(Stack)`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+`
+
+const Unlogin = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  padding: 30px 20px;
+  padding: 33px 48px;
+  width: 100%;
+  background: var(--Card-Card, rgba(25, 29, 36, 1));
+  border-radius: 20px;
+  gap: 20px;
+  @media (max-width: 798px) {
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  @media (max-width: 504px) {
+    justify-content: center;
+    align-items: center;
+  }
+`
+const Loginned = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 20px 48px;
   width: 100%;
   background: var(--Card-Card, rgba(25, 29, 36, 1));
   border-radius: 20px;
@@ -130,7 +122,12 @@ const Point = styled.div`
   align-items: center;
   color: #fff;
 `;
-const Total = styled.div``;
+const Total = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const CrossBar = styled.div`
   width: 200px;

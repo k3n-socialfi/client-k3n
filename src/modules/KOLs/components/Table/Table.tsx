@@ -11,7 +11,7 @@ import {
   IconThunder,
   IconArrowUpTop,
 } from "@/assets/icons";
-import IconUnverify from "@/assets/icons/IconUverify";
+import IconUnverify from "@/assets/icons/IconUnverify";
 import Chips from "@/components/Chip";
 import {
   FOLLOWER_RANGE,
