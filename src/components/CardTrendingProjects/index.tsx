@@ -1,36 +1,35 @@
 "use client";
-import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
-import { ButtonText } from "../ButtonCustom";
-import { LinkCustom } from "../CardFeaturedKOLs/style";
-import styled from "styled-components";
 import { chipBg, chipColor, IChip } from "@/utils/chip";
+import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
+import styled from "styled-components";
+import { LinkCustom } from "../CardFeaturedKOLs/style";
+import { ITrendingProjects } from "@/interface/trendingProjects.interface";
 
-export interface ICardProjectProps {}
+interface ICardProjectProps {
+  data: ITrendingProjects;
+}
 
-export default function CardTrendingProjects(props: any) {
+export default function CardTrendingProjects({ data }: ICardProjectProps) {
   return (
-    <Card
-      sx={{ width: "100%", background: "#252525", borderRadius: 3 }}
-      {...props}
-    >
-      <LinkCustom href={`/project/${props?.id}`}>
+    <Card sx={{ width: "100%", background: "#252525", borderRadius: 3 }}>
+      <LinkCustom href={`/project/${data?.id}`}>
         <CustomCardContent>
           <StackCustom direction="row" spacing={2}>
             <Avatar
-              alt={props?.name}
-              src={props?.avatar}
+              alt={data?.name}
+              src={data?.small}
               sx={{ width: 56, height: 56 }}
             />
 
             <Content>
-              <Name>{props?.name}</Name>
+              <Name>{data?.name}</Name>
               <Detail>
                 <Chip>
                   <ItemChip
-                    bg={chipBg[props?.wallet as keyof IChip]}
-                    color={chipColor[props?.wallet as keyof IChip]}
+                    bg={chipBg[data?.symbol as keyof IChip]}
+                    color={chipColor[data?.symbol as keyof IChip]}
                   >
-                    <Typography variant="subtitle2">{props?.wallet}</Typography>
+                    <Typography variant="subtitle2">{data?.symbol}</Typography>
                   </ItemChip>
                 </Chip>
 
@@ -40,7 +39,7 @@ export default function CardTrendingProjects(props: any) {
                   component="span"
                   color={"white"}
                 >
-                  #{props?.mention} mentions
+                  #{data?.marketCapRank} mentions
                 </Typography>
               </Detail>
             </Content>

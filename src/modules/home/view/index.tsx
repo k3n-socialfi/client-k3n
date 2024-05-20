@@ -158,13 +158,7 @@ export default function Home({}: IHomeProps) {
                       <Typography variant={"h5"} color={"#FFF"}>
                         {index + 1}
                       </Typography>
-                      <CardTrendingProjects
-                        id={item?.id}
-                        avatar={item?.small}
-                        name={item?.name}
-                        wallet="socialfi"
-                        mention={item?.marketCapRank}
-                      />
+                      <CardTrendingProjects data={item} />
                     </StyleTrendingCard>
                     <Divider sx={{ borderColor: "#B9B9B9 " }} />
                   </>
