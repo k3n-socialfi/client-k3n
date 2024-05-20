@@ -10,7 +10,7 @@ import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
 import {
   FOLLOWER_RANGE,
-  OPTIONS_KYC,
+  OPTION_SHILL_SCORE,
   TAGS,
   TYPE_OF_KOL,
 } from "@/constant/FilterData";
@@ -140,7 +140,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
       avatar: item?.twitterInfo?.avatar,
       href: `profile/${item?.username}`,
       type: item?.type,
-      pnl: "-200",
+      pnl: "-20",
       groupAvatar: [
         "https://pbs.twimg.com/profile_images/1737288264292192256/6Y4tIHTt_400x400.jpg",
         "https://pbs.twimg.com/profile_images/1709981405462007808/LFOshtt2_400x400.jpg",
@@ -153,7 +153,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   return (
     <div>
       <Filter>
-        <ItemFilters color="#fff"><IconFilter />Filters by</ItemFilters>
+        <FilterBy color="#fff"><IconFilter />Filters by</FilterBy>
         <CustomAutocomplete
           size="small"
           id="grouped-type-kol"
@@ -166,22 +166,6 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
             <TextField
               {...params}
               label="Type of KOLs"
-              sx={{ input: { color: "#FFF" } }}
-            />
-          )}
-        />
-        <CustomAutocomplete
-          popupIcon={<IconDown />}
-          size="small"
-          id="grouped-demo"
-          options={OPTIONS_KYC}
-          getOptionLabel={(option: any) => option.title}
-          onChange={(event, val: any) => handleSelect('verification', val ? val.value : null)}
-          sx={{ height: 40, width: 180 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="KYC"
               sx={{ input: { color: "#FFF" } }}
             />
           )}
@@ -216,6 +200,22 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
               {...params}
               label="Tags"
               sx={{ span: { color: "#FFF" } }}
+            />
+          )}
+        />
+        <CustomAutocomplete
+          popupIcon={<IconDown />}
+          size="small"
+          id="grouped-demo"
+          options={OPTION_SHILL_SCORE}
+          getOptionLabel={(option: any) => option.title}
+          onChange={(event, val: any) => handleSelect('verification', val ? val.value : null)}
+          sx={{ height: 40, width: 180 }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Shill score"
+              sx={{ input: { color: "#FFF" } }}
             />
           )}
         />
@@ -379,11 +379,11 @@ const CustomPagination = styled(Pagination)`
     ul{
     justify-content: center !important;
   }
-  .mui-cax5st-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+  .Mui-selected{
     background-color:  #E9E9E9 !important; 
     color: #F23581 !important;
   }
-  .mui-cax5st-MuiButtonBase-root-MuiPaginationItem-root{
+  ul>li>button{
     color: #FFF !important;
   }
 `
@@ -404,7 +404,7 @@ const CustomAutocomplete = styled(Autocomplete)`
 `
 const CustomAvatarGroup = styled(AvatarGroup)`
   justify-content: center;
-  .mui-1jrc33i-MuiAvatar-root{
+  .MuiAvatarGroup-avatar{
     width: 30px !important;
     height: 30px !important;
     font-size: 10px !important;
@@ -419,6 +419,15 @@ const Change = styled.div<IPropItemFillter>`
   gap: 10px;
   justify-content: center;
   color: ${(props) => (props?.arrowChange > 0 ? "#6BDF61" : "#FF5656")};
+`;
+
+const FilterBy = styled.div<IPropItemFillter>`
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  color: ${({ color }) => (color ? color : "#fff")};
+  font-size: 14px !important;
 `;
 
 const ItemFilters = styled.div<IPropItemFillter>`

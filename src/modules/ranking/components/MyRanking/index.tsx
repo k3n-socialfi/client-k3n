@@ -7,58 +7,57 @@ export interface IMyRankingProps {
 }
 
 export default function MyRanking({ dataPersonal }: IMyRankingProps) {
-  const accessToken = typeof window !== "undefined" && localStorage.getItem("accessToken");
   return (
-      dataPersonal ? (
-        <Loginned>
-          <Info>
-            <Avatar
-              alt=""
-              src={dataPersonal?.twitterInfo?.avatar}
-              sx={{ width: 56, height: 56 }}
-            />
-            <Account>
-              <Name>
-                <Typography color={"#FFF"}>{dataPersonal?.fullName}</Typography>
-                {dataPersonal?.twitterInfo?.verificationStatus && (
-                  <IconCertification />
-                )}
-              </Name>
-              <Typography variant="body2" color={"#82EBFF"}>
-                Researcher - Builder
-              </Typography>
-            </Account>
-          </Info>
-          <YourRank>
-            <TitleYourRank>Your rank</TitleYourRank>
-            <Rank>100</Rank>
-          </YourRank>
-          <Total>
-            <TitleYourRank>Total Points</TitleYourRank>
-            <CustomStack>
-              <IconLightning />
-              <Rank>
-                {dataPersonal?.twitterInfo?.totalPoints ?? 0}
-              </Rank>
-            </CustomStack>
-          </Total>
-        </Loginned>
-      ) : (
-        <Unlogin>
-          <Typography color={"#D3D3D3"}>
-            Please connect your wallet to view your ranking.
-          </Typography>
-        </Unlogin>
-      )
+    dataPersonal ? (
+      <Loginned>
+        <Info>
+          <Avatar
+            alt=""
+            src={dataPersonal?.twitterInfo?.avatar}
+            sx={{ width: 56, height: 56 }}
+          />
+          <Account>
+            <Name>
+              <Typography color={"#FFF"}>{dataPersonal?.fullName}</Typography>
+              {dataPersonal?.twitterInfo?.verificationStatus && (
+                <IconCertification />
+              )}
+            </Name>
+            <Typography variant="body2" color={"#82EBFF"}>
+              {dataPersonal?.jobTittle}
+            </Typography>
+          </Account>
+        </Info>
+        <YourRank>
+          <TitleYourRank>Your rank</TitleYourRank>
+          <Rank>100</Rank>
+        </YourRank>
+        <Total>
+          <TitleYourRank>Total Points</TitleYourRank>
+          <CustomStack>
+            <IconLightning />
+            <Rank>
+              {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+            </Rank>
+          </CustomStack>
+        </Total>
+      </Loginned>
+    ) : (
+      <Unlogin>
+        <Typography color={"#D3D3D3"}>
+          Please connect your wallet to view your ranking.
+        </Typography>
+      </Unlogin>
+    )
   );
 }
 
 const CustomStack = styled(Stack)`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 6px !important;
 `
 
 const Unlogin = styled.div`
