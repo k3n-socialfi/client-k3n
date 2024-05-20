@@ -10,6 +10,25 @@ export const OPTIONS_KYC = [
   { title: "Unverified", value: false },
 ];
 
+export const OPTION_SHILL_SCORE = [
+  {
+    title: "Upper 70",
+    value: { lowerLimit: "70", upperLimit: null },
+  },
+  {
+    title: "50 - 70",
+    value: { lowerLimit: "50", upperLimit: "70" },
+  },
+  {
+    title: "20 - 50",
+    value: { lowerLimit: "20", upperLimit: "20" },
+  },
+  {
+    title: "Under 20",
+    value: { lowerLimit: "0", upperLimit: "20" },
+  },
+];
+
 export const FOLLOWER_RANGE = [
   {
     title: " Upper 100.000",
