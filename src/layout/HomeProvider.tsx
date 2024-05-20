@@ -37,7 +37,7 @@ const HomeProvider = ({ children }: IHomeProvider) => {
 export default HomeProvider;
 
 const SideBarCustom = styled.div<ISideBar>`
-  width: 20%;
+  width: 15%;
   background: var(--background-primary);
   @media (max-width: 1599px) {
     transition: all 1s;
@@ -49,7 +49,7 @@ const Children = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 80%;
+  width: 85%;
   margin-top: 80px;
   padding: 24px;
   background-color: var(--background-primary);
