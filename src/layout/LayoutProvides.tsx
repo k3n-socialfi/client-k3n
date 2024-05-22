@@ -1,18 +1,17 @@
 "use client";
+import comming_soon from "@/assets/images/comming_soon.png";
 import theme from "@/assets/style/theme";
 import CustomAlert from "@/components/Alert";
+import CustomLoading from "@/components/Loading";
+import { COMMING_SOON } from "@/configs/env.config";
 import { AlertProvider } from "@/contexts/AlertContext";
+import { LoadingProvider } from "@/contexts/LoadingContext";
+import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
 import { ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ReactNode, Suspense, createContext } from "react";
-import WalletContextProvider from "./WalletProvider";
-import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
-import { LoadingProvider } from "@/contexts/LoadingContext";
-import CustomLoading from "@/components/Loading";
-import { COMMING_SOON } from "@/configs/env.config";
-import Image from "next/image";
-import comming_soon from "@/assets/images/comming_soon.png";
 import styled from "styled-components";
+import WalletContextProvider from "./WalletProvider";
 
 export interface ILayoutProvidesProps {
   children: ReactNode;
