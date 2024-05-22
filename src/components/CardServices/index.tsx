@@ -30,7 +30,7 @@ export default function CardServices({ data }: ICardProps) {
           <NamePoint>
             <Rows>
               <Typography variant="h6">
-                {data?.creatorInfo?.fullName ?? "Declan Rice"}
+                {data?.creatorInfo?.fullName ?? ""}
               </Typography>
               <IconVerify width={12} height={12} />
             </Rows>
@@ -46,9 +46,7 @@ export default function CardServices({ data }: ICardProps) {
           <Tags dataTag={data?.tags ?? []} />
         </Chip>
         <Title>
-          <Typography variant="h6">
-            {data?.projectName ?? "Sustainable Future"}
-          </Typography>
+          <Typography variant="h6">{data?.projectName ?? ""}</Typography>
         </Title>
         <Detail>
           <Columns>
