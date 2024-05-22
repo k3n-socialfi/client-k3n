@@ -23,41 +23,11 @@ export interface IHomeProps {}
 export default function Home({}: IHomeProps) {
   const router = useRouter();
 
-  const {
-    trendingKols,
-    trendingProjects,
-    featureKols,
-    featureProjects,
-    isLoading,
-  } = useHomeContext();
+  const { trendingKols, trendingProjects, featureKols, isLoading } =
+    useHomeContext();
 
   const dataServices = useServicesContext();
 
-  const DATACARDFEATUREDPROJECTS = featureProjects.map((item) => {
-    return {
-      id: item?.jobId,
-      name: item?.projectName,
-      numberLike: "1k",
-      wallet: [
-        {
-          label: item?.tags[0],
-          color: "chip.airdropsColor",
-          background: "chip.airdropsBg",
-        },
-        {
-          label: item?.tags[1],
-          color: "chip.marketerColor",
-          background: "chip.marketerBg",
-        },
-        {
-          label: item?.tags[2],
-          color: "chip.injectiveColor",
-          background: "chip.injectiveBg",
-        },
-      ],
-      thumbnail: item?.image,
-    };
-  });
   return (
     <StyleContainer>
       <Banner bg={BannerBG}>
@@ -65,7 +35,7 @@ export default function Home({}: IHomeProps) {
           YOUR <span>#1</span> KOL <br /> PLATFORM IN WEB3
         </h1>
         <StyleFeaturedKOLs>
-          <Marquee pauseOnClick={true} pauseOnHover={true} loop={0}>
+          <Marquee pauseOnClick={true} pauseOnHover={true} loop={0} speed={20}>
             {isLoading
               ? FAKEDATA_SKELETON.map((item) => (
                   <CardFeaturedKolsSkeleton key={item} />
@@ -203,6 +173,21 @@ const StyleFeaturedKOLs = styled.div`
   .rfm-marquee,
   .rfm-marquee-container {
     gap: 28px;
+    transition-timing-function: ease-in;
+    &:hover {
+      height: 526px;
+      .rfm-child {
+        transform: scale(0.9);
+        transition-timing-function: ease-in;
+        transition: 0.2s;
+      }
+    }
+    .rfm-child:hover {
+      transform: scale(1.1);
+      transition-timing-function: ease-in;
+      transition: 0.2s;
+      height: 450px;
+    }
   }
 `;
 const StyleFeaturedProject = styled.div``;
