@@ -1,29 +1,27 @@
 "use client";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { IconCloseSideBar, IconMenuBar, IconThunder } from "@/assets/icons";
 import logo from "@/assets/images/Logo.png";
-import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
-import { Avatar, Typography } from "@mui/material";
-import useClickOutside from "@/hooks/useClickOutside";
-import {
-  IconMenuBar,
-  IconNotification,
-  IconSearch,
-  IconThunder,
-} from "@/assets/icons";
-import { IconChevronDown } from "@/assets/icons";
-import { PopupProfile } from "./components/PopupProfile";
-import Popup from "./components/Popup";
-import useWalletCustom from "@/hooks/useWalletCustom";
+import { ButtonPrimary } from "@/components/ButtonCustom";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import useWalletCustom from "@/hooks/useWalletCustom";
+import { Avatar, Typography } from "@mui/material";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import Popup from "./components/Popup";
+import { PopupProfile } from "./components/PopupProfile";
 
-type THeaderProp = {
+interface THeaderProp {
   handleToggleSidebar?: () => void;
-};
+  isOpen?: boolean;
+}
 
-export const Header = ({ handleToggleSidebar }: THeaderProp) => {
+interface IHeaderLogo {
+  isGap?: boolean;
+}
+
+export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
   const { push } = useRouter();
   const [isClient, setIsClient] = useState(false);
   const {
@@ -48,10 +46,12 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
 
   return (
     <HeaderWrapper>
-      <HeaderLogo>
-        <ToggleSideBar onClick={handleToggleSidebar}>
-          <IconMenuBar />
-        </ToggleSideBar>
+      <HeaderLogo isGap={isOpen}>
+        {!isOpen && (
+          <ToggleSideBar onClick={handleToggleSidebar}>
+            <IconMenuBar />
+          </ToggleSideBar>
+        )}
         <ImgCustom>
           <Image
             onClick={() => push("/")}
@@ -60,6 +60,11 @@ export const Header = ({ handleToggleSidebar }: THeaderProp) => {
             layout="fill"
           />
         </ImgCustom>
+        {isOpen && (
+          <ToggleSideBar onClick={handleToggleSidebar}>
+            <IconCloseSideBar />
+          </ToggleSideBar>
+        )}
       </HeaderLogo>
       {/* <HeaderSearch>
         <HeaderIcon>
@@ -170,23 +175,24 @@ const HeaderWrapper = styled.div`
   }
   @media (max-width: 610px) {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
   }
 `;
 
-const HeaderLogo = styled.div`
+const HeaderLogo = styled.div<IHeaderLogo>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 100px;
   width: 70%;
   @media (max-width: 1599px) {
-    gap: 10px;
+    gap: ${(props) => (props.isGap ? "" : "10px")};
     width: 70%;
   }
 
   @media (max-width: 768px) {
     align-items: center;
+    gap: 10px;
     width: 40%;
   }
 
