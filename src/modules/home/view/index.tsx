@@ -174,18 +174,18 @@ const StyleFeaturedKOLs = styled.div`
   .rfm-marquee-container {
     gap: 28px;
     transition-timing-function: ease-in-out;
-    transition: 1s;
+    transition: 0.5s;
     height: 526px;
     &:hover {
       .rfm-child {
         transition-timing-function: ease-in-out;
-        transition: 1s;
+        transition: 0.5s;
       }
     }
     .rfm-child:hover {
       transform: scale(1.1);
       transition-timing-function: ease-in-out;
-      transition: 1s;
+      transition: 0.5s;
     }
   }
 `;
