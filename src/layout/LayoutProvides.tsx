@@ -1,6 +1,7 @@
 "use client";
 import comming_soon from "@/assets/images/comming_soon.png";
 import theme from "@/assets/style/theme";
+import GlobalStyle from "@/assets/styleGlobal/globalStyled";
 import CustomAlert from "@/components/Alert";
 import CustomLoading from "@/components/Loading";
 import { COMMING_SOON } from "@/configs/env.config";
@@ -33,6 +34,7 @@ export default function LayoutProvides({ children }: ILayoutProvidesProps) {
   }
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <GlobalStyle />
       <LoadingProvider>
         <CustomLoading />
         <AlertProvider>
