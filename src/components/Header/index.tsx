@@ -79,7 +79,9 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
       </HeaderSearch> */}
       {isClient && (
         <HeaderUserMobile>
-          {label === "Disconnect" || buttonState === "connected" ? (
+          {label === "Disconnect" ||
+          buttonState === "connected" ||
+          dataPersonal ? (
             <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
               {/* <UserNotification>
                 <IconNotification />
@@ -185,9 +187,16 @@ const HeaderLogo = styled.div<IHeaderLogo>`
   align-items: center;
   gap: 100px;
   width: 70%;
-  @media (max-width: 1599px) {
-    gap: ${(props) => (props.isGap ? "" : "10px")};
-    width: 70%;
+  @media (max-width: 1600px) {
+    gap: 15px;
+  }
+
+  @media (max-width: 1250px) {
+    gap: ${(props) => (props.isGap ? "140px" : "")};
+  }
+
+  @media (max-width: 820px) {
+    gap: ${(props) => (props.isGap ? "220px" : "")};
   }
 
   @media (max-width: 768px) {
