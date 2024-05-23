@@ -1,5 +1,5 @@
 import { ListItemText } from "@mui/material";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const CloseSideBar = styled.div`
   display: flex;
@@ -26,6 +26,18 @@ export const StraightLine = styled.div`
   border-radius: 0 5px 5px 0;
 `;
 
+const dilate = keyframes`
+  0% { height: 20px; opacity: 0.4; transform: translateX(-10px);}
+  50% { height: 38px; opacity: 0.8;transform: translateX(-5px); }
+  100% { height: 48px; opacity: 1; transform: translateX(0);}
+`;
+
+const dilateBg = keyframes`
+  0% { padding: 5px;opacity: 0.4; transform: translateX(-10px);}
+  50% { padding: 8px; opacity: 0.8;transform: translateX(-5px);}
+  100% { padding: 12px;opacity: 1; transform: translateX(5px);}
+`;
+
 export const Item = styled.div`
   position: relative;
   display: flex;
@@ -35,18 +47,19 @@ export const Item = styled.div`
   align-items: center;
   width: 100%;
   border-radius: 8px;
-
   &:hover {
     background-color: #191d24;
-    padding: 12px;
     font-size: 12px !important;
+    animation: ${dilateBg} 0.4s linear;
+    padding: 12px;
     path {
       fill: #f23581;
     }
     .MuiTypography-body1 {
       font-size: 12px !important;
     }
-    transition: all 0.3s ease-in;
+    /* transition: all 0.3s ease-in; */
+
     &::before {
       position: absolute;
       content: "";
@@ -55,7 +68,7 @@ export const Item = styled.div`
       height: 48px;
       background-color: #f23581;
       border-radius: 0 5px 5px 0;
-      transition: all 0.3s ease-in;
+      animation: ${dilate} 0.4s linear;
     }
   }
 `;
