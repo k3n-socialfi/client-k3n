@@ -32,6 +32,7 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
           padding: "19px",
           background: "#252525",
           borderRadius: "18px",
+          transition: "all 0.3s ease-in;",
         }}
         {...data}
       >

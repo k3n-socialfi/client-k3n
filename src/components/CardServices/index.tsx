@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "styled-components";
 import { LinkCustom } from "../CardFeaturedKOLs/style";
+import Tags from "../Tags";
 
 interface ICardProps {
   data: IServices;
@@ -22,52 +23,50 @@ export default function CardServices({ data }: ICardProps) {
       </LinkCustom>
       <CardContentCustoms>
         <Info>
-          <AvatarCustom alt="" src={data?.image ?? IMGAvatar.src} />
+          <AvatarCustom
+            alt={data?.creatorInfo?.fullName ?? "avatar"}
+            src={data?.creatorInfo?.twitterInfo?.avatar ?? IMGAvatar.src}
+          />
           <NamePoint>
             <Rows>
               <Typography variant="h6">
-                {data?.projectName ?? "Declan Rice"}
+                {data?.creatorInfo?.fullName ?? ""}
               </Typography>
               <IconVerify width={12} height={12} />
             </Rows>
             <Rows>
               <IconThunder width={12} height={12} />
-              <Typography variant="body1">0</Typography>
+              <Typography variant="body1">
+                {data?.creatorInfo?.twitterInfo?.totalPoints ?? 0}
+              </Typography>
             </Rows>
           </NamePoint>
         </Info>
         <Chip>
-          {(data?.tags ?? []).map((item) => (
-            <ItemChip
-              key={item}
-              bg={chipBg[item as keyof IChip]}
-              color={chipColor[item as keyof IChip]}
-            >
-              <Typography variant="subtitle2">{item}</Typography>
-            </ItemChip>
-          ))}
+          <Tags dataTag={data?.tags ?? []} />
         </Chip>
         <Title>
-          <Typography variant="h6">
-            {data?.jobDescription ?? "Sustainable Future"}
-          </Typography>
+          <Typography variant="h6">{data?.projectName ?? ""}</Typography>
         </Title>
         <Detail>
           <Columns>
             <TypographyDetailTitle>Offer</TypographyDetailTitle>
             <TypographyDetailValue>
-              {data?.offers?.[0] ?? 0}
+              <span> {data?.offers?.[0] ?? 0}</span>
             </TypographyDetailValue>
           </Columns>
           <Columns>
             <TypographyDetailTitle>Avg.Rating</TypographyDetailTitle>
             <TypographyDetailValue>
-              <IconStar width={8} height={8} /> {data?.rating ?? 0}
+              <IconStar width={8} height={8} />
+              <span> {data?.rating ?? 0}</span>
             </TypographyDetailValue>
           </Columns>
           <Columns>
             <TypographyDetailTitle>Price</TypographyDetailTitle>
-            <TypographyDetailValue>${data?.price ?? 0}</TypographyDetailValue>
+            <TypographyDetailValue>
+              <span>${data?.price ?? 0}</span>
+            </TypographyDetailValue>
           </Columns>
         </Detail>
       </CardContentCustoms>
@@ -79,7 +78,7 @@ const CardCustom = styled(Card)<any>`
   min-width: 342px;
   min-height: 446px;
   background-color: #191d24 !important;
-  border-radius: 12px;
+  border-radius: 12px !important;
 `;
 
 const CardMediaCustom = styled(CardMedia)<any>`
@@ -117,22 +116,22 @@ const Rows = styled.div`
   gap: 4px;
   align-items: center;
   h6 {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 18px !important;
+    font-weight: 700 !important;
     line-height: 21.6px;
     color: #fff;
-    max-width: 200px;
+    max-width: 222px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .MuiTypography-body1 {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 14px !important;
+    font-weight: 400 !important;
     line-height: 16.8px;
     color: #fff;
-    max-width: 200px;
+    max-width: 222px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -145,10 +144,13 @@ const Chip = styled.div`
   gap: 8px;
   align-items: center;
   padding: 7.5px 0;
-  max-width: 200px;
+  max-width: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: auto;
   text-overflow: ellipsis;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ItemChip = styled.div<any>`
@@ -164,7 +166,7 @@ const Title = styled.div`
     font-weight: 700;
     line-height: 28.8px;
     color: #fff;
-    max-width: 200px;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -201,10 +203,12 @@ const TypographyDetailValue = styled(Typography)<any>`
   color: #fff !important;
   font-size: 10px !important;
   line-height: 12px !important;
-  max-width: 70px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis !important;
+  span {
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+  }
 `;
 
 const TypographyCustoms = styled(Typography)`

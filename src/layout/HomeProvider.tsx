@@ -20,7 +20,10 @@ const HomeProvider = ({ children }: IHomeProvider) => {
 
   return (
     <AuthContextProvider>
-      <Header handleToggleSidebar={isOpenSideBar.onToggle} />
+      <Header
+        handleToggleSidebar={isOpenSideBar.onToggle}
+        isOpen={isOpenSideBar.value}
+      />
       <Main>
         <SideBarCustom isOpen={isOpenSideBar.value}>
           <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />

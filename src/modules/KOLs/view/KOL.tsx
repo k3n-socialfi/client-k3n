@@ -46,7 +46,7 @@ interface TabPanelProps {
 
 const StyledTab = styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
-))(({ theme }) => ({
+))(({ theme }: any) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
   fontSize: theme.typography.pxToRem(13),

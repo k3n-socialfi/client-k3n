@@ -1,5 +1,5 @@
 "use client";
-import { IconArrowDown, IconArrowUp, IconCloseSideBar } from "@/assets/icons";
+import { IconArrowDown, IconArrowUp } from "@/assets/icons";
 import {
   DATASIDEBAR,
   DATASIDEBARBOTTOM,
@@ -14,15 +14,12 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
-import { CloseSideBar, Discover } from "./style";
-import zIndex from "@mui/material/styles/zIndex";
+import { Discover, Item, ListItemTextCustom } from "./style";
 
 type TSidebar = {
   handleToggleSidebar?: () => void;
@@ -100,9 +97,87 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
           </CloseSideBar> */}
             {token
               ? DATASIDEBARTOKEN.map((item, index) => {
-                return (
-                  <>
+                  return (
+                    <>
+                      <List
+                        sx={{
+                          background: "#080a0c",
+                        }}
+                      >
+                        <ListItemButton
+                          onClick={() => {
+                            handleItemClick(index);
+                          }}
+                        >
+                          {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
+                          <ListItemTextCustom
+                            primary={item.label}
+                            sx={{ pl: open ? 2 : "", color: item.color }}
+                          />
+                          {expanded[index] ? (
+                            <IconArrowUp color={item.colorArrow} />
+                          ) : (
+                            <IconArrowDown />
+                          )}
+                        </ListItemButton>
+                        {item.children?.map((itemChild, indexChild) => (
+                          <Collapse
+                            key={indexChild}
+                            in={expanded[index]}
+                            timeout="auto"
+                            unmountOnExit
+                            onClick={handleToggleSidebar}
+                          >
+                            <List component="div" disablePadding>
+                              {itemChild?.isCommingSoon ? (
+                                <ListItemButton
+                                  sx={{
+                                    pl: 5,
+                                    gap: "4px",
+                                  }}
+                                  onClick={() => router.push(itemChild.link)}
+                                >
+                                  <Item>
+                                    {itemChild.icon}
+                                    <ListItemTextCustom
+                                      sx={{ color: itemChild.color }}
+                                      primary={itemChild.label}
+                                    />
+                                  </Item>
+                                </ListItemButton>
+                              ) : (
+                                <Tooltip
+                                  title={<TooltipCustom />}
+                                  placement="right"
+                                >
+                                  <ListItemButton
+                                    sx={{
+                                      pl: 5,
+                                      gap: "4px",
+                                    }}
+                                    onClick={() => router.push(itemChild.link)}
+                                  >
+                                    <Item>
+                                      {itemChild.icon}
+                                      <ListItemTextCustom
+                                        sx={{ color: itemChild.color }}
+                                        primary={itemChild.label}
+                                      />
+                                    </Item>
+                                  </ListItemButton>
+                                </Tooltip>
+                              )}
+                            </List>
+                          </Collapse>
+                        ))}
+                      </List>
+                    </>
+                  );
+                })
+              : DATASIDEBAR.map((item, index) => {
+                  return (
                     <List
+                      key={index}
                       sx={{
                         background: "#080a0c",
                       }}
@@ -113,7 +188,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                         }}
                       >
                         {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
-                        <ListItemText
+                        <ListItemTextCustom
                           primary={item.label}
                           sx={{ pl: open ? 2 : "", color: item.color }}
                         />
@@ -123,144 +198,67 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                           <IconArrowDown />
                         )}
                       </ListItemButton>
-                      {item.children?.map((itemChild, indexChild) =>
-                      (
-                        <Collapse
-                          key={indexChild}
-                          in={expanded[index]}
-                          timeout="auto"
-                          unmountOnExit
-                          onClick={handleToggleSidebar}
-                        >
-                          <List component="div" disablePadding>
-                            {itemChild?.isCommingSoon ? (
-                              <ListItemButton
-                                sx={{
-                                  pl: 4,
-                                  gap: 2,
-                                }}
-                                onClick={() =>
-                                  router.push(itemChild.link)
-                                }
-                              >
-                                {itemChild.icon}
-                                <ListItemText
-                                  sx={{ color: itemChild.color }}
-                                  primary={itemChild.label}
-                                />
-                              </ListItemButton>
-                            ) : (
-                              <Tooltip
-                                title={<TooltipCustom />}
-                                placement="right"
-                              >
-                                <ListItemButton
-                                  sx={{
-                                    pl: 4,
-                                    gap: 2,
-                                  }}
-                                  onClick={() =>
-                                    router.push(itemChild.link)
-                                  }
-                                >
-                                  {itemChild.icon}
-                                  <ListItemText
-                                    sx={{ color: itemChild.color }}
-                                    primary={itemChild.label}
-                                  />
-                                </ListItemButton>
-                              </Tooltip>
-                            )}
-                          </List>
-                        </Collapse>
-                      ))}
-                    </List>
-                  </>
-                );
-              })
-              : DATASIDEBAR.map((item, index) => {
-                return (
-                  <List
-                    key={index}
-                    sx={{
-                      background: "#080a0c",
-                    }}
-                  >
-                    <ListItemButton
-                      onClick={() => {
-                        handleItemClick(index);
-                      }}
-                    >
-                      {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
-                      <ListItemText
-                        primary={item.label}
-                        sx={{ pl: open ? 2 : "", color: item.color }}
-                      />
-                      {expanded[index] ? (
-                        <IconArrowUp color={item.colorArrow} />
-                      ) : (
-                        <IconArrowDown />
-                      )}
-                    </ListItemButton>
-                    {item.children.map((itemChild, indexChild) => {
-                      return (
-                        <>
-                          <Collapse
-                            in={expanded[index]}
-                            timeout="auto"
-                            unmountOnExit
-                            onClick={handleToggleSidebar}
-                          >
-                            <List component="div" disablePadding>
-                              {itemChild?.isCommingSoon ? (
-                                <ListItemButton
-                                  sx={{
-                                    pl: 4,
-                                    gap: 2,
-                                  }}
-                                  onClick={() =>
-                                    router.push(itemChild.link)
-                                  }
-                                >
-                                  {itemChild.icon}
-                                  <ListItemText
-                                    sx={{ color: itemChild.color }}
-                                    primary={itemChild.label}
-                                  />
-                                </ListItemButton>
-                              ) : (
-                                <Tooltip
-                                  title={<TooltipCustom />}
-                                  placement="right"
-                                >
+                      {item.children.map((itemChild, indexChild) => {
+                        return (
+                          <>
+                            <Collapse
+                              in={expanded[index]}
+                              timeout="auto"
+                              unmountOnExit
+                              onClick={handleToggleSidebar}
+                            >
+                              <List component="div" disablePadding>
+                                {itemChild?.isCommingSoon ? (
                                   <ListItemButton
                                     sx={{
-                                      pl: 4,
-                                      gap: 2,
+                                      pl: 5,
+                                      gap: "4px",
                                     }}
-                                    onClick={() =>
-                                      router.push(itemChild.link)
-                                    }
+                                    onClick={() => router.push(itemChild.link)}
                                   >
-                                    {itemChild.icon}
-                                    <ListItemText
-                                      sx={{ color: itemChild.color }}
-                                      primary={itemChild.label}
-                                    />
+                                    <Item>
+                                      {itemChild.icon}
+                                      <ListItemTextCustom
+                                        sx={{ color: itemChild.color }}
+                                        primary={itemChild.label}
+                                      />
+                                    </Item>
                                   </ListItemButton>
-                                </Tooltip>
-                              )}
-                            </List>
-                          </Collapse>
-                        </>
-                      );
-                    })}
-                  </List>
-                );
-              })}
+                                ) : (
+                                  <Tooltip
+                                    title={<TooltipCustom />}
+                                    placement="right"
+                                  >
+                                    <ListItemButton
+                                      sx={{
+                                        pl: 5,
+                                        gap: "4px",
+                                      }}
+                                      onClick={() =>
+                                        router.push(itemChild.link)
+                                      }
+                                    >
+                                      <Item>
+                                        {itemChild.icon}
+                                        <ListItemTextCustom
+                                          sx={{ color: itemChild.color }}
+                                          primary={itemChild.label}
+                                        />
+                                      </Item>
+                                    </ListItemButton>
+                                  </Tooltip>
+                                )}
+                              </List>
+                            </Collapse>
+                          </>
+                        );
+                      })}
+                    </List>
+                  );
+                })}
           </div>
 
-          {/* <List>
+          <List>
             {DATASIDEBARBOTTOM.map((item, index) => (
               <ListItem
                 key={item.id}
@@ -286,7 +284,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                     >
                       {item.icon}
                     </ListItemIcon>
-                    <ListItemText
+                    <ListItemTextCustom
                       primary={item.label}
                       sx={{ opacity: open ? 1 : 0 }}
                     />
@@ -310,7 +308,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                       >
                         {item.icon}
                       </ListItemIcon>
-                      <ListItemText
+                      <ListItemTextCustom
                         primary={item.label}
                         sx={{ opacity: open ? 1 : 0 }}
                       />
@@ -319,7 +317,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                 )}
               </ListItem>
             ))}
-          </List> */}
+          </List>
         </Drawer>
       </Discover>
     </Box>
@@ -377,7 +375,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+const DrawerHeader = styled("div")(({ theme }: any) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
@@ -393,8 +391,8 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
+  shouldForwardProp: (prop: any) => prop !== "open",
+})<AppBarProps>(({ theme, open }: any) => ({
   background: "#080a0c",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
@@ -413,8 +411,8 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+  shouldForwardProp: (prop: any) => prop !== "open",
+})(({ theme, open }: any) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
