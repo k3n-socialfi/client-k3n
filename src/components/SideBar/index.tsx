@@ -30,7 +30,6 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
   const [open, setOpen] = React.useState(true);
   const [expanded, setExpanded] = React.useState(DATASIDEBAR.map(() => true));
   const path = usePathname();
-  console.log("🚀 ~ SideBar ~ path:", path);
 
   const handleChange = (panel: number) => {
     setExpanded((prev: boolean[]) => {
