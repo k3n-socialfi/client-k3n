@@ -24,7 +24,7 @@ export default function MyRanking({ dataPersonal }: IMyRankingProps) {
               )}
             </Name>
             <Typography variant="body2" color={"#82EBFF"}>
-              {dataPersonal?.jobTittle}
+              {dataPersonal?.type}
             </Typography>
           </Account>
         </Info>

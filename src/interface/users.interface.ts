@@ -52,7 +52,10 @@ export interface IUsers {
   twitterInfo: TwitterInfo;
   review?: number;
   tags?: string[];
-  pnl?: number
+  pnl?: number;
+  mentionedProject?: {
+    chain?: string
+  }
 }
 
 export interface IFilterKOL {
