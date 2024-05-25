@@ -17,19 +17,11 @@ export const DATASIDEBAR = [
   {
     id: 0,
     label: "Home page",
-    color: "#F23581",
-    colorArrow: "#F23581",
-    icon: "",
-    children: [
-      {
-        id: 11,
-        label: "Home page",
-        icon: <IconHome />,
-        link: "/",
-        isCommingSoon: true,
-        color: "#fff",
-      },
-    ],
+    color: "#fff",
+    colorArrow: "#fff",
+    icon: <IconHome />,
+    link: "/",
+    children: [],
   },
   {
     id: 1,
@@ -42,8 +34,8 @@ export const DATASIDEBAR = [
         id: 11,
         label: "KOls",
         icon: <IconKOLs />,
-        link: "/KOLs",
-        isCommingSoon: true,
+        link: "/top-ranking",
+        isCommingSoon: false,
         color: "#fff",
       },
       // {
@@ -51,7 +43,7 @@ export const DATASIDEBAR = [
       //   label: "Top 100 Ranking",
       //   icon: <IconMarketingServices />,
       //   link: "/top-ranking",
-      //   isCommingSoon: true,
+      //   isCommingSoon: false,
       //   color: "#fff",
       // },
     ],
@@ -69,7 +61,7 @@ export const DATASIDEBAR = [
         label: "Dashboard",
         icon: <IconDashboard />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
       {
@@ -77,7 +69,7 @@ export const DATASIDEBAR = [
         label: "Boot",
         icon: <IconBoot />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
       {
@@ -85,7 +77,7 @@ export const DATASIDEBAR = [
         label: "Holder Benefit",
         icon: <IconHolderBenefit />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
     ],
@@ -95,33 +87,26 @@ export const DATASIDEBARTOKEN = [
   {
     id: 0,
     label: "Home page",
-    color: "#F23581",
-    colorArrow: "#F23581",
-    icon: "",
-    children: [
-      {
-        id: 11,
-        label: "Home page",
-        icon: <IconHome />,
-        link: "/",
-        isCommingSoon: true,
-        color: "#fff",
-      },
-    ],
+    color: "#fff",
+    colorArrow: "#fff",
+    icon: <IconHome />,
+    link: "/",
+    children: [],
   },
   {
     id: 1,
     label: "Discover",
     color: "#F23581",
     colorArrow: "#F23581",
+    link: null,
     icon: "",
     children: [
       {
         id: 11,
         label: "KOls",
         icon: <IconKOLs />,
-        link: "/KOLs",
-        isCommingSoon: true,
+        link: "/top-ranking",
+        isCommingSoon: false,
         color: "#fff",
       },
       // {
@@ -129,7 +114,7 @@ export const DATASIDEBARTOKEN = [
       //   label: "Top 100 Ranking",
       //   icon: <IconMarketingServices />,
       //   link: "/top-ranking",
-      //   isCommingSoon: true,
+      //   isCommingSoon: false,
       //   color: "#fff",
       // },
     ],
@@ -139,6 +124,7 @@ export const DATASIDEBARTOKEN = [
     label: "Offer Board",
     color: "#F23581",
     colorArrow: "#F23581",
+    link: null,
     icon: "",
     children: [
       {
@@ -146,7 +132,7 @@ export const DATASIDEBARTOKEN = [
         label: "My Offer",
         icon: <IconCreateOffer />,
         link: "/view-offer",
-        isCommingSoon: true,
+        isCommingSoon: false,
         color: "#fff",
       },
       {
@@ -154,7 +140,7 @@ export const DATASIDEBARTOKEN = [
         label: "Marketing Services",
         icon: <IconViewOffer />,
         link: "/marketing-services",
-        isCommingSoon: true,
+        isCommingSoon: false,
         color: "#fff",
       },
     ],
@@ -164,6 +150,7 @@ export const DATASIDEBARTOKEN = [
     label: "Comming soon",
     color: "#FDDDEA",
     colorArrow: "#FDDDEA",
+    link: null,
     icon: "",
     children: [
       {
@@ -171,7 +158,7 @@ export const DATASIDEBARTOKEN = [
         label: "Dashboard",
         icon: <IconDashboard />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
       {
@@ -179,7 +166,7 @@ export const DATASIDEBARTOKEN = [
         label: "Boot",
         icon: <IconBoot />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
       {
@@ -187,14 +174,14 @@ export const DATASIDEBARTOKEN = [
         label: "Holder Benefit",
         icon: <IconHolderBenefit />,
         link: "",
-        isCommingSoon: false,
+        isCommingSoon: true,
         color: "#637592",
       },
     ],
   },
 ];
 export const DATASIDEBARBOTTOM = [
-  { id: 1, label: "Docs", icon: <IconDocs />, isCommingSoon: false },
-  { id: 2, label: "Changelog", icon: <IconChangelog />, isCommingSoon: false },
-  { id: 3, label: "Feedback", icon: <IconFeedback />, isCommingSoon: false },
+  { id: 1, label: "Docs", icon: <IconDocs />, isCommingSoon: true },
+  { id: 2, label: "Changelog", icon: <IconChangelog />, isCommingSoon: true },
+  { id: 3, label: "Feedback", icon: <IconFeedback />, isCommingSoon: true },
 ];

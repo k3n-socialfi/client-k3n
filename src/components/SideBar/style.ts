@@ -1,4 +1,4 @@
-import { ListItemText } from "@mui/material";
+import { ListItemButton, ListItemText } from "@mui/material";
 import styled, { keyframes } from "styled-components";
 
 export const CloseSideBar = styled.div`
@@ -26,19 +26,9 @@ export const StraightLine = styled.div`
   border-radius: 0 5px 5px 0;
 `;
 
-const dilate = keyframes`
-  0% { height: 20px; opacity: 0.4; transform: translateX(-10px);}
-  50% { height: 38px; opacity: 0.8;transform: translateX(-5px); }
-  100% { height: 48px; opacity: 1; transform: translateX(0);}
-`;
+export const ListItemCustom = styled(ListItemButton)<any>``;
 
-const dilateBg = keyframes`
-  0% { padding: 5px;opacity: 0.4; transform: translateX(-10px);}
-  50% { padding: 8px; opacity: 0.8;transform: translateX(-5px);}
-  100% { padding: 12px;opacity: 1; transform: translateX(5px);}
-`;
-
-export const Item = styled.div`
+export const Item = styled.div<any>`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -47,18 +37,31 @@ export const Item = styled.div`
   align-items: center;
   width: 100%;
   border-radius: 8px;
+
+  background-color: ${({ isSide }) => isSide && "#191d24"};
+  padding: ${({ isSide }) => isSide && "12px"};
+  path {
+    fill: ${({ isSide }) => isSide && "#f23581"};
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 4px;
+    left: -8px;
+    height: ${({ isSide }) => (isSide ? "48px" : "0px")};
+    background-color: #f23581;
+    border-radius: 0 5px 5px 0;
+    transition: height 0.5s;
+  }
   &:hover {
     background-color: #191d24;
-    font-size: 12px !important;
-    animation: ${dilateBg} 0.4s linear;
     padding: 12px;
     path {
       fill: #f23581;
     }
-    .MuiTypography-body1 {
-      font-size: 12px !important;
-    }
-    /* transition: all 0.3s ease-in; */
+
+    transition: all 0.5s ease-in;
 
     &::before {
       position: absolute;
@@ -68,7 +71,7 @@ export const Item = styled.div`
       height: 48px;
       background-color: #f23581;
       border-radius: 0 5px 5px 0;
-      animation: ${dilate} 0.4s linear;
+      transition: height 0.5s;
     }
   }
 `;

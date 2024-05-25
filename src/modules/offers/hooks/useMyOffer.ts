@@ -8,7 +8,6 @@ export default function useMyOffer() {
 
   const getDataListOffer = async () => {
     const { data } = await getListMyOffer();
-    console.log("👋  data:", data);
     setListOffer(data?.data);
   };
 

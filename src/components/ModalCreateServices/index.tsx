@@ -72,10 +72,7 @@ const CreateServices = (props: Props) => {
     data.isPublic = true;
     data.price = +data.price;
     data.kolWallet = wallet.publicKey?.toBase58();
-    console.log(
-      "🚀 ~ onSubmitForm ~ wallet.publicKey?.toBase58():",
-      wallet.publicKey?.toBase58(),
-    );
+   
     try {
       const res = await createServices(data);
       setIsLoading(false);

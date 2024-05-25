@@ -94,7 +94,6 @@ const FormCreateProject = (props: Props) => {
 
   const onSubmitForm = async (data: any) => {
     openDoneSubmit.onTrue();
-    console.log("🚀 ~ FormCreateProject ~ data:", data);
   };
 
   const handleBack = () => {

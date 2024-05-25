@@ -7,7 +7,6 @@ const useFetchDataMyProfile = () => {
   const [dataPosts, setDataPosts] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>();
-  const { setAlertError } = useAlert();
 
   const fetchData = async () => {
     if (localStorage.getItem("accessToken"))
@@ -20,7 +19,6 @@ const useFetchDataMyProfile = () => {
           setDataPosts(arrayPost?.data?.data?.posts);
         }
       } catch (error) {
-        setAlertError(`Get user's posts Error`, `${error}`);
       } finally {
         setIsLoading(false);
       }

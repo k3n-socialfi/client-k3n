@@ -219,7 +219,6 @@ export default function useServiceContract() {
           serializedTransfer as any,
         );
         const res = await connection.confirmTransaction(txIdTransfer);
-        console.log("🚀 ~ handleMintNFT ~ res:", res);
         setIsLoading(false);
       }
     } catch (error) {
