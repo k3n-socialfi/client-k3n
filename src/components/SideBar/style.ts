@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { ListItemButton, ListItemText } from "@mui/material";
-=======
-import { ListItemText } from "@mui/material";
->>>>>>> 732e44e (fix: animation side bar and show user profile when logined)
 import styled, { keyframes } from "styled-components";
 
 export const CloseSideBar = styled.div`
@@ -30,25 +26,9 @@ export const StraightLine = styled.div`
   border-radius: 0 5px 5px 0;
 `;
 
-<<<<<<< HEAD
 export const ListItemCustom = styled(ListItemButton)<any>``;
 
 export const Item = styled.div<any>`
-=======
-const dilate = keyframes`
-  0% { height: 20px; opacity: 0.4; transform: translateX(-10px);}
-  50% { height: 38px; opacity: 0.8;transform: translateX(-5px); }
-  100% { height: 48px; opacity: 1; transform: translateX(0);}
-`;
-
-const dilateBg = keyframes`
-  0% { padding: 5px;opacity: 0.4; transform: translateX(-10px);}
-  50% { padding: 8px; opacity: 0.8;transform: translateX(-5px);}
-  100% { padding: 12px;opacity: 1; transform: translateX(5px);}
-`;
-
-export const Item = styled.div`
->>>>>>> 732e44e (fix: animation side bar and show user profile when logined)
   position: relative;
   display: flex;
   flex-direction: row;
@@ -57,7 +37,6 @@ export const Item = styled.div`
   align-items: center;
   width: 100%;
   border-radius: 8px;
-<<<<<<< HEAD
 
   background-color: ${({ isSide }) => isSide && "#191d24"};
   padding: ${({ isSide }) => isSide && "12px"};
@@ -77,25 +56,12 @@ export const Item = styled.div`
   }
   &:hover {
     background-color: #191d24;
-=======
-  &:hover {
-    background-color: #191d24;
-    font-size: 12px !important;
-    animation: ${dilateBg} 0.4s linear;
->>>>>>> 732e44e (fix: animation side bar and show user profile when logined)
     padding: 12px;
     path {
       fill: #f23581;
     }
-<<<<<<< HEAD
 
     transition: all 0.5s ease-in;
-=======
-    .MuiTypography-body1 {
-      font-size: 12px !important;
-    }
-    /* transition: all 0.3s ease-in; */
->>>>>>> 732e44e (fix: animation side bar and show user profile when logined)
 
     &::before {
       position: absolute;
@@ -105,11 +71,7 @@ export const Item = styled.div`
       height: 48px;
       background-color: #f23581;
       border-radius: 0 5px 5px 0;
-<<<<<<< HEAD
       transition: height 0.5s;
-=======
-      animation: ${dilate} 0.4s linear;
->>>>>>> 732e44e (fix: animation side bar and show user profile when logined)
     }
   }
 `;
