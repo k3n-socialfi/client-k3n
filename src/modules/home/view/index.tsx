@@ -173,20 +173,19 @@ const StyleFeaturedKOLs = styled.div`
   .rfm-marquee,
   .rfm-marquee-container {
     gap: 28px;
-    transition-timing-function: ease-in;
+    transition-timing-function: ease-in-out;
+    transition: 0.5s;
+    height: 526px;
     &:hover {
-      height: 526px;
       .rfm-child {
-        transform: scale(0.9);
-        transition-timing-function: ease-in;
-        transition: 0.2s;
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
       }
     }
     .rfm-child:hover {
       transform: scale(1.1);
-      transition-timing-function: ease-in;
-      transition: 0.2s;
-      height: 450px;
+      transition-timing-function: ease-in-out;
+      transition: 0.5s;
     }
   }
 `;

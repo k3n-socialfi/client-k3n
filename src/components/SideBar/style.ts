@@ -1,5 +1,5 @@
-import { ListItemText } from "@mui/material";
-import styled from "styled-components";
+import { ListItemButton, ListItemText } from "@mui/material";
+import styled, { keyframes } from "styled-components";
 
 export const CloseSideBar = styled.div`
   display: flex;
@@ -26,7 +26,9 @@ export const StraightLine = styled.div`
   border-radius: 0 5px 5px 0;
 `;
 
-export const Item = styled.div`
+export const ListItemCustom = styled(ListItemButton)<any>``;
+
+export const Item = styled.div<any>`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -36,17 +38,31 @@ export const Item = styled.div`
   width: 100%;
   border-radius: 8px;
 
+  background-color: ${({ isSide }) => isSide && "#191d24"};
+  padding: ${({ isSide }) => isSide && "12px"};
+  path {
+    fill: ${({ isSide }) => isSide && "#f23581"};
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 4px;
+    left: -8px;
+    height: ${({ isSide }) => (isSide ? "48px" : "0px")};
+    background-color: #f23581;
+    border-radius: 0 5px 5px 0;
+    transition: height 0.5s;
+  }
   &:hover {
     background-color: #191d24;
     padding: 12px;
-    font-size: 12px !important;
     path {
       fill: #f23581;
     }
-    .MuiTypography-body1 {
-      font-size: 12px !important;
-    }
-    transition: all 0.3s ease-in;
+
+    transition: all 0.5s ease-in;
+
     &::before {
       position: absolute;
       content: "";
@@ -55,7 +71,7 @@ export const Item = styled.div`
       height: 48px;
       background-color: #f23581;
       border-radius: 0 5px 5px 0;
-      transition: all 0.3s ease-in;
+      transition: height 0.5s;
     }
   }
 `;

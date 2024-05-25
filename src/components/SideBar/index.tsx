@@ -16,7 +16,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Tooltip from "@mui/material/Tooltip";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
 import { Discover, Item, ListItemTextCustom } from "./style";
@@ -27,9 +27,9 @@ type TSidebar = {
 
 export default function SideBar({ handleToggleSidebar }: TSidebar) {
   const router = useRouter();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [expanded, setExpanded] = React.useState(DATASIDEBAR.map(() => true));
+  const path = usePathname();
 
   const handleChange = (panel: number) => {
     setExpanded((prev: boolean[]) => {
@@ -38,20 +38,9 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
       return clar;
     });
   };
+
   const handleItemClick = (index: number) => {
-    // if (!open) {
-    //   handleDrawerOpen();
-    // }
     handleChange(index);
-  };
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerToggle = () => {
-    // setOpen(!open);
-    // setExpanded(DATASIDEBAR.map(() => false));
   };
 
   const token =
@@ -78,23 +67,10 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
               width: "100%",
             }}
           >
-            <DrawerHeader sx={{ justifyContent: "center", zIndex: 10 }}>
-              {/* {open && (
-              <Image
-                height={50}
-                width={150}
-                src={logoK3N}
-                title="logo"
-                alt="logo k3n"
-              />
-            )} */}
-              {/* <IconButton onClick={handleDrawerToggle}>
-              {theme.direction === "rtl" ? <IconMenuBar /> : <IconMenuBar />}
-            </IconButton> */}
-            </DrawerHeader>
-            {/* <CloseSideBar onClick={handleClose}>
-            <IconCloseSideBar />
-          </CloseSideBar> */}
+            <DrawerHeader
+              sx={{ justifyContent: "center", zIndex: 10 }}
+            ></DrawerHeader>
+
             {token
               ? DATASIDEBARTOKEN.map((item, index) => {
                   return (
@@ -102,24 +78,43 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                       <List
                         sx={{
                           background: "#080a0c",
+                          marginTop: index === 0 ? "20px" : 0,
                         }}
                       >
-                        <ListItemButton
-                          onClick={() => {
-                            handleItemClick(index);
-                          }}
-                        >
-                          {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
-                          <ListItemTextCustom
-                            primary={item.label}
-                            sx={{ pl: open ? 2 : "", color: item.color }}
-                          />
-                          {expanded[index] ? (
-                            <IconArrowUp color={item.colorArrow} />
-                          ) : (
-                            <IconArrowDown />
-                          )}
-                        </ListItemButton>
+                        {item.children.length ? (
+                          <ListItemButton
+                            onClick={() => {
+                              handleItemClick(index);
+                            }}
+                          >
+                            {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
+                            <ListItemTextCustom
+                              primary={item.label}
+                              sx={{ pl: open ? 2 : "", color: item.color }}
+                            />
+                            {expanded[index] ? (
+                              <IconArrowUp color={item.colorArrow} />
+                            ) : (
+                              <IconArrowDown />
+                            )}
+                          </ListItemButton>
+                        ) : (
+                          <ListItemButton
+                            sx={{
+                              pl: 4,
+                              gap: "4px",
+                            }}
+                            onClick={() => item.link && router.push(item.link)}
+                          >
+                            <Item isSide={path === item.link}>
+                              {item.icon}
+                              <ListItemTextCustom
+                                sx={{ color: item.color }}
+                                primary={item.label}
+                              />
+                            </Item>
+                          </ListItemButton>
+                        )}
                         {item.children?.map((itemChild, indexChild) => (
                           <Collapse
                             key={indexChild}
@@ -129,7 +124,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                             onClick={handleToggleSidebar}
                           >
                             <List component="div" disablePadding>
-                              {itemChild?.isCommingSoon ? (
+                              {!itemChild?.isCommingSoon ? (
                                 <ListItemButton
                                   sx={{
                                     pl: 5,
@@ -137,7 +132,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                                   }}
                                   onClick={() => router.push(itemChild.link)}
                                 >
-                                  <Item>
+                                  <Item isSide={path === itemChild.link}>
                                     {itemChild.icon}
                                     <ListItemTextCustom
                                       sx={{ color: itemChild.color }}
@@ -180,24 +175,43 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                       key={index}
                       sx={{
                         background: "#080a0c",
+                        marginTop: index === 0 ? "20px" : 0,
                       }}
                     >
-                      <ListItemButton
-                        onClick={() => {
-                          handleItemClick(index);
-                        }}
-                      >
-                        {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
-                        <ListItemTextCustom
-                          primary={item.label}
-                          sx={{ pl: open ? 2 : "", color: item.color }}
-                        />
-                        {expanded[index] ? (
-                          <IconArrowUp color={item.colorArrow} />
-                        ) : (
-                          <IconArrowDown />
-                        )}
-                      </ListItemButton>
+                      {item.children.length ? (
+                        <ListItemButton
+                          onClick={() => {
+                            handleItemClick(index);
+                          }}
+                        >
+                          {!open && <ListItemIcon>{item.icon}</ListItemIcon>}
+                          <ListItemTextCustom
+                            primary={item.label}
+                            sx={{ pl: open ? 2 : "", color: item.color }}
+                          />
+                          {expanded[index] ? (
+                            <IconArrowUp color={item.colorArrow} />
+                          ) : (
+                            <IconArrowDown />
+                          )}
+                        </ListItemButton>
+                      ) : (
+                        <ListItemButton
+                          sx={{
+                            pl: 4,
+                            gap: "4px",
+                          }}
+                          onClick={() => item.link && router.push(item.link)}
+                        >
+                          <Item isSide={path === item.link}>
+                            {item.icon}
+                            <ListItemTextCustom
+                              sx={{ color: item.color }}
+                              primary={item.label}
+                            />
+                          </Item>
+                        </ListItemButton>
+                      )}
                       {item.children.map((itemChild, indexChild) => {
                         return (
                           <>
@@ -208,7 +222,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                               onClick={handleToggleSidebar}
                             >
                               <List component="div" disablePadding>
-                                {itemChild?.isCommingSoon ? (
+                                {!itemChild?.isCommingSoon ? (
                                   <ListItemButton
                                     sx={{
                                       pl: 5,
@@ -216,7 +230,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                                     }}
                                     onClick={() => router.push(itemChild.link)}
                                   >
-                                    <Item>
+                                    <Item isSide={path === itemChild.link}>
                                       {itemChild.icon}
                                       <ListItemTextCustom
                                         sx={{ color: itemChild.color }}
@@ -266,7 +280,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                 sx={{ display: "block" }}
                 onClick={handleToggleSidebar}
               >
-                {item?.isCommingSoon ? (
+                {!item?.isCommingSoon ? (
                   <ListItemButton
                     sx={{
                       minHeight: 48,
