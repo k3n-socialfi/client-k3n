@@ -39,6 +39,7 @@ import { IFeatureKols } from "@/interface/featureKols.interface";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import Tags from "@/components/Tags";
 import Sliders from "@/components/Sliders";
+import TagList from "@/components/TagList";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -373,7 +374,8 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                   </CustomTableCell>
                   <CustomTableCell align="center">
                     <Chip>
-                      {row?.tags && <Tags dataTag={row?.tags} />}
+                      {/* {row?.tags && <Tags dataTag={row?.tags} />} */}
+                      {row?.tags && <TagList tags={row?.tags} />}
                     </Chip>
                   </CustomTableCell>
                 </TableRow>
