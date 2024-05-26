@@ -5,9 +5,9 @@ import {
   IconReset,
   IconThunder,
   IconArrowUpTop,
+  IconSearch
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import Chips from "@/components/Chip";
 import {
   FOLLOWER_RANGE,
   OPTION_SHILL_SCORE,
@@ -29,6 +29,7 @@ import {
   Typography,
   AvatarGroup,
   Pagination,
+  InputAdornment,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -36,6 +37,8 @@ import styled from "styled-components";
 import { getTopRanking } from "../../services";
 import { IFeatureKols } from "@/interface/featureKols.interface";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
+import Tags from "@/components/Tags";
+import Sliders from "@/components/Sliders";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -54,14 +57,17 @@ interface IPCustomTableCell {
 }
 
 const defaultFilter = {
-  type: undefined,
-  verification: undefined,
-  lowerLimit: undefined,
-  upperLimit: undefined,
-  tags: undefined,
   page: 0,
   limit: 20,
-  top: 100
+  top: 100,
+  type: undefined,
+  minFollower: undefined,
+  maxFollower: undefined,
+  minShillScore: undefined,
+  maxShillScore: undefined,
+  tags: undefined,
+  shillScore: undefined,
+  mentionedProject: undefined
 }
 
 export default function TableTopRanking(props: ITableTopRankingProps) {
@@ -71,19 +77,28 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   const [filter, setFilter] = useState<any>(defaultFilter);
   const [isFilter, setIsFilter] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [valueFollower, setValueFollower] = useState<number[]>([1000000, 7000000]);
+  const [valueShillScore, setValueShillScore] = useState<number[]>([100, 700]);
 
   const handleSelect = (key: string, val: any) => {
     setFilter((prevFilter: any) => {
       if (key === "followerX") {
         return {
           ...prevFilter,
-          lowerLimit: val?.lowerLimit,
-          upperLimit: val?.upperLimit
+          minFollower: val?.minFollower,
+          maxFollower: val?.maxFollower
+        };
+      }
+      if (key === "shillScore") {
+        return {
+          ...prevFilter,
+          minShillScore: val?.minShillScore,
+          maxShillScore: val?.maxShillScore
         };
       }
       return {
         ...prevFilter,
-        [key]: val
+        [key]: val,
       };
     });
   };
@@ -140,6 +155,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
       avatar: item?.twitterInfo?.avatar,
       href: `profile/${item?.username}`,
       type: item?.type,
+      chain: item?.mentionedProject?.chain,
       pnl: "-20",
       groupAvatar: [
         "https://pbs.twimg.com/profile_images/1737288264292192256/6Y4tIHTt_400x400.jpg",
@@ -153,7 +169,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   return (
     <div>
       <Filter>
-        <FilterBy color="#fff"><IconFilter />Filters by</FilterBy>
+        <FilterBy color="#fff"><IconFilter />Filter by</FilterBy>
         <CustomAutocomplete
           size="small"
           id="grouped-type-kol"
@@ -161,33 +177,36 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
           getOptionLabel={(option: any) => option.title}
           onChange={(event, val: any) => handleSelect('type', val ? val.value : null)}
           popupIcon={<IconDown />}
-          sx={{ height: 40, width: 180, }}
+          sx={{ height: 40, width: 220, }}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Type of KOLs"
-              sx={{ input: { color: "#FFF" } }}
+              sx={{ input: { color: "#FFF", fontSize: "14px" } }}
             />
           )}
         />
+        <Flex>
+          <CustomAutocomplete
+            popupIcon={<IconDown />}
+            size="small"
+            id="grouped-demo"
+            options={FOLLOWER_RANGE}
+            getOptionLabel={(option: any) => option.title}
+            onChange={(event, val: any) => handleSelect('followerX', val ? val.value : null)}
+            sx={{ height: 40, width: 250, }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Follower"
+                sx={{ input: { color: "#FFF" } }}
+              />
+            )}
+          />
+          <Sliders setValueFollower={setValueFollower} valueFollower={valueFollower} setFilter={setFilter} maxNumberFollower={10000000} isFollower={true} />
+        </Flex>
         <CustomAutocomplete
-          popupIcon={<IconDown />}
-          size="small"
-          id="grouped-demo"
-          options={FOLLOWER_RANGE}
-          getOptionLabel={(option: any) => option.title}
-          onChange={(event, val: any) => handleSelect('followerX', val ? val.value : null)}
-          sx={{ height: 40, width: 250, }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Follower"
-              sx={{ input: { color: "#FFF" } }}
-            />
-          )}
-        />
-        <CustomAutocomplete
-          sx={{ height: 40, width: 250, color: "#FFF" }}
+          sx={{ height: 40, width: 220, color: "#FFF" }}
           popupIcon={<IconDown />}
           size="small"
           id="grouped-demo"
@@ -203,22 +222,41 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
             />
           )}
         />
-        <CustomAutocomplete
-          popupIcon={<IconDown />}
-          size="small"
-          id="grouped-demo"
-          options={OPTION_SHILL_SCORE}
-          getOptionLabel={(option: any) => option.title}
-          onChange={(event, val: any) => handleSelect('verification', val ? val.value : null)}
-          sx={{ height: 40, width: 180 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Shill score"
-              sx={{ input: { color: "#FFF" } }}
-            />
-          )}
-        />
+        <Flex>
+          <CustomAutocomplete
+            popupIcon={<IconDown />}
+            size="small"
+            id="grouped-demo"
+            options={OPTION_SHILL_SCORE}
+            getOptionLabel={(option: any) => option.title}
+            onChange={(event, val: any) => handleSelect('shillScore', val ? val.value : null)}
+            sx={{ height: 40, width: 220 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Shill score"
+                sx={{ input: { color: "#FFF" } }}
+              />
+            )}
+          />
+          <Sliders setValueShillScore={setValueShillScore} valueShillScore={valueShillScore} setFilter={setFilter} maxNumberShillScore={1000} isShillScore={true} />
+        </Flex>
+        <Flex>
+          <CustomTextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconSearch />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+            label="Mentioned Project"
+            placeholder="Search..."
+            sx={{ fieldset: { color: "#FFF" }, input: { color: "#FFF" } }}
+            onChange={(event: any) => handleSelect("mentionedProject", event ? event.target.value : null)}
+          />
+        </Flex>
         <ItemFilters color="#82EBFF" onClick={() => fetchData()} style={{ cursor: "pointer" }}>
           <IconReset />
           Reset Filter
@@ -250,7 +288,10 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                   Shill score
                 </CustomTh>
                 <CustomTh align="center" isBorderLeft={true}>
-                  7 days change
+                  7D change
+                </CustomTh>
+                <CustomTh align="center" isBorderLeft={true}>
+                  Chain
                 </CustomTh>
                 <CustomTh align="center" isBorderLeft={true}>
                   Tags
@@ -306,7 +347,6 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                     </CustomAvatarGroup>
                   </CustomTableCell>
                   <CustomTableCell
-
                     align="center"
                   >
                     <Cell>{row?.follower}</Cell>
@@ -328,36 +368,13 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                       {row?.pnl > 0 ? `+${row?.pnl?.toLocaleString()}%` : `${row?.pnl?.toLocaleString()}%`}
                     </Change>
                   </CustomTableCell>
+                  <CustomTableCell align="center" style={{ fontWeight: "700" }}>
+                    {row?.chain}
+                  </CustomTableCell>
                   <CustomTableCell align="center">
-                    <Tags>
-                      {row?.tags.map(
-                        (item: string, index: number) =>
-                          item && (
-                            <Chips
-                              key={item}
-                              label={item}
-                              variant="outlined"
-                              sx={{
-                                color: `${index === 0
-                                  ? "#F23581"
-                                  : index === 1
-                                    ? "#3EAABE"
-                                    : "#25002D"
-                                  }`,
-                                backgroundColor: `${index === 0
-                                  ? "#ffd7f4"
-                                  : index === 1
-                                    ? "#EBFCFF"
-                                    : "#F6CCFF"
-                                  }`,
-                                "&.MuiChip-root": {
-                                  height: "24px",
-                                },
-                              }}
-                            />
-                          ),
-                      )}
-                    </Tags>
+                    <Chip>
+                      {row?.tags && <Tags dataTag={row?.tags} />}
+                    </Chip>
                   </CustomTableCell>
                 </TableRow>
               ))}
@@ -372,6 +389,38 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
     </div>
   );
 }
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px
+`
+const CustomTextField = styled(TextField)`
+  .MuiInputBase-input{
+    background-color: rgba(70, 78, 99, 1) !important; 
+    color: #FFF !important;
+    font-size: 12px !important;
+  }
+  label{
+    color: #FFF !important;
+  }
+  background-color: rgba(70, 78, 99, 1); 
+  border-radius: 8px;
+`
+const Chip = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  padding: 7.5px 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: ellipsis;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 const CustomPagination = styled(Pagination)`
   background: #080a0c !important;
@@ -425,18 +474,16 @@ const FilterBy = styled.div<IPropItemFillter>`
   display: flex;
   gap: 4px;
   justify-content: center;
-  align-items: center;
   color: ${({ color }) => (color ? color : "#fff")};
-  font-size: 14px !important;
+  font-size: 12px !important;
 `;
 
 const ItemFilters = styled.div<IPropItemFillter>`
   display: flex;
   gap: 4px;
   justify-content: center;
-  align-items: center;
   color: ${({ color }) => (color ? color : "#fff")};
-  font-size: 14px !important;
+  font-size: 13px !important;
   &:hover {
     transform: scale(0.9);
     color: red;
@@ -447,16 +494,14 @@ const ItemFilters = styled.div<IPropItemFillter>`
 
 const Filter = styled.div`
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap :14px;
   width: 100%;
   background: var(--Card-Card, rgba(25, 29, 36, 1));
   color: #fff;
   margin-bottom: 12px;
   border-radius: 8px;
-  padding: 8px 0;
+  padding: 12px 0;
 `;
 const CustomTableRow = styled(TableRow)` 
   background-color: rgba(25, 29, 36, 1);
@@ -517,15 +562,6 @@ const NameKOL = styled.div`
   max-width: 350px;
 `;
 
-const Tags = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
-  color: #fff;
-  padding: 10px;
-  max-width: 300px;
-`;
 
 const Rank = styled.div`
   position: sticky;

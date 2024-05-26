@@ -1,55 +1,99 @@
+import Slide from "@/components/Sliders";
+
 export const TYPE_OF_KOL = [
+  { title: "CT Influencer", value: "CT Influencer" },
+  { title: "Researcher", value: "Researcher" },
+  { title: "Founder & Builder", value: "Founder & Builder" },
+  { title: "New & Media", value: "New & Media" },
   { title: "Caller", value: "Caller" },
   { title: "Influencer", value: "Influencer" },
-  { title: "Researcher", value: "Researcher" },
   { title: "Threador", value: "Threador" },
+  { title: "Celebrities", value: "Celebrities" },
+  { title: "Experts", value: "Experts" },
+  { title: "KOL", value: "KOL" },
+  { title: "Agencies", value: "Experts" },
+  { title: "Others", value: "Others" },
+];
+
+export const FOLLOWER_RANGE = [
+  {
+    title: "1k-20k",
+    value: {
+      minFollower: 1000,
+      maxFollower: 20000
+    }
+  },
+  {
+    title: "20k-100k",
+    value: {
+      minFollower: 20000,
+      maxFollower: 100000
+    }
+  },
+  {
+    title: "100k-300k",
+    value: {
+      minFollower: 100000,
+      maxFollower: 300000
+    }
+  },
+  {
+    title: "300k-1M",
+    value: {
+      minFollower: 300000,
+      maxFollower: 1000000
+    }
+  },
+  {
+    title: "1M-5M",
+    value: {
+      minFollower: 1000000,
+      maxFollower: 5000000
+    }
+  },
+  {
+    title: ">5M",
+    value: {
+      minFollower: 5000000,
+      maxFollower: null
+    }
+  },
+];
+
+export const OPTION_SHILL_SCORE = [
+  {
+    title: "100-200",
+    value: {
+      minShillScore: 100,
+      maxShillScore: 200,
+    }
+  },
+  {
+    title: "200-500",
+    value: {
+      minShillScore: 200,
+      maxShillScore: 500,
+    }
+  },
+  {
+    title: "500-900",
+    value: {
+      minShillScore: 500,
+      maxShillScore: 900,
+    }
+  },
+  {
+    title: "900-1000",
+    value: {
+      minShillScore: 900,
+      maxShillScore: 1000
+    },
+  },
 ];
 
 export const OPTIONS_KYC = [
   { title: "Verified", value: true },
   { title: "Unverified", value: false },
-];
-
-export const OPTION_SHILL_SCORE = [
-  {
-    title: "Upper 70",
-    value: { lowerLimit: "70", upperLimit: null },
-  },
-  {
-    title: "50 - 70",
-    value: { lowerLimit: "50", upperLimit: "70" },
-  },
-  {
-    title: "20 - 50",
-    value: { lowerLimit: "20", upperLimit: "20" },
-  },
-  {
-    title: "Under 20",
-    value: { lowerLimit: "0", upperLimit: "20" },
-  },
-];
-
-export const FOLLOWER_RANGE = [
-  {
-    title: " Upper 100.000",
-    value: { lowerLimit: "100000", upperLimit: null },
-  },
-  {
-    title: "50.000 - 100.000",
-    value: { lowerLimit: "50000", upperLimit: "100000" },
-  },
-  {
-    title: "20.000 - 50.000",
-    value: { lowerLimit: "20000", upperLimit: "50000" },
-  },
-  {
-    title: "10.000 - 20.000",
-    value: { lowerLimit: "10000", upperLimit: "20000" },
-  },
-  {
-    title: "Under 10.000 ",
-    value: { lowerLimit: "0", upperLimit: "10000" },
-  },
 ];
 
 export const TAGS = [
