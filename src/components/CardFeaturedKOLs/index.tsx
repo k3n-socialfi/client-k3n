@@ -17,6 +17,7 @@ import {
 } from "./style";
 import { formatNumberToK } from "@/utils";
 import TagList from "../TagList";
+import Count from "../Count";
 
 type TCardProps = {
   data: IUserKOL;
@@ -64,9 +65,9 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
           </StyleContentTitle>
           <StyleFollower>
             <TwitterIcon />
-            <Typography color={"#82EBFF"}>
-              {formatNumberToK(data?.twitterInfo?.followers)} followers
-            </Typography>
+            <div className="text-[#82EBFF] flex space-x-2">
+              <Count countTo={formatNumberToK(data?.twitterInfo?.followers)}/> <p>followers</p>
+            </div>
           </StyleFollower>
           <StyleFollower
             style={{
