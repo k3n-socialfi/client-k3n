@@ -16,7 +16,7 @@ import {
   UserPoint,
 } from "./style";
 import { formatNumberToK } from "@/utils";
-import Chip from "../Chip";
+import TagList from "../TagList";
 
 type TCardProps = {
   data: IUserKOL;
@@ -29,9 +29,10 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
         sx={{
           minWidth: "281px",
           maxWidth: "281px",
-          padding: "19px",
+          paddingTop: "19px",
+          paddingX: "19px",
           background: "#252525",
-          borderRadius: "18px",
+          borderRadius: "20px",
           transition: "all 1s ease-in;",
         }}
         {...data}
@@ -42,7 +43,7 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
             height={243}
             src={data?.twitterInfo?.avatar}
             style={{
-              borderRadius: "18px",
+              borderRadius: "14px",
             }}
             alt="green iguana"
           />
@@ -64,7 +65,7 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
           <StyleFollower>
             <TwitterIcon />
             <Typography color={"#82EBFF"}>
-              {formatNumberToK(data?.twitterInfo?.followers)} follower
+              {formatNumberToK(data?.twitterInfo?.followers)} followers
             </Typography>
           </StyleFollower>
           <StyleFollower
@@ -73,13 +74,12 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
               marginTop: "10px",
             }}
           >
-            Completed jobs <span style={{ color: "#fff" }}>{0}</span>
+            Completed jobs: <span style={{ color: "#fff" }}>{0}</span>
           </StyleFollower>
           <StyleChips>
-            {data?.tags?.map(
-              (item: string) =>
-                item && <Chip key={item} label={item} color="secondary" />,
-            )}
+            {data && 
+             <TagList tags={data?.tags}/>
+            }
           </StyleChips>
         </CardContent>
       </Card>

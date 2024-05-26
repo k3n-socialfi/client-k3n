@@ -38,6 +38,7 @@ export const StyleTitleRight = styled.div`
 export const StyleChips = styled.div`
   display: flex;
   margin-top: 15px;
+  border-radius: 20px;
   gap: 8px;
 `;
 

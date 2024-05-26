@@ -2,14 +2,13 @@
 import { IconStar, IconThunder, IconVerify } from "@/assets/icons";
 import IMGAvatar from "@/assets/images/IMGPoint.png";
 import IMG from "@/assets/images/SignUpK3N.png";
-import { chipBg, chipColor, IChip } from "@/utils/chip";
 import { Avatar, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "styled-components";
 import { LinkCustom } from "../CardFeaturedKOLs/style";
-import Tags from "../Tags";
+import TagList from "../TagList";
 
 interface ICardProps {
   data: IServices;
@@ -43,7 +42,7 @@ export default function CardServices({ data }: ICardProps) {
           </NamePoint>
         </Info>
         <Chip>
-          <Tags dataTag={data?.tags ?? []} />
+          <TagList tags={data?.tags ?? []} />
         </Chip>
         <Title>
           <Typography variant="h6">{data?.projectName ?? ""}</Typography>
