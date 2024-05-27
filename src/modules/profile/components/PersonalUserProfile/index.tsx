@@ -9,6 +9,7 @@ import {
 import { ButtonPrimary } from "@/components/ButtonCustom";
 import Chips from "@/components/Chip";
 import EditProfile from "@/components/EditProfile";
+import TagList from "@/components/TagList";
 import { SOCIAL } from "@/constant/social";
 import { useBoolean } from "@/hooks/useBoolean";
 import { Typography } from "@mui/material";
@@ -21,16 +22,17 @@ interface IPropUserDes {
 }
 
 const IMG_NFT =
-  "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  "https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg";
 
 export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
   const isOpenEditProfile = useBoolean();
   const openModal = useBoolean();
+  console.log("data: ",dataPersonal)
   return (
     <StylePersonal>
       <StylePersonalLeft>
         <StyleImage
-          src={dataPersonal?.twitterInfo?.avatar ?? IMG_NFT}
+          src={dataPersonal ? dataPersonal?.twitterInfo?.avatar : IMG_NFT}
           alt="avatar profile"
           width={220}
           height={220}
@@ -113,16 +115,7 @@ export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
             Follow <strong>{dataPersonal?.fullName}</strong>
           </StyleButtonTitle>
         </StyleButtons>
-        <StyleChips>
-          {dataPersonal?.tags?.map((listTag: string, index: number) => (
-            <Chips
-              key={index}
-              label={listTag}
-              color="secondary"
-              sx={{ color: "#25002D", backgroundColor: "#F6CCFF" }}
-            />
-          ))}
-        </StyleChips>
+        <TagList tags={dataPersonal && dataPersonal?.tags} />
         <ButtonPrimary onClick={() => openModal?.onTrue()}>
           <Typography sx={{ p: "8px 0" }}>
             DM to {dataPersonal?.fullName}

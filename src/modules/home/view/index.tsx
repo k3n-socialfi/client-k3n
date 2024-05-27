@@ -31,7 +31,7 @@ export default function Home({}: IHomeProps) {
     useHomeContext();
 
   const dataServices = useServicesContext();
-  const text = "YOUR #1 KOL  PLATFORM IN WEB3".split(" ");
+  const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
 
   return (
     <StyleContainer>
@@ -47,7 +47,7 @@ export default function Home({}: IHomeProps) {
               }}
               viewport={{ once: true }}
               key={i}
-              className="text-[100px] font-bold text-white"
+              className="text-[80px] lg:text-[100px] font-bold text-white"
             >
               {el}{""}
             </motion.h1>
@@ -137,9 +137,9 @@ export default function Home({}: IHomeProps) {
           ))}
         </div>
       </StyleFeaturedProject>
-      <section className="text-white pt-8 font-bold text-4xl">
-        <ParallaxText baseVelocity={-5}>YOUR #1 KOL PLATFORM</ParallaxText>
-        <ParallaxText baseVelocity={5}>K3N PLATFORM</ParallaxText>
+      <section className="text-primary pt-8 font-extrabold text-3xl">
+        <ParallaxText baseVelocity={-2}>YOUR #1 KOL PLATFORM IN WEB3</ParallaxText>
+        <ParallaxText baseVelocity={2}>YOUR #1 KOL PLATFORM IN WEB3</ParallaxText>
       </section>
       <StyleTrending>
         <StyleTrendingKOLs>

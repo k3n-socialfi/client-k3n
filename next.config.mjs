@@ -33,6 +33,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "colormedia.vn"
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com"
       }
       // https://assets.coingecko.com
     ],
