@@ -20,6 +20,7 @@ import Marquee from "react-fast-marquee";
 import styled from "styled-components";
 import {motion} from 'framer-motion'
 import Link from "next/link";
+import ParallaxText from "@/components/ParallaxText";
 
 export interface IHomeProps {}
 
@@ -110,6 +111,7 @@ export default function Home({}: IHomeProps) {
             <motion.div 
               initial={{opacity: 0, y: 30}}
               whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true}}
               transition={{
                 duration: 1,
                 delay: i * 0.3
@@ -135,13 +137,34 @@ export default function Home({}: IHomeProps) {
           ))}
         </div>
       </StyleFeaturedProject>
+      <section className="text-white pt-8 font-bold text-4xl">
+        <ParallaxText baseVelocity={-5}>YOUR #1 KOL PLATFORM</ParallaxText>
+        <ParallaxText baseVelocity={5}>K3N PLATFORM</ParallaxText>
+      </section>
       <StyleTrending>
         <StyleTrendingKOLs>
           <StyleTop>
-            <Typography variant="h4">Trending KOLs</Typography>
+            <motion.h4
+              initial={{opacity: 0, y: 30}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true}}
+              transition={{
+                duration: 1,
+              }}
+              className="font-bold">Trending KOLs</motion.h4>
             <MoreTrendingKols onClick={() => router.push("/top-ranking")}>
-              <Typography color={"#F23581"}>Explore more</Typography>
-              <IconArrowRight />
+              <motion.p
+                className="text-[#F23581] flex items-center space-x-1"
+                initial={{opacity: 0, y: 30}}
+                whileInView={{opacity: 1, y: 0}}
+                viewport={{once: true}}
+                transition={{
+                  duration: 1,
+                }}
+              >
+                <span>Explore more</span>
+                <IconArrowRight />
+              </motion.p>
             </MoreTrendingKols>
           </StyleTop>
 
