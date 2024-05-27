@@ -1,4 +1,5 @@
 "use client";
+
 import IconArrowRight from "@/assets/icons/IconArrowRight";
 import BannerBG from "@/assets/images/Banner.png";
 import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
@@ -18,6 +19,7 @@ import { useRouter } from "next/navigation";
 import Marquee from "react-fast-marquee";
 import styled from "styled-components";
 import {motion} from 'framer-motion'
+import Link from "next/link";
 
 export interface IHomeProps {}
 
@@ -37,11 +39,12 @@ export default function Home({}: IHomeProps) {
           {text.map((el, i) => (
             <motion.h1
               initial={{opacity: 0}}
-              animate={{opacity: 1}}
+              whileInView={{opacity: 1}}
               transition={{
                 duration: 0.25,
                 delay: i /10
               }}
+              viewport={{ once: true }}
               key={i}
               className="text-[100px] font-bold text-white"
             >
@@ -51,46 +54,86 @@ export default function Home({}: IHomeProps) {
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{
-          duration: 1
-        }}
-      >
+      <div>
         <StyleFeaturedKOLs>
           <Marquee pauseOnClick={true} pauseOnHover={true} loop={0} speed={50}>
             {isLoading
-              ? FAKEDATA_SKELETON.map((item) => (
-                  <CardFeaturedKolsSkeleton key={item} />
-                ))
-              : featureKols.map((item: IUserKOL) => (
-                  <CardFeaturedKOLs data={item} key={item.userId} />
+            ? FAKEDATA_SKELETON.map((item, i) => (
+              <motion.div
+                initial={{opacity: 0, y: 30}}
+                whileInView={{opacity: 1, y: 0}}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.3
+                }}
+                viewport={{once: true}}
+                key={i}
+              >
+                <CardFeaturedKolsSkeleton key={item} />
+              </motion.div>
+            ))
+            : featureKols.map((item: IUserKOL, i) => (
+              <motion.div
+                initial={{opacity: 0, y: 30}}
+                whileInView={{opacity: 1, y: 0}}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.3
+                }}
+                viewport={{once: true}}
+                key={i}
+              >
+                <CardFeaturedKOLs data={item} key={item.userId} />
+              </motion.div>
             ))}
           </Marquee>
         </StyleFeaturedKOLs>
-      </motion.div>
+      </div>
       <StyleFeaturedProject>
         <StyleTop>
           <StyleLeft>
             <Typography variant="h4">Services</Typography>
           </StyleLeft>
-          <StyleRight onClick={() => router.push("/services")}>
-            <Typography color={"#F23581"}>View all</Typography>
-            <IconArrowRight />
-          </StyleRight>
-        </StyleTop>
-        <StyleBottom>
-          {dataServices?.isLoading
-          ? FAKEDATA_SKELETON.map((item) => (
-            <div key={item}>
-              <CardServicesSkeleton />
+          <Link href="/services" className="flex flex-row text-sm text-[#F23581] justify-end items-end">
+            <div className="flex space-x-2 hover:text-[#F23581]/70">
+              <p>
+                View all
+              </p>
+              <IconArrowRight />
             </div>
+          </Link>
+        </StyleTop>
+        <div className="flex space-x-4">
+          {dataServices?.isLoading
+          ? FAKEDATA_SKELETON.map((item, i) => (
+            <motion.div 
+              initial={{opacity: 0, y: 30}}
+              whileInView={{opacity: 1, y: 0}}
+              transition={{
+                duration: 1,
+                delay: i * 0.3
+              }}
+              key={i}
+            >
+              <CardServicesSkeleton />
+            </motion.div>
           ))
-          : dataServices?.dataServices.map((item: IServices) => (
-            <CardServices data={item} key={item?.jobId} />
+          : dataServices?.dataServices.map((item: IServices, i) => (
+            <motion.div
+              initial={{opacity: 0, y: 30}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true}}
+              transition={{
+                duration: 1,
+                delay: i * 0.3
+              }}
+              key={i}
+              className=""
+            >
+              <CardServices data={item} key={item?.jobId} />
+            </motion.div>
           ))}
-        </StyleBottom>
+        </div>
       </StyleFeaturedProject>
       <StyleTrending>
         <StyleTrendingKOLs>
@@ -118,7 +161,15 @@ export default function Home({}: IHomeProps) {
               </div>
             ))
             : trendingKols?.map((item, index) => (
-              <>
+              <motion.div
+                initial={{opacity: 0, x: -20}}
+                whileInView={{opacity: 1, x: 0}}
+                transition={{
+                  duration: 0.25,
+                  delay: index /10
+                }}
+                key={index}
+              >
                 <StyleTrendingCard key={item?.userId}>
                   <CardTrendingKOLs
                     rank={DATA_TOP[index] ?? index + 1}
@@ -131,7 +182,7 @@ export default function Home({}: IHomeProps) {
                   />
                 </StyleTrendingCard>
                 {index > 2 && <Divider sx={{ borderColor: "#B9B9B9 " }} />}
-              </>
+              </motion.div>
             ))}
           </StyleTrendingTopCard>
         </StyleTrendingKOLs>
@@ -141,13 +192,33 @@ export default function Home({}: IHomeProps) {
           </StyleTop>
           <StyleTrendingProjectsCard>
             {isLoading
-            ? FAKEDATA_SKELETON.map((item) => (
+            ? FAKEDATA_SKELETON.map((item, i) => (
               <div key={item}>
-                <CardTrendingProjectsSkeleton />
+                <motion.div
+                  initial={{opacity: 0, x: -20}}
+                  whileInView={{opacity: 1, x: 0}}
+                  viewport={{once: true}}
+                  transition={{
+                    duration: 0.5,
+                    delay: i / 30
+                  }}
+                  key={i}
+                >
+                  <CardTrendingProjectsSkeleton />
+                </motion.div>
               </div>
             ))
             : trendingProjects?.slice(0, 7)?.map((item, index) => (
-              <>
+              <motion.div
+                initial={{opacity: 0, x: -20}}
+                whileInView={{opacity: 1, x: 0}}
+                viewport={{once: true}}
+                transition={{
+                  duration: 0.5,
+                  delay: index / 30
+                }}
+                key={index}
+              >
                 <StyleTrendingCard key={item.id}>
                   <Typography variant={"h5"} color={"#FFF"}>
                     {index + 1}
@@ -155,7 +226,7 @@ export default function Home({}: IHomeProps) {
                   <CardTrendingProjects data={item} />
                 </StyleTrendingCard>
                 <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              </>
+              </motion.div>
             ))}
           </StyleTrendingProjectsCard>
         </StyleTrendingProjects>
@@ -220,7 +291,7 @@ const StyleTop = styled.div`
   justify-content: space-between;
   color: white;
   margin: 20px 0;
-  padding-top: 24px;
+  padding-top: 14px;
   flex-wrap: wrap;
   h4 {
   font-size: 40px !important;
@@ -252,7 +323,7 @@ const StyleBottom = styled.div`
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  padding-bottom: 15px;
+  padding-bottom: 1px;
   /* scrollbar-width: none; */
   &::-webkit-scrollbar {
   display: none;

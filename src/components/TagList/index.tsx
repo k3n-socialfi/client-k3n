@@ -35,23 +35,21 @@ interface TagListProps {
 function TagList({ tags }: TagListProps) {
   return (
     <div className="flex">
-      {tags.length === 0
-      ? <Tag colorMap={colorMap} /> // Render Tag với tag là undefined để chọn màu ngẫu nhiên
-      : tags.map((tag, index) => (
-      tag && (
-      <motion.div
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{
-          duration: 2,
-          delay: index * 0.4
-        }}
-        key={index}
-      >
-        <Tag key={index} tag={tag} colorMap={colorMap} />
-      </motion.div>
-      )
-      ))}
+      {tags.length === 0 ? <Tag colorMap={colorMap} /> 
+      : tags.map((tag, index) => (tag && (
+        <motion.div
+          initial={{opacity: 0}}
+          transition={{
+            duration: 2,
+            delay: index * 0.4
+          }}
+          whileInView={{opacity: 1}}
+          viewport={{once: true}}
+          key={index}
+        >
+          <Tag key={index} tag={tag} colorMap={colorMap} />
+        </motion.div>
+      )))}
     </div>
   );
 }

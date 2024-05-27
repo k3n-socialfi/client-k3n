@@ -3,12 +3,17 @@ import { IconStar, IconThunder, IconVerify } from "@/assets/icons";
 import IMGAvatar from "@/assets/images/IMGPoint.png";
 import IMG from "@/assets/images/SignUpK3N.png";
 import { Avatar, Typography } from "@mui/material";
+import BGService from "@/assets/images/BgSignUpK3N.png";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "styled-components";
 import { LinkCustom } from "../CardFeaturedKOLs/style";
 import TagList from "../TagList";
+import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 interface ICardProps {
   data: IServices;
@@ -16,15 +21,16 @@ interface ICardProps {
 
 export default function CardServices({ data }: ICardProps) {
   return (
-    <CardCustom>
-      <LinkCustom href={`/services/payment/${data?.jobId}`}>
-        <CardMediaCustom image={data?.image ?? IMG.src} title="green iguana" />
-      </LinkCustom>
+    <div className="w-[350px] bg-[#191d24] rounded-[12px] transition-all duration-200 hover:scale-105 overflow-hidden">
+
+      <Link href={`/services/payment/${data?.jobId}`}>
+        <Image src={data?.image ?? BGService.src} title="green iguana" width={1920} height={1080} alt="image"/>
+      </Link>
       <CardContentCustoms>
         <Info>
           <AvatarCustom
             alt={data?.creatorInfo?.fullName ?? "avatar"}
-            src={data?.creatorInfo?.twitterInfo?.avatar ?? IMGAvatar.src}
+            src={data?.creatorInfo?.twitterInfo?.avatar ?? IMGAvatar?.src}
           />
           <NamePoint>
             <Rows>
@@ -69,16 +75,10 @@ export default function CardServices({ data }: ICardProps) {
           </Columns>
         </Detail>
       </CardContentCustoms>
-    </CardCustom>
+      
+    </div>
   );
 }
-
-const CardCustom = styled(Card)<any>`
-  min-width: 342px;
-  min-height: 446px;
-  background-color: #191d24 !important;
-  border-radius: 12px !important;
-`;
 
 const CardMediaCustom = styled(CardMedia)<any>`
   height: 222px;
@@ -150,13 +150,6 @@ const Chip = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const ItemChip = styled.div<any>`
-  padding: 2px 8px;
-  border-radius: 99px;
-  background-color: ${(props) => props.bg ?? "#FFD7F4"};
-  color: ${(props) => props.color ?? "#F23581"};
 `;
 
 const Title = styled.div`

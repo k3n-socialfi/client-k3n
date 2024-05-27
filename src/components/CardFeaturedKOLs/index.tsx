@@ -32,8 +32,8 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
           maxWidth: "281px",
           paddingTop: "19px",
           paddingX: "19px",
-          background: "#252525",
-          borderRadius: "20px",
+          background: "#191d24",
+          borderRadius: "10px",
           transition: "all 1s ease-in;",
         }}
         {...data}
@@ -44,7 +44,7 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
             height={243}
             src={data?.twitterInfo?.avatar}
             style={{
-              borderRadius: "14px",
+              borderRadius: "7px",
             }}
             alt="green iguana"
           />

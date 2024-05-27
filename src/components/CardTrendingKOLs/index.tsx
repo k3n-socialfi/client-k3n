@@ -70,7 +70,7 @@ const Container = styled.div<ICardTrendingKOLsProps>`
   align-items: center;
   width: 100%;
   height: 70px;
-  background-color: ${(props) => props.backgroundColor ?? "#42362E"};
+  background-color: ${(props) => props.backgroundColor ?? "#191d24"};
   color: #fff;
   border-radius: 15px;
   &:hover {
