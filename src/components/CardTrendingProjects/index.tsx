@@ -2,8 +2,9 @@
 import { chipBg, chipColor, IChip } from "@/utils/chip";
 import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
-import { LinkCustom } from "../CardFeaturedKOLs/style";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
+import Link from "next/link";
+import Count from "../Count";
 
 interface ICardProjectProps {
   data: ITrendingProjects;
@@ -11,8 +12,8 @@ interface ICardProjectProps {
 
 export default function CardTrendingProjects({ data }: ICardProjectProps) {
   return (
-    <Card sx={{ width: "100%", background: "#252525", borderRadius: 3 }}>
-      <LinkCustom href={`/project/${data?.id}`}>
+    <div className="bg-[#191D24] w-full cursor-pointer" >
+      <Link href={`/project/${data?.id}`}>
         <CustomCardContent>
           <StackCustom direction="row" spacing={2}>
             <Avatar
@@ -32,21 +33,15 @@ export default function CardTrendingProjects({ data }: ICardProjectProps) {
                     <Typography variant="subtitle2">{data?.symbol}</Typography>
                   </ItemChip>
                 </Chip>
-
-                <Typography
-                  gutterBottom
-                  variant="subtitle2"
-                  component="span"
-                  color={"white"}
-                >
-                  #{data?.marketCapRank} mentions
-                </Typography>
+                <h5 className="text-white flex space-x-1">
+                  <p>#</p> <Count countTo={data?.marketCapRank}/> <p>mentions</p>
+                </h5>
               </Detail>
             </Content>
           </StackCustom>
         </CustomCardContent>
-      </LinkCustom>
-    </Card>
+      </Link>
+    </div>
   );
 }
 

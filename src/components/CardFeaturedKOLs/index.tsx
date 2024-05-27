@@ -1,14 +1,11 @@
 "use client";
 import { IconCertification, IconStar, IconThunder } from "@/assets/icons";
 import TwitterIcon from "@/assets/icons/IconTwitter";
-import { Divider, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
-import { ButtonText } from "../ButtonCustom";
 import {
   CustomAvatar,
-  LinkCustom,
   StyleChips,
   StyleContentTitle,
   StyleFollower,
@@ -18,6 +15,7 @@ import {
 import { formatNumberToK } from "@/utils";
 import TagList from "../TagList";
 import Count from "../Count";
+import Link from "next/link";
 
 type TCardProps = {
   data: IUserKOL;
@@ -25,7 +23,7 @@ type TCardProps = {
 
 export default function CardFeaturedKOLs({ data }: TCardProps) {
   return (
-    <LinkCustom href={`profile/${data?.username}`}>
+    <Link href={`profile/${data?.username}`}>
       <Card
         sx={{
           minWidth: "281px",
@@ -84,6 +82,6 @@ export default function CardFeaturedKOLs({ data }: TCardProps) {
           </StyleChips>
         </CardContent>
       </Card>
-    </LinkCustom>
+    </Link>
   );
 }

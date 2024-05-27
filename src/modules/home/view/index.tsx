@@ -56,7 +56,7 @@ export default function Home({}: IHomeProps) {
 
       <div>
         <StyleFeaturedKOLs>
-          <Marquee pauseOnClick={true} pauseOnHover={true} loop={0} speed={50}>
+          <Marquee pauseOnClick={true} pauseOnHover={true} loop={0} speed={40}>
             {isLoading
             ? FAKEDATA_SKELETON.map((item, i) => (
               <motion.div
@@ -78,7 +78,8 @@ export default function Home({}: IHomeProps) {
                 whileInView={{opacity: 1, y: 0}}
                 transition={{
                   duration: 1,
-                  delay: i * 0.3
+                  delay: i * 0.3,
+                  delayChildren: i * 0.3
                 }}
                 viewport={{once: true}}
                 key={i}
@@ -128,7 +129,6 @@ export default function Home({}: IHomeProps) {
                 delay: i * 0.3
               }}
               key={i}
-              className=""
             >
               <CardServices data={item} key={item?.jobId} />
             </motion.div>
@@ -155,15 +155,25 @@ export default function Home({}: IHomeProps) {
 
           <StyleTrendingTopCard>
             {isLoading
-            ? FAKEDATA_SKELETON.map((item) => (
-              <div key={item}>
-                <CardTrendingKolsSkeleton />
-              </div>
+            ? FAKEDATA_SKELETON.map((item, index) => (
+              <motion.div
+                initial={{opacity: 0, x: -20}}
+                whileInView={{opacity: 1, x: 0}}
+                viewport={{once: true}}
+                transition={{
+                  duration: 0.25,
+                  delay: index /10
+                }}
+                key={index}
+              >
+                <CardTrendingKolsSkeleton key={item} point={10} />
+              </motion.div>
             ))
             : trendingKols?.map((item, index) => (
               <motion.div
                 initial={{opacity: 0, x: -20}}
                 whileInView={{opacity: 1, x: 0}}
+                viewport={{once: true}}
                 transition={{
                   duration: 0.25,
                   delay: index /10
@@ -204,7 +214,7 @@ export default function Home({}: IHomeProps) {
                   }}
                   key={i}
                 >
-                  <CardTrendingProjectsSkeleton />
+                  <CardTrendingProjectsSkeleton key={item} />
                 </motion.div>
               </div>
             ))
@@ -235,39 +245,15 @@ export default function Home({}: IHomeProps) {
   );
 }
 
-const Banner = styled.div<any>`
-  min-height: 1168px;
-  background-position-x: center;
-  background-image: ${({ bg }) => `url(${bg.src})`};
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  h1 {
-    font-size: clamp(124px, 4vw, 144px);
-    font-weight: 700;
-    line-height: 172.8px;
-    text-align: center;
-    color: #fff;
-    @media (max-width: 500px) {
-      font-size: clamp(70px, 4vw, 124px);
-      line-height: 120px;
-    }
-  }
-  span {
-    color: var(--Primary-Primary, rgba(242, 53, 129, 1));
-  }
-  `;
-
 const StyleContainer = styled.div`
   background-color: var(--background-primary);
 `;
 
 const StyleFeaturedKOLs = styled.div`
-  margin-top: 20px;
   .rfm-initial-child-container,
   .rfm-marquee,
   .rfm-marquee-container {
-  gap: 28px;
+  gap: 14px;
   transition-timing-function: ease-in-out;
   transition: 0.5s;
   height: 526px;

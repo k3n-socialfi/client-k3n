@@ -8,6 +8,7 @@ import { Avatar, Typography } from "@mui/material";
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
+import Count from "../Count";
 
 export interface ICardTrendingKOLsProps {
   rank?: React.ReactNode;
@@ -43,12 +44,16 @@ export default function CardTrendingKOLs(props: ICardTrendingKOLsProps) {
           </Name>
           <PointsContent>
             <IconThunder />
-            {props?.point}
+            <Count countTo={props?.point}/>
             <UpDownPoint>
               {Number(props?.rank) % 2 === 0 ? (
-                <p style={{ color: "#FF5656" }}>-12%</p>
+                <div className="text-sm flex space-x-1 text-[#FF5656]">
+                  -<Count countTo={12}/>%
+                </div>
               ) : (
-                <p style={{ color: "#6BDF61" }}>+12%</p>
+                <div className="text-sm flex space-x-1 text-[#6BDF61]">
+                  +<Count countTo={12}/>%
+                </div>  
               )}
             </UpDownPoint>
           </PointsContent>
@@ -120,8 +125,8 @@ const UpDownNumber = styled.div`
   flex-direction: row;
   align-items: center;
   p {
-    font-size: 6px;
-    font-weight: 600;
+  font-size: 6px;
+  font-weight: 600;
   }
 `;
 
@@ -132,19 +137,19 @@ const Name = styled.div`
   gap: 10px;
   padding: 4px 20px;
   @media (max-width: 600px) {
-    border-right: 2px #fff solid;
-    border-left: 2px #fff solid;
-    width: 60%;
-    flex-direction: column;
+  border-right: 2px #fff solid;
+  border-left: 2px #fff solid;
+  width: 60%;
+  flex-direction: column;
   }
   @media (max-width: 540px) {
-    width: 50%;
-    flex-wrap: wrap;
-    padding: 5px 10px;
+  width: 50%;
+  flex-wrap: wrap;
+  padding: 5px 10px;
   }
   @media (max-width: 420px) {
-    border: 0;
-    text-align: center;
+  border: 0;
+  text-align: center;
   }
 `;
 
@@ -166,17 +171,17 @@ const PointsContent = styled.div`
   padding: 10px 20px;
   width: 25%;
   @media (max-width: 540px) {
-    width: 20%;
+  width: 20%;
   }
   @media (max-width: 420px) {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
   }
 `;
 
 const UpDownPoint = styled.div`
   p {
-    font-size: 10px;
-    font-weight: 600;
+  font-size: 10px;
+  font-weight: 600;
   }
 `;

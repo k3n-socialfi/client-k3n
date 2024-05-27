@@ -1,25 +1,22 @@
 "use client";
+
 import { IconStar, IconThunder, IconVerify } from "@/assets/icons";
 import IMGAvatar from "@/assets/images/IMGPoint.png";
-import IMG from "@/assets/images/SignUpK3N.png";
 import { Avatar, Typography } from "@mui/material";
 import BGService from "@/assets/images/BgSignUpK3N.png";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "styled-components";
-import { LinkCustom } from "../CardFeaturedKOLs/style";
 import TagList from "../TagList";
-import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Count from "../Count";
 
 interface ICardProps {
   data: IServices;
 }
 
-export default function CardServices({ data }: ICardProps) {
+export default function CilassardServices({ data }: ICardProps) {
   return (
     <div className="w-[350px] bg-[#191d24] rounded-[12px] transition-all duration-200 hover:scale-105 overflow-hidden">
 
@@ -53,27 +50,25 @@ export default function CardServices({ data }: ICardProps) {
         <Title>
           <Typography variant="h6">{data?.projectName ?? ""}</Typography>
         </Title>
-        <Detail>
-          <Columns>
-            <TypographyDetailTitle>Offer</TypographyDetailTitle>
-            <TypographyDetailValue>
-              <span> {data?.offers?.[0] ?? 0}</span>
-            </TypographyDetailValue>
-          </Columns>
-          <Columns>
-            <TypographyDetailTitle>Avg.Rating</TypographyDetailTitle>
-            <TypographyDetailValue>
-              <IconStar width={8} height={8} />
-              <span> {data?.rating ?? 0}</span>
-            </TypographyDetailValue>
-          </Columns>
-          <Columns>
-            <TypographyDetailTitle>Price</TypographyDetailTitle>
-            <TypographyDetailValue>
-              <span>${data?.price ?? 0}</span>
-            </TypographyDetailValue>
-          </Columns>
-        </Detail>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col items-center">
+            <h2 className="text-gray-400">Offer</h2>
+            <span className="text-white"> {data?.offers?.[0] ?? 0}</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <h2 className="text-gray-400">Avg.Rating</h2>
+            <div className="flex space-x-1 items-center">
+              <IconStar width={12} height={12} />
+              <span className="text-white"> {data?.rating ?? 0}</span>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <h2 className="text-gray-400">Price</h2>
+            <span className="flex space-x-1 text-white">
+              <span>$</span><Count countTo={data?.price ?? 0}/>
+            </span>
+          </div>
+        </div>
       </CardContentCustoms>
       
     </div>
@@ -115,25 +110,25 @@ const Rows = styled.div`
   gap: 4px;
   align-items: center;
   h6 {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    line-height: 21.6px;
-    color: #fff;
-    max-width: 222px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 21.6px;
+  color: #fff;
+  max-width: 222px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   }
 
   .MuiTypography-body1 {
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    line-height: 16.8px;
-    color: #fff;
-    max-width: 222px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 16.8px;
+  color: #fff;
+  max-width: 222px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   }
 `;
 
@@ -148,20 +143,20 @@ const Chip = styled.div`
   overflow-x: auto;
   text-overflow: ellipsis;
   &::-webkit-scrollbar {
-    display: none;
+  display: none;
   }
 `;
 
 const Title = styled.div`
   h6 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 28.8px;
-    color: #fff;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28.8px;
+  color: #fff;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   }
 `;
 
