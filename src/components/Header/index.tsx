@@ -47,26 +47,34 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
 
   return (
     <HeaderWrapper>
-      <HeaderLogo isGap={isOpen}>
-        {!isOpen && (
-          <ToggleSideBar onClick={handleToggleSidebar}>
-            <IconMenuBar />
-          </ToggleSideBar>
-        )}
-        <ImgCustom>
-          <Image
-            onClick={() => push("/")}
-            alt="logo"
-            src={logo}
-            layout="fill"
-          />
-        </ImgCustom>
-        {isOpen && (
-          <ToggleSideBar onClick={handleToggleSidebar}>
-            <IconCloseSideBar />
-          </ToggleSideBar>
-        )}
-      </HeaderLogo>
+      <motion.div
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        transition={{
+          duration: 2
+        }}
+      >
+        <HeaderLogo isGap={isOpen}>
+          {!isOpen && (
+            <ToggleSideBar onClick={handleToggleSidebar}>
+              <IconMenuBar />
+            </ToggleSideBar>
+          )}
+          <ImgCustom>
+            <Image
+              onClick={() => push("/")}
+              alt="logo"
+              src={logo}
+              layout="fill"
+            />
+          </ImgCustom>
+          {isOpen && (
+            <ToggleSideBar onClick={handleToggleSidebar}>
+              <IconCloseSideBar />
+            </ToggleSideBar>
+          )}
+        </HeaderLogo>
+      </motion.div>
       {/* <HeaderSearch>
         <HeaderIcon>
           <IconSearch />

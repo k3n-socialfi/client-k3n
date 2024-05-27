@@ -1,5 +1,6 @@
 import { colorMap } from '@/constant/tagColor';
 import React from 'react';
+import {motion} from 'framer-motion'
 
 interface TagProps {
   tag?: string; // Cho phép tag là undefined
@@ -35,10 +36,22 @@ function TagList({ tags }: TagListProps) {
   return (
     <div className="flex">
       {tags.length === 0
-        ? <Tag colorMap={colorMap} /> // Render Tag với tag là undefined để chọn màu ngẫu nhiên
-        : tags.map((tag, index) => (
-            tag && <Tag key={index} tag={tag} colorMap={colorMap} />
-          ))}
+      ? <Tag colorMap={colorMap} /> // Render Tag với tag là undefined để chọn màu ngẫu nhiên
+      : tags.map((tag, index) => (
+      tag && (
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{
+          duration: 2,
+          delay: index * 0.4
+        }}
+        key={index}
+      >
+        <Tag key={index} tag={tag} colorMap={colorMap} />
+      </motion.div>
+      )
+      ))}
     </div>
   );
 }

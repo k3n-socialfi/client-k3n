@@ -70,7 +70,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{
-              duration: 1
+              duration: 2
             }}
           >
             <DrawerHeader
@@ -280,37 +280,22 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
 
           <List>
             {DATASIDEBARBOTTOM.map((item, index) => (
-              <ListItem
-                key={item.id}
-                disablePadding
-                sx={{ display: "block" }}
-                onClick={handleToggleSidebar}
+              <motion.div
+                initial={{ opacity: 0, x: -100}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{
+                  duration: 1,
+                  delay: index * 0.4
+                }}
+                key={index}
               >
-                {!item?.isCommingSoon ? (
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      pl: open ? 4 : "",
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemTextCustom
-                      primary={item.label}
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                ) : (
-                  <Tooltip title={<TooltipCustom />} placement="right">
+                <ListItem
+                  key={item.id}
+                  disablePadding
+                  sx={{ display: "block" }}
+                  onClick={handleToggleSidebar}
+                >
+                  {!item?.isCommingSoon ? (
                     <ListItemButton
                       sx={{
                         minHeight: 48,
@@ -333,9 +318,34 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                         sx={{ opacity: open ? 1 : 0 }}
                       />
                     </ListItemButton>
-                  </Tooltip>
-                )}
-              </ListItem>
+                  ) : (
+                    <Tooltip title={<TooltipCustom />} placement="right">
+                      <ListItemButton
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? "initial" : "center",
+                          px: 2.5,
+                          pl: open ? 4 : "",
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : "auto",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemTextCustom
+                          primary={item.label}
+                          sx={{ opacity: open ? 1 : 0 }}
+                        />
+                      </ListItemButton>
+                    </Tooltip>
+                  )}
+                </ListItem>
+              </motion.div>
             ))}
           </List>
         </Drawer>

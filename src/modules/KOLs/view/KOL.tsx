@@ -2,7 +2,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import Tab, { TabProps } from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 import SkeletonKOLs from "@/components/Skeleton/KOLs";
@@ -34,7 +34,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
   },
 });
 
-interface StyledTabProps {
+interface StyledTabProps  extends TabProps {
   label: string;
 }
 
@@ -44,9 +44,7 @@ interface TabPanelProps {
   value: number;
 }
 
-const StyledTab = styled((props: StyledTabProps) => (
-  <Tab disableRipple {...props} />
-))(({ theme }: any) => ({
+const StyledTab = styled(Tab)<StyledTabProps>(({ theme }) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
   fontSize: theme.typography.pxToRem(13),
