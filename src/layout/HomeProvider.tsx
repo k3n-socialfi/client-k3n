@@ -6,6 +6,7 @@ import { AuthContextProvider } from "@/contexts/HomeContext";
 import { useBoolean } from "@/hooks/useBoolean";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
+import {motion} from "framer-motion";
 
 interface IHomeProvider {
   children: ReactNode;
@@ -20,10 +21,18 @@ const HomeProvider = ({ children }: IHomeProvider) => {
 
   return (
     <AuthContextProvider>
-      <Header
-        handleToggleSidebar={isOpenSideBar.onToggle}
-        isOpen={isOpenSideBar.value}
-      />
+      <motion.header
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{
+          duration: 1
+        }}
+      >
+        <Header
+          handleToggleSidebar={isOpenSideBar.onToggle}
+          isOpen={isOpenSideBar.value}
+        />
+      </motion.header>
       <Main>
         <SideBarCustom isOpen={isOpenSideBar.value}>
           <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
@@ -59,13 +68,13 @@ const Children = styled.div`
   overflow: hidden;
 
   @media (max-width: 1599px) {
-    width: 100%;
+  width: 100%;
   }
   @media (max-width: 768px) {
-    padding: 0px;
+  padding: 0px;
   }
   @media (max-width: 610px) {
-    margin-top: 132px;
+  margin-top: 132px;
   }
 `;
 

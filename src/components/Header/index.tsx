@@ -2,6 +2,7 @@
 import { IconCloseSideBar, IconMenuBar, IconThunder } from "@/assets/icons";
 import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
+import {motion} from 'framer-motion'
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import useWalletCustom from "@/hooks/useWalletCustom";
 import { Avatar, Typography } from "@mui/material";
@@ -103,15 +104,13 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
             </HeaderUser>
           ) : (
             <HeaderButton className="header-button">
-              <Button>
-                <ButtonPrimary
-                  fullWidth
-                  borderRadius="16px"
-                  onClick={() => push("/login")}
-                >
+              <motion.button
+                whileTap={{scale: 0.85}}
+                onClick={() => push("/login")}
+                className="bg-primary px-8 py-2 text-center font-bold rounded-md"
+              >
                   Login
-                </ButtonPrimary>
-              </Button>
+                </motion.button>
             </HeaderButton>
           )}
           {popup && (

@@ -15,8 +15,8 @@ export default function Count({countTo} : {countTo: any}) {
 
   return (
     <motion.div
-      whileInView="onscreen"
-      initial="offscreen"
+      initial={{opacity: 0}}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.8 }}
     >
       {rounded}
