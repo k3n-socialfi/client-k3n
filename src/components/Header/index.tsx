@@ -105,6 +105,11 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
           ) : (
             <HeaderButton className="header-button">
               <motion.button
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                transition={{
+                  duration: 1
+                }}
                 whileTap={{scale: 0.85}}
                 onClick={() => push("/login")}
                 className="bg-primary px-8 py-2 text-center font-bold rounded-md"
@@ -212,6 +217,7 @@ const HeaderLogo = styled.div<IHeaderLogo>`
     width: 40%;
   }
 `;
+
 const HeaderSearch = styled.div`
   background: #191d24;
   display: flex;

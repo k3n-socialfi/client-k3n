@@ -21,22 +21,15 @@ const HomeProvider = ({ children }: IHomeProvider) => {
 
   return (
     <AuthContextProvider>
-      <motion.header
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{
-          duration: 1
-        }}
-      >
         <Header
           handleToggleSidebar={isOpenSideBar.onToggle}
           isOpen={isOpenSideBar.value}
         />
-      </motion.header>
       <Main>
         <SideBarCustom isOpen={isOpenSideBar.value}>
           <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
         </SideBarCustom>
+        {/* </motion.nav> */}
         <Children>
           {children}
           <Footer />

@@ -20,6 +20,7 @@ import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
 import TooltipCustom from "../Tooltip";
 import { Discover, Item, ListItemTextCustom } from "./style";
+import {motion} from 'framer-motion';
 
 type TSidebar = {
   handleToggleSidebar?: () => void;
@@ -60,11 +61,16 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
         }}
       >
         <Drawer variant="permanent" open={open}>
-          <div
+          <motion.div
             style={{
               background: "#080a0c",
               height: "100%",
               width: "100%",
+            }}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{
+              duration: 1
             }}
           >
             <DrawerHeader
@@ -270,7 +276,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
                     </List>
                   );
                 })}
-          </div>
+          </motion.div>
 
           <List>
             {DATASIDEBARBOTTOM.map((item, index) => (
