@@ -24,7 +24,8 @@ export default function CardFeaturedKolsSkeleton(props: any) {
           justifyContent: "center",
         }}
       >
-        <LoadingSkeleton height="250px" width="250px" radius="100%" />
+        {/* h-[200px] w-[215px] lg:h-[300px] lg:w-[350px] */}
+        <LoadingSkeleton height="300px" width="350px" radius="100%" />
       </div>
       <CardContent>
         <StyleContentTitle>

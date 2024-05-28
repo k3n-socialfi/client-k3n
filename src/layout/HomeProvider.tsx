@@ -1,4 +1,5 @@
 "use client";
+
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import SideBar from "@/components/SideBar";
@@ -6,7 +7,6 @@ import { AuthContextProvider } from "@/contexts/HomeContext";
 import { useBoolean } from "@/hooks/useBoolean";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import {motion} from "framer-motion";
 
 interface IHomeProvider {
   children: ReactNode;

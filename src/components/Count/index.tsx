@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect } from "react";
 
-export default function Count({countTo} : {countTo: any}) {
+export default function Count({countTo, textColor} : {countTo: any, textColor?: string}) {
   const count = useMotionValue(0);
   const rounded = useTransform(count, Math.round);
 
@@ -21,6 +21,7 @@ export default function Count({countTo} : {countTo: any}) {
         once: true,
         amount: 0.8
       }}
+      className={`${textColor && textColor}`}
     >
       {rounded}
     </motion.div>

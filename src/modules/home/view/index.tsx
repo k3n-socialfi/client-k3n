@@ -2,8 +2,6 @@
 
 import IconArrowRight from "@/assets/icons/IconArrowRight";
 import BannerBG from "@/assets/images/Banner.png";
-import CardFeaturedKOLs from "@/components/CardFeaturedKOLs";
-import CardFeaturedKolsSkeleton from "@/components/CardFeaturedKOLs/CardFeaturedKolsSkeleton";
 import CardServices from "@/components/CardServices";
 import CardServicesSkeleton from "@/components/CardServices/CardServicesSkeleton";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
@@ -16,11 +14,11 @@ import { useHomeContext } from "@/contexts/HomeContext";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { Divider, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import Marquee from "react-fast-marquee";
 import styled from "styled-components";
 import {motion} from 'framer-motion'
 import Link from "next/link";
 import ParallaxText from "@/components/ParallaxText";
+import SwipperImage from "@/components/SwipperImage";
 
 export interface IHomeProps {}
 
@@ -35,60 +33,9 @@ export default function Home({}: IHomeProps) {
 
   return (
     <StyleContainer>
-      <div className="h-screen bg-center bg-cover flex items-center justify-center" style={{ backgroundImage: `url(${BannerBG.src})` }}>
-        <div className="max-w-[1200px] w-full flex flex-wrap gap-8 text-center justify-center items-center mx-auto">
-          {text.map((el, i) => (
-            <motion.h1
-              initial={{opacity: 0}}
-              whileInView={{opacity: 1}}
-              transition={{
-                duration: 0.25,
-                delay: i /10
-              }}
-              viewport={{ once: true }}
-              key={i}
-              className="text-[80px] lg:text-[100px] font-bold text-white"
-            >
-              {el}{""}
-            </motion.h1>
-          ))}
-        </div>
-      </div>
-
       <div>
         <StyleFeaturedKOLs>
-          <Marquee pauseOnClick={true} pauseOnHover={true} loop={0} speed={40}>
-            {isLoading
-            ? FAKEDATA_SKELETON.map((item, i) => (
-              <motion.div
-                initial={{opacity: 0, y: 30}}
-                whileInView={{opacity: 1, y: 0}}
-                transition={{
-                  duration: 1,
-                  delay: i * 0.3
-                }}
-                viewport={{once: true}}
-                key={i}
-              >
-                <CardFeaturedKolsSkeleton key={item} />
-              </motion.div>
-            ))
-            : featureKols.map((item: IUserKOL, i) => (
-              <motion.div
-                initial={{opacity: 0, y: 30}}
-                whileInView={{opacity: 1, y: 0}}
-                transition={{
-                  duration: 1,
-                  delay: i * 0.3,
-                  delayChildren: i * 0.3
-                }}
-                viewport={{once: true}}
-                key={i}
-              >
-                <CardFeaturedKOLs data={item} key={item.userId} />
-              </motion.div>
-            ))}
-          </Marquee>
+          <SwipperImage data={featureKols} />
         </StyleFeaturedKOLs>
       </div>
       <StyleFeaturedProject>
