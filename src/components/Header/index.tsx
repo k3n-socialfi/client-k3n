@@ -2,7 +2,7 @@
 import { IconCloseSideBar, IconMenuBar, IconThunder } from "@/assets/icons";
 import logo from "@/assets/images/Logo.png";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import useWalletCustom from "@/hooks/useWalletCustom";
 import { Avatar, Typography } from "@mui/material";
@@ -48,10 +48,10 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
   return (
     <HeaderWrapper>
       <motion.div
-        initial={{ opacity: 0}}
-        animate={{ opacity: 1}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
-          duration: 2
+          duration: 2,
         }}
       >
         <HeaderLogo isGap={isOpen}>
@@ -113,19 +113,36 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
           ) : (
             <HeaderButton className="header-button">
               <motion.button
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{
-                  duration: 1
+                  duration: 1,
                 }}
-                whileTap={{scale: 0.85}}
+                whileTap={{ scale: 0.85 }}
                 onClick={() => push("/login")}
                 className="bg-primary px-8 py-2 text-center font-bold rounded-md"
               >
-                  Login
-                </motion.button>
+                Login
+              </motion.button>
             </HeaderButton>
           )}
+          <HeaderButton className="header-button">
+            <Button>
+              <ButtonPrimary
+                fullWidth
+                borderRadius="10px"
+                disabled={
+                  buttonState === "connecting" ||
+                  buttonState === "disconnecting"
+                }
+                onClick={handleClick}
+              >
+                {base58Pubkey
+                  ? `${base58Pubkey.slice(0, 3)}...${base58Pubkey.slice(-3)}`
+                  : "Connect Wallet"}
+              </ButtonPrimary>
+            </Button>
+          </HeaderButton>
           {popup && (
             <Popup
               handleLoginTwitter={handleLoginTwitter}
