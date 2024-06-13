@@ -2,8 +2,6 @@
 
 import IconArrowRight from "@/assets/icons/IconArrowRight";
 import Banner from "@/assets/images/Banner.png";
-import CardServices from "@/components/CardServices";
-import CardServicesSkeleton from "@/components/CardServices/CardServicesSkeleton";
 import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
 import CardTrendingProjects from "@/components/CardTrendingProjects";
@@ -17,10 +15,12 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import {motion} from 'framer-motion'
 import Link from "next/link";
-import ParallaxText from "@/components/ParallaxText";
 import SwipperImage from "@/components/SwipperImage";
 import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination } from "swiper/modules";
+import ServiceCard from "@/components/ServiceCard";
 
 export interface IHomeProps {}
 
@@ -31,6 +31,7 @@ export default function Home({}: IHomeProps) {
     useHomeContext();
 
   const dataServices = useServicesContext();
+  console.log(dataServices)
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
 
   if (isLoading) {
@@ -83,37 +84,47 @@ export default function Home({}: IHomeProps) {
             </div>
           </Link>
         </StyleTop>
-        <div className="flex space-x-4">
-          {dataServices?.isLoading
-          ? FAKEDATA_SKELETON.map((item, i) => (
-            <motion.div 
-              initial={{opacity: 0, y: 30}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true}}
-              transition={{
-                duration: 1,
-                delay: i * 0.3
-              }}
-              key={i}
+<div className="mt-10 text-white">
+            <h1 className="text-[50px] font-bold text-secondary">Services</h1>
+            <Swiper breakpoints={{
+              700: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+              },
+              1000: {
+                slidesPerView: 2,
+                spaceBetween: 15
+              },
+              1400: {
+                slidesPerView: 4,
+                spaceBetween: 15
+              },
+            }}
+                    grabCursor={true}
+                    pagination={true}
+                    freeMode={true}
+                    modules={[FreeMode, Pagination]}
             >
-              <CardServicesSkeleton />
-            </motion.div>
-          ))
-          : dataServices?.dataServices.map((item: IServices, i) => (
-            <motion.div
-              initial={{opacity: 0, y: 30}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true}}
-              transition={{
-                duration: 1,
-                delay: i * 0.3
-              }}
-              key={i}
-            >
-              <CardServices data={item} key={item?.jobId} />
-            </motion.div>
-          ))}
-        </div>
+              {dataServices?.dataServices?.map((service: any, i: number) => (
+                <SwiperSlide
+                  key={i}
+                >
+                  <motion.div
+                    initial={{opacity: 0}}
+                    whileInView={{opacity: 1}}
+                    transition={{
+                      duration: 1,
+                      delay: i / 10
+                    }}
+                    viewport={{ once: true }}
+                    className="shadow-md shadow-gray-100/20 hover:bg-darkblack-200 transition-all duration-300 border-[1px] border-gray-100/20 rounded-xl overflow-hidden h-[480px]"
+                  >
+                    <ServiceCard service={service}/>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
       </StyleFeaturedProject>
       <StyleTrending>
         <StyleTrendingKOLs>

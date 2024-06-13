@@ -50,8 +50,7 @@ export default function SideBar({ handleToggleSidebar }: TSidebar) {
   return (
     <Box
       sx={{
-        display: "flex",
-        background: "#080a0c",
+        display: "flex", background: "#080a0c",
       }}
     >
       <CssBaseline />

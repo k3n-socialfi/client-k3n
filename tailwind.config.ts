@@ -10,6 +10,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/modules/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/constant/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -65,6 +66,7 @@ const config: Config = {
         },
         primary: "#F23581",
         secondary: "#82EBFF",
+        stablecoin: "#FFEEF3",
       },
     },
   },

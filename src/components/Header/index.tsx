@@ -79,45 +79,42 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
       {isClient && (
         <HeaderUserMobile>
           {label === "Disconnect" ||
-           buttonState === "connected" ||
-           dataPersonal ? (
-             <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
-               {/* <UserNotification>
-                   <IconNotification />
-                   <NumberNotification>15</NumberNotification>
-                   </UserNotification> */}
-               <HeaderUserInfo>
-                 <IconThunder />
-                 <TypographyCustom className="header-user__info__text">
-                   {dataPersonal?.twitterInfo?.totalPoints ?? 0}
-                 </TypographyCustom>
-                 <HeaderAvatar ref={nodeRef}>
-                   <AvatarCustom
-                     className="header-user__info__avatar"
-                     alt="Cindy Baker"
-                     src={dataPersonal?.twitterInfo?.avatar}
-                   />
-                 </HeaderAvatar>
-               </HeaderUserInfo>
-             </HeaderUser>
-           ) : (
-             <HeaderButton className="header-button">
-               <Button>
-                 <ButtonPrimary
-                   fullWidth
-                   borderRadius="10px"
-                   disabled={
-                   buttonState === "connecting" ||
-                   buttonState === "disconnecting"
-                   }
-                   onClick={handleClick}
-                 >
-                   {base58Pubkey
-                   ? `${base58Pubkey.slice(0, 3)}...${base58Pubkey.slice(-3)}`
-                   : "Connect Wallet"}
-                 </ButtonPrimary>
-               </Button>
-             </HeaderButton>
+          buttonState === "connected" ||
+          dataPersonal ? (
+            <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
+              {/* <UserNotification>
+                <IconNotification />
+                <NumberNotification>15</NumberNotification>
+              </UserNotification> */}
+              <HeaderUserInfo>
+                <IconThunder />
+                <TypographyCustom className="header-user__info__text">
+                  {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+                </TypographyCustom>
+                <HeaderAvatar ref={nodeRef}>
+                  <AvatarCustom
+                    className="header-user__info__avatar"
+                    alt="Cindy Baker"
+                    src={dataPersonal?.twitterInfo?.avatar}
+                  />
+                </HeaderAvatar>
+              </HeaderUserInfo>
+            </HeaderUser>
+          ) : (
+            <HeaderButton className="header-button">
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 1,
+                }}
+                whileTap={{ scale: 0.85 }}
+                onClick={() => push("/login")}
+                className="bg-primary px-8 py-2 text-center font-bold rounded-md"
+              >
+                Login
+              </motion.button>
+            </HeaderButton>
           )}
           {popup && (
             <Popup
@@ -141,11 +138,11 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
 
 const ToggleSideBar = styled.div`
   &:active {
-  opacity: 0.8;
+    opacity: 0.8;
   }
   cursor: pointer;
   @media (min-width: 1600px) {
-  display: none;
+    display: none;
   }
 `;
 
@@ -155,16 +152,16 @@ const ImgCustom = styled.div`
   height: 50px;
   cursor: pointer;
   &:hover {
-  transform: scale(0.9);
-  background-color: pink;
-  border-radius: 16px;
-  transition: all 0.5s;
+    transform: scale(0.9);
+    background-color: pink;
+    border-radius: 16px;
+    transition: all 0.5s;
   }
   @media (max-width: 1024px) {
-  width: 100px;
+    width: 100px;
   }
   @media (max-width: 768px) {
-  width: 70px;
+    width: 70px;
   }
 `;
 const HeaderWrapper = styled.div`
@@ -181,8 +178,8 @@ const HeaderWrapper = styled.div`
   @media (max-width: 768px) {
   }
   @media (max-width: 610px) {
-  flex-wrap: wrap;
-  justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 `;
 
@@ -229,21 +226,21 @@ const HeaderSearch = styled.div`
   border-radius: 12px;
   width: 20%;
   @media (max-width: 1599px) {
-  width: 30%;
+    width: 30%;
   }
   @media (max-width: 820px) {
-  min-width: 350px;
+    min-width: 350px;
   }
   @media (max-width: 660px) {
-  min-width: 300px;
+    min-width: 300px;
   }
   @media (max-width: 610px) {
-  width: 100%;
-  order: 3;
+    width: 100%;
+    order: 3;
   }
   @media (max-width: 390px) {
-  min-width: 150px;
-  order: 3;
+    min-width: 150px;
+    order: 3;
   }
 `;
 
@@ -255,18 +252,18 @@ const HeaderUserMobile = styled.div`
   width: 70%;
   justify-content: flex-end;
   @media (max-width: 1599px) {
-  width: 40%;
+    width: 40%;
   }
   @media (max-width: 610px) {
-  order: 1;
+    order: 1;
   }
   @media (max-width: 390px) {
-  width: 30%;
+    width: 30%;
   }
   @media (max-width: 294px) {
-  align-self: center;
-  flex-direction: column;
-  width: 50%;
+    align-self: center;
+    flex-direction: column;
+    width: 50%;
   }
 `;
 
@@ -281,17 +278,17 @@ const HeaderIcon = styled.div`
 const TextSearch = styled.div`
   width: 100%;
   input {
-  width: 100%;
+    width: 100%;
   }
   /* @media (max-width: 580px) {
-  input {
-  max-width: 100px;
-  }
+    input {
+      max-width: 100px;
+    }
   } */
   /* @media (max-width: 440px) {
-  input {
-  max-width: 50px;
-  }
+    input {
+      max-width: 50px;
+    }
   } */
 `;
 const TextField = styled.input`
@@ -301,7 +298,7 @@ const TextField = styled.input`
   flex: 1;
   color: #637592;
   ::placeholder {
-  color: #637592;
+    color: #637592;
   }
 `;
 
