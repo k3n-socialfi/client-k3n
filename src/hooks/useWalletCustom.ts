@@ -67,7 +67,7 @@ export default function useWalletCustom() {
         onConnect && onConnect();
         break;
       case "connected":
-        setPopupProfile(true);
+        onDisconnect && onDisconnect();
         break;
     }
   }, [buttonState, setModalVisible, onConnect]);
@@ -144,12 +144,12 @@ export default function useWalletCustom() {
     }
   };
 
-  useEffect(() => {
-    handleExistsTwitter(base58Pubkey);
-    if (typeof window !== "undefined" && search) {
-      localStorage.setItem("accessToken", search);
-    }
-  }, [publicKey]);
+  // useEffect(() => {
+  //   handleExistsTwitter(base58Pubkey);
+  //   if (typeof window !== "undefined" && search) {
+  //     localStorage.setItem("accessToken", search);
+  //   }
+  // }, [publicKey]);
 
   const convertSignature =
     signature && "[" + Array?.from(signature).join(", ") + "]";
