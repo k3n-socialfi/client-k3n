@@ -1,7 +1,7 @@
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPopover-paper.MuiMenu-paper {
   border-radius: 10px !important;
   ul {
-    background-color: #191D24 !important;
+    background-color: #000000 !important;
     color: #FFF !important;
     border-radius: 10px !important;
   }
@@ -33,4 +33,3 @@
 .MuiMenu-list>.MuiMenuItem-gutters:hover{
   background-color: #F0116A;
 } */
-

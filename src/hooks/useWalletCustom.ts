@@ -144,12 +144,12 @@ export default function useWalletCustom() {
     }
   };
 
-  // useEffect(() => {
-  //   handleExistsTwitter(base58Pubkey);
-  //   if (typeof window !== "undefined" && search) {
-  //     localStorage.setItem("accessToken", search);
-  //   }
-  // }, [publicKey]);
+  useEffect(() => {
+    handleExistsTwitter(base58Pubkey);
+    if (typeof window !== "undefined" && search) {
+      localStorage.setItem("accessToken", search);
+    }
+  }, [publicKey]);
 
   const convertSignature =
     signature && "[" + Array?.from(signature).join(", ") + "]";

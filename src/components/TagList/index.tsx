@@ -1,13 +1,9 @@
-import { colorMap } from '@/constant/tagColor';
 import React from 'react';
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
+import { colorMap } from '@/constant/tagColor';
 
-interface TagProps {
-  tag?: string; // Cho phép tag là undefined
-  colorMap: { [tag: string]: { background: string; text: string } };
-}
 
-function Tag({ tag, colorMap }: TagProps) {
+function Tag({tag, colorMap}:{ tag?: string, colorMap: any }) {
   const tagColors = tag ? colorMap[tag] : getRandomColor(colorMap); // Lấy màu từ colorMap hoặc ngẫu nhiên
   const backgroundColor = tagColors?.background || 'bg-gray-200';
   const textColor = tagColors?.text || 'text-black';
@@ -16,27 +12,23 @@ function Tag({ tag, colorMap }: TagProps) {
     <div
       className={`inline-block px-2 py-[1px] rounded-full text-sm font-semibold ${backgroundColor} mx-1 ${textColor} hover:bg-opacity-70`}
     >
-      {tag || 'Random'} {/* Hiển thị tag hoặc "Random" nếu tag là undefined */}
+      {tag || 'Random'} 
     </div>
   );
 }
 
 // Hàm lấy màu ngẫu nhiên từ colorMap
-function getRandomColor(colorMap: { [tag: string]: { background: string; text: string } }) {
+function getRandomColor(colorMap: any) {
   const keys = Object.keys(colorMap);
   const randomIndex = Math.floor(Math.random() * keys.length);
   return colorMap[keys[randomIndex]];
 }
 
-interface TagListProps {
-  tags: string[];
-}
-
-function TagList({ tags }: TagListProps) {
+function TagList({ tags }: any) {
   return (
-    <div className="flex">
-      {tags.length === 0 ? <Tag colorMap={colorMap} /> 
-      : tags.map((tag, index) => (tag && (
+    <button className="flex cursor-pointer">
+      {tags?.length === 0 ? <Tag colorMap={colorMap} /> 
+      : tags?.map((tag: string, index: number) => (tag && (
         <motion.div
           initial={{opacity: 0}}
           transition={{
@@ -50,7 +42,7 @@ function TagList({ tags }: TagListProps) {
           <Tag key={index} tag={tag} colorMap={colorMap} />
         </motion.div>
       )))}
-    </div>
+    </button>
   );
 }
 

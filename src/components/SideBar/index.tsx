@@ -397,7 +397,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
   border: "none",
   justifyContent: "space-between",
-  background: "#393939",
+  background: "#000000",
   color: "#fff",
   gap: "100px",
   "@media (max-width: 768px)": {
@@ -423,14 +423,14 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop: any) => prop !== "open",
 })<AppBarProps>(({ theme, open }: any) => ({
-  background: "#080a0c",
+  background: "#000000",
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    background: "#080a0c",
+    background: "#000000",
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {

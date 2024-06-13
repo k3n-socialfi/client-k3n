@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getMyProfile, getPostUser } from "@/services";
-import { useAlert } from "@/contexts/AlertContext";
 
 const useFetchDataMyProfile = () => {
   const [dataPersonal, setDataPersonal] = useState<any>();

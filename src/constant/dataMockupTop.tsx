@@ -8,7 +8,7 @@ export const DATA_TOP: Record<number, any> = {
 };
 
 export const BG_COLOR_TOP: Record<number, string> = {
-  0: "#2C3741",
-  1: "#232731",
-  2: "#191D24",
+  0: "#000000",
+  1: "#000000",
+  2: "#000000",
 };

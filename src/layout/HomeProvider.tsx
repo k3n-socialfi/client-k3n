@@ -21,20 +21,20 @@ const HomeProvider = ({ children }: IHomeProvider) => {
 
   return (
     <AuthContextProvider>
-        <Header
-          handleToggleSidebar={isOpenSideBar.onToggle}
-          isOpen={isOpenSideBar.value}
-        />
-      <Main>
-        <SideBarCustom isOpen={isOpenSideBar.value}>
-          <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
-        </SideBarCustom>
-        {/* </motion.nav> */}
-        <Children>
-          {children}
-          <Footer />
-        </Children>
-      </Main>
+      <Header
+        handleToggleSidebar={isOpenSideBar.onToggle}
+        isOpen={isOpenSideBar.value}
+      />
+        <Main>
+          <SideBarCustom isOpen={isOpenSideBar.value}>
+            <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
+          </SideBarCustom>
+          {/* </motion.nav> */}
+          <Children>
+            {children}
+            <Footer />
+          </Children>
+        </Main>
     </AuthContextProvider>
   );
 };
@@ -43,7 +43,7 @@ export default HomeProvider;
 
 const SideBarCustom = styled.div<ISideBar>`
   width: 15%;
-  background: var(--background-primary);
+  background: "#000000";
   @media (max-width: 1599px) {
     transition: all 1s;
     display: ${(props) => (props.isOpen ? "block" : "none")};

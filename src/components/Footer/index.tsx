@@ -34,7 +34,7 @@ export default function Footer(props: IFooterProps) {
 const Container = styled.div`
   margin: 50px -50px -50px;
   padding: 12px 80px;
-  background-color: #000;
+  background-color: #080a0c;
   @media (max-width: 768px) {
     margin: 16px -16px -16px;
   }
