@@ -1,6 +1,6 @@
 import { TService } from "@/types/service";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   apiCompleteOfferr,
   apiCreateOffer,
@@ -14,7 +14,7 @@ export default function useServiceDetail() {
   const path = usePathname();
   const { id } = useParams();
 
-  const fetchServiceDetail = async () => {
+  const fetchServiceDetail = useCallback(async () => {
     if (!id) return;
     setIsLoading(true);
     try {
@@ -24,7 +24,7 @@ export default function useServiceDetail() {
     } catch (error) {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   const createOffer = async () => {
     if (!id) return;
@@ -49,7 +49,7 @@ export default function useServiceDetail() {
 
   useEffect(() => {
     fetchServiceDetail();
-  }, [id]);
+  }, [fetchServiceDetail]);
 
   return { serviceDetail, createOffer, completeOffer, isLoading };
 }

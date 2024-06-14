@@ -72,7 +72,7 @@ const CreateServices = (props: Props) => {
     data.isPublic = true;
     data.price = +data.price;
     data.kolWallet = wallet.publicKey?.toBase58();
-   
+
     try {
       const res = await createServices(data);
       setIsLoading(false);
@@ -103,7 +103,7 @@ const CreateServices = (props: Props) => {
     } else {
       openButton.onFalse();
     }
-  }, [checkForm]);
+  }, [checkForm, openButton]);
 
   return (
     <Modal
@@ -148,7 +148,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("platform")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPLATFORM.map((option) => (
                     <MenuItem key={option.id} value={option.value}>
@@ -265,7 +265,7 @@ const CreateServices = (props: Props) => {
                         border: "0px #353535 solid",
                       }}
                       {...register("currency")}
-                    // onChange={handleChangeSelect}
+                      // onChange={handleChangeSelect}
                     >
                       {DATACURRENCY.map((option) => (
                         <MenuItem key={option.id} value={option.value}>
@@ -303,7 +303,7 @@ const CreateServices = (props: Props) => {
                     border: "0px #353535 solid",
                   }}
                   {...register("paymentMethod")}
-                // onChange={handleChangeSelect}
+                  // onChange={handleChangeSelect}
                 >
                   {DATAPAYMENTMETHOD.map((option) => (
                     <MenuItem key={option.id} value={option.value}>

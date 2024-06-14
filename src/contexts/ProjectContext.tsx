@@ -42,7 +42,7 @@ const ProjectContextProvider = ({ children }: IPropsProfileContextProvider) => {
       getDataProjectDetail(id);
       getDataJobsDetail(id);
     }
-  }, [id]);
+  }, [id, getDataJobsDetail, getDataProjectDetail]);
   return (
     <projectContext.Provider
       value={{

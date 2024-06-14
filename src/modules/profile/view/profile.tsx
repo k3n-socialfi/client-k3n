@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
@@ -22,18 +22,20 @@ export default function UserProfile(props: IUserProfileProps) {
   const { dataPersonal, dataPosts, isLoading, fetchData } =
     useMyProfileContext();
 
-  const fetchDataMentioned = async () => {
-    const dataServices: any = await getMentionedProject(
-      dataPersonal?.username?.toString(),
-    );
-    setListProject(dataServices?.data?.data);
-  };
+  const fetchDataMentioned = useCallback(async () => {
+    try {
+      const dataServices: any = await getMentionedProject(
+        dataPersonal?.username?.toString(),
+      );
+      setListProject(dataServices?.data?.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dataPersonal?.username]);
 
   useEffect(() => {
-    fetchDataMentioned()
-      // make sure to catch any error
-      .catch(console.error);
-  }, [dataPersonal?.username]);
+    fetchDataMentioned();
+  }, [fetchDataMentioned]);
 
   return (
     <StyleContainer>

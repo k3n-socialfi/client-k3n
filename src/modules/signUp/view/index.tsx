@@ -5,7 +5,7 @@ import { API_URL } from "@/configs/env.config";
 import { useAlert } from "@/contexts/AlertContext";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import CardChoose from "../components/CardChoose";
 import WrapperSignUp from "../components/WrapperSignUp";
@@ -30,23 +30,23 @@ const SignUp = (props: Props) => {
         setScreen(0);
       }
     }
-  }, [dataPersonal]);
+  }, [dataPersonal, push]);
 
-  const handleLoginTwitter = () => {
+  const handleLoginTwitter = useCallback(() => {
     push(`${API_URL}/api/v1/oauth/twitter`);
     // if (typeof window !== "undefined") {
     //   sessionStorage.setItem("isSignUp", "true");
     // }
-  };
+  }, [push]);
 
-  const handleCheckPoint = () => {
+  const handleCheckPoint = useCallback(() => {
     if (dataPersonal?.twitterInfo?.totalPoints < 30) {
       // push("/login/individual/kol");
       push("/");
     } else {
       push("/login/individual");
     }
-  };
+  }, [push, dataPersonal?.twitterInfo?.totalPoints]);
 
   const defaultSignUp = useMemo(() => {
     switch (screen) {
@@ -90,7 +90,7 @@ const SignUp = (props: Props) => {
           </WrapperSignUp>
         );
     }
-  }, [screen, push]);
+  }, [screen, push, handleCheckPoint, handleLoginTwitter]);
 
   return defaultSignUp;
 };

@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -39,7 +40,7 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
 
   return (
     <Box sx={{ position: "relative", height: slideHeight }}>
-      <img
+      <Image
         src={slides[currentSlide]}
         alt={`Slide ${currentSlide + 1}`}
         style={{
