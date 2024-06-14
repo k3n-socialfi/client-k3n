@@ -14,9 +14,9 @@ import {trendingKols7DData} from '@/constant/dataMockUserTrending';
 import { IMAGES } from "@/constant";
 import StarRating from "@/components/StarRating";
 import TagList from "@/components/TagList";
+import Link from "next/link";
 
 export default function Services() {
-
   const { dataServices, isLoading, dataPopularServices } = useServicesContext();
 
   return (
@@ -25,7 +25,9 @@ export default function Services() {
         <h1 className="text-[50px] font-bold">Top KOLs</h1>
         <div className="grid grid-cols-12 gap-4 min-w-full">
           {trendingKols7DData.users.slice(0,9).map((item,index) => (
-            <div className="col-span-4 flex bg-darkblack-500 rounded-md w-full border-[1px] border-gray-100/10 items-center justify-between shadow shadow-gray-100/10 px-4 py-2" key={item?.userId}>
+            <Link
+              href={`/profile/${item?.username}`}
+              className="col-span-4 flex bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 rounded-md w-full border-[1px] border-gray-100/10 items-center justify-between shadow shadow-gray-100/10 px-4 py-2 hover:scale-[102%] transition-all duration-200" key={item?.userId}>
               <div className="flex items-center gap-4">
                 <h1 className="font-bold">{index}</h1>
                 <div className="flex gap-4">
@@ -40,7 +42,7 @@ export default function Services() {
               <div className="flex items-center gap-1">
                 <IconPointProfile /> {item?.twitterInfo?.totalPoints}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
