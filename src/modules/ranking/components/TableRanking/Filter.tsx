@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useListTabContext } from "@/contexts/ListTabContext";
 import { IconReset } from "@/assets/icons";
 import {
+  chains,
   followersNumber,
   shillScore,
   tagsList,
@@ -20,6 +21,18 @@ function Filter() {
     setReset(true);
     setTimeout(() => setReset(false), 0);
   };
+
+  function transformArray() {
+    return chains.map((item) => {
+      return {
+        title: item.title,
+        value: item.title, // Setting the value to the same as title
+        icon: item.icon,
+      };
+    });
+  }
+
+  console.log(transformArray());
 
   return (
     <div className="filter-content w-full">

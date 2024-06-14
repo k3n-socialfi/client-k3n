@@ -103,7 +103,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
         count={totalPage}
         page={page}
         onChange={handleChangePage}
-        color="standard"
+        sx={{ color: "#FFF" }}
       />
     </Fragment>
   );
