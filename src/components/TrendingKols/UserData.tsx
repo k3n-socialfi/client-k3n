@@ -55,11 +55,14 @@ function UserData({ userInfo, index }:{userInfo: ITrendingKols, index: number}) 
       }
     >
       <td className="whitespace-nowrap p-4 text-sm font-medium rounded-l-lg text-white w-[100px]">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <p className={`${getRankChangeStyle()}`}> 
             {rankChange > 0 ? `▲ ${rankChange}` : rankChange < 0 ? `▼ ${Math.abs(rankChange)}` : "="}
           </p>
+          <div className='flex items-center justify-center w-8 h-8 flex-shrink-0'>
           {getRankIcon(index)}
+
+          </div>
         </div>
       </td>
       <td className="py-4 text-sm text-gray-500 w-auto lg:w-[800px]">

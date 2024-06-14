@@ -40,14 +40,17 @@ function TrendingProjects({ project}:{project: ITrendingProjects}) {
       }
     >
       <td className="whitespace-nowrap p-4 text-sm font-medium rounded-l-lg text-white max-w-[100px]">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <p className={`${getRankChangeStyle()}`}> 
             {rankChange > 0 ? `▲ ${rankChange + Math.floor(Math.random() * 31) - 10}` : rankChange < 0 ? `▼ ${Math.abs(rankChange) + Math.floor(Math.random() * 31) - 10}` : "="}
           </p>
+          <div className='flex w-6 h-6 items-center justify-center'>
           {score === 0 && <Top1Icon width={24} height={24} />}
           {score === 1 && <Top2Icon width={24} height={24} />}
           {score === 2 && <Top3Icon width={24} height={24} />}
           {score !== 0 && score !== 1 && score !== 2 && score + 1}
+          </div>
+     
         </div>
       </td>
       <td className="py-4 text-sm text-gray-500 w-full">
