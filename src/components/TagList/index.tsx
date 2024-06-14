@@ -15,7 +15,7 @@ interface TagProps {
 }
 
 interface TagListProps {
-  tags: string[];
+  tags: any[];
 }
 
 const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {

@@ -139,7 +139,7 @@ export const DATASIDEBARTOKEN = [
         id: 22,
         label: "Marketing Services",
         icon: <IconViewOffer />,
-        link: "/marketing-services",
+        link: "/services",
         isCommingSoon: false,
         color: "#fff",
       },
