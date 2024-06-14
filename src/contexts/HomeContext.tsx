@@ -20,6 +20,8 @@ interface IHomeContextTypes {
   featureProjects: IFeatureProjects[];
   isLoading: boolean;
   totalItemKols: number;
+  selectedRange: string;
+  handleRangeChange:(selectedRange: string) => void
 }
 
 const HomeContextTypes = {
@@ -31,7 +33,10 @@ const HomeContextTypes = {
   kols: [],
   isLoading: false,
   totalItemKols: 0,
+  selectedRange: "1D",
+  handleRangeChange:() => undefined,
 };
+
 const homeContext = createContext<IHomeContextTypes>(HomeContextTypes);
 const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
   const {
@@ -43,7 +48,14 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
     isLoading,
     kols,
     totalItemKols,
+ 
   } = useFetchDataHomePage();
+
+  const [selectedRange, setSelectedRange] = React.useState("1D");
+
+  const handleRangeChange = (selectedRange: string) => {
+    setSelectedRange(selectedRange);
+  };
 
   return (
     <homeContext.Provider
@@ -56,6 +68,8 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
         isLoading,
         kols,
         totalItemKols,
+        selectedRange,
+        handleRangeChange
       }}
     >
       {children}

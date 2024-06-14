@@ -1,8 +1,10 @@
-export default function IconTop1() {
+import { IIcon } from "@/interface/common.interface";
+
+export default function IconTop1({ size = 32 }: IIcon) {
   return (
     <svg
-      width="32"
-      height="31"
+      width={size}
+      height={size}
       viewBox="0 0 32 31"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

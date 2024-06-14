@@ -17,8 +17,17 @@ export interface ITrendingKols {
   externalUrl: string;
   numberOfTweets: number;
   creationDate: string;
+  type: string;
+  review: number;
+
   twitterInfo?: {
     avatar?: string;
-    totalPoints?: string;
+    totalPoints: number;
+    previous7DPoint?: number;
+    previous7DRank: number;
+    previous30DPoint?: number;
+    previous30DRank?: number;
+    username?: string;
+    verificationStatus?: boolean;
   };
 }

@@ -152,15 +152,9 @@ function CustomerInfo({
           <div className="flex flex-col items-center w-[100px] gap-2">
             <Link
               href={`/user/${username}`}
-              className="transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full "
+              className="relative transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full "
             >
-              <Image
-                src={imgKol}
-                alt="avatar"
-                className="h-full w-full object-cover"
-                width={400}
-                height={400}
-              />
+              <Image src={imgKol} alt="avatar" fill objectFit="cover" />
             </Link>
             <p className="text-base font-semibold text-white text-center truncate w-full overflow-hidden">
               {nameKol}
@@ -196,13 +190,12 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedProjects?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
                     <Image
                       src={project.icon}
                       alt={project.symbol}
-                      width={400}
-                      height={400}
-                      className="h-full w-full object-cover"
+                      fill
+                      objectFit="cover"
                     />
                   </div>
                   <h1>
@@ -216,15 +209,14 @@ function CustomerInfo({
           <div className="text-base font-medium text-bgray-900 dark:text-white flex">
             {mappedProjects.slice(0, 5).map((item: any) => (
               <div
-                className="h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full"
+                className="relative h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full"
                 key={item.symbol}
               >
                 <Image
                   src={item.icon}
                   alt={item.symbol}
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
+                  fill
+                  objectFit="cover"
                 />
               </div>
             ))}
@@ -267,13 +259,12 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedChains?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
                     <Image
                       src={project.icon}
                       alt={project.chain}
-                      width={400}
-                      height={400}
-                      className="h-full w-full object-cover"
+                      fill
+                      objectFit="cover"
                     />
                   </div>
                   <h1>{project.chain}</h1>
@@ -285,15 +276,14 @@ function CustomerInfo({
           <div className="text-base font-semibold text-white flex">
             {mappedChains.map((item: any) => (
               <div
-                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full"
+                className="relative h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full"
                 key={item.symbol}
               >
                 <Image
                   src={item.icon}
                   alt={item.symbol}
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
+                  fill
+                  objectFit="cover"
                 />
               </div>
             ))}

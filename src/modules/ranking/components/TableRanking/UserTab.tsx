@@ -46,14 +46,8 @@ const tableTitle = [
 function UserTab({ pageSize, users }: { pageSize: number; users: any[] }) {
   if (users?.length === 0)
     return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <Image
-          src={Banner}
-          alt="banner"
-          className="flex absolute"
-          width={400}
-          height={400}
-        />
+      <div className="relative flex items-center justify-center w-full h-screen">
+        <Image src={Banner} alt="banner" fill objectFit="cover" />
         <h1 className="z-10 text-white font-bold text-2xl">Data are empty!</h1>
       </div>
     );

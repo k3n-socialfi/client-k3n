@@ -9,5 +9,5 @@ export interface ITrendingProjects {
   large?: string;
   slug?: string;
   priceBtc?: number | string;
-  score?: number;
+  score: number;
 }
