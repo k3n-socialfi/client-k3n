@@ -13,7 +13,7 @@ import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { Divider, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 import Link from "next/link";
 import SwipperImage from "@/components/SwipperImage";
 import Image from "next/image";
@@ -21,46 +21,58 @@ import { SpinnerLoader } from "@/components/SpinnerLoader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination } from "swiper/modules";
 import ServiceCard from "@/components/ServiceCard";
+import TredingKols from "@/components/TrendingKols";
+import RankRange from "@/components/TrendingKols/RankRange";
+import TrendingProjects from "@/components/TrendingProjects";
 
 export interface IHomeProps {}
 
 export default function Home({}: IHomeProps) {
   const router = useRouter();
 
-  const { trendingKols, trendingProjects, featureKols, isLoading } =
-    useHomeContext();
+  const {
+    trendingKols,
+    trendingProjects,
+    featureKols,
+    isLoading,
+    selectedRange,
+    handleRangeChange,
+  } = useHomeContext();
+    console.log("🚀 ~ Home ~ trendingKols:", trendingKols)
 
   const dataServices = useServicesContext();
-  console.log(dataServices)
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center w-full h-screen">
-        <Image src={Banner} alt="banner" className="flex absolute"/>
+        <Image src={Banner} alt="banner" className="flex absolute" />
         <SpinnerLoader />
       </div>
-    )
-  } 
+    );
+  }
 
   return (
     <StyleContainer>
-      <div className="w-full h-[300px] md:h-[350px] lg:h-[400px] relative bg-darkblack-600">
-        <Image src={Banner} alt="banner" className="flex absolute"/>
+      <div className=" w-full h-[300px] md:h-[350px] lg:h-[400px] relative bg-darkblack-600">
+        <Image src={Banner} alt="banner" className="flex absolute" />
         <div className="max-w-[1000px] w-full flex flex-wrap gap-8 text-center justify-center items-center mx-auto absolute md:top-[4%] md:left-0 xl:top-[6%] xl:left-[3%] 2xl:top-[12%] 2xl:left-[13%] mr-8">
           {text.map((el, i) => (
             <motion.h1
-              initial={{opacity: 0}}
-              whileInView={{opacity: 1}}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               transition={{
                 duration: 0.25,
-                delay: i /10
+                delay: i / 10,
               }}
               viewport={{ once: true }}
               key={i}
-              className={`text-[50px] md:text-[60px] lg:text-[80px] font-bold ${i === 1 ? "text-primary" : "text-white"}`}
+              className={`text-[50px] md:text-[60px] lg:text-[80px] font-bold ${
+                i === 1 ? "text-primary" : "text-white"
+              }`}
             >
-              {el}{""}
+              {el}
+              {""}
             </motion.h1>
           ))}
         </div>
@@ -75,178 +87,141 @@ export default function Home({}: IHomeProps) {
           <StyleLeft>
             <Typography variant="h4">Services</Typography>
           </StyleLeft>
-          <Link href="/services" className="flex flex-row text-sm text-[#F23581] justify-end items-end">
+          <Link
+            href="/services"
+            className="flex flex-row text-sm text-[#F23581] justify-end items-end"
+          >
             <div className="flex space-x-2 hover:text-[#F23581]/70">
-              <p>
-                View all
-              </p>
+              <p>View all</p>
               <IconArrowRight />
             </div>
           </Link>
         </StyleTop>
-<div className="mt-10 text-white">
-            <h1 className="text-[50px] font-bold text-secondary">Services</h1>
-            <Swiper breakpoints={{
+        <div className="mt-10 text-white">
+          <h1 className="text-[50px] font-bold text-secondary">Services</h1>
+          <Swiper
+            breakpoints={{
               700: {
                 slidesPerView: 1,
                 spaceBetween: 15,
               },
               1000: {
                 slidesPerView: 2,
-                spaceBetween: 15
+                spaceBetween: 15,
               },
               1400: {
                 slidesPerView: 4,
-                spaceBetween: 15
+                spaceBetween: 15,
               },
             }}
-                    grabCursor={true}
-                    pagination={true}
-                    freeMode={true}
-                    modules={[FreeMode, Pagination]}
-            >
-              {dataServices?.dataServices?.map((service: any, i: number) => (
-                <SwiperSlide
-                  key={i}
+            grabCursor={true}
+            pagination={true}
+            freeMode={true}
+            modules={[FreeMode, Pagination]}
+          >
+            {dataServices?.dataServices?.map((service: any, i: number) => (
+              <SwiperSlide key={i}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{
+                    duration: 1,
+                    delay: i / 10,
+                  }}
+                  viewport={{ once: true }}
+                  className="shadow-md shadow-gray-100/20 hover:bg-darkblack-200 transition-all duration-300 border-[1px] border-gray-100/20 rounded-xl overflow-hidden h-[480px]"
                 >
-                  <motion.div
-                    initial={{opacity: 0}}
-                    whileInView={{opacity: 1}}
-                    transition={{
-                      duration: 1,
-                      delay: i / 10
-                    }}
-                    viewport={{ once: true }}
-                    className="shadow-md shadow-gray-100/20 hover:bg-darkblack-200 transition-all duration-300 border-[1px] border-gray-100/20 rounded-xl overflow-hidden h-[480px]"
-                  >
-                    <ServiceCard service={service}/>
-                  </motion.div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+                  <ServiceCard service={service} />
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </StyleFeaturedProject>
       <StyleTrending>
         <StyleTrendingKOLs>
           <StyleTop>
             <motion.h4
-              initial={{opacity: 0, y: 30}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true}}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{
                 duration: 1,
               }}
-              className="font-bold">Trending KOLs</motion.h4>
-            <MoreTrendingKols onClick={() => router.push("/top-ranking")}>
-              <motion.p
-                className="text-[#F23581] flex items-center space-x-1"
-                initial={{opacity: 0, y: 30}}
-                whileInView={{opacity: 1, y: 0}}
-                viewport={{once: true}}
-                transition={{
-                  duration: 1,
-                }}
-              >
-                <span>Explore more</span>
-                <IconArrowRight />
-              </motion.p>
-            </MoreTrendingKols>
+              className="text-[20px] lg:text-[50px] font-bold lg:col-span-2 xl:col-span-3 text-secondary"
+            >
+              Trending KOLs
+            </motion.h4>
+            <div className="flex items-center justify-center">
+              <RankRange
+                onRangeChange={handleRangeChange}
+                selectedRange={selectedRange}
+              />
+              <MoreTrendingKols onClick={() => router.push("/top-ranking")}>
+                <motion.p
+                  className="text-[#F23581] flex items-center space-x-1"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 1,
+                  }}
+                >
+                  <span>Explore more</span>
+                  <IconArrowRight />
+                </motion.p>
+              </MoreTrendingKols>
+            </div>
           </StyleTop>
 
-          <TabD>
-            <ItemTabD>1D</ItemTabD>
-            <ItemTabD style={{ backgroundColor: "#191D24", color: "#FFF" }}>
-              7D
-            </ItemTabD>
-            <ItemTabD>30D</ItemTabD>
-          </TabD>
-
-          <StyleTrendingTopCard>
-            {isLoading
-            ? FAKEDATA_SKELETON.map((item, index) => (
+          {isLoading ? (
+            FAKEDATA_SKELETON.map((item, index) => (
               <motion.div
-                initial={{opacity: 0, x: -20}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{
                   duration: 0.25,
-                  delay: index /10
+                  delay: index / 10,
                 }}
                 key={index}
               >
                 <CardTrendingKolsSkeleton key={item} point={10} />
               </motion.div>
             ))
-            : trendingKols?.map((item, index) => (
-              <motion.div
-                initial={{opacity: 0, x: -20}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{
-                  duration: 0.25,
-                  delay: index /10
-                }}
-                key={index}
-              >
-                <StyleTrendingCard key={item?.userId}>
-                  <CardTrendingKOLs
-                    rank={DATA_TOP[index] ?? index + 1}
-                    backgroundColor={
-                    BG_COLOR_TOP[index] ?? "bg-darkblack-600"
-                    }
-                    name={item?.username}
-                    point={item?.twitterInfo?.totalPoints}
-                    urlAvatar={item?.twitterInfo?.avatar}
-                  />
-                </StyleTrendingCard>
-                {index > 2 && <Divider sx={{ borderColor: "#B9B9B9 " }} />}
-              </motion.div>
-            ))}
-          </StyleTrendingTopCard>
+          ) : (
+            <TredingKols data={trendingKols} />
+          )}
         </StyleTrendingKOLs>
         <StyleTrendingProjects>
           <StyleTop>
-            <Typography variant="h4">Web3 Projects</Typography>
+            <p className="text-[20px] lg:text-[50px] font-bold lg:col-span-2 xl:col-span-3 text-secondary pt-8">
+              Projects Trending
+            </p>
           </StyleTop>
-          <StyleTrendingProjectsCard>
-            {isLoading
+
+          {isLoading
             ? FAKEDATA_SKELETON.map((item, i) => (
-              <div key={item}>
-                <motion.div
-                  initial={{opacity: 0, x: -20}}
-                  whileInView={{opacity: 1, x: 0}}
-                  viewport={{once: true}}
-                  transition={{
-                    duration: 0.5,
-                    delay: i / 30
-                  }}
-                  key={i}
-                >
-                  <CardTrendingProjectsSkeleton key={item} />
-                </motion.div>
-              </div>
-            ))
-            : trendingProjects?.slice(0, 7)?.map((item, index) => (
-              <motion.div
-                initial={{opacity: 0, x: -20}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{
-                  duration: 0.5,
-                  delay: index / 30
-                }}
-                key={index}
-              >
-                <StyleTrendingCard key={item.id}>
-                  <Typography variant={"h5"} color={"#FFF"}>
-                    {index + 1}
-                  </Typography>
-                  <CardTrendingProjects data={item} />
-                </StyleTrendingCard>
-                <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              </motion.div>
-            ))}
-          </StyleTrendingProjectsCard>
+                <div key={item}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      delay: i / 30,
+                    }}
+                    key={i}
+                  >
+                    <CardTrendingProjectsSkeleton key={item} />
+                  </motion.div>
+                </div>
+              ))
+            : trendingProjects
+                ?.slice(0, 10)
+                .map((project, index) => (
+                  <TrendingProjects project={project} key={index} />
+                ))}
         </StyleTrendingProjects>
       </StyleTrending>
     </StyleContainer>
@@ -261,21 +236,21 @@ const StyleFeaturedKOLs = styled.div`
   .rfm-initial-child-container,
   .rfm-marquee,
   .rfm-marquee-container {
-  gap: 14px;
-  transition-timing-function: ease-in-out;
-  transition: 0.5s;
-  height: 526px;
-  &:hover {
-  .rfm-child {
-  transition-timing-function: ease-in-out;
-  transition: 0.5s;
-  }
-  }
-  .rfm-child:hover {
-  transform: scale(1.1);
-  transition-timing-function: ease-in-out;
-  transition: 0.5s;
-  }
+    gap: 14px;
+    transition-timing-function: ease-in-out;
+    transition: 0.5s;
+    height: 526px;
+    &:hover {
+      .rfm-child {
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
+      }
+    }
+    .rfm-child:hover {
+      transform: scale(1.1);
+      transition-timing-function: ease-in-out;
+      transition: 0.5s;
+    }
   }
 `;
 const StyleFeaturedProject = styled.div``;
@@ -288,15 +263,15 @@ const StyleTop = styled.div`
   padding-top: 14px;
   flex-wrap: wrap;
   h4 {
-  font-size: 40px !important;
+    font-size: 40px !important;
   }
   @media (max-width: 520px) {
-  padding-top: 0px;
-  padding-right: 10px;
-  padding-left: 10px;
-  h4 {
-  font-size: 25px;
-  }
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-left: 10px;
+    h4 {
+      font-size: 25px;
+    }
   }
 `;
 
@@ -320,7 +295,7 @@ const StyleBottom = styled.div`
   padding-bottom: 1px;
   /* scrollbar-width: none; */
   &::-webkit-scrollbar {
-  display: none;
+    display: none;
   }
 `;
 
@@ -331,10 +306,10 @@ const StyleLeft = styled.div`
   color: white;
   padding-top: 24px;
   @media (max-width: 520px) {
-  padding-top: 0px;
-  h4 {
-  font-size: 25px !important;
-  }
+    padding-top: 0px;
+    h4 {
+      font-size: 25px !important;
+    }
   }
 `;
 const StyleRight = styled.div`
@@ -344,22 +319,26 @@ const StyleRight = styled.div`
   gap: 10px;
   cursor: pointer;
   .MuiTypography-body1 {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
   }
 `;
 
 const StyleTrending = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* justify-content: space-between;
   gap: 100px;
   @media (max-width: 1224px) {
   justify-content: start;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 10px;
-  }
+  } */
 `;
 
 const StyleTrendingKOLs = styled.div`
@@ -408,8 +387,8 @@ const StyleTrendingCard = styled.div`
   gap: 10px;
   width: 100%;
   &:hover {
-  .MuiTypography-h5 {
-  color: #82ebff;
-  }
+    .MuiTypography-h5 {
+      color: #82ebff;
+    }
   }
 `;
