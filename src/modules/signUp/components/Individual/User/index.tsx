@@ -18,7 +18,7 @@ const User = (props: Props) => {
     if (dataPersonal?.twitterInfo?.totalPoints < 30) {
       push("/");
     }
-  }, [dataPersonal]);
+  }, [dataPersonal, push]);
 
   const handleShow = (value: boolean) => {
     setShowConnected(value);

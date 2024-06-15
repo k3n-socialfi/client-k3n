@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import { endpoint, solNetwork } from "@/utils";
+import { endpoint } from "@/utils";
 import {
   ConnectionProvider,
   WalletProvider,
@@ -19,7 +19,7 @@ const WalletContextProvider = ({ children }: IWalletContextProvider) => {
       new walletAdapterWallets.PhantomWalletAdapter(),
       new walletAdapterWallets.SolflareWalletAdapter(),
     ],
-    [solNetwork()],
+    [],
   );
 
   return (

@@ -41,4 +41,10 @@ export const formatNumberToK = (x: number) => {
   }
 };
 
+export function numberWithCommas(x: any) {
+  const format = new Intl.NumberFormat("en-US");
+  const formattedNumber = format.format(x);
+  return formattedNumber;
+}
+
 export const endpoint = anchor.web3.clusterApiUrl(solNetwork());

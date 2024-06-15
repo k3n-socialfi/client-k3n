@@ -54,14 +54,21 @@ export interface IUsers {
   tags?: string[];
   pnl?: number;
   mentionedProject?: {
-    chain?: string
-  }
+    chain?: string;
+  };
 }
 
 export interface IFilterKOL {
-  type?: string;
+  page?: number | string;
+  type?: string | null;
   verification?: boolean;
-  lowerLimit?: number;
-  upperLimit?: number;
+  limit?: number;
+  top?: number;
   tags?: string[];
+  review?: string;
+  minFollower?: number;
+  maxFollower?: number;
+  minShillScore?: number;
+  maxShillScore?: number;
+  mentionedProject?: string;
 }

@@ -109,16 +109,6 @@ export { default as IconDelete } from "./IconDelete";
 export { default as IconAdd } from "./IconAdd";
 export { default as IconArrowDownStatus } from "./IconArrowDownStatus";
 export { default as IconUnverify } from "./IconUnverify";
-export { default as PointIcon } from "./PointIcon";
-export { default as Top1Icon } from "./Top1Icon";
-export { default as Top2Icon } from "./Top2Icon";
-export { default as Top3Icon } from "./Top3Icon";
-export { default as VerifyIcon } from "./VerifyIcon";
-
-
-
-
-
-
+export { default as IconSort } from "./IconSort";
 
 export { default as IconCheck } from "./IconCheck";

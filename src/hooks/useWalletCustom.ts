@@ -70,7 +70,7 @@ export default function useWalletCustom() {
         onDisconnect && onDisconnect();
         break;
     }
-  }, [buttonState, setModalVisible, onConnect]);
+  }, [buttonState, setModalVisible, onConnect, onDisconnect]);
 
   const [logs, setLogs] = useState<any[]>([]);
   const createLog = useCallback(
@@ -84,17 +84,6 @@ export default function useWalletCustom() {
     router.push(`${API_URL}/api/v1/oauth/twitter`);
     if (typeof window !== "undefined") {
       sessionStorage.setItem("isTwitter", "true");
-    }
-  };
-
-  const handleExistsTwitter = async (value: any) => {
-    if (buttonState === "connected") {
-      const { data }: any = await checkExists(value);
-      if (data?.data || isTwitter) {
-        handleSignIn();
-      } else {
-        setPopup(true);
-      }
     }
   };
 
@@ -127,7 +116,21 @@ export default function useWalletCustom() {
         });
       }
     }
-  }, [base58Pubkey, createLog, publicKey, signIn, wallet]);
+  }, [base58Pubkey, createLog, publicKey, signIn, wallet, signed]);
+
+  const handleExistsTwitter = useCallback(
+    async (value: any) => {
+      if (buttonState === "connected") {
+        const { data }: any = await checkExists(value);
+        if (data?.data || isTwitter) {
+          handleSignIn();
+        } else {
+          setPopup(true);
+        }
+      }
+    },
+    [buttonState, handleSignIn, isTwitter],
+  );
 
   const handleWallet = (value: number) => {
     if (value === TYPE_WALLET.connect) {
@@ -149,7 +152,7 @@ export default function useWalletCustom() {
     if (typeof window !== "undefined" && search) {
       localStorage.setItem("accessToken", search);
     }
-  }, [publicKey]);
+  }, [publicKey, base58Pubkey, handleExistsTwitter, search]);
 
   const convertSignature =
     signature && "[" + Array?.from(signature).join(", ") + "]";
@@ -175,7 +178,7 @@ export default function useWalletCustom() {
         console.error(e);
       }
     })();
-  }, [signature, isTwitter]);
+  }, [signature, isTwitter, convertSignature, base58Pubkey]);
 
   return {
     handleLoginTwitter,

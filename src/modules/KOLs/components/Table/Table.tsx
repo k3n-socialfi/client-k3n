@@ -82,7 +82,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
 
   useEffect(() => {
     replace(path, undefined);
-  }, []);
+  }, [path, replace]);
 
   const data = dataTableKols?.map((item) => {
     return {
@@ -162,8 +162,8 @@ export default function TableTrending(props: ITableTopRankingProps) {
           onChange={(event, val) =>
             push(
               path +
-              "?" +
-              createQueryString("kyc", val?.value?.toString() ?? ""),
+                "?" +
+                createQueryString("kyc", val?.value?.toString() ?? ""),
             )
           }
           sx={{
@@ -363,18 +363,20 @@ export default function TableTrending(props: ITableTopRankingProps) {
                             label={item}
                             variant="outlined"
                             sx={{
-                              color: `${index === 0
+                              color: `${
+                                index === 0
                                   ? "#F23581"
                                   : index === 1
-                                    ? "#3EAABE"
-                                    : "#25002D"
-                                }`,
-                              backgroundColor: `${index === 0
+                                  ? "#3EAABE"
+                                  : "#25002D"
+                              }`,
+                              backgroundColor: `${
+                                index === 0
                                   ? "#ffd7f4"
                                   : index === 1
-                                    ? "#EBFCFF"
-                                    : "#F6CCFF"
-                                }`,
+                                  ? "#EBFCFF"
+                                  : "#F6CCFF"
+                              }`,
                               "&.MuiChip-root": {
                                 height: "24px",
                               },
@@ -429,7 +431,7 @@ const CustomTableRow = styled(TableRow)`
   background-color: #000;
 `;
 
-const CustomTh = styled(TableCell) <IPCustomTableCell>`
+const CustomTh = styled(TableCell)<IPCustomTableCell>`
   color: #ffd7f4 !important;
   font-weight: 700;
   border-left: ${({ isBorderLeft, borderLeftColor }) =>
@@ -443,7 +445,7 @@ const CustomTh = styled(TableCell) <IPCustomTableCell>`
   }
 `;
 
-const CustomTableCell = styled(TableCell) <IPCustomTableCell>`
+const CustomTableCell = styled(TableCell)<IPCustomTableCell>`
   color: #ffd7f4 !important;
   font-weight: 700;
   padding: ${({ padding }) => (padding ? padding : "unset")};
