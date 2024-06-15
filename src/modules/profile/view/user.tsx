@@ -2,7 +2,7 @@
 import { useProfileContext } from "@/contexts/ProfileContext";
 import { Divider } from "@mui/material";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Experience from "../components/Experiences";
 import PostUser from "../components/PostUser";
@@ -20,20 +20,23 @@ export interface IUserProfileProps {
 
 export default function ClientProfile(props: IUserProfileProps) {
   const [listProjects, setListProject] = useState<any[]>();
-  const { isLoading, userProfile, dataPosts, getUserProfile } = useProfileContext();
+  const { isLoading, userProfile, dataPosts, getUserProfile } =
+    useProfileContext();
   const { username } = useParams();
 
-  const fetchData = async () => {
-    await getUserProfile(username?.toString());
-    const dataServices: any = await getMentionedProject(username?.toString());
-    setListProject(dataServices?.data?.data);
-  };
+  const fetchData = useCallback(async () => {
+    try {
+      getUserProfile(username?.toString());
+      const dataServices: any = await getMentionedProject(username?.toString());
+      setListProject(dataServices?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [getUserProfile, username]);
 
   useEffect(() => {
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);
-  }, [username]);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <StyleContainer>

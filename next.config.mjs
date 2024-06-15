@@ -8,6 +8,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "coin-images.coingecko.com",
+      },
+      {
+        protocol: "https",
         hostname: "cafebiz.cafebizcdn.vn",
       },
       {
@@ -32,12 +36,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "colormedia.vn"
+        hostname: "colormedia.vn",
       },
       {
         protocol: "https",
-        hostname: "img.freepik.com"
-      }
+        hostname: "img.freepik.com",
+      },
       // https://assets.coingecko.com
     ],
   },

@@ -25,16 +25,16 @@ const HomeProvider = ({ children }: IHomeProvider) => {
         handleToggleSidebar={isOpenSideBar.onToggle}
         isOpen={isOpenSideBar.value}
       />
-        <Main>
-          <SideBarCustom isOpen={isOpenSideBar.value}>
-            <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
-          </SideBarCustom>
-          {/* </motion.nav> */}
-          <Children>
-            {children}
-            <Footer />
-          </Children>
-        </Main>
+      <Main>
+        <SideBarCustom isOpen={isOpenSideBar.value}>
+          <SideBar handleToggleSidebar={isOpenSideBar.onToggle} />
+        </SideBarCustom>
+        {/* </motion.nav> */}
+        <Children>
+          {children}
+          <Footer />
+        </Children>
+      </Main>
     </AuthContextProvider>
   );
 };
@@ -61,13 +61,13 @@ const Children = styled.div`
   overflow: hidden;
 
   @media (max-width: 1599px) {
-  width: 100%;
+    width: 100%;
   }
   @media (max-width: 768px) {
-  padding: 0px;
+    padding: 0px;
   }
   @media (max-width: 610px) {
-  margin-top: 132px;
+    margin-top: 132px;
   }
 `;
 

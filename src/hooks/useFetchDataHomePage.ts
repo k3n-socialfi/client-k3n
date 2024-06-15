@@ -9,9 +9,9 @@ import {
 } from "@/services";
 import { ITrendingKols } from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
-import { IFeatureKols } from "@/interface/featureKols.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
 import { useSearchParams } from "next/navigation";
+import { IFilterKOL } from "@/interface/users.interface";
 
 const useFetchDataHomePage = () => {
   const [users, setUsers] = useState<IUserKOL[]>([]);
@@ -43,19 +43,17 @@ const useFetchDataHomePage = () => {
   useEffect(() => {
     const fetchKolsFilter = async () => {
       try {
-        const params = {
+        const params: IFilterKOL = {
           type: type ? type : undefined,
           verification: verification
             ? verification === "true"
               ? true
               : false
             : undefined,
-          lowerLimit: lowerLimit ? +lowerLimit : undefined,
-          upperLimit: upperLimit ? +upperLimit : undefined,
+          limit: lowerLimit ? +lowerLimit : 10,
+          top: upperLimit ? +upperLimit : 100,
           tags: tags ? tags.split(",") : undefined,
-          page: page ? page : 0,
-          limit: limit ? limit : 10,
-          top: 100,
+          page: page ?? 0,
         };
         const { data } = await getKolsFilter(params);
         setKols(data.data.users);

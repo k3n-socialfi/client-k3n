@@ -92,7 +92,7 @@ const EditProfile = ({
     } else {
       openButton.onFalse();
     }
-  }, [checkForm]);
+  }, [checkForm, openButton]);
 
   useEffect(() => {
     const fieldValues = {
@@ -112,7 +112,7 @@ const EditProfile = ({
     Object.entries(fieldValues).forEach(([key, value]) => {
       setValue(key, value);
     });
-  }, [dataPersonal]);
+  }, [dataPersonal, setValue]);
 
   return (
     <ModalCustom
