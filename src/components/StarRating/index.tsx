@@ -3,7 +3,7 @@ const StarRating = ({ rating, size }: {rating: number, size?: string}) => {
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        stars.push(<span key={i} className="text-yellow-500">★</span>);
+        stars.push(<span key={i} className="text-[#F23581]">★</span>);
       } else {
         stars.push(<span key={i} className="text-gray-300">☆</span>);
       }

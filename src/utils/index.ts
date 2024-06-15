@@ -48,3 +48,8 @@ export function numberWithCommas(x: any) {
 }
 
 export const endpoint = anchor.web3.clusterApiUrl(solNetwork());
+
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

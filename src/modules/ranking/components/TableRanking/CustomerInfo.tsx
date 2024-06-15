@@ -151,7 +151,7 @@ function CustomerInfo({
         <div className="flex w-full items-center space-x-2.5">
           <div className="flex flex-col items-center w-[100px] gap-2">
             <Link
-              href={`/user/${username}`}
+              href={`/profile/${username}`}
               className="relative transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full "
             >
               <Image src={imgKol} alt="avatar" fill objectFit="cover" />
