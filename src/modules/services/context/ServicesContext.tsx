@@ -7,8 +7,8 @@ interface IPropsServicesContextProvider {
   children: React.ReactNode;
 }
 interface IServicesContextTypes {
-  dataServices: TService[];
-  dataPopularServices: TService[];
+  dataServices: any[];
+  dataPopularServices: any[];
   isLoading: boolean;
   error?: any;
 }
@@ -19,6 +19,7 @@ const ServicesContextTypes = {
   isLoading: true,
   error: "",
 };
+
 const ServicesContext =
   createContext<IServicesContextTypes>(ServicesContextTypes);
 const ServicesContextProvider = ({

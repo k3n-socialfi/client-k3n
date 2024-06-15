@@ -23,9 +23,6 @@ const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
   const backgroundColor = tagColors?.background || 'bg-secondary';
   const textColor = tagColors?.text || 'text-black';
 
-  // Log the colors for debugging
-  console.log(`Tag: ${tag}, Background: ${backgroundColor}, Text: ${textColor}`);
-
   return (
     <div
       className={`inline-block px-2 py-[1px] rounded-full text-sm font-semibold mx-1 ${backgroundColor} ${textColor} hover:bg-opacity-70`}

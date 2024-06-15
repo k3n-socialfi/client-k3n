@@ -27,17 +27,17 @@ export const solNetwork = () => {
 
 export const formatNumberToK = (x: number) => {
   switch (true) {
-    case x >= 1000:
-      const kValue = x / 1000;
-      return `${kValue}K`;
-    case x >= 1000000:
-      const mValue = x / 1000;
-      return `${mValue}M`;
     case x >= 1000000000:
-      const bValue = x / 1000;
+      const bValue = (x / 1000000000).toLocaleString();
       return `${bValue}B`;
+    case x >= 1000000:
+      const mValue = (x / 1000000).toLocaleString();
+      return `${mValue}M`;
+    case x >= 1000:
+      const kValue = (x / 1000).toLocaleString();
+      return `${kValue}K`;
     default:
-      return x;
+      return x.toLocaleString();
   }
 };
 

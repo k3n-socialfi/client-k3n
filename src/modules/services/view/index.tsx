@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  IconChevronDown,
-  IconFilter,
-  IconPointProfile,
-  IconReset,
-  IconSearch,
-} from "@/assets/icons";
+import {IconPointProfile, PointIcon} from "@/assets/icons";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import {} from '@/constant/data'
 import Image from "next/image";
@@ -15,19 +9,20 @@ import { IMAGES } from "@/constant";
 import StarRating from "@/components/StarRating";
 import TagList from "@/components/TagList";
 import Link from "next/link";
+import ServiceCard from "./ServiceCard";
 
 export default function Services() {
   const { dataServices, isLoading, dataPopularServices } = useServicesContext();
 
   return (
-    <section className="text-white">
-      <div className="w-full space-y-4 h-full">
+    <section className="text-white overflow-y-scroll h-screen">
+      <div className="w-full space-y-4 h-[750px] md:h-[500px] overflow-y-scroll">
         <h1 className="text-[50px] font-bold">Top KOLs</h1>
-        <div className="grid grid-cols-12 gap-4 min-w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-w-full">
           {trendingKols7DData.users.slice(0,9).map((item,index) => (
             <Link
               href={`/profile/${item?.username}`}
-              className="col-span-4 flex bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 rounded-md w-full border-[1px] border-gray-100/10 items-center justify-between shadow shadow-gray-100/10 px-4 py-2 hover:scale-[102%] transition-all duration-200" key={item?.userId}>
+              className="col-span-1 flex bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 rounded-md w-full border-[1px] border-gray-100/10 items-center justify-between shadow shadow-gray-100/10 h-[120px] px-4 py-2 hover:scale-[102%] transition-all duration-200 overflow-hidden" key={item?.userId}>
               <div className="flex items-center gap-4">
                 <h1 className="font-bold">{index}</h1>
                 <div className="flex gap-4">
@@ -46,12 +41,12 @@ export default function Services() {
           ))}
         </div>
       </div>
-      <div className="pt-20">
-        <div className="w-full space-y-4 h-full">
-          <h1 className="text-[50px] font-bold">Services</h1>
-          <div>
-            
-          </div>
+      <div className="">
+        <h1 className="text-[50px] font-bold">Services</h1>
+        <div className="min-w-full h-full grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {dataServices?.map((service) => (
+            <ServiceCard service={service} key={service?.jobId}/>
+          ))}
         </div>
       </div>
     </section>

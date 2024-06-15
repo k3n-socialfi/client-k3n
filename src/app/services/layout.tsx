@@ -5,7 +5,9 @@ import { ServicesContextProvider } from "@/modules/services/context/ServicesCont
 const LayoutServices = ({ children }: IChildren) => {
   return (
     <HomeProvider>
-      <ServicesContextProvider>{children}</ServicesContextProvider>;
+      <ServicesContextProvider>
+        {children}
+      </ServicesContextProvider>;
     </HomeProvider>
   );
 };
