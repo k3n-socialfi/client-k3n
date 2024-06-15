@@ -38,7 +38,7 @@ export default function Home({}: IHomeProps) {
     selectedRange,
     handleRangeChange,
   } = useHomeContext();
-  console.log("🚀 ~ Home ~ trendingKols:", trendingKols);
+
 
   const dataServices = useServicesContext();
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
