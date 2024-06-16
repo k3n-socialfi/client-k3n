@@ -1,12 +1,13 @@
-import { IconPointProfile, IconTop1, IconTop2, IconTop3 } from "@/assets/icons";
-import { chains, tokens } from "@/data/ranking/filterData";
-import { numberWithCommas } from "@/utils";
-import { Tooltip } from "@mui/material";
+import ProtoTypes from "prop-types";
+
 import { motion } from "framer-motion";
-import Image from "next/image";
+
 import Link from "next/link";
-import TagList from "./TagList";
-import defaultIcon from "@/assets/svgs/common/k3n.svg";
+import { PointIcon, Top1Icon, Top2Icon, Top3Icon } from "@/assets/icons";
+import TagList from "@/components/TagList";
+import { Tooltip } from "@mui/material";
+import { capitalizeFirstLetter, numberWithCommas } from "@/utils";
+import Image from "next/image";
 
 export const mapMentionedProjects = (
   mentionedProjects: any,
@@ -23,13 +24,26 @@ export const mapMentionedProjects = (
     })
     .map((project: any) => {
       const token = tokensArr.find(
-        (token: any) => token.name === project.symbol,
+        (token: any) => token.title === project.tokenName,
       );
       return {
         ...project,
         icon: token ? token.icon : defaultIcon,
       };
     });
+};
+
+export const mapMentionedProjectsToken = (
+  tokenName: any,
+  tokensArr: any,
+  defaultIcon: any,
+) => {
+  const token = tokensArr.find((token: any) => token.title === tokenName);
+  if (token) {
+    return token.icon;
+  }
+
+  return defaultIcon;
 };
 
 export const mapMentionedChains = (
@@ -45,7 +59,9 @@ export const mapMentionedChains = (
       return !isDuplicate;
     })
     .map((project: any) => {
-      const token = chainArr.find((chain: any) => chain.name === project.chain);
+      const token = chainArr.find(
+        (chain: any) => chain.title === project.chain,
+      );
       return {
         ...project,
         icon: token ? token.icon : defaultIcon,
@@ -66,20 +82,7 @@ function CustomerInfo({
   tags,
   previousRank,
   username,
-}: {
-  rank: number;
-  imgKol: string;
-  typeKol: string;
-  nameKol: string;
-  mentionedProject: any[];
-  followers: number;
-  shillScore: number;
-  change: number;
-  chain: string;
-  tags: string[];
-  previousRank: number;
-  username: string;
-}) {
+}: any) {
   const rankChange = previousRank - rank;
 
   const getChangeStyle = (change: any) => {
@@ -100,16 +103,8 @@ function CustomerInfo({
     return rankChangeStyle.neutral;
   };
 
-  const mappedProjects = mapMentionedProjects(
-    mentionedProject,
-    tokens,
-    defaultIcon,
-  );
-  const mappedChains = mapMentionedChains(
-    mentionedProject,
-    chains,
-    defaultIcon,
-  );
+  // const mappedProjects = mapMentionedProjects(mentionedProject, tokensArr, defaultIcon);
+  // const mappedChains = mapMentionedChains(mentionedProject, chainArr, defaultIcon);
 
   return (
     <motion.tr
@@ -141,20 +136,25 @@ function CustomerInfo({
               ? `▼ ${Math.abs(rankChange)}`
               : "="}
           </p>
-          {rank === 0 && <IconTop1 />}
-          {rank === 1 && <IconTop2 />}
-          {rank === 2 && <IconTop3 />}
+          {rank === 0 && <Top1Icon />}
+          {rank === 1 && <Top2Icon />}
+          {rank === 2 && <Top3Icon />}
           {rank !== 0 && rank !== 1 && rank !== 2 && rank + 1}
         </div>
       </td>
       <td className="px-6 py-5 xl:px-0">
         <div className="flex w-full items-center space-x-2.5">
-          <div className="flex flex-col items-center w-[100px] gap-2">
+          <div className="flex flex-col items-center w-[100px] gap-2 relative">
             <Link
-              href={`/profile/${username}`}
-              className="relative transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full "
+              href={`/user/${username}`}
+              className="transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full"
             >
-              <Image src={imgKol} alt="avatar" fill objectFit="cover" />
+              <Image
+                src={imgKol}
+                alt="avatar"
+                fill
+                style={{ objectFit: "cover" }}
+              />
             </Link>
             <p className="text-base font-semibold text-white text-center truncate w-full overflow-hidden">
               {nameKol}
@@ -188,46 +188,33 @@ function CustomerInfo({
           placement="right"
           title={
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
-              {mappedProjects?.map((project: any, index: any) => (
+              {/* {mappedProjects?.map((project:any, index:any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
-                    <Image
-                      src={project.icon}
-                      alt={project.symbol}
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
+                  <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                    <img src={project.icon} alt={project.symbol} className="h-full w-full object-cover"/>
                   </div>
-                  <h1>
-                    {project.tokenName} ({project.symbol})
-                  </h1>
+                  <h1>{project.tokenName} ({project.symbol})</h1>
                 </div>
-              ))}
+              ))} */}
+              12
             </div>
           }
         >
-          <div className="text-base font-medium text-bgray-900 dark:text-white flex">
-            {mappedProjects.slice(0, 5).map((item: any) => (
-              <div
-                className="relative h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full"
-                key={item.symbol}
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.symbol}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
+          <p className="text-base font-medium text-bgray-900 dark:text-white flex">
+            23
+            {/* {mappedProjects.slice(0,5).map((item:any) => (
+              <div className="h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full" key={item.symbol}>
+                <img src={item.icon} alt={item.symbol} className="h-full w-full object-cover"/>
               </div>
             ))}
-            {mappedProjects.length >= 5 && (
-              <div className="h-6 w-6 -m-1 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
-                <p className="text-[10px]  font-bold">
-                  {mappedProjects.length - 5}+
-                </p>
-              </div>
-            )}
-          </div>
+            {mappedProjects.length >= 5 &&
+             <div className="h-6 w-6 -m-1 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
+               <p className="text-[10px]  font-bold">
+                 {mappedProjects.length - 5}+
+               </p>
+             </div>
+            } */}
+          </p>
         </Tooltip>
       </td>
       <td className="px-6 py-5 xl:px-0 min-w-[180px]">
@@ -237,7 +224,7 @@ function CustomerInfo({
       </td>
       <td className="w-[165px] px-6 py-5 xl:px-0">
         <p className="text-base font-semibold text-primary group-hover:text-white flex items-center gap-1">
-          <IconPointProfile />
+          <PointIcon />
           {numberWithCommas(shillScore)}
         </p>
       </td>
@@ -247,7 +234,7 @@ function CustomerInfo({
             {change > 0
               ? `▲ ${change.toFixed(2) ?? 0} %`
               : change < 0
-              ? `▼ ${Math.abs(Number(change?.toFixed(2) ?? 0))} %`
+              ? `▼ ${Math.abs(change?.toFixed(2) ?? 0)} %`
               : "="}
           </p>
         </p>
@@ -257,37 +244,26 @@ function CustomerInfo({
           placement="right"
           title={
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
-              {mappedChains?.map((project: any, index: any) => (
+              {/* {mappedChains?.map((project:any, index:any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
-                    <Image
-                      src={project.icon}
-                      alt={project.chain}
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
+                  <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                    <img src={project.icon} alt={project.chain} className="h-full w-full object-cover"/>
                   </div>
-                  <h1>{project.chain}</h1>
+                  <h1>{capitalizeFirstLetter(project.chain)}</h1>
                 </div>
-              ))}
+              ))} */}
+              33
             </div>
           }
         >
-          <div className="text-base font-semibold text-white flex">
-            {mappedChains.map((item: any) => (
-              <div
-                className="relative h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full"
-                key={item.symbol}
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.symbol}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
+          <p className="text-base font-semibold text-white flex">
+            {/* {mappedChains.map((item:any) => (
+              <div className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full" key={item.symbol}>
+                <img src={item.icon} alt={item.symbol} className="h-full w-full object-cover"/>
               </div>
-            ))}
-          </div>
+            ))} */}
+            454
+          </p>
         </Tooltip>
       </td>
       <td className="px-6 py-5 xl:px-0">
@@ -298,5 +274,19 @@ function CustomerInfo({
     </motion.tr>
   );
 }
+
+CustomerInfo.propTypes = {
+  rank: ProtoTypes.number,
+  imgKol: ProtoTypes.string,
+  typeKol: ProtoTypes.string,
+  nameKol: ProtoTypes.string,
+  mentionedProject: ProtoTypes.array.isRequired,
+  followers: ProtoTypes.number,
+  shillScore: ProtoTypes.number,
+  change: ProtoTypes.number,
+  chain: ProtoTypes.string,
+  tags: ProtoTypes.array,
+  previousRank: ProtoTypes.number,
+};
 
 export default CustomerInfo;

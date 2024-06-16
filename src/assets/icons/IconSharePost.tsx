@@ -1,8 +1,10 @@
-export default function IconSharePost() {
+import { TIcon } from "@/types/icons.type";
+
+export default function IconSharePost({height, width, color}: TIcon) {
   return (
     <svg
-      width={24}
-      height={24}
+      width={width ?? "24"}
+      height={height ?? "24"}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +13,7 @@ export default function IconSharePost() {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M22.6764 5.06262C22.8327 4.7919 22.8327 4.45835 22.6764 4.18762C22.5201 3.9169 22.2312 3.75012 21.9186 3.75012L2.00002 3.75012C1.65241 3.75012 1.33777 3.95588 1.19841 4.27433C1.05906 4.59278 1.12142 4.96352 1.35728 5.21885L8.15135 12.5736L11.1238 22.1349C11.2269 22.4668 11.5168 22.7062 11.8623 22.7447C12.2078 22.7833 12.5433 22.6137 12.7171 22.3126L22.6764 5.06262ZM18.653 5.50012L3.99951 5.50012L9.09639 11.0177L18.653 5.50012ZM9.97139 12.5332L12.2013 19.706L19.5281 7.01565L9.97139 12.5332Z"
-        fill="#B9B9B9"
+        fill={color ?? "#B9B9B9"}
       />
     </svg>
   );

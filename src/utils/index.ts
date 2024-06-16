@@ -48,3 +48,13 @@ export function numberWithCommas(x: any) {
 }
 
 export const endpoint = anchor.web3.clusterApiUrl(solNetwork());
+
+
+export function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+export const sliceAddressWallet = (publicKey: any) => {
+  const base58 = publicKey.toBase58();
+  const address = base58.slice(0, 2) + ".." + base58.slice(-4);
+  return address;
+};

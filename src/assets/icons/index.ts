@@ -110,5 +110,38 @@ export { default as IconAdd } from "./IconAdd";
 export { default as IconArrowDownStatus } from "./IconArrowDownStatus";
 export { default as IconUnverify } from "./IconUnverify";
 export { default as IconSort } from "./IconSort";
+export { default as PointIcon } from "./PointIcon";
+export { default as Top1Icon } from "./Top1Icon";
+export { default as Top2Icon } from "./Top2Icon";
+export { default as Top3Icon } from "./Top3Icon";
+export { default as VerifyIcon } from "./VerifyIcon";
+export { default as LocationIcon } from "./LocationIcon";
+export { default as HeartReactionIcon } from "./HeartReactionIcon";
+export { default as SaveIcon } from "./SaveIcon";
+export { default as ShareReactionIcon } from "./ShareReactionIcon";
+export { default as TelegramIcon } from "./TelegramIcon";
+export { default as IconFilter2 } from "./IconFilter2";
+export { default as IconChat } from "./IconChat";
+export { default as Iconview } from "./Iconview";
+export { default as IconKol } from "./IconKol";
+export { default as IconClock } from "./IconClock";
+export { default as AddressIcon } from "./AddressIcon";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export { default as IconCheck } from "./IconCheck";

@@ -1,86 +1,104 @@
 "use client";
-import { useProfileContext } from "@/contexts/ProfileContext";
-import { Divider } from "@mui/material";
+import {
+  ProfileContextProvider,
+  useProfileContext,
+} from "@/contexts/ProfileContext";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import Experience from "../components/Experiences";
-import PostUser from "../components/PostUser";
-import PersonSkeleton from "@/components/Skeleton/PersonSkeleton";
-import PostSkeleton from "@/components/Skeleton/PostSkeleton";
-import OverviewSkeleton from "@/components/Skeleton/OverviewSkeleton";
-import ServicesSkeleton from "@/components/Skeleton/ServicesSkeleton";
+
 import { getMentionedProject } from "../services";
-import CompletedProject from "../components/CompletedProject";
-import PersonalClientUser from "../components/PersonalClientUser";
+
+import Image from "next/image";
+import { SpinnerLoader } from "@/components/SpinnerLoader";
+import imgs from "@/assets/images";
+import { AuthContextProvider } from "@/contexts/HomeContext";
+import { ListTabContextProvider } from "@/contexts/ListTabContext";
+import UserInfo from "./components/UserInfo";
+import ActivitySeciton from "./components/Activity";
+import PortfolioUser from "./components/PortfolioUser";
+import UserPosts from "./components/UserPosts";
+import ChainReview from "./components/ChainReviews";
+import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
 }
 
 export default function ClientProfile(props: IUserProfileProps) {
-  const [listProjects, setListProject] = useState<any[]>();
-  const { isLoading, userProfile, dataPosts, getUserProfile } =
-    useProfileContext();
   const { username } = useParams();
 
-  const fetchData = useCallback(async () => {
+  const [showAll, setShowAll] = useState(false);
+  const { getUserProfile, dataPosts, userProfile } = useProfileContext();
+
+  const [isLoading, setIsloading] = useState(false);
+
+  const [listProjects, setListProject] = useState<[] | undefined>();
+
+  const getData = useCallback(async () => {
+    setIsloading(true);
     try {
-      getUserProfile(username?.toString());
-      const dataServices: any = await getMentionedProject(username?.toString());
-      setListProject(dataServices?.data?.data);
-    } catch (error) {
-      console.log(error);
+      getUserProfile(username.toString());
+      const mentionProjects = await getMentionedProject(username.toString());
+      if (mentionProjects) {
+        setListProject(mentionProjects?.data?.data);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsloading(false);
     }
   }, [getUserProfile, username]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    getData();
+  }, [getData]);
 
-  return (
-    <StyleContainer>
-      {isLoading ? (
-        <PersonSkeleton />
-      ) : (
-        <PersonalClientUser userProfile={userProfile} />
-      )}
-      <Divider sx={{ borderColor: "#B9B9B9 " }} />
-      <Content>
-        <ContentRight>
-          {isLoading ? (
-            <>
-              <OverviewSkeleton />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <ServicesSkeleton />
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <PostSkeleton />
-            </>
-          ) : (
-            <>
-              <Divider sx={{ borderColor: "#B9B9B9 " }} />
-              <Experience experience={userProfile} />
-              <CompletedProject listProjects={listProjects} />
-              <StyleBox>
-                <Post>
-                  <StyleTitle>Recent posts</StyleTitle>
-                  <Posts widthNotData={dataPosts?.length > 0}>
-                    {dataPosts?.length > 0 ? (
-                      dataPosts.map((item: any, index: number) => (
-                        <PostUser key={index} item={item} />
-                      ))
-                    ) : (
-                      <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-                    )}
-                  </Posts>
-                </Post>
-              </StyleBox>
-            </>
-          )}
-        </ContentRight>
-      </Content>
-    </StyleContainer>
-  );
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center w-full h-screen">
+        <Image
+          src={imgs.img_banner ?? ""}
+          alt="banner"
+          className="flex absolute"
+        />
+        <SpinnerLoader />
+      </div>
+    );
+
+  if (!isLoading)
+    return (
+      <AuthContextProvider>
+        <ProfileContextProvider>
+          <ListTabContextProvider>
+            <MyProfileContextProvider>
+              <UserInfo user={userProfile} />
+              <div className="px-[10px]">
+                <ActivitySeciton
+                  listProjects={listProjects}
+                  rating={userProfile?.review}
+                />
+                <PortfolioUser
+                  mentionedProjects={listProjects}
+                  showAll={showAll}
+                />
+
+                {/* Chain */}
+                <ChainReview />
+
+                {/* Show Portfolio Button  */}
+                <div className="pt-12">
+                  <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
+                    Recent Posts
+                  </h1>
+                  {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
+                </div>
+              </div>
+            </MyProfileContextProvider>
+          </ListTabContextProvider>
+        </ProfileContextProvider>
+      </AuthContextProvider>
+    );
 }
 
 const Post = styled.div`

@@ -86,7 +86,7 @@ function UserData({
       <td className="py-4 text-sm text-gray-500 w-auto lg:w-[800px]">
         <div className="flex items-center gap-5">
           <Link
-            href={`/user/${userInfo?.twitterInfo?.username}`}
+            href={`/profile/${userInfo?.twitterInfo?.username}`}
             className="relative w-[64px] h-[64px] group-hover:w-[80px] group-hover:h-[80px] transition-all duration-300"
           >
             <Image

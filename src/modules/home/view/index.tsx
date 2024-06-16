@@ -7,7 +7,7 @@ import CardTrendingProjectsSkeleton from "@/components/CardTrendingProjects/Card
 import { FAKEDATA_SKELETON } from "@/constant/data";
 import { useHomeContext } from "@/contexts/HomeContext";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -17,7 +17,6 @@ import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination } from "swiper/modules";
-import ServiceCard from "@/components/ServiceCard";
 import TredingKols from "@/components/TrendingKols";
 import RankRange from "@/components/TrendingKols/RankRange";
 import TrendingProjects from "@/components/TrendingProjects";
@@ -36,6 +35,7 @@ export default function Home({}: IHomeProps) {
     selectedRange,
     handleRangeChange,
   } = useHomeContext();
+
 
   const dataServices = useServicesContext();
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");

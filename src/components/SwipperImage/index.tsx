@@ -47,7 +47,7 @@ const SwipperImage = ({featureKols}: any) => {
               }}
               className="shadow-xl shadow-gray-700/30"
             >
-              <a href={`/user/${item?.username}`} className="flex flex-col gap-6 group:relative shadow-lg text-white rounded-xl overflow-hidden bg-darkblack-500 border-[1px] border-gray-100/10 hover:bg-darkblack-200 transition-all duration-300">
+              <a href={`/profile/${item?.username}`} className="flex flex-col gap-6 group:relative shadow-lg text-white rounded-xl overflow-hidden bg-darkblack-500 border-[1px] border-gray-100/10 hover:bg-darkblack-200 transition-all duration-300">
                 <div className="absolute z-10 top-1 left-1 select-none">
                   <div className="flex items-center space-x-1 flex-wrap bg-[#191D24] border rounded-full text-white px-2 py-[1px]">
                     <IconThunder height={12} width={12} />

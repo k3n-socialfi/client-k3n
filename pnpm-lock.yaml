@@ -89,6 +89,9 @@ importers:
       connectkit:
         specifier: ^1.7.2
         version: 1.8.0(2ai4glmjkieharikghuj326jsm)
+      date-fns:
+        specifier: ^3.6.0
+        version: 3.6.0
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -146,6 +149,9 @@ importers:
       yup:
         specifier: ^1.4.0
         version: 1.4.0
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@motionone/utils':
         specifier: ^10.18.0
@@ -156,6 +162,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.14.2
+      '@types/prop-types':
+        specifier: ^15.7.12
+        version: 15.7.12
       '@types/react':
         specifier: ^18
         version: 18.3.3
@@ -3649,6 +3658,9 @@ packages:
   date-fns@2.30.0:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
+
+  date-fns@3.6.0:
+    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
 
   dateformat@4.6.3:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
@@ -12582,6 +12594,8 @@ snapshots:
   date-fns@2.30.0:
     dependencies:
       '@babel/runtime': 7.24.7
+
+  date-fns@3.6.0: {}
 
   dateformat@4.6.3: {}
 
