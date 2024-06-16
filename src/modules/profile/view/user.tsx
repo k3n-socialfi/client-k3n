@@ -19,6 +19,7 @@ import ActivitySeciton from "./components/Activity";
 import PortfolioUser from "./components/PortfolioUser";
 import UserPosts from "./components/UserPosts";
 import ChainReview from "./components/ChainReviews";
+import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
 
 export interface IUserProfileProps {
   widthNotData?: boolean;
@@ -72,6 +73,7 @@ export default function ClientProfile(props: IUserProfileProps) {
       <AuthContextProvider>
         <ProfileContextProvider>
           <ListTabContextProvider>
+            <MyProfileContextProvider>
             <UserInfo user={userProfile} />
             <div className="px-[10px]">
             
@@ -96,6 +98,8 @@ export default function ClientProfile(props: IUserProfileProps) {
                 {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
               </div>
             </div>
+            </MyProfileContextProvider>
+    
           </ListTabContextProvider>
         </ProfileContextProvider>
       </AuthContextProvider>

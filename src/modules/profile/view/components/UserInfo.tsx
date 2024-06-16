@@ -26,10 +26,12 @@ import { sliceAddressWallet } from "@/utils";
 import { AnchorProvider } from "@project-serum/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
-// import * as splToken from "@solana/spl-token";
+
 
 import { SignerWalletAdapterProps } from "@solana/wallet-adapter-base";
 import { BONK_ADDRESS } from "@/configs/env.config";
+import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import { useParams } from "next/navigation.js";
 
 export const configureAndSendCurrentTransaction = async (
   transaction: web3.Transaction,
@@ -51,6 +53,8 @@ export const configureAndSendCurrentTransaction = async (
 };
 
 const UserInfo = ({ user }: any) => {
+  const { username } = useParams();
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -62,7 +66,9 @@ const UserInfo = ({ user }: any) => {
   //     setModalVisible(true);
   //   },
   // });
-
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
+  
   const { publicKey, signTransaction, sendTransaction } = useWallet();
 
   const [copied, setCopied] = React.useState(false);
@@ -111,7 +117,10 @@ const UserInfo = ({ user }: any) => {
               </motion.button>
             </Tooltip>
 
-            <motion.button
+            {
+              dataPersonal?.username?.toString() !==  username.toString() && (
+                <>
+                 <motion.button
               whileTap={{ scale: 0.9 }}
               className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
             >
@@ -128,6 +137,11 @@ const UserInfo = ({ user }: any) => {
 
               <p className="md:text-base text-[#82EBFF]">Added to favorites</p>
             </motion.button>
+                </>
+              )
+            }
+
+           
           </div>
         </div>
 
@@ -223,23 +237,29 @@ const UserInfo = ({ user }: any) => {
                   </div>
                 </div>
               </div>
-              <motion.button
-                // onClick={handleOpen}
-                onClick={() => {
-                  if (publicKey) {
-                    handleOpen();
-                  } else {
-                    setModalVisible(true);
-                    setOpen(false);
-                  }
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="py-[14px] px-[67px] bg-[#F23581] rounded-[40px]"
-              >
-                <p className="text-2xl text-white text-nowrap">
-                  Request Collaboration
-                </p>
-              </motion.button>
+
+              {
+                dataPersonal?.username?.toString() !==  username.toString() && (
+                  <motion.button
+                  // onClick={handleOpen}
+                  onClick={() => {
+                    if (publicKey) {
+                      handleOpen();
+                    } else {
+                      setModalVisible(true);
+                      setOpen(false);
+                    }
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="py-[14px] px-[67px] bg-[#F23581] rounded-[40px]"
+                >
+                  <p className="text-2xl text-white text-nowrap">
+                    Request Collaboration
+                  </p>
+                </motion.button>
+                )
+              }
+             
             </div>
           </div>
         </div>
@@ -311,15 +331,20 @@ const UserInfo = ({ user }: any) => {
               </div>
             </div>
           </div>
-          <motion.button
-            onClick={handleOpen}
-            whileTap={{ scale: 0.9 }}
-            className="py-3 max-w-[300px] text-center bg-[#F23581] rounded-[40px]"
-          >
-            <p className="text-xl text-white text-nowrap">
-              Request Collaboration
-            </p>
-          </motion.button>
+          {
+            dataPersonal?.username?.toString() !==  username.toString() && (
+              <motion.button
+              onClick={handleOpen}
+              whileTap={{ scale: 0.9 }}
+              className="py-3 max-w-[300px] text-center bg-[#F23581] rounded-[40px]"
+            >
+              <p className="text-xl text-white text-nowrap">
+                Request Collaboration
+              </p>
+            </motion.button>
+            )
+          }
+        
         </div>
       </div>
     </div>
