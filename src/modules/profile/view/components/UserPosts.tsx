@@ -104,7 +104,7 @@ const UserPosts = ({ posts }: any) => {
                         <Image
                           fill
                           sizes="100%"
-                          objectFit="contain"
+                          objectFit="fill"
                           alt=""
                           src={image}
                         />
