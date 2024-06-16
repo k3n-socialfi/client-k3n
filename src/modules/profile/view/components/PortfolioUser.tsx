@@ -60,9 +60,9 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                     <td className="p-5  " key={i}>
                       <div
                         className={`flex w-full items-center space-x-2.5 ${
-                          i === 0 ? "w-[110px] justify-center" : "justify-start"
+                          i === 0 ? "w-[115px] justify-center" : "justify-start"
                         }  ${
-                          i === 7 && "w-[130px]" 
+                          i === 7 && "w-[115px]" 
                         }`}
                       >
                         <span className="text-base font-base text-white truncate">
@@ -113,9 +113,10 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                         {item?.tokenName}
                       </p>
                     </td>
-                    <td className="pl-16 ">
+                    <td className="pl-12">
                 
-                      <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
+                <div className="flex gap-2">
+                <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
                               <Image
                                 unoptimized
                                 src={mapMentionedProjectsToken(item?.symbol,tokens,
@@ -128,6 +129,9 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                               />
                             </div>
                     
+                    <p>{item?.symbol}</p>
+                </div>
+                      
                     </td>
                     <td className="px-2 lg:px-1 py-4 text-center">
                       {format(item?.firstTweetDate, "MMM d, yyyy")}

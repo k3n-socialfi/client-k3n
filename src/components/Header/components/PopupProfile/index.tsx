@@ -15,7 +15,8 @@ interface IPropPopupProfile {
 
 export const PopupProfile = (props: IPropPopupProfile) => {
   const { setPopupProfile, handleDisConnect, base58Pubkey, myProfile } = props;
-
+  const { dataPersonal, dataPosts, isLoading, fetchData } =
+    useMyProfileContext();
   return (
     <>
       <WrapperPopup>
@@ -54,7 +55,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
                 onClick={() => setPopupProfile(false)}
               >
                 <LinkCustom
-                  href={item.href}
+                  href={item.href === '/profile' ? `/profile/${dataPersonal?.username?.toString()}` : item.href }
                   className="profile-list__item__link"
                 >
                   <item.icon />
