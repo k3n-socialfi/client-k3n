@@ -34,6 +34,10 @@ const style = {
   scrollbarWidth: "none",
 };
 
+import BONKIcon from "@/assets/svgs/tokens/bonk.svg";
+import Image from "next/image";
+
+
 const currencies = [
   {
     value: "USD",
@@ -110,13 +114,7 @@ const RequestModal = ({
             </Box>
 
             <TextField
-            {...register('fullName')}
-
-              sx={{
-                "& label.Mui-focused": {
-                  color: "green",
-                },
-              }}
+            {...register('fullName')} 
               placeholder="Input your full name"
               fullWidth={true}
               InputProps={{
@@ -178,7 +176,9 @@ const RequestModal = ({
                     edge="end"
                   >
                     <p className="text-white">BONK</p>
-                    <IconBitCoin />
+                   <div className="relative w-6 h-6">
+                    <Image alt="token" fill sizes="100%" src={BONKIcon} objectFit="contain"/>
+                   </div> 
                   </IconButton>
                 </InputAdornment>
               }
