@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { colorMap } from '@/constant/tagColor';
+import React from "react";
+import { motion } from "framer-motion";
+import { colorMap } from "@/constant/tagColor";
 
 interface ColorMap {
   [key: string]: {
@@ -15,16 +15,13 @@ interface TagProps {
 }
 
 interface TagListProps {
-  tags: string[];
+  tags: string[] | undefined;
 }
 
 const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
   const tagColors = colorMap[tag];
-  const backgroundColor = tagColors?.background || 'bg-secondary';
-  const textColor = tagColors?.text || 'text-black';
-
-  // Log the colors for debugging
-  console.log(`Tag: ${tag}, Background: ${backgroundColor}, Text: ${textColor}`);
+  const backgroundColor = tagColors?.background || "bg-secondary";
+  const textColor = tagColors?.text || "text-black";
 
   return (
     <div
@@ -37,28 +34,29 @@ const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
 
 const TagList: React.FC<TagListProps> = ({ tags }) => {
   return (
-    <button className="flex cursor-pointer">
+    <div className="w-full flex cursor-pointer">
       {tags?.length === 0 ? (
         <Tag tag={"Other"} colorMap={colorMap} />
       ) : (
-        tags?.map((tag, index) => (
-          tag && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              transition={{
-                duration: 2,
-                delay: index * 0.4,
-              }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              key={index}
-            >
-              <Tag key={index} tag={tag} colorMap={colorMap} />
-            </motion.div>
-          )
-        ))
+        tags?.map(
+          (tag, index) =>
+            tag && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                transition={{
+                  duration: 2,
+                  delay: index * 0.4,
+                }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                key={index}
+              >
+                <Tag key={index} tag={tag} colorMap={colorMap} />
+              </motion.div>
+            ),
+        )
       )}
-    </button>
+    </div>
   );
 };
 

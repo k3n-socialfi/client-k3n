@@ -13,45 +13,27 @@ type Props = {
 const CardChoose = (props: Props) => {
   const { icon, name, onClick, isDisabled } = props;
 
-  if (isDisabled)
-    return (
-      <Tooltip title="Shill score must be greater than 30 to create a KOL">
-        <Container isDisabled={isDisabled}>
+  return (
+    <Tooltip
+      title={
+        !isDisabled && "Shill score must be greater than 30 to create a KOL"
+      }
+    >
+      <button
+        className="w-72 h-72 bg-[#191d24] rounded-2xl flex items-center justify-center aspect-square hover:border-2 hover:shadow-[0_0_15px_rgba(130, 235, 255,0.4)] hover:border-[#82EBFF] hover:opacity-90"
+        onClick={onClick}
+        disabled={isDisabled}
+      >
+        <div className={"flex flex-col gap-[22px] items-center justify-center"}>
           <Icon>{icon}</Icon>
           <Name>{name}</Name>
-        </Container>
-      </Tooltip>
-    );
-  return (
-    <Container onClick={onClick} isDisabled={isDisabled}>
-      <Icon>{icon}</Icon>
-      <Name>{name}</Name>
-    </Container>
+        </div>
+      </button>
+    </Tooltip>
   );
 };
 
 export default CardChoose;
-
-const Container = styled.div<any>`
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 176px;
-  height: 128px;
-  border: 4px solid #191d24;
-  padding: 28px 56px;
-  gap: 22px;
-  border-radius: 16px;
-  background-color: #191d24;
-  &:hover {
-    opacity: 0.9;
-  }
-  &:active {
-    border-color: #82ebff;
-  }
-`;
 
 const Icon = styled.div`
   width: 72px;
@@ -62,5 +44,6 @@ const Name = styled.div`
   font-size: 28px;
   font-weight: 400;
   line-height: 33px;
+  font-family: "SF Pro Display";
   color: #fff;
 `;

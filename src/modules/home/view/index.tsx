@@ -38,7 +38,6 @@ export default function Home({}: IHomeProps) {
     selectedRange,
     handleRangeChange,
   } = useHomeContext();
-  console.log("🚀 ~ Home ~ trendingKols:", trendingKols);
 
   const dataServices = useServicesContext();
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
@@ -46,7 +45,7 @@ export default function Home({}: IHomeProps) {
   if (isLoading) {
     return (
       <div className="relative flex items-center justify-center w-full h-screen">
-        <Image src={Banner} alt="banner" fill objectFit="cover" />
+        <Image src={Banner} alt="banner" fill style={{ objectFit: "cover" }} />
         <SpinnerLoader />
       </div>
     );
@@ -55,7 +54,7 @@ export default function Home({}: IHomeProps) {
   return (
     <StyleContainer>
       <div className=" w-full h-[300px] md:h-[350px] lg:h-[400px] relative bg-darkblack-600">
-        <Image src={Banner} alt="banner" fill objectFit="cover" />
+        <Image src={Banner} alt="banner" fill style={{ objectFit: "cover" }} />
         <div className="max-w-[1000px] w-full flex flex-wrap gap-8 text-center justify-center items-center mx-auto absolute md:top-[4%] md:left-0 xl:top-[6%] xl:left-[3%] 2xl:top-[12%] 2xl:left-[13%] mr-8">
           {text.map((el, i) => (
             <motion.h1

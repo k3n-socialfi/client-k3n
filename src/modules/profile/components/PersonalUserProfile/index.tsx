@@ -7,7 +7,6 @@ import {
   IconVerify,
 } from "@/assets/icons";
 import { ButtonPrimary } from "@/components/ButtonCustom";
-import Chips from "@/components/Chip";
 import EditProfile from "@/components/EditProfile";
 import TagList from "@/components/TagList";
 import { SOCIAL } from "@/constant/social";
@@ -27,7 +26,6 @@ const IMG_NFT =
 export default function PersonalUserProfile({ dataPersonal, resetPage }: any) {
   const isOpenEditProfile = useBoolean();
   const openModal = useBoolean();
-  console.log("data: ",dataPersonal)
   return (
     <StylePersonal>
       <StylePersonalLeft>

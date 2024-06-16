@@ -9,7 +9,7 @@ const KOL = (props: Props) => {
   const { dataPersonal } = useMyProfileContext();
 
   return (
-    <WrapperSignUp showTitle showDescription>
+    <WrapperSignUp title="Create your profile">
       <FormCreateIndividual showPoint={() => false} showChain />
     </WrapperSignUp>
   );

@@ -1,6 +1,5 @@
 "use client";
 import { IconThunder } from "@/assets/icons";
-import { ButtonPrimary, ButtonText } from "@/components/ButtonCustom";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -12,52 +11,42 @@ type Props = {};
 const Individual = (props: Props) => {
   const { push } = useRouter();
   const { dataPersonal } = useMyProfileContext();
-  const checkPoint = dataPersonal?.twitterInfo?.totalPoints < 30;
 
   return (
-    <WrapperSignUp showTitle>
+    <WrapperSignUp title="Congratulation !!">
       <Container>
-        <Box>
+        <div className="flex flex-col items-center justify-center py-12 px-20 rounded-2xl gap-5 bg-[#191d24] shadow-xl shadow-[#82EBFF22]">
           <Name>
-            <Typography variant="h5" color={"#82EBFF"}>
-              Your Shill Score
-            </Typography>
+            <Typography variant="h5">Your Shill Score</Typography>
           </Name>
           <Score>
-            <IconThunder width={48} height={48} />
+            <div className=" animate-[rotateY_2s_ease-in-out_infinite]">
+              <IconThunder width={48} height={48} />
+            </div>
             <Typography variant="h4" color={"#FFF"}>
               {dataPersonal?.twitterInfo?.totalPoints ?? 0}
             </Typography>
           </Score>
-        </Box>
-        <Typography variant="h5" color={"#FFF"}>
+        </div>
+        {/* <Typography variant="h5" color={"#FFF"}>
           Your ShillScore qualifies you to register for our KOL program. Become
           a KOL to receive many benefits.
-        </Typography>
-        <ButtonCustom>
-          <ButtonText
-            fullWidth
-            backgroundColorBt="textCustom.backCreateAccount"
-            borderColorBt="textCustom.backCreateAccount"
-            borderRadius="50px"
+        </Typography> */}
+        <div className="flex w-full flex-col gap-4">
+          <button
+            onClick={() => push("/login/individual/kol")}
+            className="font-bold rounded-full w-full bg-[#F0116A] text-white p-2"
+          >
+            Register as KOL
+          </button>
+
+          <div
+            className="text-[#82EBFF] hover:underline"
             onClick={() => push("/login/individual/user")}
           >
-            <Typography variant="h5" sx={{ padding: "8px" }} color={"#82EBFF"}>
-              Login as user
-            </Typography>
-          </ButtonText>
-
-          <ButtonPrimary
-            type="submit"
-            borderRadius="50px"
-            fullWidth
-            onClick={() => push("/login/individual/kol")}
-          >
-            <Typography variant="h5" sx={{ padding: "8px" }}>
-              Continue
-            </Typography>
-          </ButtonPrimary>
-        </ButtonCustom>
+            Skip
+          </div>
+        </div>
       </Container>
     </WrapperSignUp>
   );
@@ -75,21 +64,6 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 48px 80px;
-  border-radius: 16px;
-  background-color: #191d24;
-  border: 2px solid #fff;
-  gap: 22px;
-  @media (max-width: 500px) {
-    padding: 20px;
-  }
-`;
-
 const Name = styled.div`
   font-size: 28px;
   font-weight: 400;
@@ -103,16 +77,4 @@ const Score = styled.div`
   gap: 22px;
   justify-content: center;
   align-items: center;
-`;
-
-const ButtonCustom = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: 100%;
-  margin-top: 20px;
-  white-space: nowrap;
-  @media (max-width: 528px) {
-    flex-wrap: wrap;
-  }
 `;

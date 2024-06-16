@@ -256,7 +256,7 @@ const FormCreateProject = (props: Props) => {
       </Button>
     </FormCustom>
   ) : (
-    <WrapperSignUp showTitle showDescription>
+    <WrapperSignUp title="Register Success">
       <ContainerDone>
         <Loading />
         <Typography variant="h5">

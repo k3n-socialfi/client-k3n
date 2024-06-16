@@ -27,7 +27,7 @@ const User = (props: Props) => {
   return isLoading ? (
     <Loading />
   ) : (
-    <WrapperSignUp showPoint={showPoint} showTitle>
+    <WrapperSignUp showPoint={showPoint} title="Create your profile">
       <FormCreateIndividual showPoint={handleShow} />
     </WrapperSignUp>
   );

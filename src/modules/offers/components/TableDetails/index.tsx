@@ -25,8 +25,8 @@ import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import useMyOffer from "../../hooks/useMyOffer";
 import useServiceContract from "@/modules/payment/hooks/useServiceContract";
 import dayjs from "dayjs";
-import { IconArrowDownStatus } from "@/assets/icons";
 import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
+import { IconSort } from "@/assets/icons";
 
 interface ICompletedProjectProps {
   arrowChange?: string;
@@ -50,6 +50,8 @@ export default function TableDetails() {
           <SeeAll>See all</SeeAll>
         </LinkCustom>
       </Container>
+
+      {/*  */}
       <StyleContent>
         <TableContainer
           component={Paper}
@@ -60,25 +62,19 @@ export default function TableDetails() {
         >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRowHeadCustom>
+              <tr className="bg-[#191D24] py-4 border-b border-[#B9B9B9] divide-x divide-[#B9B9B9] w-full flex">
                 {DATA_HEAD_CP.map((item, index) => (
-                  <CustomTableHeadCell
+                  <div
                     key={index}
-                    align={`${item === "Service" ? "left" : "center"}`}
+                    className={`font-bold px-4 py-2 flex gap-2 items-center justify-center ${
+                      item !== "Rank" && "flex-grow"
+                    } text-white ${item === "Service" ? "w-[360px]" : "w-max"}`}
                   >
-                    {item === "Status" ? (
-                      <CellStatus>
-                        <NameItem>{item}</NameItem>
-                        <IconCustom>
-                          <IconArrowDownStatus />
-                        </IconCustom>
-                      </CellStatus>
-                    ) : (
-                      <CellAll>{item}</CellAll>
-                    )}
-                  </CustomTableHeadCell>
+                    {item}
+                    {item === "Status" && <IconSort />}
+                  </div>
                 ))}
-              </TableRowHeadCustom>
+              </tr>
             </TableHead>
             <TableBody>
               {listOffer.length > 0 &&
@@ -231,18 +227,6 @@ const DescriptionNotData = styled.div`
   padding-top: 24px;
 `;
 
-const TableRowHeadCustom = styled(TableRow)`
-  background-color: #3f3e45;
-  margin: 4px 0;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-`;
-
-const CustomTableHeadCell = styled(TableCell)`
-  color: #ffd7f4 !important;
-  font-weight: 700;
-  font-size: 18px;
-`;
-
 const CustomTableBodyCell = styled(TableCell)`
   color: #fff !important;
   font-weight: 700;
@@ -280,52 +264,7 @@ const ActionCustom = styled.div<IStatus>`
   margin: auto;
 `;
 
-const CellAll = styled.div`
-  padding: 5px 10px;
-  font-size: 18px !important;
-  background-color: #393939;
-  white-space: nowrap;
-`;
-
-const CellStatus = styled(CellAll)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const NameItem = styled.div`
-  display: flex;
-  width: 60%;
-  justify-content: end;
-`;
-
-const IconCustom = styled.div`
-  display: flex;
-  width: 40%;
-  justify-content: end;
-`;
-
 const TableRowBodyCustom = styled(TableRow)`
   border-bottom: 5px solid rgba(0, 0, 0, 0.5);
   background-color: #3d3d3d;
 `;
-
-const Project = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-`;
-
-const Change = styled.div<ICompletedProjectProps>`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: center;
-  color: ${(props) => (props?.arrowChange === "up" ? "#54F209" : "#F95A2C")};
-`;
-
-const ChangeArrow = styled.div``;
-const ChangeNumber = styled.div``;

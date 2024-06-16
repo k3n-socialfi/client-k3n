@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
 import SearchBar from "./SearchBar";
 import { IconChevronDown } from "@/assets/icons";
+import Image from "next/image";
 
 interface ISelectFilter {
   title?: string;
@@ -88,10 +89,18 @@ const SelectFilter = ({
               <li
                 key={option.value}
                 onClick={() => onSelectItem(option.value)}
-                className={`cursor-pointer px-5 py-2 text-sm font-semibold text-white hover:bg-primary ${
+                className={`flex gap-2 cursor-pointer px-5 py-2 text-sm font-semibold text-white hover:bg-primary ${
                   option.value === selected ? "bg-primary" : ""
                 }`}
               >
+                {option.icon && (
+                  <Image
+                    src={option.icon}
+                    alt={`${option.value} icon`}
+                    width={20}
+                    height={20}
+                  />
+                )}
                 {option.title}
               </li>
             ))}

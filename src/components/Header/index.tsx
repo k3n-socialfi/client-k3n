@@ -350,6 +350,7 @@ const HeaderButton = styled.div`
   justify-content: center;
   gap: 10px;
   white-space: nowrap;
+  color: #FFF;
 `;
 const AvatarCustom = styled(Avatar)`
   cursor: pointer;

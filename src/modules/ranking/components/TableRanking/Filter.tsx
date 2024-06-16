@@ -22,18 +22,6 @@ function Filter() {
     setTimeout(() => setReset(false), 0);
   };
 
-  function transformArray() {
-    return chains.map((item) => {
-      return {
-        title: item.title,
-        value: item.title, // Setting the value to the same as title
-        icon: item.icon,
-      };
-    });
-  }
-
-  console.log(transformArray());
-
   return (
     <div className="filter-content w-full">
       <div className="flex gap-4 items-center">

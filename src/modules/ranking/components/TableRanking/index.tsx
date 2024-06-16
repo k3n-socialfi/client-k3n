@@ -91,7 +91,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
             alt="banner"
             className="flex absolute"
             fill
-            objectFit={"cover"}
+            style={{ objectFit: "cover" }}
           />
           <SpinnerLoader />
         </div>
