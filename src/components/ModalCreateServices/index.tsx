@@ -7,36 +7,40 @@ import {
   DATAPLATFORM,
 } from "@/constant/dataMockupCreateCampaign";
 import { useBoolean } from "@/hooks/useBoolean";
-import { TService } from "@/types/service";
-import { createServicesSchema_ } from "@/validations/createServicesSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Box,
-  FormControl,
-  InputBase,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Modal, Stack, Typography } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import { createServices } from "@/services";
 import { IMAGES } from "@/constant";
 import IconPlus from "@/assets/icons/IconPlus";
 import { useAlert } from "@/contexts/AlertContext";
+import SelectFilter from "@/modules/ranking/components/TableRanking/SelectFilter";
+import { TAGS } from "@/constant/FilterData";
 
 type Props = {
   isShowModal: boolean;
   setIsShowModal: any;
   fetchDataServices?: any;
 };
+
+interface ICreateJobsFields {
+  projectName: string | null;
+  tags: string[];
+  jobType: string | null;
+  isPublic: boolean;
+  jobDescription: string | null;
+  organization: string[];
+  image: string | null;
+  price: number | null;
+  paymentMethod: string | null;
+  platform: string | null;
+  currency: string[];
+  kolWallet: string | null;
+}
 
 const CreateServices = (props: Props) => {
   const { isShowModal, setIsShowModal, fetchDataServices } = props;
@@ -52,10 +56,24 @@ const CreateServices = (props: Props) => {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
-  } = useForm<any>({
-    resolver: yupResolver(createServicesSchema_),
+  } = useForm<ICreateJobsFields>({
     mode: "onChange",
+    defaultValues: {
+      projectName: null,
+      tags: [],
+      jobType: null,
+      isPublic: false,
+      jobDescription: null,
+      organization: [],
+      image: null,
+      price: null,
+      paymentMethod: null,
+      platform: null,
+      currency: [],
+      kolWallet: null,
+    },
   });
 
   const handleClose = () => {
@@ -64,32 +82,42 @@ const CreateServices = (props: Props) => {
     // openHireMe();
   };
 
-  const onSubmitForm = async (data: TService) => {
-    setIsLoading(true);
-    data.image = IMAGES;
-    data.currency = data.currency;
-    data.tags = ["tag test"];
-    data.isPublic = true;
-    data.price = +data.price;
-    data.kolWallet = wallet.publicKey?.toBase58() as string;
+  const onSubmitForm: SubmitHandler<ICreateJobsFields> = useCallback(
+    async (data) => {
+      // TODO: Re-verify data
+      data.image = IMAGES;
+      data.currency = data.currency;
+      data.tags = ["tag test"];
+      data.isPublic = true;
+      data.price = data.price;
+      data.kolWallet = wallet.publicKey?.toBase58() as string;
 
-    try {
-      const res = await createServices(data);
-      setIsLoading(false);
-      openGotIt.onTrue();
-      setAlertSuccess(
-        "Create success",
-        `${res?.data?.message ?? "Create Success"}`,
-      );
-      fetchDataServices();
-    } catch (error: any) {
-      setIsLoading(false);
-      setAlertError(
-        "Create Error",
-        `${error?.data?.message[0] ?? "Create Error"}`,
-      );
-    }
-  };
+      try {
+        setIsLoading(true);
+        const res = await createServices(data);
+        setIsLoading(false);
+        openGotIt.onTrue();
+        setAlertSuccess(
+          "Create success",
+          `${res?.data?.message ?? "Create Success"}`,
+        );
+        fetchDataServices();
+      } catch (error: any) {
+        setIsLoading(false);
+        setAlertError(
+          "Create Error",
+          `${error?.data?.message[0] ?? "Create Error"}`,
+        );
+      }
+    },
+    [
+      fetchDataServices,
+      openGotIt,
+      setAlertError,
+      setAlertSuccess,
+      wallet.publicKey,
+    ],
+  );
 
   const checkForm = watch();
 
@@ -139,34 +167,19 @@ const CreateServices = (props: Props) => {
                 <Typography>Select Platform</Typography>
                 <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <Select
-                id="platform"
-                fullWidth
-                labelId="platform"
-                hiddenLabel
-                label="Select Platform"
-                sx={{
-                  borderRadius: "16px",
-                  color: "#FFF",
-                  backgroundColor: "#353535",
-                  border: "0px #353535 solid",
-                }}
-                {...register("platform")}
-              >
-                {DATAPLATFORM.map((option) => (
-                  <MenuItem key={option.id} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
+              <SelectFilter
+                placeHolder="Select platform"
+                options={DATAPLATFORM}
+                onUpdateValue={(value) => setValue("platform", value)}
+              />
               <StyleError>{errors.platform?.message as string}</StyleError>
             </>
 
             <>
               <input
                 type="text"
-                className="w-full p-2 border border-gray-500 text-white rounded-xl focus:outline-none focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500 bg-darkblack-400"
-                placeholder="Enter your Service name"
+                className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+                placeholder="Enter your service name"
                 {...register("projectName")}
               />
               <StyleError>{errors.projectName?.message as string}</StyleError>
@@ -179,7 +192,7 @@ const CreateServices = (props: Props) => {
               </StyleLabel>
               <textarea
                 rows={4}
-                className="w-full resize-none p-2 border border-gray-500 text-white rounded-xl focus:outline-none focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500 bg-darkblack-400"
+                className="w-full resize-none p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
                 placeholder="Enter Service Description"
                 {...register("jobDescription")}
               />
@@ -189,41 +202,44 @@ const CreateServices = (props: Props) => {
             </>
 
             <StylePriceCurrency>
-              <Price>
+              <div className="flex flex-col w-full gap-2">
                 <StyleLabel>
                   <Typography>Price</Typography>
                   <Typography color={"red"}>*</Typography>
                 </StyleLabel>
                 <input
                   type="text"
-                  className="w-full p-2 border border-gray-500 text-white rounded-xl focus:outline-none focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500 bg-darkblack-400"
+                  placeholder="Amount"
+                  className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
                   {...register("price")}
                 />
                 <StyleError>{errors.price?.message as string}</StyleError>
-              </Price>
+              </div>
 
-              <Currency>
+              <div className="flex flex-col w-full">
                 <StyleLabel>
                   <Typography>Currency</Typography>
                   <Typography color={"red"}>*</Typography>
                 </StyleLabel>
-                <select
-                  className="w-full p-2 border border-gray-500 text-white rounded-xl focus:outline-none focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500 bg-darkblack-400"
-                  {...register("currency")}
-                >
-                  {DATACURRENCY.map((option) => (
-                    <option
-                      key={option.id}
-                      value={option.value}
-                      className="flex gap-2 p-2"
-                    >
-                      {option.icon}
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                <SelectFilter
+                  placeHolder="Select currency"
+                  options={DATACURRENCY}
+                  onUpdateValue={(value) => {
+                    const currency = watch("currency");
+                    if (currency) {
+                      if (currency?.includes(value)) {
+                        const newCurrency = currency.filter(
+                          (item) => item !== value,
+                        );
+                        setValue("currency", newCurrency);
+                      } else {
+                        setValue("currency", [...currency, value]);
+                      }
+                    }
+                  }}
+                />
                 <StyleError>{errors.currency?.message as string}</StyleError>
-              </Currency>
+              </div>
             </StylePriceCurrency>
 
             <>
@@ -232,16 +248,11 @@ const CreateServices = (props: Props) => {
                 <Typography color={"red"}>*</Typography>
               </StyleLabel>
 
-              <select
-                className="w-full p-2 border border-gray-500 text-white rounded-xl focus:outline-none focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500 bg-darkblack-400"
-                {...register("paymentMethod")}
-              >
-                {DATAPAYMENTMETHOD.map((option) => (
-                  <option key={option.id} value={option.value} className="p-2">
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+              <SelectFilter
+                placeHolder="Select platform"
+                options={DATAPAYMENTMETHOD}
+                onUpdateValue={(value) => setValue("paymentMethod", value)}
+              />
               <StyleError>{errors.paymentMethod?.message as string}</StyleError>
             </>
 
@@ -250,21 +261,22 @@ const CreateServices = (props: Props) => {
                 <Typography>Tags</Typography>
                 <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <AddNewTag>
-                <ButtonPrimary startIcon={<IconPlus />} size="small">
-                  Add New Tag
-                </ButtonPrimary>
-              </AddNewTag>
-              <StyleBottomSubmit>
-                <ButtonPrimary
-                  disabled={openButton.value}
-                  type="submit"
-                  fullWidth
-                  isLoading={isLoading}
-                >
-                  <Typography sx={{ p: "8px 0" }}>Submit</Typography>
-                </ButtonPrimary>
-              </StyleBottomSubmit>
+              <SelectFilter
+                placeHolder="Add new tag"
+                options={TAGS}
+                multiple
+                onUpdateValue={(value) => {
+                  const tags = watch("tags");
+                  if (tags) {
+                    if (tags?.includes(value)) {
+                      const newTags = tags.filter((item) => item !== value);
+                      setValue("tags", newTags);
+                    } else {
+                      setValue("tags", [...tags, value]);
+                    }
+                  }
+                }}
+              />
             </>
           </form>
         ) : (
@@ -323,13 +335,10 @@ const CreateServices = (props: Props) => {
 export default CreateServices;
 
 const StyleModalBox = styled(Box)`
-  height: 750px;
+  height: 100%;
+  max-height: 750px;
   position: absolute;
-  display: flex;
-  justify-content: center;
   overflow: auto;
-  align-items: center;
-  flex-direction: column;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -338,7 +347,7 @@ const StyleModalBox = styled(Box)`
   color: #fff;
   box-shadow: 24;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 8px;
 `;
 
 const StyleTop = styled.div`
@@ -363,7 +372,6 @@ const StyleLabel = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-bottom: 8px;
   gap: 4px;
 `;
 
@@ -405,20 +413,6 @@ const StylePriceCurrency = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
-`;
-
-const Price = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const Currency = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 `;
 
 const AddNewTag = styled.div`

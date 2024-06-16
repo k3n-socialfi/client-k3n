@@ -10,64 +10,80 @@ import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export default function Services({ listServicesProfile, fetchDataServices }: any) {
+export default function Services({
+  listServicesProfile,
+  fetchDataServices,
+}: any) {
   const [isShowModal, setIsShowModal] = React.useState(false);
-  const IMG2 = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  const IMG2 =
+    "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (
     <StyleBox>
       <Container>
-        <StyleTitle>My Services({listServicesProfile?.length})</StyleTitle>
+        <StyleTitle>My Services({listServicesProfile?.length ?? 0})</StyleTitle>
         <ServicesRight>
           <LinkCustom href={`/services`}>
             <SeeAll>See all</SeeAll>
           </LinkCustom>
-          <CustomButtonPrimary onClick={() => { setIsShowModal(!isShowModal) }}>
+          <CustomButtonPrimary
+            onClick={() => {
+              setIsShowModal(!isShowModal);
+            }}
+          >
             <IconAdd />
             Create New Service
           </CustomButtonPrimary>
         </ServicesRight>
       </Container>
       <StyleContent>
-        {listServicesProfile ? (listServicesProfile?.map((item: any) => (
-          <StyleForm key={item?.job?.jobId}>
-            <StyleServicesImg
-              width={345}
-              height={240}
-              src={IMG2}
-              alt="igs"
-            />
-            <Content>
-              <Title>{item?.job?.projectName}</Title>
-              <Transfer>
-                <RightTransfer>
-                  <Options style={{ flexWrap: "wrap" }}>
-                    <ContentPrice>
-                      <Prices>Price:</Prices>
-                      <Price>${item?.job?.price.toLocaleString()}</Price>
-                    </ContentPrice>
-                    <Checkbox {...label} defaultChecked sx={{ color: "wheat" }} />
-                  </Options>
-                  <Divider sx={{ borderColor: "#B9B9B9 " }} />
-                  <Options>
-                    <TitlePrice>{item?.job?.paymentMethod === "onetimePayment" && "One time payment"}</TitlePrice>
-                    <Checkbox {...label} defaultChecked sx={{ color: "pink" }} />
-                  </Options>
-                  <Options>
-                    <CustomButtonPrimary >
-                      <IconEdit />
-                      Edit
-                    </CustomButtonPrimary>
-                    <CustomButton>
-                      <IconDelete />
-                      Delete
-                    </CustomButton>
-                  </Options>
-                </RightTransfer>
-              </Transfer>
-            </Content>
-          </StyleForm>
-        ))) : (
+        {listServicesProfile ? (
+          listServicesProfile?.map((item: any) => (
+            <StyleForm key={item?.job?.jobId}>
+              <StyleServicesImg width={345} height={240} src={IMG2} alt="igs" />
+              <Content>
+                <Title>{item?.job?.projectName}</Title>
+                <Transfer>
+                  <RightTransfer>
+                    <Options style={{ flexWrap: "wrap" }}>
+                      <ContentPrice>
+                        <Prices>Price:</Prices>
+                        <Price>${item?.job?.price.toLocaleString()}</Price>
+                      </ContentPrice>
+                      <Checkbox
+                        {...label}
+                        defaultChecked
+                        sx={{ color: "wheat" }}
+                      />
+                    </Options>
+                    <Divider sx={{ borderColor: "#B9B9B9 " }} />
+                    <Options>
+                      <TitlePrice>
+                        {item?.job?.paymentMethod === "onetimePayment" &&
+                          "One time payment"}
+                      </TitlePrice>
+                      <Checkbox
+                        {...label}
+                        defaultChecked
+                        sx={{ color: "pink" }}
+                      />
+                    </Options>
+                    <Options>
+                      <CustomButtonPrimary>
+                        <IconEdit />
+                        Edit
+                      </CustomButtonPrimary>
+                      <CustomButton>
+                        <IconDelete />
+                        Delete
+                      </CustomButton>
+                    </Options>
+                  </RightTransfer>
+                </Transfer>
+              </Content>
+            </StyleForm>
+          ))
+        ) : (
           <DescriptionNotData>
             {`You don't have any work services yet.`}
           </DescriptionNotData>
@@ -83,44 +99,44 @@ export default function Services({ listServicesProfile, fetchDataServices }: any
 }
 
 const ContentPrice = styled.div`
- display: flex;
- align-items: center;
- gap: 4px;
-`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
 
 const CustomButtonPrimary = styled(ButtonPrimary)`
- width: 80%;
- display: flex;
- justify-content: center;
- align-items: center;
- gap: 8px;
- &:hover {
-  transform: scale(0.9);
-  transition: all 0.5s;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  &:hover {
+    transform: scale(0.9);
+    transition: all 0.5s;
   }
-`
+`;
 const CustomButton = styled(ButtonSecondary)`
- width: 80%;
- display: flex;
- justify-content: center;
- align-items: center;
- gap: 8px;
- color: #FFFFFF;
- &:hover {
-  transform: scale(0.9);
-  transition: all 0.5s;
-  color: red;
-  background-color: var(--background-primary) !important;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  &:hover {
+    transform: scale(0.9);
+    transition: all 0.5s;
+    color: red;
+    background-color: var(--background-primary) !important;
   }
-`
+`;
 const Prices = styled.div`
   font-size: 14px;
   font-weight: 700;
-  color: #FFFFFF;
-`
+  color: #ffffff;
+`;
 const Content = styled.div`
- padding: 12px;
-`
+  padding: 12px;
+`;
 const DescriptionNotData = styled.div`
   display: flex;
   flex-direction: row;
@@ -174,7 +190,7 @@ const RightTransfer = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
   gap: 12px;
   padding-bottom: 24px;
 `;
@@ -188,8 +204,8 @@ const SeeAll = styled.div`
   padding: 4px 20px;
   width: 150px;
   text-align: center;
-  color: #82EBFF;
-  background-color: #191D24;
+  color: #82ebff;
+  background-color: #191d24;
   cursor: pointer;
   @media (max-width: 520px) {
     font-size: 10px;
@@ -205,7 +221,8 @@ const StyleForm = styled.div`
   width: 345px;
   gap: 12px;
   border-radius: 14px;
-  box-shadow:  3px 3px 5px rgba(242, 53, 129, 1), -3px -3px 5px rgba(130, 235, 255, 0.63);
+  box-shadow: 3px 3px 5px rgba(242, 53, 129, 1),
+    -3px -3px 5px rgba(130, 235, 255, 0.63);
   @media (max-width: 520px) {
     width: 360px;
     height: 438px;
@@ -239,14 +256,9 @@ const StyleTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
   line-height: 38px;
-  color: #FFFFFF;
+  color: #ffffff;
   @media (max-width: 520px) {
     font-size: 20px;
     padding-bottom: 0px;
   }
 `;
-
-
-
-
-

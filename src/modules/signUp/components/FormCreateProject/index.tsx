@@ -15,12 +15,16 @@ import {
   Typography,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import Loading from "../Loading";
 import WrapperSignUp from "../WrapperSignUp";
 import "../styles/styles.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { TAGS } from "@/constant/FilterData";
+import SelectFilter from "@/modules/ranking/components/TableRanking/SelectFilter";
+import { apiCreateUser, TUpdateUser } from "../../services";
+import { useAlert } from "@/contexts/AlertContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -68,38 +72,52 @@ interface ISelect {
 }
 
 const FormCreateProject = (props: Props) => {
-  const currentUrl = usePathname();
-  const router = useRouter();
+  const { push, back } = useRouter();
   const openDoneSubmit = useBoolean();
-  const [tagName, setTagName] = useState<string[]>([]);
+  const { setAlertSuccess, setAlertError } = useAlert();
 
   const {
     register,
-    control,
     handleSubmit,
     watch,
     setValue,
     formState: { errors },
-  } = useForm<any>({
-    // resolver: yupResolver(createCampaignSchema_),
+  } = useForm<TUpdateUser>({
     mode: "onChange",
+    defaultValues: {
+      isProjectAccount: false,
+      projectChain: null,
+      projectName: null,
+      tokenName: null,
+      platform: null,
+      role: null,
+      type: null,
+      location: null,
+      language: null,
+      tags: [],
+    },
   });
 
-  const handleChangeTags = (event: SelectChangeEvent<typeof tagName>) => {
-    const {
-      target: { value },
-    } = event;
-    setTagName(typeof value === "string" ? value.split(",") : value);
-  };
-
-  const onSubmitForm = async (data: any) => {
-    openDoneSubmit.onTrue();
-  };
+  const onSubmitForm: SubmitHandler<TUpdateUser> = useCallback(
+    async (data) => {
+      try {
+        const dataForm = { ...data, isProjectAccount: true };
+        await apiCreateUser(dataForm);
+        openDoneSubmit.onTrue();
+      } catch (error) {
+        setAlertError(
+          "Create user",
+          "User already exists, please connect wallet and log in",
+        );
+      }
+    },
+    [openDoneSubmit, setAlertError],
+  );
 
   const handleBack = () => {
-    router.back();
+    back();
     // const modifiedUrl = currentUrl.replace(/\/[^/]+\/?$/, "");
-    // router.push(modifiedUrl);
+    // push(modifiedUrl);
   };
 
   return !openDoneSubmit.value ? (
@@ -110,21 +128,13 @@ const FormCreateProject = (props: Props) => {
             <Typography>Project Name</Typography>
           </Label>
 
-          <FormControlCustom>
-            <InputBase
-              id="projectName"
-              defaultValue=""
-              sx={{ p: "12px 10px", color: "#637592" }}
-              placeholder="BONK"
-              inputProps={{ "aria-label": "BONK" }}
-              color="primary"
-              {...register("projectName")}
-            />
-          </FormControlCustom>
-
-          <div style={{ width: "100%" }}>
-            <Error>{errors.projectName?.message as string} </Error>
-          </div>
+          <input
+            type="text"
+            className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+            placeholder="Enter your service name"
+            {...register("projectName")}
+          />
+          <Error>{errors.projectName?.message as string} </Error>
         </Columns>
 
         <Columns>
@@ -132,21 +142,14 @@ const FormCreateProject = (props: Props) => {
             <Typography>Token Name</Typography>
           </Label>
 
-          <FormControlCustom>
-            <InputBase
-              id="tokenName"
-              defaultValue=""
-              sx={{ p: "12px 10px", color: "#637592" }}
-              placeholder="BONK"
-              inputProps={{ "aria-label": "BONK" }}
-              color="primary"
-              {...register("tokenName")}
-            />
-          </FormControlCustom>
+          <input
+            type="text"
+            className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+            placeholder="Enter your service name"
+            {...register("tokenName")}
+          />
 
-          <div style={{ width: "100%" }}>
-            <Error>{errors.tokenName?.message as string} </Error>
-          </div>
+          <Error>{errors.tokenName?.message as string} </Error>
         </Columns>
       </Rows>
 
@@ -154,30 +157,25 @@ const FormCreateProject = (props: Props) => {
         <Label>
           <Typography>Tag</Typography>
         </Label>
-        <FormControl fullWidth sx={{ width: "100%" }}>
-          <InputLabel id="tags" sx={{ color: "#637592" }}>
-            Select new tag{" "}
-          </InputLabel>
-          <SelectCustom
-            labelId="tags"
-            id="tags"
-            multiple
-            value={tagName}
-            {...register("tags")}
-            input={<OutlinedInput label="Select new tag" />}
-            renderValue={(selected: any) => selected.join(", ")}
-            MenuProps={MenuProps}
-            onChange={handleChangeTags}
-          >
-            {tags.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={tagName.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </SelectCustom>
-          <Error>{errors.tag?.message as string} </Error>
-        </FormControl>
+
+        <SelectFilter
+          placeHolder="Add new tag"
+          options={TAGS}
+          multiple
+          onUpdateValue={(value) => {
+            const tags = watch("tags");
+            if (tags) {
+              if (tags?.includes(value)) {
+                const newTags = tags.filter((item) => item !== value);
+                setValue("tags", newTags);
+              } else {
+                setValue("tags", [...tags, value]);
+              }
+            }
+          }}
+        />
+
+        <Error>{errors.tags?.message as string} </Error>
       </SelectCreate>
 
       <Rows>
@@ -186,26 +184,13 @@ const FormCreateProject = (props: Props) => {
             <Typography>Project Chain</Typography>
           </Label>
 
-          <FormControl fullWidth sx={{ width: "100%" }}>
-            <InputLabel id="projectChain" sx={{ color: "#58627c" }}>
-              Select Chain
-            </InputLabel>
-            <SelectCustom
-              id="projectChain"
-              labelId="projectChain"
-              // value={""}
-              label="Select Chain"
-              {...register("projectChain")}
-              // onChange={handleChangeSelect}
-            >
-              {CHAIN.map((option) => (
-                <MenuItem key={option.id} value={option.value}>
-                  <ItemSelect>{option.label}</ItemSelect>
-                </MenuItem>
-              ))}
-            </SelectCustom>
-            <Error>{errors.projectChain?.message as string} </Error>
-          </FormControl>
+          <SelectFilter
+            placeHolder="Select chain"
+            options={CHAIN}
+            onUpdateValue={(value) => setValue("projectChain", value)}
+          />
+
+          <Error>{errors.projectChain?.message as string} </Error>
         </SelectCreate>
 
         <SelectCreate>
@@ -213,26 +198,13 @@ const FormCreateProject = (props: Props) => {
             <Typography>Region</Typography>
           </Label>
 
-          <FormControl fullWidth sx={{ width: "100%" }}>
-            <InputLabel id="region" sx={{ color: "#58627c" }}>
-              Select your region
-            </InputLabel>
-            <SelectCustom
-              id="region"
-              labelId="region"
-              // value={""}
-              label="Select your region"
-              {...register("region")}
-              // onChange={handleChangeSelect}
-            >
-              {PLATFORM.map((option) => (
-                <MenuItem key={option.id} value={option.value}>
-                  <ItemSelect>{option.label}</ItemSelect>
-                </MenuItem>
-              ))}
-            </SelectCustom>
-            <Error>{errors.region?.message as string} </Error>
-          </FormControl>
+          <SelectFilter
+            placeHolder="Select region"
+            options={PLATFORM}
+            onUpdateValue={(value) => setValue("platform", value)}
+          />
+
+          <Error>{errors.platform?.message as string} </Error>
         </SelectCreate>
       </Rows>
       <Button>
@@ -267,7 +239,7 @@ const FormCreateProject = (props: Props) => {
           type="submit"
           borderRadius="40px"
           fullWidth
-          onClick={() => router.push("/")}
+          onClick={() => push("/")}
         >
           <Typography variant="h5" sx={{ padding: "8px 0" }}>
             Continue
@@ -289,31 +261,30 @@ const ContainerDone = styled.div`
   text-align: center;
 `;
 
-const Container = styled.div`
-  /* width: 598px; */
-  /* display: flex;
-  flex-direction: column;
-  color: #fff; */
-  /* @media (max-width: 666px) {
-    width: 348px;
-  } */
-`;
 const FormCustom = styled.form`
   width: 100%;
   display: flex;
+  padding: 16px;
+  border-radius: 12px;
+  background: #191d24;
   flex-direction: column;
+  gap: 24px;
   color: #fff;
 `;
+
 const Label = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  font-size: 20px;
   margin-bottom: 8px;
+  font-weight: 700;
 `;
 
 const Error = styled.p`
   display: flex;
   color: red;
+  width: 100%;
   font-size: 14px;
   white-space: normal;
 `;
@@ -345,14 +316,6 @@ const SelectCreate = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-`;
-
-const ItemSelect = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: center;
 `;
 
 const Button = styled.div`

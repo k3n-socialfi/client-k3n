@@ -10,7 +10,7 @@ const KOL = (props: Props) => {
 
   return (
     <WrapperSignUp title="Create your profile">
-      <FormCreateIndividual showPoint={() => false} showChain />
+      <FormCreateIndividual showChain />
     </WrapperSignUp>
   );
 };

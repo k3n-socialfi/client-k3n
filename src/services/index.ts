@@ -82,6 +82,6 @@ export const getPostUser = (username: any) => {
   return axiosInstance.get(`api/v1/users/posts/${username}`);
 };
 
-export const createServices = (data: TService) => {
+export const createServices = (data: any) => {
   return axiosInstance.post(`/api/v1/jobs/create`, data);
 };

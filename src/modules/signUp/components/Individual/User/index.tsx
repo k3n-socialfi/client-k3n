@@ -1,5 +1,5 @@
 "use client";
-import styled from "styled-components";
+
 import FormCreateIndividual from "../../FormCreateIndividual";
 import WrapperSignUp from "../../WrapperSignUp";
 import { useEffect, useState } from "react";

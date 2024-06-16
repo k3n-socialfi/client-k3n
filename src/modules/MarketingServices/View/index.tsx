@@ -8,7 +8,7 @@ import CardDeal from "../Components/CardDeal";
 import { DATA_MARKETING_SERVICES } from "@/constant/marketingServices";
 import CardHotKolsSkeleton from "../Components/CardHotKols/CardHotKolsSkeleton";
 import CardServicesSkeleton from "@/modules/services/components/CardServices/CardServicesSkeleton";
-import { Fragment, Key, useState } from "react";
+import { Fragment, Key } from "react";
 import { useListOffer } from "@/modules/profile/hooks";
 import Link from "next/link";
 
@@ -72,26 +72,24 @@ export default function MarketingServicesView() {
                 />
               ))}
       </div>
-      <MarketingServicesHeading>Available Deal</MarketingServicesHeading>
+      <MarketingServicesHeading>Job Offer Board</MarketingServicesHeading>
       <SubHeadingKols>
         {`${DATA_MARKETING_SERVICES?.length}`} deals listed
       </SubHeadingKols>
-      <WrapperCardServices>
-        <Services>
-          {loadingServices
-            ? [0, 1, 2, 3].map((item) => <CardServicesSkeleton key={item} />)
-            : DATA_MARKETING_SERVICES?.map((item) => (
-                <CardDeal
-                  key={item?.id}
-                  image={item?.image}
-                  name={item?.name}
-                  title={item?.title}
-                  price={item?.price}
-                  isIcon={item?.isIcon}
-                />
-              ))}
-        </Services>
-      </WrapperCardServices>
+      <div className="flex gap-4 flex-wrap px-5 py-10 justify-center lg:justify-start">
+        {loadingServices
+          ? [0, 1, 2, 3].map((item) => <CardServicesSkeleton key={item} />)
+          : DATA_MARKETING_SERVICES?.map((item) => (
+              <CardDeal
+                key={item?.id}
+                image={item?.image}
+                name={item?.name}
+                title={item?.title}
+                price={item?.price}
+                isIcon={item?.isIcon}
+              />
+            ))}
+      </div>
     </Fragment>
   );
 }
