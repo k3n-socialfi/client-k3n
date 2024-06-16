@@ -18,12 +18,25 @@ export const mapMentionedProjects = (mentionedProjects:any, tokensArr:any, defau
     uniqueProjects.add(project.symbol);
     return !isDuplicate;
   }) .map((project:any) => {
-    const token = tokensArr.find((token:any) => token.name === project.symbol);
+    const token = tokensArr.find((token:any) => token.title === project.tokenName);
     return {
       ...project,
       icon: token ? token.icon : defaultIcon,
     };
   });
+};
+
+
+export const mapMentionedProjectsToken = (tokenName:any, tokensArr:any, defaultIcon:any) => {
+ 
+    const token = tokensArr.find((token:any) => token.title === tokenName);
+    if(token) {
+      return  token.icon 
+    }
+
+    return defaultIcon
+    
+  
 };
 
 export const mapMentionedChains = (mentionedProjects:any, chainArr:any, defaultIcon:any) => {
@@ -33,7 +46,7 @@ export const mapMentionedChains = (mentionedProjects:any, chainArr:any, defaultI
     uniqueChains.add(project.chain);
     return !isDuplicate;
   }) .map((project:any) => {
-    const token = chainArr.find((chain:any) => chain.name === project.chain);
+    const token = chainArr.find((chain:any) => chain.title === project.chain);
     return {
       ...project,
       icon: token ? token.icon : defaultIcon,

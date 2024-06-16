@@ -6,6 +6,8 @@ import { Tooltip } from "@mui/material";
 import { IconFilter2 } from "@/assets/icons";
 import { format } from "date-fns";
 import Image from "next/image";
+import { mapMentionedProjects, mapMentionedProjectsToken } from "./CustomerInfo";
+import { tokens } from "@/data/ranking/filterData";
 
 // import {Tooltip, Typography} from '@material-tailwind/react'
 
@@ -21,6 +23,12 @@ function createData(
 
 const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
   
+  const mappedProjects = mapMentionedProjects(
+    mentionedProjects,
+    tokens,
+    svgs.svg_k3n,
+  );
+
   const changeStyle = {
     positive: "text-green-500 text-xs",
     negative: "text-red-500 text-xs",
@@ -47,12 +55,14 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
           <div className="md:pl-10">
             <table className="w-full ">
               <tbody>
-                <tr className="items-center bg-[#191D24] h-[71px] rounded-t rounded-md ">
+                <tr className="items-center  bg-[#191D24] h-[71px] rounded-t rounded-md ">
                   {tableTitle.map((item, i) => (
-                    <td className="p-5 " key={i}>
+                    <td className="p-5  " key={i}>
                       <div
                         className={`flex w-full items-center space-x-2.5 ${
-                          i === 1 ? "ml-4" : "justify-center"
+                          i === 0 ? "w-[110px] justify-center" : "justify-start"
+                        }  ${
+                          i === 7 && "w-[130px]" 
                         }`}
                       >
                         <span className="text-base font-base text-white truncate">
@@ -103,8 +113,21 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                         {item?.tokenName}
                       </p>
                     </td>
-                    <td className="px-2 lg:px-1 py-4 text-center">
-                      {item?.symbol}
+                    <td className="pl-16 ">
+                
+                      <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
+                              <Image
+                                unoptimized
+                                src={mapMentionedProjectsToken(item?.symbol,tokens,
+                                  svgs.svg_k3n)}
+                                alt={item?.symbol}
+                                fill
+                                sizes="100%"
+                                objectFit="contain"
+                                className="rounded-full"
+                              />
+                            </div>
+                    
                     </td>
                     <td className="px-2 lg:px-1 py-4 text-center">
                       {format(item?.firstTweetDate, "MMM d, yyyy")}

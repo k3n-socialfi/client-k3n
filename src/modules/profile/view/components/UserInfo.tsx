@@ -1,4 +1,5 @@
 import {
+  AddressIcon,
   IconCheck,
   IconCheckCrile,
   IconShare,
@@ -13,16 +14,64 @@ import {
   VerifyIcon,
 } from "@/assets/icons";
 import { motion } from "framer-motion";
-import imgs from "@/assets/images";;
+import imgs from "@/assets/images";
 import TagList from "@/components/TagList";
-import { Divider } from "@mui/material";
+import { Divider, Tooltip } from "@mui/material";
 import Image from "next/image";
+import RequestModal from "./RequestModal.tsx";
+import React, { useCallback } from "react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
+import { sliceAddressWallet } from "@/utils";
+import { AnchorProvider } from "@project-serum/anchor";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import * as web3 from "@solana/web3.js";
+// import * as splToken from "@solana/spl-token";
+
+import { SignerWalletAdapterProps } from "@solana/wallet-adapter-base";
+import { BONK_ADDRESS } from "@/configs/env.config";
+
+export const configureAndSendCurrentTransaction = async (
+  transaction: web3.Transaction,
+  connection: web3.Connection,
+  feePayer: web3.PublicKey,
+  signTransaction: SignerWalletAdapterProps["signTransaction"],
+) => {
+  const blockHash = await connection.getLatestBlockhash();
+  transaction.feePayer = feePayer;
+  transaction.recentBlockhash = blockHash.blockhash;
+  const signed = await signTransaction(transaction);
+  const signature = await connection.sendRawTransaction(signed.serialize());
+  await connection.confirmTransaction({
+    blockhash: blockHash.blockhash,
+    lastValidBlockHeight: blockHash.lastValidBlockHeight,
+    signature,
+  });
+  return signature;
+};
 
 const UserInfo = ({ user }: any) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const { setVisible: setModalVisible } = useWalletModal();
+  const { connection } = useConnection();
+  // const { onDisconnect, onConnect } = useWalletMultiButton({
+  //   onSelectWallet() {
+  //     setModalVisible(true);
+  //   },
+  // });
+
+  const { publicKey, signTransaction, sendTransaction } = useWallet();
+
+  const [copied, setCopied] = React.useState(false);
 
   return (
     <div className="w-full relative pt-5 text-white flex flex-col gap-[140px]">
       <div className="w-full max-h-[312px] relative ">
+        <RequestModal open={open} handleClose={handleClose} />
+
         <div className="relative w-full h-[300px]">
           <Image
             src={user?.twitterInfo?.coverImage ?? imgs.img_user_banner}
@@ -35,18 +84,46 @@ const UserInfo = ({ user }: any) => {
 
         {/* share */}
         <div className="absolute right-3 top-1 px-[10px]">
-          <div className="flex gap-[6px]">
-            <motion.button 
-             whileTap={{ scale: 0.9 }}
-            className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3">
+          <div className="flex flex-wrap gap-[6px]">
+            <Tooltip
+              title={
+                <div className="">{copied ? "Copied" : "Copy Address"}</div>
+              }
+            >
+              <motion.button
+                onClick={async () => {
+                  if (publicKey) {
+                    await navigator.clipboard.writeText(publicKey.toBase58());
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 400);
+                  }
+                }}
+                whileTap={{ scale: 0.9 }}
+                className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
+              >
+                <AddressIcon />
+
+                <p className="md:text-base text-[#82EBFF]">
+                  CA:{" "}
+                  
+                    Address Wallet
+                </p>
+              </motion.button>
+            </Tooltip>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
+            >
               <IconShareProject />
 
               <p className="md:text-base text-[#82EBFF]">Share</p>
             </motion.button>
 
-            <motion.button  
-             whileTap={{ scale: 0.9 }}
-            className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
+            >
               <IconStarKols color="#82EBFF" />
 
               <p className="md:text-base text-[#82EBFF]">Added to favorites</p>
@@ -124,9 +201,11 @@ const UserInfo = ({ user }: any) => {
 
             <div className="hidden lg:flex  flex-col gap-8">
               <div className="flex items-center justify-center gap-8">
-                <div>
+                <div className="text-center">
                   <p className="text-nowrap">X Followers</p>
-                  <p className="text-2xl text-[#82EBFF]">12,314</p>
+                  <p className="text-2xl  text-[#82EBFF]">
+                    {user?.twitterInfo?.followers ?? "0"}
+                  </p>
                 </div>
                 <Divider
                   sx={{
@@ -140,11 +219,20 @@ const UserInfo = ({ user }: any) => {
 
                   <div className="flex gap-1 items-center justify-center">
                     <IconThunder />
-                    <p className="text-2xl text-[#82EBFF]">12,314</p>
+                    <p className="text-2xl text-[#82EBFF]">0</p>
                   </div>
                 </div>
               </div>
               <motion.button
+                // onClick={handleOpen}
+                onClick={() => {
+                  if (publicKey) {
+                    handleOpen();
+                  } else {
+                    setModalVisible(true);
+                    setOpen(false);
+                  }
+                }}
                 whileTap={{ scale: 0.9 }}
                 className="py-[14px] px-[67px] bg-[#F23581] rounded-[40px]"
               >
@@ -202,9 +290,11 @@ const UserInfo = ({ user }: any) => {
 
         <div className="flex   flex-col gap-8">
           <div className="flex  gap-8">
-            <div>
+            <div className="text-center ">
               <p className="text-nowrap">X Followers</p>
-              <p className="text-2xl text-[#82EBFF]">12,314</p>
+              <p className="text-2xl  text-[#82EBFF]">
+                {user?.twitterInfo?.followers ?? "0"}
+              </p>
             </div>
             <Divider
               sx={{
@@ -217,11 +307,12 @@ const UserInfo = ({ user }: any) => {
               <p className="text-nowrap">Shill Score</p>
               <div className="flex gap-1 items-center justify-center">
                 <IconThunder />
-                <p className="text-2xl text-[#82EBFF]">12,314</p>
+                <p className="text-2xl text-[#82EBFF]">0</p>
               </div>
             </div>
           </div>
           <motion.button
+            onClick={handleOpen}
             whileTap={{ scale: 0.9 }}
             className="py-3 max-w-[300px] text-center bg-[#F23581] rounded-[40px]"
           >

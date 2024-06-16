@@ -29,6 +29,7 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   const [showAll, setShowAll] = useState(false);
   const { getUserProfile, dataPosts, userProfile } = useProfileContext();
+
   const [isLoading, setIsloading] = useState(false);
 
   const [listProjects, setListProject] = useState<[] | undefined>();
@@ -73,8 +74,7 @@ export default function ClientProfile(props: IUserProfileProps) {
           <ListTabContextProvider>
             <UserInfo user={userProfile} />
             <div className="px-[10px]">
-              <br />
-              <br />
+            
 
               <ActivitySeciton
                 listProjects={listProjects}
@@ -101,50 +101,7 @@ export default function ClientProfile(props: IUserProfileProps) {
       </AuthContextProvider>
     );
 
-  // return (
-
-  //   <StyleContainer>
-  //     {isLoading ? (
-  //       <PersonSkeleton />
-  //     ) : (
-  //       <PersonalClientUser userProfile={userProfile} />
-  //     )}
-  //     <Divider sx={{ borderColor: "#B9B9B9 " }} />
-  //     <Content>
-  //       <ContentRight>
-  //         {isLoading ? (
-  //           <>
-  //             <OverviewSkeleton />
-  //             <Divider sx={{ borderColor: "#B9B9B9 " }} />
-  //             <ServicesSkeleton />
-  //             <Divider sx={{ borderColor: "#B9B9B9 " }} />
-  //             <PostSkeleton />
-  //           </>
-  //         ) : (
-  //           <>
-  //             <Divider sx={{ borderColor: "#B9B9B9 " }} />
-  //             <Experience experience={userProfile} />
-  //             <CompletedProject listProjects={listProjects} />
-  //             <StyleBox>
-  //               <Post>
-  //                 <StyleTitle>Recent posts</StyleTitle>
-  //                 <Posts widthNotData={dataPosts?.length > 0}>
-  //                   {dataPosts?.length > 0 ? (
-  //                     dataPosts.map((item: any, index: number) => (
-  //                       <PostUser key={index} item={item} />
-  //                     ))
-  //                   ) : (
-  //                     <PostNotData>{`You haven't made any posts yet.`}</PostNotData>
-  //                   )}
-  //                 </Posts>
-  //               </Post>
-  //             </StyleBox>
-  //           </>
-  //         )}
-  //       </ContentRight>
-  //     </Content>
-  //   </StyleContainer>
-  // );
+ 
 }
 
 const Post = styled.div`
