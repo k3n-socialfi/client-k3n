@@ -2,15 +2,12 @@
 
 import IconArrowRight from "@/assets/icons/IconArrowRight";
 import Banner from "@/assets/images/Banner.png";
-import CardTrendingKOLs from "@/components/CardTrendingKOLs";
 import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
-import CardTrendingProjects from "@/components/CardTrendingProjects";
 import CardTrendingProjectsSkeleton from "@/components/CardTrendingProjects/CardTrendingProjectsSkeleton";
 import { FAKEDATA_SKELETON } from "@/constant/data";
-import { BG_COLOR_TOP, DATA_TOP } from "@/constant/dataMockupTop";
 import { useHomeContext } from "@/contexts/HomeContext";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -20,10 +17,10 @@ import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination } from "swiper/modules";
-import ServiceCard from "@/components/ServiceCard";
 import TredingKols from "@/components/TrendingKols";
 import RankRange from "@/components/TrendingKols/RankRange";
 import TrendingProjects from "@/components/TrendingProjects";
+import CardKols from "@/modules/MarketingServices/Components/CardKols";
 
 export interface IHomeProps {}
 
@@ -46,7 +43,7 @@ export default function Home({}: IHomeProps) {
   if (isLoading) {
     return (
       <div className="relative flex items-center justify-center w-full h-screen">
-        <Image src={Banner} alt="banner" fill objectFit="cover" />
+        <Image src={Banner} alt="banner" fill style={{ objectFit: "cover" }} />
         <SpinnerLoader />
       </div>
     );
@@ -55,7 +52,7 @@ export default function Home({}: IHomeProps) {
   return (
     <StyleContainer>
       <div className=" w-full h-[300px] md:h-[350px] lg:h-[400px] relative bg-darkblack-600">
-        <Image src={Banner} alt="banner" fill objectFit="cover" />
+        <Image src={Banner} alt="banner" fill style={{ objectFit: "cover" }} />
         <div className="max-w-[1000px] w-full flex flex-wrap gap-8 text-center justify-center items-center mx-auto absolute md:top-[4%] md:left-0 xl:top-[6%] xl:left-[3%] 2xl:top-[12%] 2xl:left-[13%] mr-8">
           {text.map((el, i) => (
             <motion.h1
@@ -84,9 +81,8 @@ export default function Home({}: IHomeProps) {
       </div>
       <StyleFeaturedProject>
         <StyleTop>
-          <StyleLeft>
-            <Typography variant="h4">Services</Typography>
-          </StyleLeft>
+          <h4 className="font-bold text-secondary">Services</h4>
+
           <Link
             href="/services"
             className="flex flex-row text-sm text-[#F23581] justify-end items-end"
@@ -97,46 +93,54 @@ export default function Home({}: IHomeProps) {
             </div>
           </Link>
         </StyleTop>
-        <div className="mt-10 text-white">
-          <h1 className="text-[50px] font-bold text-secondary">Services</h1>
-          <Swiper
-            breakpoints={{
-              700: {
-                slidesPerView: 1,
-                spaceBetween: 15,
-              },
-              1000: {
-                slidesPerView: 2,
-                spaceBetween: 15,
-              },
-              1400: {
-                slidesPerView: 4,
-                spaceBetween: 15,
-              },
-            }}
-            grabCursor={true}
-            pagination={true}
-            freeMode={true}
-            modules={[FreeMode, Pagination]}
-          >
-            {dataServices?.dataServices?.map((service: any, i: number) => (
-              <SwiperSlide key={i}>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{
-                    duration: 1,
-                    delay: i / 10,
-                  }}
-                  viewport={{ once: true }}
-                  className="shadow-md shadow-gray-100/20 hover:bg-darkblack-200 transition-all duration-300 border-[1px] border-gray-100/20 rounded-xl overflow-hidden h-[480px]"
-                >
-                  <ServiceCard service={service} />
-                </motion.div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <Swiper
+          breakpoints={{
+            700: {
+              slidesPerView: 1,
+              spaceBetween: 15,
+            },
+            1000: {
+              slidesPerView: 2,
+              spaceBetween: 15,
+            },
+            1400: {
+              slidesPerView: 5,
+              spaceBetween: 12,
+            },
+          }}
+          grabCursor={true}
+          pagination={true}
+          freeMode={true}
+          modules={[FreeMode, Pagination]}
+        >
+          {dataServices?.dataServices?.map((service: any, i: number) => (
+            <SwiperSlide key={i}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{
+                  duration: 1,
+                  delay: i / 10,
+                }}
+                viewport={{ once: true }}
+                className="flex gap-4 flex-wrap px-5 justify-center lg:justify-start"
+              >
+                {/* <ServiceCard service={service} /> */}
+                <CardKols
+                  image={service?.image}
+                  projectName={service?.projectName}
+                  price={`${service?.price}`}
+                  paymentMethod={service?.paymentMethod}
+                  jobId={service?.jobId}
+                  tags={service?.tags}
+                  projectDescription={service?.jobDescription}
+                  reviews={service?.review}
+                  creatorInfo={service?.creatorInfo}
+                />
+              </motion.div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </StyleFeaturedProject>
       <StyleTrending>
         <StyleTrendingKOLs>
@@ -148,7 +152,7 @@ export default function Home({}: IHomeProps) {
               transition={{
                 duration: 1,
               }}
-              className="text-[20px] lg:text-[50px] font-bold lg:col-span-2 xl:col-span-3 text-secondary"
+              className="font-bold lg:col-span-2 xl:col-span-3 text-secondary"
             >
               Trending KOLs
             </motion.h4>
@@ -285,17 +289,6 @@ const MoreTrendingKols = styled(Stack)<any>`
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
-  }
-`;
-
-const StyleBottom = styled.div`
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding-bottom: 1px;
-  /* scrollbar-width: none; */
-  &::-webkit-scrollbar {
-    display: none;
   }
 `;
 

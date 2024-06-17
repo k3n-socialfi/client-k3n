@@ -7,36 +7,40 @@ import {
   DATAPLATFORM,
 } from "@/constant/dataMockupCreateCampaign";
 import { useBoolean } from "@/hooks/useBoolean";
-import { TService } from "@/types/service";
-import { createServicesSchema_ } from "@/validations/createServicesSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Box,
-  FormControl,
-  InputBase,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Modal, Stack, Typography } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import { createServices } from "@/services";
 import { IMAGES } from "@/constant";
 import IconPlus from "@/assets/icons/IconPlus";
 import { useAlert } from "@/contexts/AlertContext";
+import SelectFilter from "@/modules/ranking/components/TableRanking/SelectFilter";
+import { TAGS } from "@/constant/FilterData";
 
 type Props = {
   isShowModal: boolean;
   setIsShowModal: any;
   fetchDataServices?: any;
 };
+
+interface ICreateJobsFields {
+  projectName: string | null;
+  tags: string[];
+  jobType: string | null;
+  isPublic: boolean;
+  jobDescription: string | null;
+  organization: string[];
+  image: string | null;
+  price: number | null;
+  paymentMethod: string | null;
+  platform: string | null;
+  currency: string[];
+  kolWallet: string | null;
+}
 
 const CreateServices = (props: Props) => {
   const { isShowModal, setIsShowModal, fetchDataServices } = props;
@@ -52,10 +56,24 @@ const CreateServices = (props: Props) => {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
-  } = useForm<any>({
-    resolver: yupResolver(createServicesSchema_),
+  } = useForm<ICreateJobsFields>({
     mode: "onChange",
+    defaultValues: {
+      projectName: null,
+      tags: [],
+      jobType: null,
+      isPublic: false,
+      jobDescription: null,
+      organization: [],
+      image: null,
+      price: null,
+      paymentMethod: null,
+      platform: null,
+      currency: [],
+      kolWallet: null,
+    },
   });
 
   const handleClose = () => {
@@ -64,32 +82,42 @@ const CreateServices = (props: Props) => {
     // openHireMe();
   };
 
-  const onSubmitForm = async (data: TService) => {
-    setIsLoading(true);
-    data.image = IMAGES;
-    data.currency = [data.currency];
-    data.tags = ["tag test"];
-    data.isPublic = true;
-    data.price = +data.price;
-    data.kolWallet = wallet.publicKey?.toBase58();
+  const onSubmitForm: SubmitHandler<ICreateJobsFields> = useCallback(
+    async (data) => {
+      // TODO: Re-verify data
+      data.image = IMAGES;
+      data.currency = data.currency;
+      data.tags = ["tag test"];
+      data.isPublic = true;
+      data.price = data.price;
+      data.kolWallet = wallet.publicKey?.toBase58() as string;
 
-    try {
-      const res = await createServices(data);
-      setIsLoading(false);
-      openGotIt.onTrue();
-      setAlertSuccess(
-        "Create success",
-        `${res?.data?.message ?? "Create Success"}`,
-      );
-      fetchDataServices();
-    } catch (error: any) {
-      setIsLoading(false);
-      setAlertError(
-        "Create Error",
-        `${error?.data?.message[0] ?? "Create Error"}`,
-      );
-    }
-  };
+      try {
+        setIsLoading(true);
+        const res = await createServices(data);
+        setIsLoading(false);
+        openGotIt.onTrue();
+        setAlertSuccess(
+          "Create success",
+          `${res?.data?.message ?? "Create Success"}`,
+        );
+        fetchDataServices();
+      } catch (error: any) {
+        setIsLoading(false);
+        setAlertError(
+          "Create Error",
+          `${error?.data?.message[0] ?? "Create Error"}`,
+        );
+      }
+    },
+    [
+      fetchDataServices,
+      openGotIt,
+      setAlertError,
+      setAlertSuccess,
+      wallet.publicKey,
+    ],
+  );
 
   const checkForm = watch();
 
@@ -114,227 +142,142 @@ const CreateServices = (props: Props) => {
       <StyleModalBox>
         <StyleTop>
           <StyleButtonClose onClick={handleClose}>
-            <IconClose />
+            <IconClose size={20} />
           </StyleButtonClose>
           <Typography
             id="modal-modal-title"
             variant="h4"
             component="h4"
             fontWeight={"600"}
+            marginTop={"1rem"}
           >
             Create Service
           </Typography>
         </StyleTop>
+
         {!openGotIt.value ? (
-          <form onSubmit={handleSubmit(onSubmitForm)}>
-            <StyleBottom>
+          <form
+            onSubmit={handleSubmit(onSubmitForm)}
+            className={
+              "flex justify-center flex-col items-center flex-nowrap border-t border-white w-full px-12 py-5 gap-4"
+            }
+          >
+            <>
               <StyleLabel>
                 <Typography>Select Platform</Typography>
-                <Typography color={"orange"}>*</Typography>
+                <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <FormControl fullWidth sx={{ minWidth: "800px" }}>
-                <InputLabel id="platform" sx={{ color: "#FFF" }}>
-                  Select Platform
-                </InputLabel>
-                <Select
-                  id="platform"
-                  labelId="platform"
-                  // value={typeOfRequest}
-                  label="Select Platform"
-                  sx={{
-                    borderRadius: "20px",
-                    color: "#FFF",
-                    backgroundColor: "#353535",
-                    border: "0px #353535 solid",
-                  }}
-                  {...register("platform")}
-                  // onChange={handleChangeSelect}
-                >
-                  {DATAPLATFORM.map((option) => (
-                    <MenuItem key={option.id} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <StyleError>{errors.platform?.message as string}</StyleError>
-              </FormControl>
+              <SelectFilter
+                placeHolder="Select platform"
+                options={DATAPLATFORM}
+                onUpdateValue={(value) => setValue("platform", value)}
+              />
+              <StyleError>{errors.platform?.message as string}</StyleError>
+            </>
 
-              <StyleLabel>
-                <Typography>Service name</Typography>
-                <Typography color={"orange"}>*</Typography>
-              </StyleLabel>
-              <FormControl
-                fullWidth
-                sx={{
-                  backgroundColor: "#353535",
-                  borderRadius: "50px",
-                }}
-              >
-                <InputBase
-                  id="serviceName"
-                  defaultValue=""
-                  sx={{ p: "12px 10px", color: "#FFF" }}
-                  placeholder="Enter your Service name"
-                  inputProps={{ "aria-label": "Enter your full name" }}
-                  color="primary"
-                  {...register("projectName")}
-                />
-              </FormControl>
-              <div style={{ width: "100%" }}>
-                <StyleError>{errors.projectName?.message as string}</StyleError>
-              </div>
+            <>
+              <input
+                type="text"
+                className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+                placeholder="Enter your service name"
+                {...register("projectName")}
+              />
+              <StyleError>{errors.projectName?.message as string}</StyleError>
+            </>
 
+            <>
               <StyleLabel>
                 <Typography>Service description</Typography>
-                <Typography color={"orange"}>*</Typography>
+                <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <FormControl
-                fullWidth
-                sx={{
-                  backgroundColor: "#353535",
-                  color: "#FFF",
-                  borderRadius: "10px",
-                }}
-              >
-                <InputBase
-                  id="description"
-                  defaultValue=""
-                  sx={{ p: 2, color: "#FFF" }}
-                  placeholder="Enter your Service description"
-                  inputProps={{ "aria-label": "Input other request" }}
-                  color="primary"
-                  multiline={true}
-                  minRows={3}
-                  {...register("jobDescription")}
+              <textarea
+                rows={4}
+                className="w-full resize-none p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+                placeholder="Enter Service Description"
+                {...register("jobDescription")}
+              />
+              <StyleError>
+                {errors.jobDescription?.message as string}
+              </StyleError>
+            </>
+
+            <StylePriceCurrency>
+              <div className="flex flex-col w-full gap-2">
+                <StyleLabel>
+                  <Typography>Price</Typography>
+                  <Typography color={"red"}>*</Typography>
+                </StyleLabel>
+                <input
+                  type="text"
+                  placeholder="Amount"
+                  className="w-full h-14 p-2 bg-darkblack-500 text-white rounded-lg border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-gray-500"
+                  {...register("price")}
                 />
-              </FormControl>
-              <div style={{ width: "100%" }}>
-                <StyleError>
-                  {errors.jobDescription?.message as string}
-                </StyleError>
+                <StyleError>{errors.price?.message as string}</StyleError>
               </div>
 
-              <StylePriceCurrency>
-                <Price>
-                  <StyleLabel>
-                    <Typography>Price</Typography>
-                    <Typography color={"orange"}>*</Typography>
-                  </StyleLabel>
-                  <FormControl
-                    fullWidth
-                    sx={{
-                      backgroundColor: "#353535",
-                      color: "#FFF",
-                      borderRadius: "50px",
-                      width: "100%",
-                    }}
-                  >
-                    <InputBase
-                      id="serviceFee"
-                      defaultValue=""
-                      sx={{ p: "12px 10px", color: "#FFF" }}
-                      placeholder="Enter your Service name"
-                      inputProps={{ "aria-label": "Enter your full name" }}
-                      color="primary"
-                      {...register("price")}
-                    />
-                  </FormControl>
-                  <div style={{ width: "100%" }}>
-                    <StyleError>{errors.price?.message as string}</StyleError>
-                  </div>
-                </Price>
+              <div className="flex flex-col w-full">
+                <StyleLabel>
+                  <Typography>Currency</Typography>
+                  <Typography color={"red"}>*</Typography>
+                </StyleLabel>
+                <SelectFilter
+                  placeHolder="Select currency"
+                  options={DATACURRENCY}
+                  onUpdateValue={(value) => {
+                    const currency = watch("currency");
+                    if (currency) {
+                      if (currency?.includes(value)) {
+                        const newCurrency = currency.filter(
+                          (item) => item !== value,
+                        );
+                        setValue("currency", newCurrency);
+                      } else {
+                        setValue("currency", [...currency, value]);
+                      }
+                    }
+                  }}
+                />
+                <StyleError>{errors.currency?.message as string}</StyleError>
+              </div>
+            </StylePriceCurrency>
 
-                <Currency>
-                  <StyleLabel>
-                    <Typography>Currency</Typography>
-                    <Typography color={"orange"}>*</Typography>
-                  </StyleLabel>
-                  <FormControl fullWidth sx={{ width: "100%" }}>
-                    <InputLabel id="currency" sx={{ color: "#FFF" }}>
-                      Currency
-                    </InputLabel>
-                    <Select
-                      id="currency"
-                      labelId="currency"
-                      // value={""}
-                      label="Currency"
-                      sx={{
-                        borderRadius: "20px",
-                        color: "#FFF",
-                        backgroundColor: "#353535",
-                        border: "0px #353535 solid",
-                      }}
-                      {...register("currency")}
-                      // onChange={handleChangeSelect}
-                    >
-                      {DATACURRENCY.map((option) => (
-                        <MenuItem key={option.id} value={option.value}>
-                          <ItemCurrency>
-                            {option.icon}
-                            {option.label}
-                          </ItemCurrency>
-                        </MenuItem>
-                      ))}
-                    </Select>
-                    <StyleError>
-                      {errors.currency?.message as string}
-                    </StyleError>
-                  </FormControl>
-                </Currency>
-              </StylePriceCurrency>
-
+            <>
               <StyleLabel>
                 <Typography>Payment Method</Typography>
-                <Typography color={"orange"}>*</Typography>
+                <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <FormControl fullWidth sx={{ minWidth: "800px" }}>
-                <InputLabel id="paymentMethod" sx={{ color: "#FFF" }}>
-                  Payment method
-                </InputLabel>
-                <Select
-                  id="paymentMethod"
-                  labelId="paymentMethod"
-                  // value={""}
-                  label="Payment Method"
-                  sx={{
-                    borderRadius: "20px",
-                    color: "#FFF",
-                    backgroundColor: "#353535",
-                    border: "0px #353535 solid",
-                  }}
-                  {...register("paymentMethod")}
-                  // onChange={handleChangeSelect}
-                >
-                  {DATAPAYMENTMETHOD.map((option) => (
-                    <MenuItem key={option.id} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <StyleError>
-                  {errors.paymentMethod?.message as string}
-                </StyleError>
-              </FormControl>
+
+              <SelectFilter
+                placeHolder="Select platform"
+                options={DATAPAYMENTMETHOD}
+                onUpdateValue={(value) => setValue("paymentMethod", value)}
+              />
+              <StyleError>{errors.paymentMethod?.message as string}</StyleError>
+            </>
+
+            <>
               <StyleLabel>
                 <Typography>Tags</Typography>
-                <Typography color={"orange"}>*</Typography>
+                <Typography color={"red"}>*</Typography>
               </StyleLabel>
-              <AddNewTag>
-                <ButtonPrimary startIcon={<IconPlus />} size="small">
-                  Add New Tag
-                </ButtonPrimary>
-              </AddNewTag>
-              <StyleBottomSubmit>
-                <ButtonPrimary
-                  disabled={openButton.value}
-                  type="submit"
-                  fullWidth
-                  isLoading={isLoading}
-                >
-                  <Typography sx={{ p: "8px 0" }}>Submit</Typography>
-                </ButtonPrimary>
-              </StyleBottomSubmit>
-            </StyleBottom>
+              <SelectFilter
+                placeHolder="Add new tag"
+                options={TAGS}
+                multiple
+                onUpdateValue={(value) => {
+                  const tags = watch("tags");
+                  if (tags) {
+                    if (tags?.includes(value)) {
+                      const newTags = tags.filter((item) => item !== value);
+                      setValue("tags", newTags);
+                    } else {
+                      setValue("tags", [...tags, value]);
+                    }
+                  }
+                }}
+              />
+            </>
           </form>
         ) : (
           <Stack
@@ -392,22 +335,19 @@ const CreateServices = (props: Props) => {
 export default CreateServices;
 
 const StyleModalBox = styled(Box)`
-  overflow-x: scroll;
-  height: 750px;
+  height: 100%;
+  max-height: 750px;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  overflow: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400;
-  background-color: #2e2e2e;
-  border: 1px solid #2e2e2e;
+  width: max-content;
+  background-color: #191d24;
   color: #fff;
   box-shadow: 24;
-  padding: 0;
+  padding: 16px;
+  border-radius: 8px;
 `;
 
 const StyleTop = styled.div`
@@ -416,37 +356,23 @@ const StyleTop = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 15px 0;
-  margin-top: 330px;
 `;
 
 const StyleButtonClose = styled.div`
   position: absolute;
-  top: 110px;
-  right: 10px;
+  top: 16px;
+  right: 16px;
   cursor: pointer;
   :hover {
     opacity: 0.8;
   }
 `;
 
-const StyleBottom = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* gap: 5px; */
-  flex-wrap: nowrap;
-  background-color: #252525;
-  border-radius: 10px;
-  width: 100%;
-  padding: 20px 50px;
-`;
-
 const StyleLabel = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-bottom: 8px;
+  gap: 4px;
 `;
 
 const StyleBottomSubmit = styled.div`
@@ -467,6 +393,7 @@ const StyleBottomCampaign = styled.div`
 export const StyleError = styled.p`
   display: flex;
   color: red;
+  width: 100%;
   font-size: 14px;
   white-space: normal;
 `;
@@ -486,27 +413,6 @@ const StylePriceCurrency = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
-`;
-
-const Price = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const Currency = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const ItemCurrency = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: center;
 `;
 
 const AddNewTag = styled.div`

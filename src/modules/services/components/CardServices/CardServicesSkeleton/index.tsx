@@ -21,15 +21,12 @@ export default function CardServicesSkeleton() {
 
 const StyleWrapperCard = styled.div`
   padding: 10px;
-  width: 350px;
-  height: 475px;
+  width: 300px;
+  height: 370px;
   background: #464646;
   border-radius: 8px;
 `;
 
-const CardImage = styled(Image)`
-  width: 100%;
-`;
 const CardContent = styled.div`
   width: 100%;
   height: 70%;

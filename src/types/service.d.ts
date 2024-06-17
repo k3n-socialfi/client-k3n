@@ -1,18 +1,28 @@
 export type TService = {
-  id?: string;
-  kol?: any;
-  projectName: string;
+  completed: number;
+  createdAt: EpochTimeStamp;
+  creator: string;
+  creatorInfo: IUserKOL;
+  currency: string[];
+  image: string;
+  isDeleted: boolean;
+  isPublic: boolean;
+  jobDescription: string;
+  jobId: string;
+  jobState: string;
+  jobType: string;
+  kolWallet: string;
+  offers: string[];
+  organization: string[];
+  paymentMethod: string;
   platform: string;
   price: number;
-  currency: any[];
-  paymentMethod: string;
-  jobDescription: string;
-  tags?: any[];
-  image?: string;
-  isPublic?: boolean;
-  jobType?: string;
-  jobId?: string;
-  kolWallet?: string;
+  projectName: string;
+  rating: number;
+  review: number;
+  subscriber: any;
+  tags: string[];
+  updatedAt: EpochTimeStamp;
 };
 
 export interface TServiceSubmit extends TService {

@@ -7,7 +7,7 @@ type Props = {};
 
 const Project = (props: Props) => {
   return (
-    <WrapperSignUp showTitle>
+    <WrapperSignUp title="Create your project">
       <FormCreateProject />
     </WrapperSignUp>
   );

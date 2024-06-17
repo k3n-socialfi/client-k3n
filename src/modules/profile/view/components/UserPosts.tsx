@@ -23,7 +23,6 @@ import svgs from "@/assets/svgs";
 import imgs from "@/assets/images";
 
 const UserPosts = ({ posts }: any) => {
- 
   return (
     <div className="px-[10px] md:pl-10">
       <Swiper
@@ -69,9 +68,11 @@ const UserPosts = ({ posts }: any) => {
               <div className="border-b-[1px] border-gray-100/20 flex items-center justify-between">
                 <div className="flex items-center justify-center flex-shrink-0">
                   <div className="p-4 rounded-full">
-                    <img
+                    <Image
                       src={post?.user.profilePicUrl}
                       alt="post image"
+                      width={40}
+                      height={40}
                       className="rounded-full"
                     />
                   </div>

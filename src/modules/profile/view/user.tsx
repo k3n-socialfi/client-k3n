@@ -35,7 +35,7 @@ export default function ClientProfile(props: IUserProfileProps) {
 
   const [listProjects, setListProject] = useState<[] | undefined>();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     setIsloading(true);
     try {
       getUserProfile(username.toString());
@@ -45,16 +45,14 @@ export default function ClientProfile(props: IUserProfileProps) {
       }
     } catch (err) {
       console.log(err);
-      setIsloading(false);
     } finally {
       setIsloading(false);
     }
-  };
+  }, [getUserProfile, username]);
 
   useEffect(() => {
     getData();
-    return undefined;
-  }, [username]);
+  }, [getData]);
 
   if (isLoading)
     return (
@@ -74,38 +72,33 @@ export default function ClientProfile(props: IUserProfileProps) {
         <ProfileContextProvider>
           <ListTabContextProvider>
             <MyProfileContextProvider>
-            <UserInfo user={userProfile} />
-            <div className="px-[10px]">
-            
+              <UserInfo user={userProfile} />
+              <div className="px-[10px]">
+                <ActivitySeciton
+                  listProjects={listProjects}
+                  rating={userProfile?.review}
+                />
+                <PortfolioUser
+                  mentionedProjects={listProjects}
+                  showAll={showAll}
+                />
 
-              <ActivitySeciton
-                listProjects={listProjects}
-                rating={userProfile?.review}
-              />
-              <PortfolioUser
-                mentionedProjects={listProjects}
-                showAll={showAll}
-              />
+                {/* Chain */}
+                <ChainReview />
 
-              {/* Chain */}
-              <ChainReview />
-
-              {/* Show Portfolio Button  */}
-              <div className="pt-12">
-                <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
-                  Recent Posts
-                </h1>
-                {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
+                {/* Show Portfolio Button  */}
+                <div className="pt-12">
+                  <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
+                    Recent Posts
+                  </h1>
+                  {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
+                </div>
               </div>
-            </div>
             </MyProfileContextProvider>
-    
           </ListTabContextProvider>
         </ProfileContextProvider>
       </AuthContextProvider>
     );
-
- 
 }
 
 const Post = styled.div`

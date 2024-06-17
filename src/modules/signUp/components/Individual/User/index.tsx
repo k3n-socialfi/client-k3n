@@ -1,5 +1,5 @@
 "use client";
-import styled from "styled-components";
+
 import FormCreateIndividual from "../../FormCreateIndividual";
 import WrapperSignUp from "../../WrapperSignUp";
 import { useEffect, useState } from "react";
@@ -27,7 +27,7 @@ const User = (props: Props) => {
   return isLoading ? (
     <Loading />
   ) : (
-    <WrapperSignUp showPoint={showPoint} showTitle>
+    <WrapperSignUp showPoint={showPoint} title="Create your profile">
       <FormCreateIndividual showPoint={handleShow} />
     </WrapperSignUp>
   );

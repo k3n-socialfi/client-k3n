@@ -1,20 +1,21 @@
-import { IconEdit } from "@/assets/icons";
-import { ButtonPrimary, ButtonSecondary } from "@/components/ButtonCustom";
-import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
-import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import { Checkbox, Divider, Typography } from "@mui/material";
-import { truncate } from "fs/promises";
+import { IconStarKols } from "@/assets/icons";
+import PointIcon from "@/assets/icons/PointIcon";
+import TagList from "@/components/TagList";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { StringSchema } from "yup";
 
 interface IPropsCardKosl {
-  image?: string;
-  projectName?: string;
-  price?: string;
-  paymentMethod?: string;
-  jobId?: String;
+  image: string | undefined;
+  projectName: string | undefined;
+  price: string | undefined;
+  paymentMethod: string;
+  jobId: string | undefined;
+  tags: string[] | undefined;
+  projectDescription: string | undefined;
+  reviews: number;
+  creatorInfo: IUserKOL;
 }
 export default function CardKols({
   image,
@@ -22,146 +23,89 @@ export default function CardKols({
   price,
   projectName,
   jobId,
+  tags,
+  projectDescription,
+  reviews = 0,
+  creatorInfo,
 }: IPropsCardKosl) {
   const router = useRouter();
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
   return (
-    <StyleForm>
-      <StyleServicesImg
-        width={345}
-        height={240}
-        src={image ?? IMG2}
-        alt="igs"
-      />
-      <Content>
-        <Title>{projectName}</Title>
-        <Transfer>
-          <RightTransfer>
-            <Options style={{ flexWrap: "wrap" }}>
-              <ContentPrice>
-                <Prices>Price:</Prices>
-                <Price>${price}</Price>
-              </ContentPrice>
-              <Checkbox {...label} defaultChecked sx={{ color: "wheat" }} />
-            </Options>
-            <Divider sx={{ borderColor: "#B9B9B9 " }} />
-            <Options>
-              <TitlePrice>
-                {paymentMethod === "onetimePayment" && "One time payment"}
-              </TitlePrice>
-              <Checkbox {...label} defaultChecked sx={{ color: "pink" }} />
-            </Options>
-            <Options>
-              <CustomButtonPrimary
-                onClick={() => router.push(`/services/payment/${jobId}`)}
-                borderRadius="10px"
-                fullWidth={true}
-              >
-                Make an Offer
-              </CustomButtonPrimary>
-            </Options>
-          </RightTransfer>
-        </Transfer>
-      </Content>
-    </StyleForm>
+    <div className="h-[370px] w-[300px] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] duration-200 flex flex-col rounded-lg gap-3 bg-[#191D24] overflow-hidden">
+      {/* Image */}
+      <div
+        className={`relative w-full aspect-video h-full min-h-[169px] max-h-[169px] rounded-[4px] border-b border-[#FFFFFF66] overflow-hidden`}
+      >
+        <Image src={image ?? IMG2} alt="job image" width={300} height={169} />
+        <div className="absolute w-full bg-gradient-to-t from-[#000000] to-transparent h-full bottom-0 left-0 flex items-end text-white">
+          <div className="px-3 py-[10px] w-full flex justify-between items-center">
+            <div className="flex gap-[10px] items-center">
+              {/* Avatar */}
+              <Image
+                src={creatorInfo?.twitterInfo.avatar ?? IMG2}
+                width={40}
+                height={40}
+                className="border border-[#F23581] rounded-full"
+                alt="avatar"
+              />
+              <div className="flex flex-col font-semibold">
+                <p>{creatorInfo?.fullName}</p>
+                <div className="flex gap-1 items-center">
+                  <IconStarKols />
+                  <p className="text-[#A7A7A7] text-[10px]">{reviews}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Shill Score */}
+            <div className="flex items-center gap-[2px] font-semibold">
+              <PointIcon />
+              <p>{creatorInfo?.twitterInfo.totalPoints}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Card Content */}
+      <div className="flex flex-col gap-2 h-full">
+        {/* Header */}
+        <div className="px-3 flex items-center justify-between">
+          <TagList tags={tags} />
+          <Link
+            href={""}
+            className="text-[#82EBFF] text-[10px] hover:underline text-nowrap"
+          >
+            View detail
+          </Link>
+        </div>
+
+        {/* Body */}
+        <div className="flex flex-col gap-2 pt-2 px-3 pb-5 h-full">
+          {/* Card Title */}
+          <h3 className="text-[#82EBFF] text-2xl">{projectName}</h3>
+
+          {/* Card description */}
+          <div className="text-[14px] line-clamp-2 w-full text-white h-full mb-auto">
+            {projectDescription}
+          </div>
+
+          {/* Footer */}
+          <div className="flex justify-between ">
+            <p className="font-bold text-2xl text-white truncate max-w-28">
+              ${price}
+            </p>
+            <button
+              onClick={() => router.push(`/services/payment/${jobId}`)}
+              className="rounded-full hover:bg-[#F23581CC] bg-[#F23581] font-bold text-[12px] py-2 px-4 text-white"
+            >
+              Make an offer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-const ContentPrice = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-const CustomButtonPrimary = styled(ButtonSecondary)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  &:hover {
-    transform: scale(0.9);
-    transition: all 0.5s;
-  }
-`;
-
-const Prices = styled.div`
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-`;
-const Content = styled.div`
-  padding: 12px;
-`;
-
-const StyleServicesImg = styled(Image)`
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-`;
-const Transfer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  @media (max-width: 520px) {
-    gap: 8px;
-  }
-`;
-const Options = styled.div`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-`;
-const Price = styled.div`
-  font-size: 24px;
-  font-weight: 700;
-  color: #82ebff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  @media (max-width: 520px) {
-    font-size: 14px;
-  }
-`;
-const TitlePrice = styled.div`
-  color: #82ebff;
-  font-size: 16px;
-  font-weight: 500;
-  @media (max-width: 520px) {
-    font-size: 11px;
-  }
-`;
-const RightTransfer = styled.div`
-  width: 100%;
-`;
-
-const StyleForm = styled.div`
-  width: 345px;
-  height: 500px;
-  gap: 12px;
-  border-radius: 14px;
-  box-shadow: 3px 3px 5px rgba(242, 53, 129, 1),
-    -3px -3px 5px rgba(130, 235, 255, 0.63);
-  @media (max-width: 520px) {
-    width: 360px;
-    height: 438px;
-    padding: 12px;
-  }
-`;
-
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 28px;
-  color: #82ebff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  @media (max-width: 520px) {
-    font-size: 14px;
-    padding-bottom: 0px;
-  }
-`;

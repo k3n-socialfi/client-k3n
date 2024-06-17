@@ -14,9 +14,7 @@ export default function LoadingSkeleton(props: Props) {
         width: props.width || "100%",
         borderRadius: props.radius,
       }}
-    >
-      .
-    </Skeleton>
+    />
   );
 }
 const Skeleton = styled.div`

@@ -75,7 +75,7 @@ function TrendingProjects({ project }: { project: ITrendingProjects }) {
               src={thumb as string}
               alt="project logo"
               fill
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
             />
           </Link>
           <div className="flex flex-col">

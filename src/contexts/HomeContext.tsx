@@ -1,10 +1,8 @@
 "use client";
 import useFetchDataHomePage from "@/hooks/useFetchDataHomePage";
-import { IFeatureKols } from "@/interface/featureKols.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
 import { ITrendingKols } from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
-import { IUsers } from "@/interface/users.interface";
 
 import React, { createContext, useContext } from "react";
 

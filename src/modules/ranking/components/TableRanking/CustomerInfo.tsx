@@ -195,7 +195,7 @@ function CustomerInfo({
                       src={project.icon}
                       alt={project.symbol}
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                   <h1>
@@ -216,7 +216,7 @@ function CustomerInfo({
                   src={item.icon}
                   alt={item.symbol}
                   fill
-                  objectFit="cover"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
             ))}
@@ -264,7 +264,7 @@ function CustomerInfo({
                       src={project.icon}
                       alt={project.chain}
                       fill
-                      objectFit="cover"
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                   <h1>{project.chain}</h1>
@@ -283,7 +283,7 @@ function CustomerInfo({
                   src={item.icon}
                   alt={item.symbol}
                   fill
-                  objectFit="cover"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
             ))}

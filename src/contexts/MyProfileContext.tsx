@@ -16,7 +16,7 @@ interface IProfileContextTypes {
 const ProfileContextTypes = {
   dataPersonal: [{}],
   dataPosts: [{}],
-  isLoading: true,
+  isLoading: false,
   error: "",
   fetchData: () => undefined,
 };
