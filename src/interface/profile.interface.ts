@@ -1,9 +1,7 @@
 export interface Post {
-  post: [];
+  post: any[];
 }
-export interface Experience {
-  experience: string;
-}
+
 export interface Wallets {
   wallets: string;
 }
@@ -11,33 +9,54 @@ export interface SocialProfiles {
   social: string;
   username: string;
 }
-export interface IUserProfile {
-  createdAt: number;
-  updatedAt: number;
-  isDeleted: boolean;
-  userId: string;
-  username: string;
-  role: string;
-  type: string;
-  jobTitle: string;
-  organization: string;
-  experience: Experience[];
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  wallets: Wallets[];
-  socialProfiles: SocialProfiles[];
-  twitterPoints: number;
+
+export interface ITwitterInfo {
+  avatar: string | null;
+  coverImage: string | null;
+  creationDate: string | null;
+  externalUrl: string | null;
+  followers: number;
+  following: number;
+  numberOfTweets: number;
   royaltyPoints: number;
   totalPoints: number;
-  avatar: string;
-  bio: string;
-  coverImage: string;
-  dob: string;
-  gender: string;
-  location: string;
-  verificationStatus: string;
-  referralCode: string;
-  lastLogin: string;
+  twitterPoints: number;
+  verificationStatus: boolean;
+}
+export interface IUserProfile {
+  createdAt: number | null;
+  updatedAt: number | null;
+  isDeleted: boolean | null;
+  platform: string | null;
+  isUpdated: boolean | null;
+  userId: string | null;
+  username: string | null;
+  role: string | null;
+  type: string | null;
+  jobTitle: string | null;
+  organization: string | null;
+  experience: string[];
+  fullName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  review: number;
+  projectChain: string | null;
+  projectName: string | null;
+  wallets: Wallets[];
+  socialProfiles: SocialProfiles[];
+  twitterPoints: number | null;
+  twitterInfo: ITwitterInfo | null;
+  royaltyPoints: number | null;
+  totalPoints: number | null;
+  avatar: string | null;
+  bio: string | null;
+  tags: string[];
+  coverImage: string | null;
+  dob: string | null;
+  gender: string | null;
+  location: string | null;
+  verificationStatus: string | null;
+  referralCode: string | null;
+  lastLogin: string | null;
   posts: Post[];
 }

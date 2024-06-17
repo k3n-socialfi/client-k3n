@@ -73,7 +73,7 @@ export default function MarketingServicesView() {
                 />
               ))}
       </div>
-      <MarketingServicesHeading>Job Offer Board</MarketingServicesHeading>
+      {/* <MarketingServicesHeading>Job Offer Board</MarketingServicesHeading>
       <SubHeadingKols>
         {`${DATA_MARKETING_SERVICES?.length}`} deals listed
       </SubHeadingKols>
@@ -90,7 +90,7 @@ export default function MarketingServicesView() {
                 isIcon={item?.isIcon}
               />
             ))}
-      </div>
+      </div> */}
     </Fragment>
   );
 }

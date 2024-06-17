@@ -5,7 +5,6 @@ import { capitalizeFirstLetter } from "@/utils";
 import StarRating from "@/components/StarRating";
 import { mapMentionedChains, mapMentionedProjects } from "./CustomerInfo";
 import svgs from "@/assets/svgs";
-import { IconSharePost } from "@/assets/icons";
 import Image from "next/image";
 
 const ActivitySeciton = ({ listProjects, rating }: any) => {
@@ -23,7 +22,7 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
     <>
       {listProjects && listProjects.length !== 0 && (
         <div className="pt-40 pb-[48px] text-white flex flex-col gap-10">
-          <p className="text-3xl md:text-[50px] font-extrabold text-white font-kode">
+          <p className="text-xl md:text-[50px] font-extrabold text-white font-kode">
             Activity
           </p>
           <div className="">

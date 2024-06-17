@@ -18,8 +18,6 @@ export default function ClientProfile() {
   const [showAll, setShowAll] = useState(false);
   const { dataPosts, listProjects, userProfile, isLoading } = useProfile();
 
-  console.log("user profile: ", userProfile);
-
   if (isLoading)
     return (
       <div className="flex items-center justify-center w-full h-screen">
@@ -37,15 +35,18 @@ export default function ClientProfile() {
       <AuthContextProvider>
         <UserInfo user={userProfile} />
         <div className="px-[10px]">
-          <ActivitySeciton listProjects={listProjects} rating={1} />
+          <ActivitySeciton
+            listProjects={listProjects}
+            rating={userProfile?.review}
+          />
           <PortfolioUser mentionedProjects={listProjects} showAll={showAll} />
 
           {/* Chain */}
           <ChainReview />
 
           {/* Show Portfolio Button  */}
-          <div className="pt-12">
-            <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
+          <div className="mb-5">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">
               Recent Posts
             </h1>
             {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}

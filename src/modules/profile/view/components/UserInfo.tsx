@@ -1,9 +1,8 @@
+"use client";
+
 import {
-  AddressIcon,
   IconCheckCrile,
-  IconShareProject,
   IconStar,
-  IconStarKols,
   IconThunder,
   IconTwitter,
   LocationIcon,
@@ -57,8 +56,6 @@ const UserInfo = ({ user }: any) => {
   //     setModalVisible(true);
   //   },
   // });
-  const { dataPersonal, dataPosts, isLoading, fetchData } =
-    useMyProfileContext();
 
   const { publicKey, signTransaction, sendTransaction } = useWallet();
 
@@ -71,7 +68,7 @@ const UserInfo = ({ user }: any) => {
 
         <div className="relative w-full h-[300px]">
           <Image
-            src={dataPersonal?.twitterInfo?.coverImage ?? imgs.img_user_banner}
+            src={user?.twitterInfo?.coverImage ?? imgs.img_user_banner}
             alt="bg"
             fill
             sizes="100%"
@@ -138,29 +135,28 @@ const UserInfo = ({ user }: any) => {
             {/* left */}
             <div className="flex items-center justify-center gap-[38px]">
               {/* avatar */}
-              <div className="relative rounded-full w-[246px] h-[246px] flex-shrink-0">
-                <Image
-                  className="rounded-full"
-                  fill
-                  sizes="100%"
-                  objectFit="contain"
-                  alt="avatar"
-                  src={dataPersonal?.twitterInfo?.avatar}
-                />
-              </div>
+              <Image
+                className="rounded-full"
+                width={200}
+                height={200}
+                alt="avatar"
+                src={user?.twitterInfo?.avatar}
+              />
 
               {/* infor */}
               <div className="hidden lg:flex flex-col   pt-2 ">
                 <div className="flex items-center gap-3 w-2/3">
-                  <p className="text-white text-[56px] font-bold truncate line-clamp-2 text-wrap  font-kode">
-                    {dataPersonal?.fullName}
-                  </p>
-                  <IconCheckCrile color="#009CB9" />
+                  <Tooltip title={user?.fullName}>
+                    <p className="text-white text-4xl w-full font-bold truncate">
+                      {user?.fullName}
+                    </p>
+                  </Tooltip>
+                  <IconCheckCrile size={32} color="#009CB9" />
                 </div>
 
                 <div className="flex space-x-2 items-center">
                   <p className="text-secondary text-sm truncate line-clamp-2 text-wrap w-2/3">
-                    {dataPersonal?.bio}
+                    {user?.bio}
                   </p>
                 </div>
                 <div className="flex w-2/3 h-[1px] bg-secondary/20" />
@@ -173,21 +169,19 @@ const UserInfo = ({ user }: any) => {
                   </div>
                   <div className="mr-2 flex items-center gap-1">
                     <IconStar width={14} height={14} color="#F23581" />
-                    <h1 className="text-white font-bold ">
-                      {dataPersonal?.review}
-                    </h1>
+                    <h1 className="text-white font-bold ">{user?.review}</h1>
                   </div>
-                  <TagList tags={dataPersonal?.tags} />
+                  <TagList tags={user?.tags} />
                 </div>
 
                 <div className="flex gap-1 pt-2">
                   <a
                     target="_blank"
-                    href={`https://x.com/${dataPersonal?.username}`}
+                    href={`https://x.com/${user?.username}`}
                     className="flex items-center space-x-1 cursor-pointer"
                   >
                     <IconTwitter />
-                    <p className="text-white">{dataPersonal?.username}</p>
+                    <p className="text-white">{user?.username}</p>
                   </a>
 
                   {/* <a
@@ -209,7 +203,7 @@ const UserInfo = ({ user }: any) => {
                 <div className="text-center">
                   <p className="text-nowrap">X Followers</p>
                   <p className="text-2xl  text-[#82EBFF]">
-                    {dataPersonal?.twitterInfo?.followers ?? "0"}
+                    {user?.twitterInfo?.followers ?? "0"}
                   </p>
                 </div>
                 <Divider
@@ -225,13 +219,13 @@ const UserInfo = ({ user }: any) => {
                   <div className="flex gap-1 items-center justify-center">
                     <IconThunder />
                     <p className="text-2xl text-[#82EBFF]">
-                      {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+                      {user?.twitterInfo?.totalPoints ?? 0}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {dataPersonal?.username?.toString() !== username.toString() && (
+              {user?.username?.toString() !== username.toString() && (
                 <motion.button
                   // onClick={handleOpen}
                   onClick={() => {
@@ -261,32 +255,30 @@ const UserInfo = ({ user }: any) => {
         <div className="flex flex-col   pt-2 ">
           <div className="flex space-x-2 items-center">
             <p className="text-secondary text-sm truncate line-clamp-2 text-wrap w-2/3">
-              {dataPersonal?.bio}
+              {user?.bio}
             </p>
           </div>
           <div className="flex w-2/3 h-[1px] bg-secondary/20" />
           <div className="flex gap-4 items-center pt-2">
             <div className="flex gap-1 items-center">
               <LocationIcon color="#F23581" />
-              <h1 className="text-white font-bold">{dataPersonal?.location}</h1>
+              <h1 className="text-white font-bold">{user?.location}</h1>
             </div>
             <div className="mr-2 flex items-center gap-1">
               <IconStar width={14} height={14} color="#F23581" />
-              <h1 className="text-white font-bold ">{dataPersonal?.review}</h1>
+              <h1 className="text-white font-bold ">{user?.review}</h1>
             </div>
-            <TagList tags={dataPersonal?.tags} />
+            <TagList tags={user?.tags} />
           </div>
 
           <div className="flex gap-1 pt-2">
             <a
               target="_blank"
-              href={`https://x.com/${dataPersonal?.twitterInfo?.username}`}
+              href={`https://x.com/${user?.twitterInfo?.username}`}
               className="flex items-center space-x-1 cursor-pointer"
             >
               <IconTwitter />
-              <p className="text-white">
-                {dataPersonal?.twitterInfo?.username}
-              </p>
+              <p className="text-white">{user?.twitterInfo?.username}</p>
             </a>
 
             {/* <a
@@ -305,7 +297,7 @@ const UserInfo = ({ user }: any) => {
             <div className="text-center ">
               <p className="text-nowrap">X Followers</p>
               <p className="text-2xl  text-[#82EBFF]">
-                {dataPersonal?.twitterInfo?.followers ?? "0"}
+                {user?.twitterInfo?.followers ?? "0"}
               </p>
             </div>
             <Divider
@@ -319,11 +311,13 @@ const UserInfo = ({ user }: any) => {
               <p className="text-nowrap">Shill Score</p>
               <div className="flex gap-1 items-center justify-center">
                 <IconThunder />
-                <p className="text-2xl text-[#82EBFF]">{dataPersonal?.twitterInfo?.totalPoints}</p>
+                <p className="text-2xl text-[#82EBFF]">
+                  {user?.twitterInfo?.totalPoints}
+                </p>
               </div>
             </div>
           </div>
-          {dataPersonal?.username?.toString() !== username.toString() && (
+          {user?.username?.toString() !== username.toString() && (
             <motion.button
               onClick={handleOpen}
               whileTap={{ scale: 0.9 }}
