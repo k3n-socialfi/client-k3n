@@ -5,7 +5,6 @@ import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 import { TYPE_WALLET } from "@/constant";
-import { useMyProfileContext } from "@/contexts/MyProfileContext";
 interface IPropPopupProfile {
   handleDisConnect?: any;
   base58Pubkey?: string;
@@ -14,9 +13,8 @@ interface IPropPopupProfile {
 }
 
 export const PopupProfile = (props: IPropPopupProfile) => {
-  const { setPopupProfile, handleDisConnect, base58Pubkey, myProfile } = props;
-  const { dataPersonal, dataPosts, isLoading, fetchData } =
-    useMyProfileContext();
+  const { setPopupProfile, handleDisConnect, myProfile } = props;
+
   return (
     <>
       <WrapperPopup>
@@ -55,7 +53,11 @@ export const PopupProfile = (props: IPropPopupProfile) => {
                 onClick={() => setPopupProfile(false)}
               >
                 <LinkCustom
-                  href={item.href}
+                  href={
+                    item.href === "/profile"
+                      ? `${item.href}/${myProfile?.username}`
+                      : item.href
+                  }
                   className="profile-list__item__link"
                 >
                   <item.icon />

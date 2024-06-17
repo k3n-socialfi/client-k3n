@@ -43,7 +43,7 @@ const ChainReview = () => {
             <p
               className={`${
                 activeTab === tab.id ? "text-white" : "text-[#7B7B7B]"
-              }  text-base md:text-[40px] font-kode`}
+              }  text-base md:text-2xl font-kode`}
             >
               {tab.label}
             </p>
@@ -51,17 +51,8 @@ const ChainReview = () => {
         ))}
       </div>
       <div className="">
-        {
-          activeTab === "onchain" ? (
-            <OnChainReview/>
-          ) :
-          (
-            <OffChainReview/>
-          )
-        }
+        {activeTab === "onchain" ? <OnChainReview /> : <OffChainReview />}
       </div>
-      
-      
     </div>
   );
 };
