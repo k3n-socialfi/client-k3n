@@ -1,5 +1,6 @@
 "use client";
 import { IUserProfile } from "@/interface/profile.interface";
+import { getMentionedProject } from "@/modules/profile/services";
 import { getPostUser, getProfileUser } from "@/services";
 import { useParams } from "next/navigation";
 import React, {
@@ -15,7 +16,8 @@ interface IPropsProfileContextProvider {
 }
 interface IProfileContextTypes {
   userProfile: IUserProfile | any;
-  dataPosts: any;
+  dataPosts: any[];
+  listProjects: any[];
   setUserProfile: React.Dispatch<React.SetStateAction<IUserProfile>>;
   getUserProfile: (username: string) => void;
   isLoading: boolean;
@@ -53,6 +55,7 @@ const ProfileContextTypes = {
     posts: [],
   },
   dataPosts: [{}],
+  listProjects: [{}],
   setUserProfile: () => undefined,
   getUserProfile: () => undefined,
   isLoading: true,
@@ -65,12 +68,27 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     ProfileContextTypes?.userProfile,
   );
   const [dataPosts, setDataPosts] = useState<any>();
+  const [listProjects, setListProject] = useState<[]>([]);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getListProject = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const mentionProjects = await getMentionedProject(username.toString());
+      if (mentionProjects) {
+        setListProject(mentionProjects?.data?.data);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [username]);
 
   const getUserProfile = useCallback(async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const { data } = await getProfileUser(String(username));
       setUserProfile(data?.data);
 
@@ -87,13 +105,15 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
 
   useEffect(() => {
     getUserProfile();
-  }, [getUserProfile]);
+    getListProject();
+  }, [getUserProfile, getListProject]);
 
   return (
     <profileContext.Provider
       value={{
         isLoading,
         userProfile,
+        listProjects,
         dataPosts,
         setUserProfile,
         getUserProfile,

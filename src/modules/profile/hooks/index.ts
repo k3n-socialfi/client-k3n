@@ -12,7 +12,6 @@ export const useListOffer = () => {
       const response = await axiosInstance.get("/api/v1/jobs/list-offers");
       if (response) {
         const { data } = response.data;
-        console.log("data: ", data);
       }
     } catch (error) {
       console.log(error);

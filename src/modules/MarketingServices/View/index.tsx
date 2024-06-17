@@ -21,7 +21,7 @@ export default function MarketingServicesView() {
     <Fragment>
       {/* Top KOLs */}
       <MarketingServicesHeading>Top KOLs</MarketingServicesHeading>
-      <div className="flex gap-4 flex-wrap px-5 py-10 justify-center lg:justify-start">
+      <div className="flex flex-wrap gap-4 px-5 py-10 justify-center lg:justify-start">
         {isLoading
           ? [0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
               <CardHotKolsSkeleton key={item} />

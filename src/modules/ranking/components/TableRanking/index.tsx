@@ -1,6 +1,5 @@
 "use client";
 
-import { Pagination } from "@mui/material";
 import { Fragment, useCallback, useEffect, useState } from "react";
 
 import Filter from "./Filter";
@@ -11,6 +10,7 @@ import { IFilterKOL } from "@/interface/users.interface";
 import Banner from "@/assets/images/Banner.png";
 import UserTab from "./UserTab";
 import Image from "next/image";
+import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -35,6 +35,9 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Sort down: -1
+  // Sort up: 1
+
   const fetchUsersList = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -44,6 +47,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
         top: queryParams.top,
         type: queryParams.type,
         tags: queryParams.tags,
+        shillScoreSort: -1,
       };
       if (queryParams?.minFollower)
         apiParams.minFollower = queryParams.minFollower;
@@ -85,26 +89,27 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
     <Fragment>
       <Filter />
       {isLoading ? (
-        <div className="absolute flex items-center justify-center w-full h-screen">
-          <Image
-            src={Banner}
-            alt="banner"
-            className="flex absolute"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-          <SpinnerLoader />
-        </div>
+        // <div className="absolute flex items-center justify-center w-full h-screen">
+        //   <Image
+        //     src={Banner}
+        //     alt="banner"
+        //     className="flex absolute"
+        //     fill
+        //     style={{ objectFit: "cover" }}
+        //   />
+        //   <SpinnerLoader />
+        // </div>
+        <SkeletonTableTopRanking />
       ) : (
         <UserTab pageSize={10} users={usersList} />
       )}
 
-      <Pagination
+      {/* <Pagination
         count={totalPage}
         page={page}
         onChange={handleChangePage}
         sx={{ color: "#FFF" }}
-      />
+      /> */}
     </Fragment>
   );
 }

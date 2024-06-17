@@ -16,7 +16,7 @@ import SwipperImage from "@/components/SwipperImage";
 import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 import TredingKols from "@/components/TrendingKols";
 import RankRange from "@/components/TrendingKols/RankRange";
 import TrendingProjects from "@/components/TrendingProjects";
@@ -35,7 +35,6 @@ export default function Home({}: IHomeProps) {
     selectedRange,
     handleRangeChange,
   } = useHomeContext();
-
 
   const dataServices = useServicesContext();
   const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
@@ -80,38 +79,41 @@ export default function Home({}: IHomeProps) {
         </StyleFeaturedKOLs>
       </div>
       <StyleFeaturedProject>
-        <StyleTop>
-          <h4 className="font-bold text-secondary">Services</h4>
+        <div className="flex items-center justify-between mt-8 px-4 py-2">
+          <h4 className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl">
+            Services
+          </h4>
 
           <Link
             href="/services"
-            className="flex flex-row text-sm text-[#F23581] justify-end items-end"
+            className="flex items-center gap-2 text-primary "
           >
-            <div className="flex space-x-2 hover:text-[#F23581]/70">
-              <p>View all</p>
-              <IconArrowRight />
-            </div>
+            <p className="hover:underline">View all</p>
+            <IconArrowRight />
           </Link>
-        </StyleTop>
+        </div>
         <Swiper
           breakpoints={{
-            700: {
+            300: {
               slidesPerView: 1,
-              spaceBetween: 15,
             },
-            1000: {
+            600: {
               slidesPerView: 2,
-              spaceBetween: 15,
             },
-            1400: {
+            900: {
+              slidesPerView: 3,
+            },
+            1200: {
+              slidesPerView: 4,
+            },
+            1500: {
               slidesPerView: 5,
-              spaceBetween: 12,
             },
           }}
-          grabCursor={true}
-          pagination={true}
           freeMode={true}
-          modules={[FreeMode, Pagination]}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          grabCursor={true}
+          modules={[FreeMode, Autoplay]}
         >
           {dataServices?.dataServices?.map((service: any, i: number) => (
             <SwiperSlide key={i}>
@@ -123,7 +125,7 @@ export default function Home({}: IHomeProps) {
                   delay: i / 10,
                 }}
                 viewport={{ once: true }}
-                className="flex gap-4 flex-wrap px-5 justify-center lg:justify-start"
+                className="flex gap-4 flex-wrap px-5 justify-center lg:justify-start py-4"
               >
                 {/* <ServiceCard service={service} /> */}
                 <CardKols
@@ -144,7 +146,7 @@ export default function Home({}: IHomeProps) {
       </StyleFeaturedProject>
       <StyleTrending>
         <StyleTrendingKOLs>
-          <StyleTop>
+          <div className="flex items-center justify-between mt-8 p-4">
             <motion.h4
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -152,7 +154,7 @@ export default function Home({}: IHomeProps) {
               transition={{
                 duration: 1,
               }}
-              className="font-bold lg:col-span-2 xl:col-span-3 text-secondary"
+              className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl"
             >
               Trending KOLs
             </motion.h4>
@@ -171,12 +173,12 @@ export default function Home({}: IHomeProps) {
                     duration: 1,
                   }}
                 >
-                  <span>Explore more</span>
+                  <span className="hover:underline">Explore more</span>
                   <IconArrowRight />
                 </motion.p>
               </MoreTrendingKols>
             </div>
-          </StyleTop>
+          </div>
 
           {isLoading ? (
             FAKEDATA_SKELETON.map((item, index) => (
@@ -198,11 +200,11 @@ export default function Home({}: IHomeProps) {
           )}
         </StyleTrendingKOLs>
         <StyleTrendingProjects>
-          <StyleTop>
-            <p className="text-[20px] lg:text-[50px] font-bold lg:col-span-2 xl:col-span-3 text-secondary pt-8">
+          <div className="flex items-center justify-between mt-8 p-4">
+            <h4 className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl">
               Projects Trending
-            </p>
-          </StyleTop>
+            </h4>
+          </div>
 
           {isLoading
             ? FAKEDATA_SKELETON.map((item, i) => (
@@ -244,6 +246,7 @@ const StyleFeaturedKOLs = styled.div`
     transition-timing-function: ease-in-out;
     transition: 0.5s;
     height: 526px;
+    padding: 0 4px;
     &:hover {
       .rfm-child {
         transition-timing-function: ease-in-out;
@@ -258,26 +261,6 @@ const StyleFeaturedKOLs = styled.div`
   }
 `;
 const StyleFeaturedProject = styled.div``;
-
-const StyleTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  margin: 20px 0;
-  padding-top: 14px;
-  flex-wrap: wrap;
-  h4 {
-    font-size: 40px !important;
-  }
-  @media (max-width: 520px) {
-    padding-top: 0px;
-    padding-right: 10px;
-    padding-left: 10px;
-    h4 {
-      font-size: 25px;
-    }
-  }
-`;
 
 const MoreTrendingKols = styled(Stack)<any>`
   display: flex;

@@ -1,13 +1,11 @@
 "use client";
+
 import {
   ProfileContextProvider,
   useProfileContext,
 } from "@/contexts/ProfileContext";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-
-import { getMentionedProject } from "../services";
 
 import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
@@ -26,32 +24,9 @@ export interface IUserProfileProps {
 }
 
 export default function ClientProfile(props: IUserProfileProps) {
-  const { username } = useParams();
-
   const [showAll, setShowAll] = useState(false);
-  const { getUserProfile, dataPosts, userProfile } = useProfileContext();
-
-  const [isLoading, setIsloading] = useState(false);
-
-  const [listProjects, setListProject] = useState<[] | undefined>();
-
-  const getData = useCallback(async () => {
-    try {
-      setIsloading(true);
-      const mentionProjects = await getMentionedProject(username.toString());
-      if (mentionProjects) {
-        setListProject(mentionProjects?.data?.data);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsloading(false);
-    }
-  }, [username]);
-
-  useEffect(() => {
-    getData();
-  }, [getData, ]);
+  const { dataPosts, listProjects, userProfile, isLoading } =
+    useProfileContext();
 
   if (isLoading)
     return (
@@ -100,59 +75,9 @@ export default function ClientProfile(props: IUserProfileProps) {
     );
 }
 
-const Post = styled.div`
-  padding: 24px 14px;
-  width: 100%;
-  overflow-x: hidden;
-  margin-top: 24px;
-`;
-
-const Content = styled.div`
-  display: flex;
-  width: 100%;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const ContentRight = styled.div`
-  width: 100%;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const Posts = styled.div<IUserProfileProps>`
-  margin-left: 40px;
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 12px 0;
-`;
-
-const PostNotData = styled.div`
-  margin: 30px auto;
-  color: #f23581;
-`;
-
-const StyleContainer = styled.div`
-  color: #ffffff;
-`;
-
-const StyleTitle = styled.div`
-  font-size: 40px;
-  line-height: 51px;
-  font-weight: 700;
-`;
-
 export const StyleError = styled.p`
   display: flex;
   color: red;
   font-size: 14px;
   white-space: normal;
-`;
-
-const StyleBox = styled.div`
-  width: 100%;
-  overflow-x: hidden;
 `;
