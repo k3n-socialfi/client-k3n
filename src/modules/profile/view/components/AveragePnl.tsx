@@ -1,3 +1,5 @@
+import { IconSharePost } from "@/assets/icons";
+
 const AveragePnl = ({data}:any) => {
   const totalPnl = data.reduce((sum:any, item:any) => sum + item.pnl, 0);
   const averagePnl = totalPnl / data.length;
@@ -5,11 +7,14 @@ const AveragePnl = ({data}:any) => {
 
   const pnlStyle = {
     
-    color: averagePnl >= 0 ? 'green' : 'red' // Conditional styling
+    color: averagePnl === 0 ? 'gray' : averagePnl >= 0 ? 'green' : 'red' // Conditional styling
   };
 
   return (
-    <span className="text-[28px]" style={pnlStyle}>{percentagePnl}%</span>
+    <>
+      <IconSharePost color={averagePnl === 0 ? '#A6A6A6' : averagePnl >= 0 ? "#6BDF61" : "#FF0000" } />
+      <span className="text-[28px]" style={pnlStyle}>{percentagePnl}%</span>
+    </>
   );
 }
 

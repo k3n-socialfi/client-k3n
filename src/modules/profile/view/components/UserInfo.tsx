@@ -319,7 +319,7 @@ const UserInfo = ({ user }: any) => {
               <p className="text-nowrap">Shill Score</p>
               <div className="flex gap-1 items-center justify-center">
                 <IconThunder />
-                <p className="text-2xl text-[#82EBFF]">0</p>
+                <p className="text-2xl text-[#82EBFF]">{dataPersonal?.twitterInfo?.totalPoints}</p>
               </div>
             </div>
           </div>

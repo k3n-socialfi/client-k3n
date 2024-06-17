@@ -61,7 +61,7 @@ export default function ClientProfile(props: IUserProfileProps) {
                 <ChainReview />
 
                 {/* Show Portfolio Button  */}
-                <div className="pt-12">
+                <div className="pb-20">
                   <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
                     Recent Posts
                   </h1>

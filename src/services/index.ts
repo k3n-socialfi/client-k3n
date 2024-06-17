@@ -1,5 +1,4 @@
 import axiosInstance from "@/configs/axios.config";
-import { TService } from "@/types/service";
 import { IFilterKOL } from "@/interface/users.interface";
 
 export const loginSolana = (data: any) => {
