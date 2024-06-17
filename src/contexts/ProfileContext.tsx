@@ -18,8 +18,6 @@ interface IProfileContextTypes {
   userProfile: IUserProfile | any;
   dataPosts: any[];
   listProjects: any[];
-  setUserProfile: React.Dispatch<React.SetStateAction<IUserProfile>>;
-  getUserProfile: (username: string) => void;
   isLoading: boolean;
 }
 
@@ -56,13 +54,12 @@ const ProfileContextTypes = {
   },
   dataPosts: [{}],
   listProjects: [{}],
-  setUserProfile: () => undefined,
-  getUserProfile: () => undefined,
+
   isLoading: true,
 };
 const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
 const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
-  const { username } = useParams();
+  const params = useParams<{ username: string }>();
 
   const [userProfile, setUserProfile] = useState<IUserProfile>(
     ProfileContextTypes?.userProfile,
@@ -75,7 +72,7 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
   const getListProject = useCallback(async () => {
     try {
       setIsLoading(true);
-      const mentionProjects = await getMentionedProject(username.toString());
+      const mentionProjects = await getMentionedProject(params?.username);
       if (mentionProjects) {
         setListProject(mentionProjects?.data?.data);
       }
@@ -84,16 +81,20 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     } finally {
       setIsLoading(false);
     }
-  }, [username]);
+  }, [params?.username]);
 
   const getUserProfile = useCallback(async () => {
     try {
       setIsLoading(true);
-      const { data } = await getProfileUser(String(username));
+      const { data } = await getProfileUser(params?.username);
       setUserProfile(data?.data);
 
-      if (data?.data?.username) {
-        const arrayPost: any = await getPostUser(data?.data?.username);
+      // if (data?.data?.username) {
+      //   const arrayPost: any = await getPostUser(data?.data?.username);
+      //   setDataPosts(arrayPost?.data?.data?.posts);
+      // }
+      const arrayPost = await getPostUser(params?.username);
+      if (arrayPost) {
         setDataPosts(arrayPost?.data?.data?.posts);
       }
     } catch (error) {
@@ -101,7 +102,7 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     } finally {
       setIsLoading(false);
     }
-  }, [username]);
+  }, [params?.username]);
 
   useEffect(() => {
     getUserProfile();
@@ -115,8 +116,6 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
         userProfile,
         listProjects,
         dataPosts,
-        setUserProfile,
-        getUserProfile,
       }}
     >
       {children}

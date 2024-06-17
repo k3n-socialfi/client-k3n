@@ -3,8 +3,9 @@ import vline from "@/assets/svgs/common/vline.svg";
 import dotted from "@/assets/svgs/common/dotted.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import k3nImg from "@/assets/svgs/common/k3n.svg";
 
-function LeftSide({ img }: { img: string }) {
+function LeftSide() {
   const router = useRouter();
 
   return (
@@ -22,10 +23,10 @@ function LeftSide({ img }: { img: string }) {
       </ul>
       <div className="flex flex-col items-center w-max mx-auto justify-center">
         <Image
-          src={img}
-          alt=""
-          width={800}
-          height={682}
+          src={k3nImg}
+          alt="logo"
+          width={786}
+          height={240}
           className="animate-slideFromTop"
           onClick={() => router.push("/")}
         />

@@ -46,8 +46,6 @@ const ListTabContextProvider = ({ children }: { children: ReactNode }) => {
     useState<IQueryParams>(queryParamsDefault);
   const [isResetFilter, setIsResetFilter] = useState<boolean>(false);
 
-  console.log("query params: ", queryParams);
-
   const updateQueryParams = useCallback(
     (key: string, value: any) => {
       console.log("run set query");

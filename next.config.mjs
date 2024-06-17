@@ -8,6 +8,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "dd.dexscreener.com",
+      },
+      {
+        protocol: "https",
         hostname: "coin-images.coingecko.com",
       },
       {

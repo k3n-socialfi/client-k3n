@@ -5,7 +5,7 @@ import { capitalizeFirstLetter } from "@/utils";
 import StarRating from "@/components/StarRating";
 import { mapMentionedChains, mapMentionedProjects } from "./CustomerInfo";
 import svgs from "@/assets/svgs";
-import { IconShare, IconSharePost } from "@/assets/icons";
+import { IconSharePost } from "@/assets/icons";
 import Image from "next/image";
 
 const ActivitySeciton = ({ listProjects, rating }: any) => {
@@ -61,7 +61,7 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                     }
                   >
                     <Typography className="flex items-center justify-center">
-                      {mappedProjects.slice(0, 10).map((item: any) => (
+                      {mappedProjects.slice(0, 5).map((item: any) => (
                         <div
                           className="relative h-10 w-10 -m-[6px] border bg-darkblack-600 overflow-hidden rounded-full"
                           key={item.symbol}
@@ -75,10 +75,10 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                           />
                         </div>
                       ))}
-                      {mappedProjects.length >= 10 && (
+                      {mappedProjects.length >= 5 && (
                         <div className="h-10 w-10 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
                           <p className="text-xl font-bold">
-                            {mappedProjects.length - 10}+
+                            {mappedProjects.length - 5}+
                           </p>
                         </div>
                       )}

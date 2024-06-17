@@ -46,7 +46,7 @@ export const configureAndSendCurrentTransaction = async (
 const UserInfo = ({ user }: any) => {
   const { username } = useParams();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

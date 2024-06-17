@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import PopupLogin from "@/components/Popup";
 import { useSearchParams } from "next/navigation";
 import SignUp from "@/modules/signUp/view";
 

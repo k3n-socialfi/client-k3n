@@ -80,6 +80,8 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   // Sort down: -1
   // Sort up: 1
 
+  console.log("data: ", usersList);
+
   const fetchUsersList = useCallback(
     async (key?: string, value?: any) => {
       try {
@@ -190,7 +192,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                           imgKol={user?.twitterInfo.avatar}
                           typeKol={user?.type}
                           nameKol={user?.twitterInfo?.fullName}
-                          mentionedProject={user.mentionedProjects}
+                          mentionedProject={user?.mentionedProjects}
                           followers={user?.twitterInfo.followers}
                           shillScore={user?.twitterInfo?.totalPoints}
                           change={
@@ -211,7 +213,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                           imgKol={user?.twitterInfo.avatar}
                           typeKol={user?.type}
                           nameKol={user?.socialProfiles?.username}
-                          mentionedProject={user.mentionedProjects}
+                          mentionedProject={user?.mentionedProjects}
                           followers={user?.twitterInfo.followers}
                           shillScore={user?.twitterInfo?.totalPoints}
                           change={
