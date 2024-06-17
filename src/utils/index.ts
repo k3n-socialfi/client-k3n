@@ -27,15 +27,15 @@ export const solNetwork = () => {
 
 export const formatNumberToK = (x: number) => {
   switch (true) {
+    case x >= 1000000000:
+      const bValue = x / 1000000000;
+      return `${bValue.toFixed(2)}B`;
+    case x >= 1000000:
+      const mValue = x / 1000000;
+      return `${mValue.toFixed(2)}M`;
     case x >= 1000:
       const kValue = x / 1000;
-      return `${kValue}K`;
-    case x >= 1000000:
-      const mValue = x / 1000;
-      return `${mValue}M`;
-    case x >= 1000000000:
-      const bValue = x / 1000;
-      return `${bValue}B`;
+      return `${kValue.toFixed(2)}K`;
     default:
       return x;
   }
@@ -48,7 +48,6 @@ export function numberWithCommas(x: any) {
 }
 
 export const endpoint = anchor.web3.clusterApiUrl(solNetwork());
-
 
 export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

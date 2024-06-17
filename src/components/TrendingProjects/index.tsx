@@ -6,7 +6,6 @@ import Link from "next/link";
 
 function TrendingProjects({ project }: { project: ITrendingProjects }) {
   const { name, symbol, thumb, score, coinId, slug } = project;
-  console.log("🚀 ~ TrendingProjects ~ project:", project)
   const rankChange = Math.floor(Math.random() * 41) - 10;
 
   const rankChangeStyle = {

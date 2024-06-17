@@ -28,82 +28,12 @@ export const DATASIDEBAR = [
     label: "Discover",
     color: "#F23581",
     colorArrow: "#F23581",
-    icon: "",
-    children: [
-      {
-        id: 11,
-        label: "KOls",
-        icon: <IconKOLs />,
-        link: "/top-ranking",
-        isCommingSoon: false,
-        color: "#fff",
-      },
-      // {
-      //   id: 14,
-      //   label: "Top 100 Ranking",
-      //   icon: <IconMarketingServices />,
-      //   link: "/top-ranking",
-      //   isCommingSoon: false,
-      //   color: "#fff",
-      // },
-    ],
-  },
-
-  {
-    id: 3,
-    label: "Comming soon",
-    color: "#FDDDEA",
-    colorArrow: "#FDDDEA",
-    icon: "",
-    children: [
-      {
-        id: 31,
-        label: "Dashboard",
-        icon: <IconDashboard />,
-        link: "",
-        isCommingSoon: true,
-        color: "#637592",
-      },
-      {
-        id: 32,
-        label: "Boot",
-        icon: <IconBoot />,
-        link: "",
-        isCommingSoon: true,
-        color: "#637592",
-      },
-      {
-        id: 33,
-        label: "Holder Benefit",
-        icon: <IconHolderBenefit />,
-        link: "",
-        isCommingSoon: true,
-        color: "#637592",
-      },
-    ],
-  },
-];
-export const DATASIDEBARTOKEN = [
-  {
-    id: 0,
-    label: "Home page",
-    color: "#fff",
-    colorArrow: "#fff",
-    icon: <IconHome />,
-    link: "/",
-    children: [],
-  },
-  {
-    id: 1,
-    label: "Discover",
-    color: "#F23581",
-    colorArrow: "#F23581",
     link: null,
     icon: "",
     children: [
       {
         id: 11,
-        label: "KOls",
+        label: "KOLs",
         icon: <IconKOLs />,
         link: "/top-ranking",
         isCommingSoon: false,

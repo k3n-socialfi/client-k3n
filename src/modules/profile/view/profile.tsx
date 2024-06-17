@@ -49,7 +49,6 @@ export default function UserProfile(props: IUserProfileProps) {
       ) : (
         <PersonSkeleton />
       )}
-      {}
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <Content>
         <ContentRight>

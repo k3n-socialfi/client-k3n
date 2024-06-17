@@ -11,13 +11,6 @@ export const CloseSideBar = styled.div`
   }
 `;
 
-export const Discover = styled.div`
-  .MuiPaper-elevation {
-    @media (max-width: 610px) {
-      margin-top: 60px;
-    }
-  }
-`;
 export const StraightLine = styled.div`
   display: none;
   width: 8px;

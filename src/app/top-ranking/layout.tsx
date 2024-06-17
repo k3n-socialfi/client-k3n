@@ -5,7 +5,7 @@ import HomeProvider from "@/layout/HomeProvider";
 const LayoutTopRanking = ({ children }: IChildren) => {
   return (
     <HomeProvider>
-      <TableRankingContextProvider>{children}</TableRankingContextProvider>;
+      <TableRankingContextProvider>{children}</TableRankingContextProvider>
     </HomeProvider>
   );
 };

@@ -71,4 +71,6 @@ export interface IFilterKOL {
   minShillScore?: number;
   maxShillScore?: number;
   mentionedProject?: string;
+  shillScoreSort?: -1 | 1;
+  xFollowerSort?: -1 | 1;
 }

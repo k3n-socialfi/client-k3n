@@ -7,7 +7,7 @@ import { IconSort } from "@/assets/icons";
 const tableTitle = [
   {
     name: "Rank",
-    icon: true,
+    icon: false,
   },
   {
     name: "KOL",
@@ -31,7 +31,7 @@ const tableTitle = [
   },
   {
     name: "7D%",
-    icon: true,
+    icon: false,
   },
   {
     name: "Chains",

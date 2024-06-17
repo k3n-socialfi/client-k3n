@@ -4,7 +4,7 @@
 	 viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#3CEAAA;}
-	.st1{fillRule:evenodd;clipRule:evenodd;fill-opacity:0.6;}
+	.st1{fillRule:evenodd;clipRule:evenodd;fillOpacity:0.6;}
 </style>
 <circle class="st0" cx="30" cy="30" r="30"/>
 <path class="st1" d="M22.6,15.9c1.8-1.8,4.7-1.8,6.5,0l4.9,4.8l0.8-0.8c1.8-1.8,4.7-1.8,6.5,0l4.8,4.7c1.9,1.8,1.9,4.8,0,6.7

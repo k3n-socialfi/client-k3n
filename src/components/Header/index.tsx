@@ -1,31 +1,21 @@
 "use client";
 
-import { IconCloseSideBar, IconMenuBar, IconThunder } from "@/assets/icons";
-import logo from "@/assets/images/Logo.png";
-import { ButtonPrimary } from "@/components/ButtonCustom";
+import { IconMenuBar, IconThunder } from "@/assets/icons";
+import logo from "@/assets/svgs/k3n.svg";
 import { motion } from "framer-motion";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
 import useWalletCustom from "@/hooks/useWalletCustom";
 import { Avatar, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Popup from "./components/Popup";
 import { PopupProfile } from "./components/PopupProfile";
+import { useCallback, useState } from "react";
+import MobileSidebar from "../SideBar/MobileSideBar";
 
-interface THeaderProp {
-  handleToggleSidebar?: () => void;
-  isOpen?: boolean;
-}
-
-interface IHeaderLogo {
-  isGap?: boolean;
-}
-
-export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
+export const Header = () => {
   const { push } = useRouter();
-  const [isClient, setIsClient] = useState(false);
   const {
     handleLoginTwitter,
     buttonState,
@@ -40,266 +30,91 @@ export const Header = ({ handleToggleSidebar, isOpen }: THeaderProp) => {
     nodeRef,
   } = useWalletCustom();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const { dataPersonal } = useMyProfileContext();
+
+  const [isShowSidebar, setIsShowSidebar] = useState<boolean>(false);
+
+  const toggleSidebar = useCallback(() => {
+    setIsShowSidebar(!isShowSidebar);
+  }, [isShowSidebar]);
 
   return (
     <HeaderWrapper>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 2,
-        }}
-      >
-        <HeaderLogo isGap={isOpen}>
-          {!isOpen && (
-            <ToggleSideBar onClick={handleToggleSidebar}>
-              <IconMenuBar />
-            </ToggleSideBar>
-          )}
-          <ImgCustom>
-            <Image
-              onClick={() => push("/")}
-              alt="logo"
-              src={logo}
-              layout="fill"
-            />
-          </ImgCustom>
-          {isOpen && (
-            <ToggleSideBar onClick={handleToggleSidebar}>
-              <IconCloseSideBar />
-            </ToggleSideBar>
-          )}
-        </HeaderLogo>
-      </motion.div>
-      {isClient && (
-        <HeaderUserMobile>
-          {label === "Disconnect" ||
-          buttonState === "connected" ||
-          dataPersonal ? (
-            <HeaderUser onClick={() => setPopupProfile(!popupProfile)}>
-              {/* <UserNotification>
-                <IconNotification />
-                <NumberNotification>15</NumberNotification>
-              </UserNotification> */}
-              <HeaderUserInfo>
-                <IconThunder />
-                <TypographyCustom className="header-user__info__text">
-                  {dataPersonal?.twitterInfo?.totalPoints ?? 0}
-                </TypographyCustom>
-                <HeaderAvatar ref={nodeRef}>
-                  <AvatarCustom
-                    className="header-user__info__avatar"
-                    alt="Cindy Baker"
-                    src={dataPersonal?.twitterInfo?.avatar}
-                  />
-                </HeaderAvatar>
-              </HeaderUserInfo>
-            </HeaderUser>
-          ) : (
-            <HeaderButton className="header-button">
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: 1,
-                }}
-                whileTap={{ scale: 0.85 }}
-                onClick={() => push("/login")}
-                className="bg-primary px-8 py-2 text-center font-bold rounded-md"
-              >
-                Login
-              </motion.button>
-            </HeaderButton>
-          )}
-          {popup && (
-            <Popup
-              handleLoginTwitter={handleLoginTwitter}
-              setPopup={setPopup}
-            />
-          )}
-          {popupProfile && (
-            <PopupProfile
-              myProfile={dataPersonal}
-              setPopupProfile={setPopupProfile}
-              handleDisConnect={(value: number) => handleWallet(value)}
-              base58Pubkey={base58Pubkey}
-            />
-          )}
-        </HeaderUserMobile>
-      )}
+      <MobileSidebar onClose={toggleSidebar} isOpen={isShowSidebar} />
+      <div className="flex items-center gap-3">
+        <div onClick={toggleSidebar} className="block lg:hidden cursor-pointer">
+          <IconMenuBar size={32} />
+        </div>
+        <Image
+          onClick={() => push("/")}
+          alt="logo"
+          src={logo}
+          width={131}
+          height={40}
+          className="cursor-pointer"
+        />
+      </div>
+      <div className="flex flex-row gap-2 justify-end flex-grow">
+        {label === "Disconnect" ||
+        buttonState === "connected" ||
+        dataPersonal ? (
+          <HeaderUser>
+            <HeaderUserInfo onClick={() => setPopupProfile(!popupProfile)}>
+              <IconThunder />
+              <TypographyCustom className="header-user__info__text">
+                {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+              </TypographyCustom>
+              <HeaderAvatar ref={nodeRef}>
+                <AvatarCustom
+                  className="header-user__info__avatar"
+                  alt="Cindy Baker"
+                  src={dataPersonal?.twitterInfo?.avatar}
+                />
+              </HeaderAvatar>
+            </HeaderUserInfo>
+          </HeaderUser>
+        ) : (
+          <HeaderButton className="header-button">
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1,
+              }}
+              whileTap={{ scale: 0.85 }}
+              onClick={() => push("/login")}
+              className="bg-primary px-8 py-2 text-center font-bold rounded-md"
+            >
+              Login
+            </motion.button>
+          </HeaderButton>
+        )}
+        {popup && (
+          <Popup handleLoginTwitter={handleLoginTwitter} setPopup={setPopup} />
+        )}
+        {popupProfile && (
+          <PopupProfile
+            myProfile={dataPersonal}
+            setPopupProfile={setPopupProfile}
+            handleDisConnect={(value: number) => handleWallet(value)}
+            base58Pubkey={base58Pubkey}
+          />
+        )}
+      </div>
     </HeaderWrapper>
   );
 };
 
-const ToggleSideBar = styled.div`
-  &:active {
-    opacity: 0.8;
-  }
-  cursor: pointer;
-  @media (min-width: 1600px) {
-    display: none;
-  }
-`;
-
-const ImgCustom = styled.div`
-  position: relative;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(0.9);
-    background-color: pink;
-    border-radius: 16px;
-    transition: all 0.5s;
-  }
-  @media (max-width: 1024px) {
-    width: 100px;
-  }
-  @media (max-width: 768px) {
-    width: 70px;
-  }
-`;
 const HeaderWrapper = styled.div`
+  top: 0;
+  left: 0;
   position: fixed;
   z-index: 99;
   width: 100%;
-  padding: 15px 20px;
   background: var(--background-primary);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  padding: 12px;
   border-bottom: 1px solid var(--Card-Card900, rgba(52, 59, 74, 1));
-  @media (max-width: 768px) {
-  }
-  @media (max-width: 610px) {
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-`;
-
-const HeaderLogo = styled.div<IHeaderLogo>`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 100px;
-  width: 70%;
-  @media (max-width: 1600px) {
-    gap: 15px;
-  }
-
-  @media (max-width: 1250px) {
-    gap: ${(props) => (props.isGap ? "140px" : "")};
-  }
-
-  @media (max-width: 820px) {
-    gap: ${(props) => (props.isGap ? "220px" : "")};
-  }
-
-  @media (max-width: 768px) {
-    align-items: center;
-    gap: 10px;
-    width: 40%;
-  }
-
-  @media (max-width: 610px) {
-    order: 1;
-  }
-
-  @media (max-width: 390px) {
-    width: 40%;
-  }
-`;
-
-const HeaderSearch = styled.div`
-  background: #191d24;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  max-width: 356px;
-  padding: 5px 10px;
-  border-radius: 12px;
-  width: 20%;
-  @media (max-width: 1599px) {
-    width: 30%;
-  }
-  @media (max-width: 820px) {
-    min-width: 350px;
-  }
-  @media (max-width: 660px) {
-    min-width: 300px;
-  }
-  @media (max-width: 610px) {
-    width: 100%;
-    order: 3;
-  }
-  @media (max-width: 390px) {
-    min-width: 150px;
-    order: 3;
-  }
-`;
-
-const HeaderUserMobile = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  width: 70%;
-  justify-content: flex-end;
-  @media (max-width: 1599px) {
-    width: 40%;
-  }
-  @media (max-width: 610px) {
-    order: 1;
-  }
-  @media (max-width: 390px) {
-    width: 30%;
-  }
-  @media (max-width: 294px) {
-    align-self: center;
-    flex-direction: column;
-    width: 50%;
-  }
-`;
-
-const HeaderIcon = styled.div`
-  color: #798395;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const TextSearch = styled.div`
-  width: 100%;
-  input {
-    width: 100%;
-  }
-  /* @media (max-width: 580px) {
-    input {
-      max-width: 100px;
-    }
-  } */
-  /* @media (max-width: 440px) {
-    input {
-      max-width: 50px;
-    }
-  } */
-`;
-const TextField = styled.input`
-  border: none;
-  outline: none;
-  background: none;
-  flex: 1;
-  color: #637592;
-  ::placeholder {
-    color: #637592;
-  }
 `;
 
 const HeaderUser = styled.div`
@@ -310,28 +125,6 @@ const HeaderUser = styled.div`
   gap: 15px;
 `;
 
-const UserNotification = styled.div`
-  position: relative;
-  font-size: 24px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
-
-const NumberNotification = styled.span`
-  border-radius: 100%;
-  background: #f95a2c;
-  color: #fff;
-  font-size: 8px;
-  width: 12px;
-  height: 12px;
-  text-align: center;
-  position: absolute;
-  right: 0;
-  top: 0;
-`;
 const HeaderUserInfo = styled.div`
   display: flex;
   align-items: center;
@@ -350,7 +143,7 @@ const HeaderButton = styled.div`
   justify-content: center;
   gap: 10px;
   white-space: nowrap;
-  color: #FFF;
+  color: #fff;
 `;
 const AvatarCustom = styled(Avatar)`
   cursor: pointer;
@@ -358,8 +151,4 @@ const AvatarCustom = styled(Avatar)`
 `;
 const TypographyCustom = styled(Typography)`
   color: #fff;
-`;
-
-const Button = styled.div`
-  width: 178px;
 `;
