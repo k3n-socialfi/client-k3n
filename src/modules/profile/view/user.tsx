@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  ProfileContextProvider,
-  useProfileContext,
-} from "@/contexts/ProfileContext";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -11,22 +7,18 @@ import Image from "next/image";
 import { SpinnerLoader } from "@/components/SpinnerLoader";
 import imgs from "@/assets/images";
 import { AuthContextProvider } from "@/contexts/HomeContext";
-import { ListTabContextProvider } from "@/contexts/ListTabContext";
 import UserInfo from "./components/UserInfo";
 import ActivitySeciton from "./components/Activity";
 import PortfolioUser from "./components/PortfolioUser";
 import UserPosts from "./components/UserPosts";
 import ChainReview from "./components/ChainReviews";
-import { MyProfileContextProvider } from "@/contexts/MyProfileContext";
+import { useProfile } from "@/contexts/ProfileContext";
 
-export interface IUserProfileProps {
-  widthNotData?: boolean;
-}
-
-export default function ClientProfile(props: IUserProfileProps) {
+export default function ClientProfile() {
   const [showAll, setShowAll] = useState(false);
-  const { dataPosts, listProjects, userProfile, isLoading } =
-    useProfileContext();
+  const { dataPosts, listProjects, userProfile, isLoading } = useProfile();
+
+  console.log("user profile: ", userProfile);
 
   if (isLoading)
     return (
@@ -43,34 +35,22 @@ export default function ClientProfile(props: IUserProfileProps) {
   if (!isLoading)
     return (
       <AuthContextProvider>
-        <ProfileContextProvider>
-          <ListTabContextProvider>
-            <MyProfileContextProvider>
-              <UserInfo user={userProfile} />
-              <div className="px-[10px]">
-                <ActivitySeciton
-                  listProjects={listProjects}
-                  rating={userProfile?.review}
-                />
-                <PortfolioUser
-                  mentionedProjects={listProjects}
-                  showAll={showAll}
-                />
+        <UserInfo user={userProfile} />
+        <div className="px-[10px]">
+          <ActivitySeciton listProjects={listProjects} rating={1} />
+          <PortfolioUser mentionedProjects={listProjects} showAll={showAll} />
 
-                {/* Chain */}
-                <ChainReview />
+          {/* Chain */}
+          <ChainReview />
 
-                {/* Show Portfolio Button  */}
-                <div className="pb-20">
-                  <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
-                    Recent Posts
-                  </h1>
-                  {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
-                </div>
-              </div>
-            </MyProfileContextProvider>
-          </ListTabContextProvider>
-        </ProfileContextProvider>
+          {/* Show Portfolio Button  */}
+          <div className="pt-12">
+            <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode pb-10">
+              Recent Posts
+            </h1>
+            {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}
+          </div>
+        </div>
       </AuthContextProvider>
     );
 }

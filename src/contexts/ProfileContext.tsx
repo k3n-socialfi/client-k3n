@@ -1,71 +1,17 @@
 "use client";
+
 import { IUserProfile } from "@/interface/profile.interface";
 import { getMentionedProject } from "@/modules/profile/services";
 import { getPostUser, getProfileUser } from "@/services";
 import { useParams } from "next/navigation";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 
-interface IPropsProfileContextProvider {
-  children: React.ReactNode;
-}
-interface IProfileContextTypes {
-  userProfile: IUserProfile | any;
-  dataPosts: any[];
-  listProjects: any[];
-  isLoading: boolean;
-}
-
-const ProfileContextTypes = {
-  userProfile: {
-    createdAt: 0,
-    updatedAt: 0,
-    isDeleted: true,
-    userId: "",
-    username: "",
-    role: "",
-    type: "",
-    jobTitle: "",
-    organization: "",
-    experience: [],
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    wallets: [],
-    socialProfiles: [],
-    twitterPoints: 0,
-    royaltyPoints: 0,
-    totalPoints: 0,
-    avatar: "",
-    bio: "",
-    coverImage: "",
-    dob: "",
-    gender: "",
-    location: "",
-    verificationStatus: "",
-    referralCode: "",
-    lastLogin: "",
-    posts: [],
-  },
-  dataPosts: [{}],
-  listProjects: [{}],
-
-  isLoading: true,
-};
-const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
-const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
+export const useProfile = () => {
   const params = useParams<{ username: string }>();
 
-  const [userProfile, setUserProfile] = useState<IUserProfile>(
-    ProfileContextTypes?.userProfile,
-  );
+  const [userProfile, setUserProfile] = useState<IUserProfile>();
   const [dataPosts, setDataPosts] = useState<any>();
-  const [listProjects, setListProject] = useState<[]>([]);
+  const [listProjects, setListProject] = useState<any[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -88,11 +34,6 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
       setIsLoading(true);
       const { data } = await getProfileUser(params?.username);
       setUserProfile(data?.data);
-
-      // if (data?.data?.username) {
-      //   const arrayPost: any = await getPostUser(data?.data?.username);
-      //   setDataPosts(arrayPost?.data?.data?.posts);
-      // }
       const arrayPost = await getPostUser(params?.username);
       if (arrayPost) {
         setDataPosts(arrayPost?.data?.data?.posts);
@@ -109,21 +50,5 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     getListProject();
   }, [getUserProfile, getListProject]);
 
-  return (
-    <profileContext.Provider
-      value={{
-        isLoading,
-        userProfile,
-        listProjects,
-        dataPosts,
-      }}
-    >
-      {children}
-    </profileContext.Provider>
-  );
+  return { userProfile, dataPosts, listProjects, isLoading };
 };
-
-const useProfileContext = () => {
-  return useContext(profileContext);
-};
-export { ProfileContextProvider, useProfileContext };

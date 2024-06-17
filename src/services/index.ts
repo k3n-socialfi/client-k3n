@@ -1,5 +1,4 @@
 import axiosInstance from "@/configs/axios.config";
-import { IFilterKOL } from "@/interface/users.interface";
 
 export const loginSolana = (data: any) => {
   return axiosInstance.post(`/api/v1/auth/login-solana`, data);
@@ -56,7 +55,24 @@ export const getFeatureKolsRanking = async () => {
   });
 };
 
-export const getKolsFilter = async (params: IFilterKOL) => {
+export interface IQueryParams {
+  page: number;
+  limit: number;
+  top: number;
+  type: string | null;
+  verification: boolean;
+  tags: string[];
+  review: string | null;
+  minFollower: number;
+  maxFollower: number | undefined;
+  minShillScore: number;
+  maxShillScore: number | undefined;
+  mentionedProject: string | null;
+  shillScoreSort: -1 | 1 | null;
+  xFollowerSort: -1 | 1 | null;
+}
+
+export const getKolsFilter = async (params: IQueryParams) => {
   return axiosInstance.get("/api/v1/users/kols/ranking", { params });
 };
 

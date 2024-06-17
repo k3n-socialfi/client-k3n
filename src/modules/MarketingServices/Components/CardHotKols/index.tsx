@@ -3,9 +3,6 @@ import PointIcon from "@/assets/icons/PointIcon";
 import TagList from "@/components/TagList";
 import { formatNumberToK } from "@/utils";
 import Image from "next/image";
-import styled from "styled-components";
-import { Autoplay, FreeMode } from "swiper/modules";
-import { Swiper } from "swiper/react";
 
 interface IPropsCardHotKols {
   number?: number;
@@ -37,21 +34,13 @@ export default function CardHotKols({
         className="rounded-full border border-[#F23581]"
       />
       {/* Content */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 flex-grow">
         <p className="text-lg font-bold w-full">{name}</p>
         <div className="flex gap-2 items-center">
           <IconStarKols />
           <p className="font-medium">{review}</p>
         </div>
-        <Swiper
-          freeMode={true}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          grabCursor={true}
-          modules={[FreeMode, Autoplay]}
-          className="overflow-x-scroll w-80"
-        >
-          <TagList tags={tags} />
-        </Swiper>
+        <TagList tags={tags} length={2} />
       </div>
       {/* Point */}
       <div className="flex gap-[2px] items-center">

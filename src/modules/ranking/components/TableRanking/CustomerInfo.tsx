@@ -5,9 +5,9 @@ import { Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import TagList from "./TagList";
 import defaultIcon from "@/assets/svgs/common/k3n.svg";
 import { useCallback, useMemo } from "react";
+import TagList from "@/components/TagList";
 
 export const mapMentionedProjects = (
   mentionedProjects: any,
@@ -71,17 +71,17 @@ function CustomerInfo({
   username,
 }: {
   rank: number;
-  imgKol: string;
-  typeKol: string;
-  nameKol: string;
+  imgKol: string | null;
+  typeKol: string | null;
+  nameKol: string | null;
   mentionedProject: any[];
   followers: number;
   shillScore: number;
   change: number;
-  chain: string;
+  chain: string | null;
   tags: string[];
   previousRank: number;
-  username: string;
+  username: string | null;
 }) {
   const rankChange = previousRank - rank;
 
@@ -112,8 +112,6 @@ function CustomerInfo({
     tokens,
     defaultIcon,
   );
-
-  console.log(mappedProjects);
 
   const mappedChains = mapMentionedChains(
     mentionedProject,
@@ -164,7 +162,12 @@ function CustomerInfo({
               href={`/profile/${username}`}
               className="relative transition-all duration-300 h-10 w-10 group-hover:w-14 group-hover:h-14 overflow-hidden rounded-full "
             >
-              <Image src={imgKol} alt="avatar" fill objectFit="cover" />
+              <Image
+                src={imgKol ?? defaultIcon}
+                alt="avatar"
+                fill
+                objectFit="cover"
+              />
             </Link>
             <p className="text-base font-semibold text-white text-center truncate w-full overflow-hidden">
               {nameKol}
@@ -302,7 +305,7 @@ function CustomerInfo({
       </td>
       <td className="px-6 py-5 xl:px-0">
         <p className="text-base font-semibold text-bgray-900 dark:text-white">
-          <TagList tags={tags} />
+          <TagList tags={tags} length={3} />
         </p>
       </td>
     </motion.tr>

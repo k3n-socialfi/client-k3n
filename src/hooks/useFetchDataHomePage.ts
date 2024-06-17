@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
+  IQueryParams,
   getFeatureKolsRanking,
   getFeatureProject,
   getFeaturedKols,
@@ -10,8 +11,6 @@ import {
 import { ITrendingKols } from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
 import { IFeatureProjects } from "@/interface/featureProjects.interface";
-import { useSearchParams } from "next/navigation";
-import { IFilterKOL } from "@/interface/users.interface";
 
 const useFetchDataHomePage = () => {
   const [users, setUsers] = useState<IUserKOL[]>([]);
@@ -31,66 +30,62 @@ const useFetchDataHomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>();
 
-  const searchParams = useSearchParams();
-  const type = searchParams.get("type");
-  const verification = searchParams.get("kyc");
-  const lowerLimit = searchParams.get("lowerLimit");
-  const upperLimit = searchParams.get("upperLimit");
-  const tags = searchParams.get("tags");
-  const page = searchParams.get("page");
-  const limit = searchParams.get("limit");
-
-  useEffect(() => {
-    const fetchKolsFilter = async () => {
-      try {
-        const params: IFilterKOL = {
-          type: type ? type : undefined,
-          verification: verification
-            ? verification === "true"
-              ? true
-              : false
-            : undefined,
-          limit: lowerLimit ? +lowerLimit : 10,
-          top: upperLimit ? +upperLimit : 100,
-          tags: tags ? tags.split(",") : undefined,
-          page: page ?? 0,
-        };
-        const { data } = await getKolsFilter(params);
-        setKols(data.data.users);
-        setTotalItemKols(data?.data?.totalItems ?? 0);
-      } catch (err) {
-        console.error(err);
-      }
+  const fetchKolsFilter = useCallback(async () => {
+    const queryParamsDefault: IQueryParams = {
+      page: 0,
+      limit: 10,
+      top: 100,
+      type: null,
+      verification: false,
+      tags: [],
+      review: null,
+      minFollower: 0,
+      maxFollower: undefined,
+      minShillScore: 0,
+      maxShillScore: undefined,
+      mentionedProject: null,
+      shillScoreSort: -1,
+      xFollowerSort: null,
     };
-    fetchKolsFilter();
-  }, [type, verification, lowerLimit, upperLimit, tags, limit, page]);
-
-  useEffect(() => {
-    const fetchData = async () => {
+    try {
       setIsLoading(true);
-      try {
-        const result = await Promise.all([
-          getFeaturedKols(),
-          getTrendingKols(),
-          getTrendingProjects(),
-          getFeatureKolsRanking(),
-          getFeatureProject(),
-        ]);
-
-        setUsers(result[0]?.data?.data?.users);
-        setTrendingKols(result[1]?.data?.data?.users);
-        setTrendingProjects(result[2]?.data?.data);
-        setFeatureKols(result[3]?.data?.data?.users);
-        setFeatureProjects(result[4]?.data?.data?.jobs);
-      } catch (error: any) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+      const { data } = await getKolsFilter(queryParamsDefault);
+      setKols(data.data.users);
+      setTotalItemKols(data?.data?.totalItems ?? 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const result = await Promise.all([
+        getFeaturedKols(),
+        getTrendingKols(),
+        getTrendingProjects(),
+        getFeatureKolsRanking(),
+        getFeatureProject(),
+      ]);
+
+      setUsers(result[0]?.data?.data?.users);
+      setTrendingKols(result[1]?.data?.data?.users);
+      setTrendingProjects(result[2]?.data?.data);
+      setFeatureKols(result[3]?.data?.data?.users);
+      setFeatureProjects(result[4]?.data?.data?.jobs);
+    } catch (error: any) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchKolsFilter();
+    fetchData();
+  }, [fetchKolsFilter, fetchData]);
 
   return {
     users,

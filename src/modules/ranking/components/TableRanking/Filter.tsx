@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import SelectFilter from "./SelectFilter";
 import { motion } from "framer-motion";
-import { useListTabContext } from "@/contexts/ListTabContext";
 import { IconReset } from "@/assets/icons";
 import {
   chains,
@@ -12,8 +11,12 @@ import {
   typeofKols,
 } from "@/data/ranking/filterData";
 
-function Filter() {
-  const { updateQueryParams, resetQueryParams } = useListTabContext();
+interface IFilterProps {
+  resetQueryParams: () => void;
+  updateQueryParams: (key: string, value: any) => void;
+}
+
+function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
   const [reset, setReset] = useState(false);
 
   const handleResetFilters = () => {
