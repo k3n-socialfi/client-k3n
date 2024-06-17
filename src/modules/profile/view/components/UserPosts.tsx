@@ -1,30 +1,21 @@
 import { Autoplay, FreeMode, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
-import {
-  format,
-  formatDistance,
-  formatDistanceToNow,
-  formatRelative,
-  subDays,
-} from "date-fns";
+import {formatDistanceToNow } from "date-fns";
 
 import {
   HeartReactionIcon,
-  IconChat,
-  IconComment,
   Iconview,
   SaveIcon,
   ShareReactionIcon,
 } from "@/assets/icons";
 import TweetText from "./TweetText";
 import Image from "next/image";
-import svgs from "@/assets/svgs";
 import imgs from "@/assets/images";
 
 const UserPosts = ({ posts }: any) => {
   return (
-    <div className="px-[10px] md:pl-10">
+    <div className="">
       <Swiper
         breakpoints={{
           300: {

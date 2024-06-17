@@ -21,13 +21,13 @@ const posts = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const ChainReview = () => {
   let [activeTab, setActiveTab] = useState(tabs[0].id);
   return (
-    <div className="flex flex-col space-x-1 py-[48px] gap-9">
+    <div className="flex flex-col space-x-1 py-[48px] gap-4">
       <div>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={` relative px-2 py-4 md:px-7 `}
+            className={`relative px-2 py-4 md:px-7`}
             style={{
               WebkitTapHighlightColor: "transparent",
             }}
@@ -35,7 +35,7 @@ const ChainReview = () => {
             {activeTab === tab.id && (
               <motion.span
                 layoutId="bubble"
-                className=" absolute inset-0 z-10 bg-[#F23581] mix-blend-screen"
+                className=" absolute inset-0 z-10 bg-primary mix-blend-screen"
                 style={{ borderRadius: "4px" }}
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
@@ -50,19 +50,18 @@ const ChainReview = () => {
           </button>
         ))}
       </div>
-
-          <div className="px-[10px] md:pl-10">
-          {
+      <div className="">
+        {
           activeTab === "onchain" ? (
-          <OnChainReview/>
+            <OnChainReview/>
           ) :
           (
             <OffChainReview/>
           )
         }
-          </div>
-       
-     
+      </div>
+      
+      
     </div>
   );
 };

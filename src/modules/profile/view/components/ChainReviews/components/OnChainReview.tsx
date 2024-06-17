@@ -53,7 +53,7 @@ const OnChainReview = () => {
                   }}
                   viewport={{ once: true }}
                   key={index}
-                  className=" bg-[#191D24] py-3 px-5  transition-all duration-300  rounded-xl overflow-hidden"
+                  className="bg-darkblack-600 border border-secondary/10 shadow-lg shadow-gray-100/10 py-3 px-5  transition-all duration-300 rounded-xl overflow-hidden hover:bg-darkblack-400"
                 >
                   <div className="flex items-center justify-between ">
                     <p>2024-03</p>
@@ -65,7 +65,7 @@ const OnChainReview = () => {
                   <p className="text-lg font-bold text-[#0AD8FF]">
                     Product X KOL Campaign
                   </p>
-                  <div className="py-1 px-3 mt-[40px] bg-[#232731] rounded-lg">
+                  <div className="py-1 px-3 mt-[40px] bg-darkblack-400 rounded-lg">
                     <div>
                       <div className="flex items-center gap-2">
                         <IconKol />

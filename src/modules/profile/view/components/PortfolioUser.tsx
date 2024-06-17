@@ -52,7 +52,7 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
           <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode">
             Mentioned Project
           </h1>
-          <div className="md:pl-10">
+          <div className="">
             <table className="w-full ">
               <tbody>
                 <tr className="items-center  bg-[#191D24] h-[71px] rounded-t rounded-md ">

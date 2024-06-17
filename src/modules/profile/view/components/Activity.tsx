@@ -22,12 +22,12 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
   return (
     <>
       {listProjects && listProjects.length !== 0 && (
-        <div className="pt-40 pb-[48px] mr-4 text-white flex flex-col gap-10">
+        <div className="pt-40 pb-[48px] text-white flex flex-col gap-10">
           <p className="text-3xl md:text-[50px] font-extrabold text-white font-kode">
             Activity
           </p>
-          <div className="px-[10px] md:pl-10">
-            <div className="bg-[#343B4A] flex w-full rounded-md border border-secondary/10 shadow-lg shadow-secondary/10">
+          <div className="">
+            <div className="bg-darkblack-500 flex w-full rounded-md border border-secondary/10 shadow-lg shadow-gray-100/10">
               <div className="flex flex-col lg:flex-row justify-center items-center w-full gap-4 lg:justify-between lg:items-start py-6 lg:px-20">
                 {/* Related Tokens  */}
                 <div className="flex flex-col justify-center gap-4 items-center">
@@ -143,7 +143,6 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                     Average % Per Mention
                   </p>
                   <div className="flex items-center justify-center gap-1">
-                    <IconSharePost color="#6BDF61" />
                     <AveragePnl data={listProjects} />
                   </div>
                 </div>

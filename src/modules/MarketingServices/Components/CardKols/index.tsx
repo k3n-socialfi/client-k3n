@@ -4,7 +4,6 @@ import TagList from "@/components/TagList";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import styled from "styled-components";
 
 interface IPropsCardKosl {
   image: string | undefined;
@@ -33,12 +32,12 @@ export default function CardKols({
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (
-    <div className="h-[370px] w-full max-w-[350px] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] duration-200 flex flex-col rounded-lg gap-3 bg-[#191D24] overflow-hidden">
+    <div className="h-[400px] w-[500px] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] duration-200 flex flex-col rounded-lg gap-3 bg-[#191D24] overflow-hidden">
       {/* Image */}
       <div
-        className={`relative w-full aspect-video h-full min-h-[169px] max-h-[169px] rounded-[4px] border-b border-[#FFFFFF66] overflow-hidden`}
+        className={`relative w-full aspect-video h-full rounded-[4px] border-b border-[#FFFFFF66] overflow-hidden`}
       >
-        <Image src={image ?? IMG2} alt="job image" width={300} height={169} />
+        <Image src={image ?? IMG2} alt="job image" fill objectFit="cover" />
         <div className="absolute w-full bg-gradient-to-t from-[#000000] to-transparent h-full bottom-0 left-0 flex items-end text-white">
           <div className="px-3 py-[10px] w-full flex justify-between items-center">
             <div className="flex gap-[10px] items-center">
