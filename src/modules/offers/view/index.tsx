@@ -22,7 +22,7 @@ export default function ViewOffer(props: IViewOfferProps) {
   }, [fetchDataServices]);
 
   return (
-    <div>
+    <div className="py-4">
       <Title>Services Management</Title>
       <Services
         listServicesProfile={listServicesProfile}

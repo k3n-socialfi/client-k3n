@@ -25,7 +25,7 @@ const WrapperSignUp = ({
 
   return (
     <div className="flex flex-col lg:flex-row justify-between items-center min-h-screen">
-      <LeftSide img={k3nImg} />
+      <LeftSide />
       <div className="gap-12 w-full lg:flex-grow flex-col flex-grow-0 justify-center px-5 xl:pl-12 pt-10 h-full min-h-screen flex items-center">
         <Title>
           {title && <h4 className="text-6xl font-bold text-white">{title}</h4>}

@@ -17,7 +17,7 @@ const HomeProvider = ({ children }: IHomeProvider) => {
         <Header />
         <div className="flex w-full h-full pt-[65px] overflow-hidden">
           <SideBar />
-          <div className="flex w-full flex-col overflow-y-scroll px-6">
+          <div className="flex w-full h-full min-h-screen flex-col overflow-y-scroll px-6">
             {children}
             <Footer />
           </div>

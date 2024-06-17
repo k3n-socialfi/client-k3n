@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TagList from "./TagList";
 import defaultIcon from "@/assets/svgs/common/k3n.svg";
+import { useCallback, useMemo } from "react";
 
 export const mapMentionedProjects = (
   mentionedProjects: any,
@@ -23,7 +24,7 @@ export const mapMentionedProjects = (
     })
     .map((project: any) => {
       const token = tokensArr.find(
-        (token: any) => token.name === project.symbol,
+        (token: any) => token.title === project.symbol,
       );
       return {
         ...project,
@@ -45,7 +46,9 @@ export const mapMentionedChains = (
       return !isDuplicate;
     })
     .map((project: any) => {
-      const token = chainArr.find((chain: any) => chain.name === project.chain);
+      const token = chainArr.find(
+        (chain: any) => chain.title === project.chain,
+      );
       return {
         ...project,
         icon: token ? token.icon : defaultIcon,
@@ -82,29 +85,36 @@ function CustomerInfo({
 }) {
   const rankChange = previousRank - rank;
 
-  const getChangeStyle = (change: any) => {
+  const getChangeStyle = useCallback((change: any) => {
+    const rankChangeStyle = {
+      positive: "text-green-500 text-xs",
+      negative: "text-red-500 text-xs",
+      neutral: "text-gray-500 text-xs",
+    };
     if (change > 0) return rankChangeStyle.positive;
     if (change < 0) return rankChangeStyle.negative;
     return rankChangeStyle.neutral;
-  };
+  }, []);
 
-  const rankChangeStyle = {
-    positive: "text-green-500 text-xs",
-    negative: "text-red-500 text-xs",
-    neutral: "text-gray-500 text-xs",
-  };
-
-  const getRankChangeStyle = () => {
+  const getRankChangeStyle = useMemo(() => {
+    const rankChangeStyle = {
+      positive: "text-green-500 text-xs",
+      negative: "text-red-500 text-xs",
+      neutral: "text-gray-500 text-xs",
+    };
     if (rankChange > 0) return rankChangeStyle.positive;
     if (rankChange < 0) return rankChangeStyle.negative;
     return rankChangeStyle.neutral;
-  };
+  }, [rankChange]);
 
   const mappedProjects = mapMentionedProjects(
     mentionedProject,
     tokens,
     defaultIcon,
   );
+
+  console.log(mappedProjects);
+
   const mappedChains = mapMentionedChains(
     mentionedProject,
     chains,
@@ -134,7 +144,7 @@ function CustomerInfo({
     >
       <td className="px-6 py-5 xl:px-2">
         <div className="flex items-center gap-2">
-          <p className={`${getRankChangeStyle()}`}>
+          <p className={`${getRankChangeStyle}`}>
             {rankChange > 0
               ? `▲ ${rankChange}`
               : rankChange < 0
@@ -190,12 +200,12 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedProjects?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center">
                     <Image
                       src={project.icon}
                       alt={project.symbol}
-                      fill
-                      style={{ objectFit: "cover" }}
+                      width={24}
+                      height={24}
                     />
                   </div>
                   <h1>
@@ -207,22 +217,22 @@ function CustomerInfo({
           }
         >
           <div className="text-base font-medium text-bgray-900 dark:text-white flex">
-            {mappedProjects.slice(0, 5).map((item: any) => (
+            {mappedProjects?.slice(0, 5).map((item: any) => (
               <div
-                className="relative h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full"
+                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
                 key={item.symbol}
               >
                 <Image
                   src={item.icon}
                   alt={item.symbol}
-                  fill
-                  style={{ objectFit: "cover" }}
+                  width={24}
+                  height={24}
                 />
               </div>
             ))}
-            {mappedProjects.length >= 5 && (
+            {mappedProjects?.length >= 5 && (
               <div className="h-6 w-6 -m-1 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
-                <p className="text-[10px]  font-bold">
+                <p className="text-[10px] font-bold">
                   {mappedProjects.length - 5}+
                 </p>
               </div>
@@ -259,12 +269,12 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedChains?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center">
                     <Image
                       src={project.icon}
                       alt={project.chain}
-                      fill
-                      style={{ objectFit: "cover" }}
+                      width={24}
+                      height={24}
                     />
                   </div>
                   <h1>{project.chain}</h1>
@@ -276,14 +286,14 @@ function CustomerInfo({
           <div className="text-base font-semibold text-white flex">
             {mappedChains.map((item: any) => (
               <div
-                className="relative h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full"
+                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
                 key={item.symbol}
               >
                 <Image
                   src={item.icon}
                   alt={item.symbol}
-                  fill
-                  style={{ objectFit: "cover" }}
+                  width={24}
+                  height={24}
                 />
               </div>
             ))}

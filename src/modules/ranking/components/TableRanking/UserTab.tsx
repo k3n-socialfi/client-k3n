@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import CustomerInfo from "./CustomerInfo";
 import { IconSort } from "@/assets/icons";
+import { useState } from "react";
 
 const tableTitle = [
   {
@@ -44,6 +45,8 @@ const tableTitle = [
 ];
 
 function UserTab({ pageSize, users }: { pageSize: number; users: any[] }) {
+  const [sortValue, setSortValue] = useState<-1 | 1>(-1);
+
   if (users?.length === 0)
     return (
       <div className="relative flex items-center justify-center w-full h-screen">

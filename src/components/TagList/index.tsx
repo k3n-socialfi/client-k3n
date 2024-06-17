@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { colorMap } from "@/constant/tagColor";
+import { SwiperSlide } from "swiper/react";
 
 interface ColorMap {
   [key: string]: {
@@ -18,7 +19,7 @@ interface TagListProps {
   tags: string[] | undefined;
 }
 
-const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
+export const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
   const tagColors = colorMap[tag];
   const backgroundColor = tagColors?.background || "bg-secondary";
   const textColor = tagColors?.text || "text-black";
@@ -34,29 +35,31 @@ const Tag: React.FC<TagProps> = ({ tag, colorMap }) => {
 
 const TagList: React.FC<TagListProps> = ({ tags }) => {
   return (
-    <div className="w-full flex cursor-pointer">
-      {tags?.length === 0 ? (
-        <Tag tag={"Other"} colorMap={colorMap} />
-      ) : (
-        tags?.map(
-          (tag, index) =>
-            tag && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                transition={{
-                  duration: 2,
-                  delay: index * 0.4,
-                }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                key={index}
-              >
-                <Tag key={index} tag={tag} colorMap={colorMap} />
-              </motion.div>
-            ),
-        )
-      )}
-    </div>
+    <SwiperSlide>
+      <div className="w-full flex cursor-pointer">
+        {tags?.length === 0 ? (
+          <Tag tag={"Other"} colorMap={colorMap} />
+        ) : (
+          tags?.map(
+            (tag, index) =>
+              tag && (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  transition={{
+                    duration: 2,
+                    delay: index * 0.4,
+                  }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <Tag tag={tag} colorMap={colorMap} />
+                </motion.div>
+              ),
+          )
+        )}
+      </div>
+    </SwiperSlide>
   );
 };
 

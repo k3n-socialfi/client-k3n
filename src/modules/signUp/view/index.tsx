@@ -1,6 +1,5 @@
 "use client";
 
-import k3nImg from "@/assets/svgs/common/k3n.svg";
 import LeftSide from "../components/LeftSide";
 import RightSide from "../components/RightSide";
 
@@ -12,7 +11,7 @@ const SignUp = (props: Props) => {
 
   return (
     <div className="flex flex-col lg:flex-row justify-between min-h-screen">
-      <LeftSide img={k3nImg} />
+      <LeftSide />
       <RightSide />
     </div>
   );

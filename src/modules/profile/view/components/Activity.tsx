@@ -5,7 +5,7 @@ import { capitalizeFirstLetter } from "@/utils";
 import StarRating from "@/components/StarRating";
 import { mapMentionedChains, mapMentionedProjects } from "./CustomerInfo";
 import svgs from "@/assets/svgs";
-import { IconShare, IconSharePost } from "@/assets/icons";
+import { IconSharePost } from "@/assets/icons";
 import Image from "next/image";
 
 const ActivitySeciton = ({ listProjects, rating }: any) => {
@@ -38,17 +38,13 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                       <div className="bg-darkblack-500 p-4 border border-gray-200/20">
                         {mappedProjects?.map((project: any, index: any) => (
                           <div className="flex space-x-2" key={index}>
-                            {/* <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
-                           <img src={project.icon} alt={project.symbol} className="h-full w-full object-cover"/>
-                         </div> */}
                             <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
                               <Image
                                 unoptimized
                                 src={project.icon}
                                 alt={project.symbol}
-                                fill
-                                sizes="100%"
-                                objectFit="contain"
+                                width={24}
+                                height={24}
                                 className="rounded-full"
                               />
                             </div>
@@ -61,24 +57,24 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                     }
                   >
                     <Typography className="flex items-center justify-center">
-                      {mappedProjects.slice(0, 10).map((item: any) => (
+                      {mappedProjects.slice(0, 7).map((item: any) => (
                         <div
                           className="relative h-10 w-10 -m-[6px] border bg-darkblack-600 overflow-hidden rounded-full"
                           key={item.symbol}
                         >
                           <Image
-                          fill
-                          sizes="100%"
-                          objectFit="cover"
+                            fill
+                            sizes="100%"
+                            objectFit="cover"
                             src={item.icon}
                             alt={item.symbol}
                           />
                         </div>
                       ))}
-                      {mappedProjects.length >= 10 && (
+                      {mappedProjects.length >= 5 && (
                         <div className="h-10 w-10 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
                           <p className="text-xl font-bold">
-                            {mappedProjects.length - 10}+
+                            {mappedProjects.length - 7}+
                           </p>
                         </div>
                       )}
@@ -97,12 +93,11 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                           <div className="flex space-x-2" key={index}>
                             <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
                               <Image
-                              fill
-                              sizes="100%"
-                              objectFit="cover"
+                                fill
+                                sizes="100%"
+                                objectFit="cover"
                                 src={project.icon}
                                 alt={project.chain}
-                               
                               />
                             </div>
                             <h1>{capitalizeFirstLetter(project.chain)}</h1>
@@ -118,13 +113,12 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                             className="relative h-10 w-10 bg-darkblack-600 border overflow-hidden rounded-full"
                             key={item.symbol}
                           >
-                            <Image 
-                             fill
-                             sizes="100%"
-                             objectFit="cover"
+                            <Image
+                              fill
+                              sizes="100%"
+                              objectFit="cover"
                               src={item.icon}
                               alt={item.symbol}
-                         
                             />
                           </div>
                         ))}
