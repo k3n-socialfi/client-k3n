@@ -1,6 +1,6 @@
-import { Avatar } from "@mui/material";
 import SOL from "@/assets/images/SOL.png";
+import Image from "next/image";
 
 export default function IconSOL() {
-  return <Avatar sx={{ width: "28px", height: "29px" }} alt="" src={SOL.src} />;
+  return <Image alt="" src={SOL.src} width={28} height={28} />;
 }

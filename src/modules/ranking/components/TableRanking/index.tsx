@@ -80,8 +80,6 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   // Sort down: -1
   // Sort up: 1
 
-  console.log("data: ", usersList);
-
   const fetchUsersList = useCallback(
     async (key?: string, value?: any) => {
       try {

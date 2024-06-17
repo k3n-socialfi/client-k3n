@@ -4,6 +4,8 @@ import TagList from "@/components/TagList";
 import { formatNumberToK } from "@/utils";
 import Image from "next/image";
 import styled from "styled-components";
+import { Autoplay, FreeMode } from "swiper/modules";
+import { Swiper } from "swiper/react";
 
 interface IPropsCardHotKols {
   number?: number;
@@ -22,7 +24,7 @@ export default function CardHotKols({
   score,
 }: IPropsCardHotKols) {
   return (
-    <div className="hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] w-max max-w-[520px] duration-200 flex rounded-[8px] py-4 px-3 bg-[#191D24] items-center gap-2">
+    <div className="hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] w-[520px] duration-200 flex rounded-[8px] py-4 px-3 bg-[#191D24] items-center gap-2">
       {/* Number */}
       <p className="font-bold text-xl">{number}</p>
 
@@ -41,9 +43,15 @@ export default function CardHotKols({
           <IconStarKols />
           <p className="font-medium">{review}</p>
         </div>
-        <div className="overflow-hidden">
+        <Swiper
+          freeMode={true}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          grabCursor={true}
+          modules={[FreeMode, Autoplay]}
+          className="overflow-x-scroll w-80"
+        >
           <TagList tags={tags} />
-        </div>
+        </Swiper>
       </div>
       {/* Point */}
       <div className="flex gap-[2px] items-center">

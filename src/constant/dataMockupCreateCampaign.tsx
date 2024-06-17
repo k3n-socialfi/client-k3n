@@ -1,4 +1,6 @@
-import { IconK3NToken, IconSOL, IconUSDT } from "@/assets/icons";
+import SolanaIcon from "@/assets/svgs/tokens/sol.svg";
+import USDTIcon from "@/assets/svgs/tokens/usdt.svg";
+import K3NIcon from "@/assets/svgs/k3n.svg";
 
 export const DATAPLATFORM = [
   { title: "Twitter", value: "Twitter" },
@@ -8,9 +10,9 @@ export const DATAPLATFORM = [
 ];
 
 export const DATACURRENCY = [
-  { title: "USDT", value: "USDT", icon: <IconUSDT /> },
-  { title: "SOLANA(SOL)", value: "SOLANA(SOL)", icon: <IconSOL /> },
-  { title: "K3N Token", value: "K3N Token", icon: <IconK3NToken /> },
+  { title: "USDT", value: "usdt", icon: USDTIcon },
+  { title: "SOLANA", value: "sol", icon: SolanaIcon },
+  { title: "K3N", value: "k3n", icon: K3NIcon },
 ];
 export const DATAPAYMENTMETHOD = [
   { title: "One-time payment", value: "onetimePayment" },

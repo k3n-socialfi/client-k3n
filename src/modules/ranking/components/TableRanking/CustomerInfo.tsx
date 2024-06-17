@@ -24,11 +24,11 @@ export const mapMentionedProjects = (
     })
     .map((project: any) => {
       const token = tokensArr.find(
-        (token: any) => token.name === project.symbol,
+        (token: any) => token.title === project.symbol,
       );
       return {
         ...project,
-        icon: token ? token.image : defaultIcon,
+        icon: token ? token.icon : defaultIcon,
       };
     });
 };
@@ -46,10 +46,12 @@ export const mapMentionedChains = (
       return !isDuplicate;
     })
     .map((project: any) => {
-      const token = chainArr.find((chain: any) => chain.name === project.chain);
+      const token = chainArr.find(
+        (chain: any) => chain.title === project.chain,
+      );
       return {
         ...project,
-        icon: token ? token.image : defaultIcon,
+        icon: token ? token.icon : defaultIcon,
       };
     });
 };
@@ -198,9 +200,9 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedProjects?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center">
                     <Image
-                      src={project.icon ?? defaultIcon}
+                      src={project.icon}
                       alt={project.symbol}
                       width={24}
                       height={24}
@@ -217,11 +219,11 @@ function CustomerInfo({
           <div className="text-base font-medium text-bgray-900 dark:text-white flex">
             {mappedProjects?.slice(0, 5).map((item: any) => (
               <div
-                className="h-6 w-6 -m-1 border bg-darkblack-600 overflow-hidden rounded-full"
+                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
                 key={item.symbol}
               >
                 <Image
-                  src={item.icon ?? defaultIcon}
+                  src={item.icon}
                   alt={item.symbol}
                   width={24}
                   height={24}
@@ -267,12 +269,12 @@ function CustomerInfo({
             <div className="bg-darkblack-500 p-4 border border-gray-200/20">
               {mappedChains?.map((project: any, index: any) => (
                 <div className="flex space-x-2" key={index}>
-                  <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full">
+                  <div className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center">
                     <Image
                       src={project.icon}
                       alt={project.chain}
-                      fill
-                      style={{ objectFit: "cover" }}
+                      width={24}
+                      height={24}
                     />
                   </div>
                   <h1>{project.chain}</h1>
@@ -284,14 +286,14 @@ function CustomerInfo({
           <div className="text-base font-semibold text-white flex">
             {mappedChains.map((item: any) => (
               <div
-                className="relative h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full"
+                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
                 key={item.symbol}
               >
                 <Image
                   src={item.icon}
                   alt={item.symbol}
-                  fill
-                  style={{ objectFit: "cover" }}
+                  width={24}
+                  height={24}
                 />
               </div>
             ))}

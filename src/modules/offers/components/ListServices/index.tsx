@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
-import * as React from "react";
 import styled from "styled-components";
 import { Checkbox, Divider } from "@mui/material";
 import { ButtonSecondary, ButtonPrimary } from "@/components/ButtonCustom";
 import CreateServices from "@/components/ModalCreateServices";
 import { IconEdit, IconDelete, IconAdd } from "@/assets/icons";
 import { LinkCustom } from "@/components/CardFeaturedKOLs/style";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -14,9 +15,19 @@ export default function Services({
   listServicesProfile,
   fetchDataServices,
 }: any) {
-  const [isShowModal, setIsShowModal] = React.useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const IMG2 =
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  const { push } = useRouter();
+
+  const createNewService = useCallback(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setIsShowModal(!isShowModal);
+    } else {
+      push("/login");
+    }
+  }, [isShowModal, push]);
 
   return (
     <StyleBox>
@@ -26,11 +37,7 @@ export default function Services({
           <LinkCustom href={`/services`}>
             <SeeAll>See all</SeeAll>
           </LinkCustom>
-          <CustomButtonPrimary
-            onClick={() => {
-              setIsShowModal(!isShowModal);
-            }}
-          >
+          <CustomButtonPrimary onClick={createNewService}>
             <IconAdd />
             Create New Service
           </CustomButtonPrimary>
@@ -93,6 +100,7 @@ export default function Services({
         isShowModal={isShowModal}
         setIsShowModal={setIsShowModal}
         fetchDataServices={fetchDataServices}
+        onClose={() => setIsShowModal(false)}
       />
     </StyleBox>
   );

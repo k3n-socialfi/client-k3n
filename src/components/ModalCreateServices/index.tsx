@@ -16,15 +16,17 @@ import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import { createServices } from "@/services";
 import { IMAGES } from "@/constant";
-import IconPlus from "@/assets/icons/IconPlus";
+import { motion } from "framer-motion";
 import { useAlert } from "@/contexts/AlertContext";
 import SelectFilter from "@/modules/ranking/components/TableRanking/SelectFilter";
 import { TAGS } from "@/constant/FilterData";
+import { SpinnerLoader } from "../SpinnerLoader";
 
 type Props = {
   isShowModal: boolean;
   setIsShowModal: any;
   fetchDataServices?: any;
+  onClose?: () => void;
 };
 
 interface ICreateJobsFields {
@@ -38,12 +40,12 @@ interface ICreateJobsFields {
   price: number | null;
   paymentMethod: string | null;
   platform: string | null;
-  currency: string[];
+  currency: string | null;
   kolWallet: string | null;
 }
 
 const CreateServices = (props: Props) => {
-  const { isShowModal, setIsShowModal, fetchDataServices } = props;
+  const { isShowModal, setIsShowModal, fetchDataServices, onClose } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const openGotIt = useBoolean();
   const openButton = useBoolean();
@@ -71,7 +73,7 @@ const CreateServices = (props: Props) => {
       price: null,
       paymentMethod: null,
       platform: null,
-      currency: [],
+      currency: null,
       kolWallet: null,
     },
   });
@@ -84,14 +86,6 @@ const CreateServices = (props: Props) => {
 
   const onSubmitForm: SubmitHandler<ICreateJobsFields> = useCallback(
     async (data) => {
-      // TODO: Re-verify data
-      data.image = IMAGES;
-      data.currency = data.currency;
-      data.tags = ["tag test"];
-      data.isPublic = true;
-      data.price = data.price;
-      data.kolWallet = wallet.publicKey?.toBase58() as string;
-
       try {
         setIsLoading(true);
         const res = await createServices(data);
@@ -110,13 +104,7 @@ const CreateServices = (props: Props) => {
         );
       }
     },
-    [
-      fetchDataServices,
-      openGotIt,
-      setAlertError,
-      setAlertSuccess,
-      wallet.publicKey,
-    ],
+    [fetchDataServices, openGotIt, setAlertError, setAlertSuccess],
   );
 
   const checkForm = watch();
@@ -138,6 +126,7 @@ const CreateServices = (props: Props) => {
       open={isShowModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      onClose={onClose}
     >
       <StyleModalBox>
         <StyleTop>
@@ -155,11 +144,17 @@ const CreateServices = (props: Props) => {
           </Typography>
         </StyleTop>
 
+        {isLoading && (
+          <div className="flex items-center justify-center z-20 h-full w-full bg-[#00000044]">
+            <SpinnerLoader />
+          </div>
+        )}
+
         {!openGotIt.value ? (
           <form
             onSubmit={handleSubmit(onSubmitForm)}
             className={
-              "flex justify-center flex-col items-center flex-nowrap border-t border-white w-full px-12 py-5 gap-4"
+              "flex justify-center flex-col items-center flex-nowrap w-full px-12 py-5 gap-4"
             }
           >
             <>
@@ -225,17 +220,18 @@ const CreateServices = (props: Props) => {
                   placeHolder="Select currency"
                   options={DATACURRENCY}
                   onUpdateValue={(value) => {
-                    const currency = watch("currency");
-                    if (currency) {
-                      if (currency?.includes(value)) {
-                        const newCurrency = currency.filter(
-                          (item) => item !== value,
-                        );
-                        setValue("currency", newCurrency);
-                      } else {
-                        setValue("currency", [...currency, value]);
-                      }
-                    }
+                    // const currency = watch("currency");
+                    // if (currency) {
+                    //   if (currency?.includes(value)) {
+                    //     const newCurrency = currency.filter(
+                    //       (item) => item !== value,
+                    //     );
+                    //     setValue("currency", newCurrency);
+                    //   } else {
+                    //     setValue("currency", [...currency, value]);
+                    //   }
+                    // }
+                    setValue("currency", value);
                   }}
                 />
                 <StyleError>{errors.currency?.message as string}</StyleError>
@@ -247,7 +243,6 @@ const CreateServices = (props: Props) => {
                 <Typography>Payment Method</Typography>
                 <Typography color={"red"}>*</Typography>
               </StyleLabel>
-
               <SelectFilter
                 placeHolder="Select platform"
                 options={DATAPAYMENTMETHOD}
@@ -278,6 +273,9 @@ const CreateServices = (props: Props) => {
                 }}
               />
             </>
+            <ButtonPrimary type="submit" fullWidth disabled={isLoading}>
+              Create service
+            </ButtonPrimary>
           </form>
         ) : (
           <Stack
@@ -333,7 +331,6 @@ const CreateServices = (props: Props) => {
 };
 
 export default CreateServices;
-
 const StyleModalBox = styled(Box)`
   height: 100%;
   max-height: 750px;
@@ -342,20 +339,25 @@ const StyleModalBox = styled(Box)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: max-content;
+  width: 100%;
+  max-width: 694px;
   background-color: #191d24;
   color: #fff;
   box-shadow: 24;
-  padding: 16px;
   border-radius: 8px;
 `;
-
 const StyleTop = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: #191d24;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 15px 0;
+  border-bottom: 0.5px solid #ffffff22;
 `;
 
 const StyleButtonClose = styled.div`
@@ -373,11 +375,6 @@ const StyleLabel = styled.div`
   flex-direction: row;
   width: 100%;
   gap: 4px;
-`;
-
-const StyleBottomSubmit = styled.div`
-  width: 100%;
-  margin-top: 20px;
 `;
 
 const StyleBottomCampaign = styled.div`
@@ -413,10 +410,4 @@ const StylePriceCurrency = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
-`;
-
-const AddNewTag = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
 `;

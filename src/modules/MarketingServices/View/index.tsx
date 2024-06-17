@@ -20,6 +20,7 @@ export default function MarketingServicesView() {
   return (
     <Fragment>
       {/* Top KOLs */}
+
       <MarketingServicesHeading>Top KOLs</MarketingServicesHeading>
       <div className="flex flex-wrap gap-4 px-5 py-10 justify-center lg:justify-start">
         {isLoading
