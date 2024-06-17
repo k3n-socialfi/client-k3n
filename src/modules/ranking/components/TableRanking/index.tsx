@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import CustomerInfo from "./CustomerInfo";
 import { IconSort } from "@/assets/icons";
+import PaginationTable from "@/components/Pagination";
 
 const tableTitle: any[] = [
   {
@@ -69,6 +70,7 @@ interface IPCustomTableCell {
 export default function TableTopRanking(props: ITableTopRankingProps) {
   const {
     data,
+    totalPage,
     isLoading,
     updateQueryParams,
     resetQueryParams,
@@ -77,8 +79,9 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
   const [page, setPage] = useState<number>(0);
   const pageSize = 10;
 
-  const handleChangePage = (e: any, value: any) => {
-    setPage(value - 1);
+  const handleChangePage = (value: number) => {
+    setPage(value);
+    updateQueryParams("page", value);
   };
 
   return (
@@ -168,9 +171,16 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
           </div>
         )}
       </div>
-
+      <div className="flex items-center justify-center w-full py-4">
+        <PaginationTable
+          total={totalPage}
+          page={page}
+          onChange={(value) => handleChangePage(value)}
+        />
+      </div>
       {/* <Pagination
-        count={totalPage}
+        color="primary"
+        count={10}
         page={page}
         onChange={handleChangePage}
         sx={{ color: "#FFF" }}
