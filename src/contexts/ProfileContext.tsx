@@ -1,7 +1,14 @@
 "use client";
 import { IUserProfile } from "@/interface/profile.interface";
 import { getPostUser, getProfileUser } from "@/services";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface IPropsProfileContextProvider {
   children: React.ReactNode;
@@ -52,6 +59,8 @@ const ProfileContextTypes = {
 };
 const profileContext = createContext<IProfileContextTypes>(ProfileContextTypes);
 const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
+  const { username } = useParams();
+
   const [userProfile, setUserProfile] = useState<IUserProfile>(
     ProfileContextTypes?.userProfile,
   );
@@ -59,7 +68,7 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const getUserProfile = async (username: String) => {
+  const getUserProfile = useCallback(async () => {
     setIsLoading(true);
     try {
       const { data } = await getProfileUser(String(username));
@@ -74,7 +83,11 @@ const ProfileContextProvider = ({ children }: IPropsProfileContextProvider) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [username]);
+
+  useEffect(() => {
+    getUserProfile();
+  }, [getUserProfile]);
 
   return (
     <profileContext.Provider

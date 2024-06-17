@@ -3,7 +3,6 @@ import {
   useRef,
   useEffect,
   ReactNode,
-  SelectHTMLAttributes,
   useMemo,
   useCallback,
 } from "react";
