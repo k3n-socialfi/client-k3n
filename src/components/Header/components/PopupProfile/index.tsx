@@ -55,7 +55,7 @@ export const PopupProfile = (props: IPropPopupProfile) => {
                 onClick={() => setPopupProfile(false)}
               >
                 <LinkCustom
-                  href={item.href === '/profile' ? `/profile/${dataPersonal?.username?.toString()}` : item.href }
+                  href={item.href}
                   className="profile-list__item__link"
                 >
                   <item.icon />

@@ -194,10 +194,6 @@ export default function Services({
   );
 }
 
-const ContentNotData = styled.div`
-  padding: 20px 15px;
-`;
-
 const DescriptionNotData = styled.div`
   display: flex;
   flex-direction: row;

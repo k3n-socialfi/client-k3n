@@ -1,4 +1,3 @@
-import { IUsers } from "./users.interface";
 export interface Post {
   post: [];
 }

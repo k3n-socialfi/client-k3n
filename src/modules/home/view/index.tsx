@@ -78,7 +78,7 @@ export default function Home({}: IHomeProps) {
           <SwipperImage featureKols={featureKols} />
         </StyleFeaturedKOLs>
       </div>
-      <StyleFeaturedProject>
+      <div>
         <div className="flex items-center justify-between mt-8 px-4 py-2">
           <h4 className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl">
             Services
@@ -143,9 +143,9 @@ export default function Home({}: IHomeProps) {
             </SwiperSlide>
           ))}
         </Swiper>
-      </StyleFeaturedProject>
+      </div>
       <StyleTrending>
-        <StyleTrendingKOLs>
+        <div className="w-full">
           <div className="flex items-center justify-between mt-8 p-4">
             <motion.h4
               initial={{ opacity: 0, y: 30 }}
@@ -198,8 +198,9 @@ export default function Home({}: IHomeProps) {
           ) : (
             <TredingKols data={trendingKols} />
           )}
-        </StyleTrendingKOLs>
-        <StyleTrendingProjects>
+        </div>
+
+        <div className="w-full">
           <div className="flex items-center justify-between mt-8 p-4">
             <h4 className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl">
               Projects Trending
@@ -228,7 +229,7 @@ export default function Home({}: IHomeProps) {
                 .map((project, index) => (
                   <TrendingProjects project={project} key={index} />
                 ))}
-        </StyleTrendingProjects>
+        </div>
       </StyleTrending>
     </StyleContainer>
   );
@@ -260,38 +261,11 @@ const StyleFeaturedKOLs = styled.div`
     }
   }
 `;
-const StyleFeaturedProject = styled.div``;
 
 const MoreTrendingKols = styled(Stack)<any>`
   display: flex;
   align-items: center;
   flex-direction: row !important;
-  gap: 10px;
-  cursor: pointer;
-  .MuiTypography-body1 {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-  }
-`;
-
-const StyleLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: white;
-  padding-top: 24px;
-  @media (max-width: 520px) {
-    padding-top: 0px;
-    h4 {
-      font-size: 25px !important;
-    }
-  }
-`;
-const StyleRight = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   gap: 10px;
   cursor: pointer;
   .MuiTypography-body1 {
@@ -315,56 +289,4 @@ const StyleTrending = styled.div`
   flex-wrap: wrap;
   gap: 10px;
   } */
-`;
-
-const StyleTrendingKOLs = styled.div`
-  width: 100%;
-`;
-
-const TabD = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
-  color: #fff;
-  padding: 6px 0;
-  gap: 4px;
-`;
-
-const ItemTabD = styled.div`
-  padding: 4px 18px;
-  border-radius: 99px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19.2px;
-  color: #a7a7a7;
-  cursor: pointer;
-`;
-
-const StyleTrendingTopCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-`;
-
-const StyleTrendingProjects = styled.div`
-  width: 100%;
-`;
-
-const StyleTrendingProjectsCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const StyleTrendingCard = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  &:hover {
-    .MuiTypography-h5 {
-      color: #82ebff;
-    }
-  }
 `;

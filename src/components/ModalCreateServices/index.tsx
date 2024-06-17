@@ -15,8 +15,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../ButtonCustom";
 import { createServices } from "@/services";
-import { IMAGES } from "@/constant";
-import { motion } from "framer-motion";
+
 import { useAlert } from "@/contexts/AlertContext";
 import SelectFilter from "@/modules/ranking/components/TableRanking/SelectFilter";
 import { TAGS } from "@/constant/FilterData";

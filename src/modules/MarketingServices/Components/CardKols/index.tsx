@@ -69,9 +69,9 @@ export default function CardKols({
       </div>
 
       {/* Card Content */}
-      <div className="flex flex-col gap-2 h-full">
+      <div className="flex w-full flex-col gap-2 h-full">
         {/* Header */}
-        <div className="px-3 flex items-center justify-between">
+        <div className="px-3 flex w-full items-center justify-between">
           <TagList tags={tags} />
           <Link
             href={""}
