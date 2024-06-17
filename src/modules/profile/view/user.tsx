@@ -36,9 +36,8 @@ export default function ClientProfile(props: IUserProfileProps) {
   const [listProjects, setListProject] = useState<[] | undefined>();
 
   const getData = useCallback(async () => {
-    setIsloading(true);
     try {
-      getUserProfile(username.toString());
+      setIsloading(true);
       const mentionProjects = await getMentionedProject(username.toString());
       if (mentionProjects) {
         setListProject(mentionProjects?.data?.data);
@@ -48,11 +47,11 @@ export default function ClientProfile(props: IUserProfileProps) {
     } finally {
       setIsloading(false);
     }
-  }, [getUserProfile, username]);
+  }, [username]);
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [getData, ]);
 
   if (isLoading)
     return (
