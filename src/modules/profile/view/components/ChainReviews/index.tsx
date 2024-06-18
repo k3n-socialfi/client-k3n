@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import { Autoplay, FreeMode, Pagination } from "swiper/modules";
-import { IconClock, IconKol, IconStar, Iconview } from "@/assets/icons";
 import OffChainReview from "./components/OffChainReview";
 import OnChainReview from "./components/OnChainReview";
 
@@ -15,8 +9,6 @@ let tabs = [
   { id: "onchain", label: "Onchain Reviews" },
   { id: "offchain", label: "Offchain Reviews" },
 ];
-
-const posts = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 const ChainReview = () => {
   let [activeTab, setActiveTab] = useState(tabs[0].id);
@@ -27,7 +19,7 @@ const ChainReview = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`relative px-2 py-4 md:px-7`}
+            className={`relative px-4 py-2`}
             style={{
               WebkitTapHighlightColor: "transparent",
             }}
@@ -35,15 +27,14 @@ const ChainReview = () => {
             {activeTab === tab.id && (
               <motion.span
                 layoutId="bubble"
-                className=" absolute inset-0 z-10 bg-primary mix-blend-screen"
-                style={{ borderRadius: "4px" }}
+                className="absolute inset-0 z-10 bg-primary mix-blend-screen rounded"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
             <p
               className={`${
                 activeTab === tab.id ? "text-white" : "text-[#7B7B7B]"
-              }  text-base md:text-2xl font-kode`}
+              }  text-base md:text-lg`}
             >
               {tab.label}
             </p>

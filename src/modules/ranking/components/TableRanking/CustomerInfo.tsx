@@ -1,6 +1,6 @@
 import { IconPointProfile, IconTop1, IconTop2, IconTop3 } from "@/assets/icons";
 import { chains, tokens } from "@/data/ranking/filterData";
-import { numberWithCommas } from "@/utils";
+import { formatNumberToK, numberWithCommas } from "@/utils";
 import { Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -141,7 +141,7 @@ function CustomerInfo({
       }
     >
       <td className="px-6 py-5 xl:px-2">
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center items-center gap-2">
           <p className={`${getRankChangeStyle}`}>
             {rankChange > 0
               ? `▲ ${rankChange}`
@@ -155,8 +155,8 @@ function CustomerInfo({
           {rank !== 0 && rank !== 1 && rank !== 2 && rank + 1}
         </div>
       </td>
-      <td className="px-6 py-5 xl:px-0">
-        <div className="flex w-full items-center space-x-2.5">
+      <td className="px-6 py-5 ">
+        <div className="flex justify-center w-full items-center space-x-2.5">
           <div className="flex flex-col items-center w-[100px] gap-2">
             <Link
               href={`/profile/${username}`}
@@ -175,28 +175,26 @@ function CustomerInfo({
           </div>
         </div>
       </td>
-      <td className="px-6 py-5 xl:px-0">
-        <p className="text-base font-medium text-bgray-900 dark:text-white">
-          <span
-            className={`bg-darkblack-500 hover:bg-darkblack-300 shadow-md shadow-gray-100/20 text-sm ${
-              typeKol === "Experts"
-                ? "text-primary"
-                : typeKol === "KOL"
-                ? "text-green-500"
-                : typeKol === "Celebrities"
-                ? "text-secondary"
-                : typeKol === "Threador"
-                ? "text-portage"
-                : typeKol === "Caller"
-                ? "text-yellow-400"
-                : "text-white"
-            } font-medium rounded-lg py-1 px-3`}
-          >
-            {typeKol}
-          </span>
-        </p>
+      <td className="px-6 py-5 ">
+        <div
+          className={`bg-darkblack-500 w-max mx-auto hover:bg-darkblack-300 shadow-md shadow-gray-100/20 text-sm ${
+            typeKol === "Experts"
+              ? "text-primary"
+              : typeKol === "KOL"
+              ? "text-green-500"
+              : typeKol === "Celebrities"
+              ? "text-secondary"
+              : typeKol === "Threador"
+              ? "text-portage"
+              : typeKol === "Caller"
+              ? "text-yellow-400"
+              : "text-white"
+          } font-medium rounded-lg py-1 px-3`}
+        >
+          {typeKol}
+        </div>
       </td>
-      <td className="px-6 py-5 w-[200px] xl:px-0">
+      <td className="px-6 py-5 w-[200px] ">
         <Tooltip
           placement="right"
           title={
@@ -221,17 +219,14 @@ function CustomerInfo({
         >
           <div className="text-base font-medium text-bgray-900 dark:text-white flex">
             {mappedProjects?.slice(0, 5).map((item: any) => (
-              <div
-                className="h-6 w-6 -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
+              <Image
                 key={item.symbol}
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.symbol}
-                  width={24}
-                  height={24}
-                />
-              </div>
+                src={item.icon}
+                alt={item.symbol}
+                width={24}
+                height={24}
+                className="p-1 aspect-square -m-1 bg-darkblack-600 border overflow-hidden rounded-full flex items-center justify-center"
+              />
             ))}
             {mappedProjects?.length >= 5 && (
               <div className="h-6 w-6 -m-1 border overflow-hidden rounded-full bg-white text-primary items-center justify-center text-center pt-[3px]">
@@ -243,18 +238,18 @@ function CustomerInfo({
           </div>
         </Tooltip>
       </td>
-      <td className="px-6 py-5 xl:px-0 min-w-[180px]">
-        <p className="text-base font-medium text-bgray-900 dark:text-white">
-          {numberWithCommas(followers)}
+      <td className="px-6 py-5 min-w-[180px]">
+        <p className="text-base font-medium text-bgray-900 text-center dark:text-white">
+          {formatNumberToK(followers).toLocaleString()}
         </p>
       </td>
-      <td className="w-[165px] px-6 py-5 xl:px-0">
+      <td className="w-[165px] px-6 py-5">
         <p className="text-base font-semibold text-primary group-hover:text-white flex items-center gap-1">
           <IconPointProfile />
           {numberWithCommas(shillScore)}
         </p>
       </td>
-      <td className="px-6 py-5 xl:px-0 text-center">
+      <td className="px-6 py-5 text-center">
         <p className="text-base font-semibold text-bgray-900 dark:text-white">
           <p className={`${getChangeStyle(change)} truncate`}>
             {change > 0
@@ -265,7 +260,7 @@ function CustomerInfo({
           </p>
         </p>
       </td>
-      <td className="w-[165px] px-6 py-5 xl:px-0">
+      <td className="w-[165px] px-6 py-5">
         <Tooltip
           placement="right"
           title={
@@ -303,7 +298,7 @@ function CustomerInfo({
           </div>
         </Tooltip>
       </td>
-      <td className="px-6 py-5 xl:px-0">
+      <td className="px-6 py-5 ">
         <p className="text-base font-semibold text-bgray-900 dark:text-white">
           <TagList tags={tags} length={3} />
         </p>

@@ -74,63 +74,11 @@ const UserInfo = ({ user }: any) => {
             sizes="100%"
             objectFit="cover"
           />
+          <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-t from-black to-transparent" />
         </div>
 
-        {/* share */}
-        {/* <div className="absolute right-3 top-1 px-[10px]">
-          <div className="flex flex-wrap gap-[6px]">
-            <Tooltip
-              title={
-                <div className="">{copied ? "Copied" : "Copy Address"}</div>
-              }
-            >
-              <motion.button
-                onClick={async () => {
-                  if (publicKey) {
-                    await navigator.clipboard.writeText(publicKey.toBase58());
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 400);
-                  }
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
-              >
-                <AddressIcon />
-
-                <p className="md:text-base text-[#82EBFF]">
-                  CA: Address Wallet
-                </p>
-              </motion.button>
-            </Tooltip>
-
-            {dataPersonal?.username?.toString() !== username.toString() && (
-              <>
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
-                >
-                  <IconShareProject />
-
-                  <p className="md:text-base text-[#82EBFF]">Share</p>
-                </motion.button>
-
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center justify-center gap-2 bg-[#232731] py-2 px-3"
-                >
-                  <IconStarKols color="#82EBFF" />
-
-                  <p className="md:text-base text-[#82EBFF]">
-                    Added to favorites
-                  </p>
-                </motion.button>
-              </>
-            )}
-          </div>
-        </div> */}
-
         {/* User infor */}
-        <div className="absolute -bottom-[40%] w-full">
+        <div className="absolute -bottom-[40%] w-full px-6">
           <div className="flex items-center justify-between ">
             {/* left */}
             <div className="flex items-center justify-center gap-[38px]">
@@ -183,15 +131,6 @@ const UserInfo = ({ user }: any) => {
                     <IconTwitter />
                     <p className="text-white">{user?.username}</p>
                   </a>
-
-                  {/* <a
-              target="_blank"
-              href={`https://x.com/${user?.twitterInfo?.username}`}
-              className="flex items-center space-x-1 cursor-pointer"
-            >
-              <TelegramIcon />
-              <p className="text-white">{user?.twitterInfo?.username}</p>
-            </a> */}
                 </div>
               </div>
             </div>

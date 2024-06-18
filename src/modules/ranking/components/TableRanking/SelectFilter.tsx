@@ -113,7 +113,7 @@ const SelectFilter = ({
           aria-label="none"
           onClick={() => setActive(!active)}
           type="button"
-          className="relative flex h-full w-full items-center justify-between rounded-lg bg-bgray-100 px-4 dark:bg-darkblack-500"
+          className="relative flex h-full w-full items-center justify-between rounded-lg bg-bgray-100 px-4 dark:bg-[#121212]"
         >
           {startIcon && <span>{startIcon}</span>}
 
@@ -132,7 +132,7 @@ const SelectFilter = ({
         <div
           id="province-filter"
           style={{ display: active ? "block" : "none" }}
-          className="absolute right-0 top-14 z-10 hidden w-full overflow-hidden rounded-lg bg-white shadow-lg dark:bg-darkblack-500"
+          className="absolute right-0 top-14 z-10 hidden w-full overflow-hidden rounded-lg border border-[#FFFFFF22] bg-white shadow-lg dark:bg-[#121212]"
         >
           {search && <SearchBar ref={searchRef} />}
 

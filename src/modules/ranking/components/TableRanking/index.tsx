@@ -16,7 +16,7 @@ const tableTitle: any[] = [
     icon: false,
   },
   {
-    name: "KOL",
+    name: "Name",
     icon: false,
   },
   {
@@ -99,9 +99,9 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
               <tbody>
                 <tr className="border-b border-bgray-300 dark:border-darkblack-400 items-center">
                   {tableTitle.map((item, i) => (
-                    <td className="px-6 py-2 xl:px-0 " key={i}>
-                      <div className="flex w-full items-center space-x-2 truncate">
-                        <span className="text-base font-medium text-primary truncate text-start">
+                    <td className="px-6 py-2" key={i}>
+                      <div className="flex w-full items-center gap-2 justify-center truncate">
+                        <span className="text-base text-center font-medium text-primary truncate">
                           {item.name}
                         </span>
                         {item.icon && (

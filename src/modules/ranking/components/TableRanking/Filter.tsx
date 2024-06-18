@@ -69,7 +69,7 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
           options={tokens}
           search
           onUpdateValue={(value) => {
-            updateQueryParams("mentionedProjects", value);
+            updateQueryParams("mentionedProject", value);
           }}
           reset={reset}
         />
@@ -77,7 +77,7 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleResetFilters}
-          className="p-2 bg-darkblack-100 hover:shadow-xl hover:shadow-white/30 text-white rounded-lg"
+          className="p-2 bg-[#121212] border border-[#FFFFFF22] hover:shadow-sm hover:shadow-white/30 text-white rounded-lg"
         >
           <IconReset />
         </motion.button>
