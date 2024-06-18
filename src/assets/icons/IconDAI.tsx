@@ -7,7 +7,7 @@ export default function IconDAI() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1423_8689)">
+      <g clipPath="url(#clip0_1423_8689)">
         <path
           d="M10.5 20C16.0228 20 20.5 15.5228 20.5 10C20.5 4.47715 16.0228 0 10.5 0C4.97715 0 0.5 4.47715 0.5 10C0.5 15.5228 4.97715 20 10.5 20Z"
           fill="#F5AC37"

@@ -7,7 +7,7 @@ export default function IconNotChooseCrypto() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1423_8782)">
+      <g clipPath="url(#clip0_1423_8782)">
         <rect width="20" height="20" rx="10" fill="#667085" />
       </g>
       <rect

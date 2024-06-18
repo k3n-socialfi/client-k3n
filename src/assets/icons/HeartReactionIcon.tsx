@@ -9,7 +9,7 @@ const HeartIconReaction = ({ width, height, color }: TIcon) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1696_25271)">
+      <g clipPath="url(#clip0_1696_25271)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
