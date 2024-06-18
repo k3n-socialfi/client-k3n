@@ -1,4 +1,8 @@
-import { IconBitCoin, IconETH, IconSOL } from "@/assets/icons";
+import IconSOL from "@/assets/svgs/tokens/sol.svg";
+import IconETH from "@/assets/svgs/tokens/eth.svg";
+import IconBTC from "@/assets/svgs/tokens/btc.svg";
+import IconMATIC from "@/assets/svgs/tokens/matic.svg";
+import IconCRO from "@/assets/svgs/tokens/cro.svg";
 
 export const PLATFORM = [
   { title: "X", value: "x" },
@@ -18,11 +22,11 @@ export const ROLES = [
 ];
 
 export const CHAIN = [
-  { title: "Solana", value: "solana", icon: <IconSOL /> },
-  { title: "Ethereum", value: "ethereum", icon: <IconETH /> },
-  { title: "BNB Chain", value: "bnbChain", icon: <IconBitCoin /> },
-  { title: "Polygon", value: "polygon", icon: <IconETH /> },
-  { title: "Cronos", value: "cronos", icon: <IconETH /> },
+  { title: "Solana", value: "solana", icon: IconSOL },
+  { title: "Ethereum", value: "ethereum", icon: IconETH },
+  { title: "BNB Chain", value: "bnbChain", icon: IconBTC },
+  { title: "Polygon", value: "polygon", icon: IconMATIC },
+  { title: "Cronos", value: "cronos", icon: IconCRO },
 ];
 
 export const LANGUAGE = [

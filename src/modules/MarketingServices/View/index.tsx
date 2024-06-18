@@ -99,6 +99,7 @@ const MarketingServicesHeading = styled.h3`
   font-size: 40px;
   line-height: 48px;
   font-weight: 700;
+  margin-top: 40px;
   color: #fff;
   width: 100%;
   @media (max-width: 768px) {
@@ -106,42 +107,8 @@ const MarketingServicesHeading = styled.h3`
   }
 `;
 
-const MarketingKols = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 80px;
-  padding: 20px 40px;
-  @media (max-width: 600px) {
-    justify-content: center;
-    align-items: center;
-  }
-`;
-const WrapperCardServices = styled.div`
-  display: flex;
-  align-items: start;
-  gap: 20px;
-  padding: 24px 14px;
-  width: 100%;
-  overflow-x: hidden;
-  margin-top: 24px;
-`;
-
 const SubHeadingKols = styled.span`
   font-size: 16px;
   color: #a7a7a7;
   text-align: left;
-`;
-
-const Services = styled.div`
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  overflow-x: auto;
-  width: 100%;
-  padding: 20px 40px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;

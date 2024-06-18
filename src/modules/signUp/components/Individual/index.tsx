@@ -28,10 +28,10 @@ const Individual = (props: Props) => {
             </Typography>
           </Score>
         </div>
-        {/* <Typography variant="h5" color={"#FFF"}>
-          Your ShillScore qualifies you to register for our KOL program. Become
-          a KOL to receive many benefits.
-        </Typography> */}
+        <Typography variant="h5" color={"#FFF"}>
+          Your shill score is qualified to register as a platform KOL. <br />
+          Become a KOL to receive many benefits.
+        </Typography>
         <div className="flex w-full flex-col gap-4">
           <button
             onClick={() => push("/login/individual/kol")}
@@ -41,8 +41,8 @@ const Individual = (props: Props) => {
           </button>
 
           <div
-            className="text-[#82EBFF] hover:underline"
-            onClick={() => push("/login/individual/user")}
+            className="text-[#82EBFF] hover:underline cursor-pointer"
+            onClick={() => push("/")}
           >
             Skip
           </div>

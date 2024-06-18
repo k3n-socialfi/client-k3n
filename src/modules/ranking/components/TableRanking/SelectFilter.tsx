@@ -141,7 +141,7 @@ const SelectFilter = ({
               <li
                 key={option.value}
                 onClick={() => onSelectItem(option.value)}
-                className={`flex gap-2 cursor-pointer px-5 py-2 text-sm font-semibold text-white hover:bg-primary ${
+                className={`flex items-center gap-2 cursor-pointer px-5 py-2 text-sm font-semibold text-white hover:bg-primary ${
                   isSelected(option.value) && "bg-primary"
                 }`}
               >
@@ -149,8 +149,8 @@ const SelectFilter = ({
                   <Image
                     src={option.icon}
                     alt={`${option.value} icon`}
-                    width={20}
-                    height={20}
+                    width={16}
+                    height={16}
                   />
                 )}
                 {option.title}

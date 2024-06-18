@@ -1,7 +1,10 @@
 import { IconIndividual, IconProjectSignUp } from "@/assets/icons";
 import CardChoose from "../CardChoose";
+import { useRouter } from "next/navigation";
 
-export default function Authenticated() {
+export default function Authenticated({ shillScore }: { shillScore: number }) {
+  const { push } = useRouter();
+
   return (
     <div className="w-full h-full items-center justify-center flex flex-col gap-4">
       <p className="text-4xl">Welcome to </p>
@@ -10,12 +13,14 @@ export default function Authenticated() {
         <CardChoose
           icon={<IconIndividual size={72} />}
           name="Individual"
-          //   onClick={handleCheckPoint}
+          onClick={() =>
+            shillScore > 200 ? push("/login/individual") : push("/")
+          }
         />
         <CardChoose
           icon={<IconProjectSignUp size={72} />}
           name="Project"
-          //   onClick={() => push("/login/project")}
+          onClick={() => push("/login/project")}
         />
       </div>
     </div>
