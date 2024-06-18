@@ -34,7 +34,7 @@ export default function ClientProfile() {
     return (
       <AuthContextProvider>
         <UserInfo user={userProfile} />
-        <div className="px-[10px]">
+        <div className="px-[10px] mt-40">
           <ActivitySeciton
             listProjects={listProjects}
             rating={userProfile?.review}
@@ -45,8 +45,8 @@ export default function ClientProfile() {
           <ChainReview />
 
           {/* Show Portfolio Button  */}
-          <div className="mb-5">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">
+          <div className="w-full pt-8 py-12 flex flex-col gap-4">
+            <h1 className="text-xl lg:text-3xl font-bold text-white font-kode">
               Recent Posts
             </h1>
             {dataPosts?.length >= 0 && <UserPosts posts={dataPosts} />}

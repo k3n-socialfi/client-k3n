@@ -21,16 +21,16 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
   return (
     <>
       {listProjects && listProjects.length !== 0 && (
-        <div className="pt-40 pb-[48px] text-white flex flex-col gap-10">
-          <p className="text-xl md:text-[50px] font-extrabold text-white font-kode">
+        <div className="w-full pt-8 py-12 flex flex-col gap-4">
+          <h1 className="text-xl lg:text-3xl font-bold text-white font-kode">
             Activity
-          </p>
+          </h1>
           <div className="">
             <div className="bg-darkblack-500 flex w-full rounded-md border border-secondary/10 shadow-lg shadow-gray-100/10">
               <div className="flex flex-col lg:flex-row justify-center items-center w-full gap-4 lg:justify-between lg:items-start py-6 lg:px-20">
                 {/* Related Tokens  */}
                 <div className="flex flex-col justify-center gap-4 items-center">
-                  <p className="text-[28px]">Related Token</p>
+                  <p className="text-[18px] font-bold">Related Token</p>
                   <Tooltip
                     placement="right"
                     title={
@@ -83,7 +83,7 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                 {/* Related Tokens  */}
 
                 <div className="flex flex-col justify-center gap-4 items-top">
-                  <p className="text-[28px]">Related Chains</p>
+                  <p className="text-[18px] font-bold">Related Chains</p>
                   <Tooltip
                     placement="right"
                     title={
@@ -126,7 +126,7 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                   </Tooltip>
                 </div>
                 <div className="flex flex-col justify-center gap-4 items-center">
-                  <p className="text-[28px]">Avg.Rating</p>
+                  <p className="text-[18px] font-bold">Avg.Rating</p>
                   <div className="flex items-center gap-1">
                     <div className="flex items-center justify-center">
                       <StarRating
@@ -134,11 +134,11 @@ const ActivitySeciton = ({ listProjects, rating }: any) => {
                         rating={rating ?? 0}
                       />
                     </div>
-                    <p className="text-[#82EBFF] text-[28px]">{rating}</p>
+                    <p className="text-[#82EBFF] text-[18px]">{rating}</p>
                   </div>
                 </div>
                 <div className="flex flex-col justify-center gap-4 items-center">
-                  <p className="text-[28px] text-center">
+                  <p className="text-[18px] font-bold text-center">
                     Average % Per Mention
                   </p>
                   <div className="flex items-center justify-center gap-1">

@@ -6,7 +6,10 @@ import { Tooltip } from "@mui/material";
 import { IconFilter2 } from "@/assets/icons";
 import { format } from "date-fns";
 import Image from "next/image";
-import { mapMentionedProjects, mapMentionedProjectsToken } from "./CustomerInfo";
+import {
+  mapMentionedProjects,
+  mapMentionedProjectsToken,
+} from "./CustomerInfo";
 import { tokens } from "@/data/ranking/filterData";
 
 // import {Tooltip, Typography} from '@material-tailwind/react'
@@ -22,7 +25,6 @@ function createData(
 }
 
 const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
-  
   const mappedProjects = mapMentionedProjects(
     mentionedProjects,
     tokens,
@@ -48,8 +50,8 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
   return (
     <>
       {mentionedProjects && mentionedProjects.length !== 0 && (
-        <div className="table-content w-full pt-8 py-12 flex flex-col gap-10">
-          <h1 className="text-3xl md:text-[50px] font-extrabold text-white font-kode">
+        <div className="table-content w-full pt-8 py-12 flex flex-col gap-4">
+          <h1 className="text-xl lg:text-3xl font-bold text-white font-kode">
             Mentioned Project
           </h1>
           <div className="">
@@ -61,9 +63,7 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                       <div
                         className={`flex w-full items-center space-x-2.5 ${
                           i === 0 ? "w-[115px] justify-center" : "justify-start"
-                        }  ${
-                          i === 7 && "w-[115px]" 
-                        }`}
+                        }  ${i === 7 && "w-[115px]"}`}
                       >
                         <span className="text-base font-base text-white truncate">
                           {item?.name}
@@ -108,30 +108,31 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                           className="rounded-full"
                         />
                       </div>
-            
+
                       <p className="pl-2 text-start truncate">
                         {item?.tokenName}
                       </p>
                     </td>
                     <td className="pl-12">
-                
-                <div className="flex gap-2">
-                <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
-                              <Image
-                                unoptimized
-                                src={mapMentionedProjectsToken(item?.symbol,tokens,
-                                  svgs.svg_k3n)}
-                                alt={item?.symbol}
-                                fill
-                                sizes="100%"
-                                objectFit="contain"
-                                className="rounded-full"
-                              />
-                            </div>
-                    
-                    <p>{item?.symbol}</p>
-                </div>
-                      
+                      <div className="flex gap-2">
+                        <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
+                          <Image
+                            unoptimized
+                            src={mapMentionedProjectsToken(
+                              item?.symbol,
+                              tokens,
+                              svgs.svg_k3n,
+                            )}
+                            alt={item?.symbol}
+                            fill
+                            sizes="100%"
+                            objectFit="contain"
+                            className="rounded-full"
+                          />
+                        </div>
+
+                        <p>{item?.symbol}</p>
+                      </div>
                     </td>
                     <td className="px-2 lg:px-1 py-4 text-center">
                       {format(item?.firstTweetDate, "MMM d, yyyy")}
