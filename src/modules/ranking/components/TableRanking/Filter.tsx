@@ -69,11 +69,7 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
           options={tokens}
           search
           onUpdateValue={(value) => {
-            const param = value.split(",");
-            updateQueryParams("shillScore", {
-              minValue: param[0] || 0,
-              maxValue: param[1] || 0,
-            });
+            updateQueryParams("mentionedProjects", value);
           }}
           reset={reset}
         />

@@ -5,21 +5,18 @@ import UnAuthenticated from "./UnAuthenticated";
 import Authenticated from "./Authenticated";
 
 function RightSide() {
-  const { dataPersonal, isLoading } = useMyProfileContext();
+  const { dataPersonal } = useMyProfileContext();
   const router = useRouter();
 
   const renderStep = useMemo(() => {
     if (dataPersonal) {
-      if (
-        dataPersonal?.isUpdated ||
-        dataPersonal?.twitterInfo?.totalPoints < 30
-      ) {
+      if (dataPersonal?.isUpdated) {
         router.push("/");
       }
-      if (dataPersonal?.twitterInfo?.totalPoints > 30) {
-        router.push("/login/individual");
-      }
-      return <Authenticated />;
+
+      return (
+        <Authenticated shillScore={dataPersonal?.twitterInfo?.totalPoints} />
+      );
     }
     return <UnAuthenticated />;
   }, [dataPersonal, router]);
