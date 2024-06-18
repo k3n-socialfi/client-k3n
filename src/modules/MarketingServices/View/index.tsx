@@ -1,16 +1,14 @@
 "use client";
-import styled from "styled-components";
 import CardHotKols from "../Components/CardHotKols";
 import { useHomeContext } from "@/contexts/HomeContext";
 import CardKols from "../Components/CardKols";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
-import CardDeal from "../Components/CardDeal";
-import { DATA_MARKETING_SERVICES } from "@/constant/marketingServices";
 import CardHotKolsSkeleton from "../Components/CardHotKols/CardHotKolsSkeleton";
 import CardServicesSkeleton from "@/modules/services/components/CardServices/CardServicesSkeleton";
-import { Fragment, Key } from "react";
+import { Key } from "react";
 import { useListOffer } from "@/modules/profile/hooks";
 import Link from "next/link";
+import { Grid } from "@mui/material";
 
 export default function MarketingServicesView() {
   const { kols: dataTableKols, isLoading } = useHomeContext();
@@ -18,61 +16,72 @@ export default function MarketingServicesView() {
   const { data: listOffersData, isLoading: listOffersLoading } = useListOffer();
 
   return (
-    <Fragment>
+    <div className="flex flex-col gap-10 py-10 px-6">
       {/* Top KOLs */}
-
-      <MarketingServicesHeading>Top KOLs</MarketingServicesHeading>
-      <div className="flex flex-wrap gap-4 px-5 py-10 justify-center lg:justify-start">
-        {isLoading
-          ? [0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-              <CardHotKolsSkeleton key={item} />
-            ))
-          : dataTableKols?.slice(0, 9).map((item, index) => (
-              <div key={index}>
-                <Link
-                  href={`/profile/${item?.username}`}
-                  className="text-white"
-                >
-                  <CardHotKols
-                    number={index + 1}
-                    avatar={item?.twitterInfo?.avatar}
-                    name={item?.username}
-                    tags={item?.tags}
-                    review={item?.review}
-                    score={item?.twitterInfo?.totalPoints}
-                  />
-                </Link>
-              </div>
-            ))}
+      <div className="flex flex-col gap-4">
+        <div className="text-4xl font-bold">Top KOLs</div>
+        <Grid container spacing={"1rem"}>
+          {isLoading
+            ? Array.from({ length: 9 }).map((_, key: Key) => (
+                <Grid item xs={12} md={6} xl={4} key={key}>
+                  <CardHotKolsSkeleton />
+                </Grid>
+              ))
+            : dataTableKols?.slice(0, 9).map((item, index) => (
+                <Grid item xs={12} md={6} xl={4} key={index}>
+                  <Link
+                    href={`/profile/${item?.username}`}
+                    className="text-white"
+                  >
+                    <CardHotKols
+                      number={index + 1}
+                      avatar={item?.twitterInfo?.avatar}
+                      name={item?.username}
+                      tags={item?.tags}
+                      review={item?.review}
+                      score={item?.twitterInfo?.totalPoints}
+                    />
+                  </Link>
+                </Grid>
+              ))}
+        </Grid>
       </div>
 
       {/* Services Board */}
-      <MarketingServicesHeading>Services Board</MarketingServicesHeading>
-      <SubHeadingKols>
-        {`${dataServices?.length}`} services available
-      </SubHeadingKols>
-      <div className="flex gap-4 flex-wrap px-5 py-10 justify-center lg:justify-start">
-        {loadingServices
-          ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-              <CardServicesSkeleton key={item} />
-            ))
-          : dataServices
-              ?.slice(0, 9)
-              .map((item, key: Key) => (
-                <CardKols
-                  key={key}
-                  image={item?.image}
-                  projectName={item?.projectName}
-                  price={`${item?.price}`}
-                  paymentMethod={item?.paymentMethod}
-                  jobId={item?.jobId}
-                  tags={item?.tags}
-                  projectDescription={item?.jobDescription}
-                  reviews={item?.review}
-                  creatorInfo={item.creatorInfo}
-                />
-              ))}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="text-4xl font-bold">Services Board</div>
+          <div className="text-[#a7a7a7]">
+            {`${dataServices?.length}`} services available
+          </div>
+        </div>
+        <div className="flex gap-4 flex-wrap justify-center lg:justify-start">
+          <Grid container spacing={"1rem"}>
+            {loadingServices
+              ? Array.from({ length: 9 }).map((_, key: Key) => (
+                  <Grid item xs={12} md={6} xl={3} key={key}>
+                    <CardHotKolsSkeleton />
+                  </Grid>
+                ))
+              : dataServices?.slice(0, 9).map((item, index) => (
+                  <Grid item xs={12} md={6} xl={3} key={index}>
+                    <CardKols
+                      image={item?.image}
+                      projectName={item?.projectName}
+                      price={`${item?.price}`}
+                      paymentMethod={item?.paymentMethod}
+                      jobId={item?.jobId}
+                      tags={item?.tags}
+                      projectDescription={item?.jobDescription}
+                      reviews={item?.review}
+                      creatorInfo={item.creatorInfo}
+                    />
+                  </Grid>
+                ))}
+          </Grid>
+        </div>
       </div>
+
       {/* <MarketingServicesHeading>Job Offer Board</MarketingServicesHeading>
       <SubHeadingKols>
         {`${DATA_MARKETING_SERVICES?.length}`} deals listed
@@ -91,24 +100,6 @@ export default function MarketingServicesView() {
               />
             ))}
       </div> */}
-    </Fragment>
+    </div>
   );
 }
-
-const MarketingServicesHeading = styled.h3`
-  font-size: 40px;
-  line-height: 48px;
-  font-weight: 700;
-  margin-top: 40px;
-  color: #fff;
-  width: 100%;
-  @media (max-width: 768px) {
-    text-align: center;
-  }
-`;
-
-const SubHeadingKols = styled.span`
-  font-size: 16px;
-  color: #a7a7a7;
-  text-align: left;
-`;

@@ -55,28 +55,14 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
             Mentioned Project
           </h1>
           <div className="">
-            <table className="w-full ">
+            <table className="w-full">
               <tbody>
-                <tr className="items-center  bg-[#191D24] h-[71px] rounded-t rounded-md ">
+                <tr className="bg-[#191D24] h-[71px] rounded-t rounded-md ">
                   {tableTitle.map((item, i) => (
-                    <td className="p-5  " key={i}>
-                      <div
-                        className={`flex w-full items-center space-x-2.5 ${
-                          i === 0 ? "w-[115px] justify-center" : "justify-start"
-                        }  ${i === 7 && "w-[115px]"}`}
-                      >
-                        <span className="text-base font-base text-white truncate">
-                          {item?.name}
-                        </span>
-                        {i === 7 && (
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <IconFilter2 />
-                          </motion.button>
-                        )}
-                      </div>
+                    <td className="p-5" key={i}>
+                      <p className="text-base font-base text-white truncate">
+                        {item?.name}
+                      </p>
                     </td>
                   ))}
                 </tr>
@@ -93,93 +79,67 @@ const PortfolioUser = ({ mentionedProjects, showAll }: any) => {
                     viewport={{ once: true }}
                     className="border-t-[0.25px] border-[#B4BACA] group hover:bg-darkblack-100 transition-all duration-300 text-white cursor-pointer"
                   >
-                    <td className="px-2 lg:px-1 py-4 text-center  w-[60px] ">
+                    <td className="px-2 lg:px-1 py-4 text-center w-max ">
                       {index + 1}
                     </td>
-                    <td className="px-2 lg:px-1 py-4 flex items-center gap-2 text-center w-[250px]">
-                      <div className="relative w-[30px] h-[30px] rounded-full flex-shrink-0">
+                    <td className="px-5 py-4">
+                      <div className="flex gap-2 items-center">
                         <Image
-                          unoptimized
                           src={item.image ?? svgs.svg_k3n}
                           alt="bg"
-                          fill
-                          sizes="100%"
-                          objectFit="contain"
+                          width={28}
+                          height={28}
                           className="rounded-full"
                         />
-                      </div>
 
-                      <p className="pl-2 text-start truncate">
-                        {item?.tokenName}
-                      </p>
+                        <p className="text-start truncate">{item?.tokenName}</p>
+                      </div>
                     </td>
-                    <td className="pl-12">
-                      <div className="flex gap-2">
-                        <div className="relative h-6 w-6 border bg-darkblack-600 overflow-hidden rounded-full flex-shrink-0">
-                          <Image
-                            unoptimized
-                            src={mapMentionedProjectsToken(
-                              item?.symbol,
-                              tokens,
-                              svgs.svg_k3n,
-                            )}
-                            alt={item?.symbol}
-                            fill
-                            sizes="100%"
-                            objectFit="contain"
-                            className="rounded-full"
-                          />
-                        </div>
+                    <td className="px-5 py-4">
+                      <div className="flex gap-2 items-center">
+                        <Image
+                          src={mapMentionedProjectsToken(
+                            item?.symbol,
+                            tokens,
+                            svgs.svg_k3n,
+                          )}
+                          alt={item?.symbol}
+                          height={24}
+                          width={24}
+                          className="border bg-darkblack-600 rounded-full aspect-square"
+                        />
 
                         <p>{item?.symbol}</p>
                       </div>
                     </td>
-                    <td className="px-2 lg:px-1 py-4 text-center">
+                    <td className="px-5 py-4">
                       {format(item?.firstTweetDate, "MMM d, yyyy")}
                     </td>
-                    <td className="px-2 lg:px-1 py-4 text-center">
-                      <Tooltip
-                        //  animate={{
-                        //    mount: { scale: 1, y: 0 },
-                        //    unmount: { scale: 0, y: 25 },
-                        //  }}
-                        title={item?.shillPrice}
-                      >
+                    <td className="px-5 py-4">
+                      <Tooltip title={item?.shillPrice}>
                         <p className="cursor-pointer">
                           <span className="mr-1 text-primary">$</span>
                           {item?.shillPrice?.toFixed(5) ?? 0}
                         </p>
                       </Tooltip>
                     </td>
-                    <td className="px-2 lg:px-1 py-4 text-center">
-                      <Tooltip
-                        //  animate={{
-                        //    mount: { scale: 1, y: 0 },
-                        //    unmount: { scale: 0, y: 25 },
-                        //  }}
-                        title={item?.ath}
-                      >
-                        <p className="cursor-pointer">
+                    <td className="px-5 py-4">
+                      <Tooltip title={item?.ath}>
+                        <p>
                           <span className="mr-1 text-primary">$</span>
                           {item?.ath?.toFixed(5) ?? 0}
                         </p>
                       </Tooltip>
                     </td>
-                    <td className="px-2 lg:px-1 py-4 text-center">
-                      <Tooltip
-                        //  animate={{
-                        //    mount: { scale: 1, y: 0 },
-                        //    unmount: { scale: 0, y: 25 },
-                        //  }}
-                        title={item?.currentPrice}
-                      >
+                    <td className="px-5 py-4">
+                      <Tooltip title={item?.currentPrice}>
                         <p className="cursor-pointer">
                           <span className="mr-1 text-primary">$</span>
                           {item?.currentPrice?.toFixed(5) ?? "NaN"}
                         </p>
                       </Tooltip>
                     </td>
-                    <td className="px-2 lg:px-1 py-4 truncate text-center">
+                    <td className="px-5 py-4">
                       <p className={`${getChangeStyle(item?.pnl)}`}>
                         {item?.pnl > 0
                           ? `▲ ${item?.pnl.toFixed(2) ?? 0}`
