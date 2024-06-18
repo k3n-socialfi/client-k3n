@@ -8,13 +8,13 @@ import { SOL_WALLET } from "@/configs/env.config";
 
 export default function useProviderConnect() {
   const wallet = useAnchorWallet();
-  const connection = new Connection(endpoint, "confirmed");
+  const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=7f25b5b0-1742-4b18-bffa-1bc1ec0afc16', "confirmed");
   const idlString = JSON.stringify(idl);
   const idlJson = JSON.parse(idlString);
   const programID = new PublicKey(SOL_WALLET ?? "");
 
   const getProvider = () => {
-    const connection = new Connection(endpoint, "confirmed");
+    const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=7f25b5b0-1742-4b18-bffa-1bc1ec0afc16', "confirmed");
     const provider = new anchor.AnchorProvider(connection, wallet as any, {
       preflightCommitment: "confirmed",
     });
