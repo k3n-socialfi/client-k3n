@@ -12,11 +12,10 @@ function RightSide() {
     if (dataPersonal) {
       if (dataPersonal?.isUpdated) {
         router.push("/");
+        return;
       }
 
-      return (
-        <Authenticated shillScore={dataPersonal?.twitterInfo?.totalPoints} />
-      );
+      return <Authenticated />;
     }
     return <UnAuthenticated />;
   }, [dataPersonal, router]);

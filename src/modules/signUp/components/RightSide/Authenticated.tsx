@@ -2,7 +2,7 @@ import { IconIndividual, IconProjectSignUp } from "@/assets/icons";
 import CardChoose from "../CardChoose";
 import { useRouter } from "next/navigation";
 
-export default function Authenticated({ shillScore }: { shillScore: number }) {
+export default function Authenticated() {
   const { push } = useRouter();
 
   return (
@@ -13,9 +13,7 @@ export default function Authenticated({ shillScore }: { shillScore: number }) {
         <CardChoose
           icon={<IconIndividual size={72} />}
           name="Individual"
-          onClick={() =>
-            shillScore > 200 ? push("/login/individual") : push("/")
-          }
+          onClick={() => push("/login/individual")}
         />
         <CardChoose
           icon={<IconProjectSignUp size={72} />}

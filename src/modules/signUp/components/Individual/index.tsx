@@ -5,12 +5,19 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import WrapperSignUp from "../WrapperSignUp";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import { useEffect } from "react";
 
 type Props = {};
 
 const Individual = (props: Props) => {
   const { push } = useRouter();
   const { dataPersonal } = useMyProfileContext();
+
+  useEffect(() => {
+    if (dataPersonal?.twitterInfo?.totalPoints < 200) {
+      push("/individual/user");
+    }
+  }, [dataPersonal?.twitterInfo?.totalPoints, push]);
 
   return (
     <WrapperSignUp title="Congratulation !!">
@@ -42,7 +49,7 @@ const Individual = (props: Props) => {
 
           <div
             className="text-[#82EBFF] hover:underline cursor-pointer"
-            onClick={() => push("/")}
+            onClick={() => push("/individual/user")}
           >
             Skip
           </div>
