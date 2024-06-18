@@ -21,7 +21,7 @@ export default function CardHotKols({
   score,
 }: IPropsCardHotKols) {
   return (
-    <div className="hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] w-[520px] duration-200 flex rounded-[8px] py-4 px-3 bg-[#191D24] items-center gap-2">
+    <div className="hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] w-full max-w-[520px] duration-200 flex rounded-[8px] py-4 px-3 bg-[#191D24] items-center gap-2">
       {/* Number */}
       <p className="font-bold text-xl">{number}</p>
 
@@ -34,18 +34,22 @@ export default function CardHotKols({
         className="rounded-full border border-[#F23581]"
       />
       {/* Content */}
-      <div className="flex flex-col gap-2 flex-grow">
+      <div className="flex flex-col gap-2 w-full">
         <p className="text-lg font-bold w-full">{name}</p>
-        <div className="flex gap-2 items-center">
-          <IconStarKols />
-          <p className="font-medium">{review}</p>
+        <div className="flex items-center justify-between">
+          {/* Rating */}
+          <div className="flex gap-1 items-center">
+            <IconStarKols />
+            <p className="font-medium">{review}</p>
+          </div>
+
+          {/* Shill score */}
+          <div className="flex gap-1 items-center">
+            <PointIcon size={20} />
+            <p className="font-bold">{formatNumberToK(score ?? 0)}</p>
+          </div>
         </div>
-        <TagList tags={tags} length={2} />
-      </div>
-      {/* Point */}
-      <div className="flex gap-[2px] items-center">
-        <PointIcon size={20} />
-        <p className="font-bold">{formatNumberToK(score ?? 0)}</p>
+        <TagList tags={tags} length={3} />
       </div>
     </div>
   );

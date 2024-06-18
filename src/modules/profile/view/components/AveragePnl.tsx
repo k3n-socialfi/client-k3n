@@ -13,7 +13,7 @@ const AveragePnl = ({data}:any) => {
   return (
     <>
       <IconSharePost color={averagePnl === 0 ? '#A6A6A6' : averagePnl >= 0 ? "#6BDF61" : "#FF0000" } />
-      <span className="text-[28px]" style={pnlStyle}>{percentagePnl}%</span>
+      <span className="text-[18px]" style={pnlStyle}>{percentagePnl}%</span>
     </>
   );
 }

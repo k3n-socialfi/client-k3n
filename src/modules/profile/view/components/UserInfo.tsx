@@ -62,7 +62,7 @@ const UserInfo = ({ user }: any) => {
   const [copied, setCopied] = useState(false);
 
   return (
-    <div className="w-full relative pt-5 text-white flex flex-col gap-[140px]">
+    <div className="w-full relative text-white flex flex-col gap-[140px]">
       <div className="w-full max-h-[312px] relative ">
         <RequestModal open={open} handleClose={handleClose} />
 

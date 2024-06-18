@@ -13,7 +13,13 @@ export default function Footer(props: IFooterProps) {
       <Content>
         <Left>
           <ImageCustom>
-            <Image src={logoK3N} title="logo" alt="logo k3n" layout="fill" />
+            <Image
+              src={logoK3N}
+              title="logo"
+              alt="logo k3n"
+              width={131}
+              height={40}
+            />
           </ImageCustom>
           <Info>
             <Typography>Privacy policy</Typography>
@@ -32,11 +38,8 @@ export default function Footer(props: IFooterProps) {
 }
 
 const Container = styled.div`
-  padding: 24px 12px;
+  padding: 24px 12px 48px 12px;
   background-color: #080a0c;
-  @media (max-width: 768px) {
-    margin: 16px -16px -16px;
-  }
   border-top: 0.5px solid #ffffff44;
 `;
 

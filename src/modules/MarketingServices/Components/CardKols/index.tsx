@@ -32,7 +32,7 @@ export default function CardKols({
     "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   return (
-    <div className="h-[400px] w-[500px] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] duration-200 flex flex-col rounded-lg gap-3 bg-[#191D24] overflow-hidden">
+    <div className="h-ful max-h-[400px] w-full max-w-[500px] hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] duration-200 flex flex-col rounded-lg gap-3 bg-[#191D24] overflow-hidden">
       {/* Image */}
       <div
         className={`relative w-full aspect-video h-full rounded-[4px] border-b border-[#FFFFFF66] overflow-hidden`}
@@ -61,7 +61,7 @@ export default function CardKols({
             {/* Shill Score */}
             <div className="flex items-center gap-[2px] font-semibold">
               <PointIcon />
-              <p>{creatorInfo?.twitterInfo.totalPoints}</p>
+              <p>{creatorInfo?.twitterInfo.totalPoints ?? 0}</p>
             </div>
           </div>
         </div>
