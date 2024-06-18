@@ -8,7 +8,7 @@ export default function IconChooseCrypto() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="0.5" width="20" height="20" rx="10" fill="#F23581" />
-      <g clip-path="url(#clip0_1423_8796)">
+      <g clipPath="url(#clip0_1423_8796)">
         <path
           d="M4.90039 10.312L8.12672 13.52L16.1926 5.5"
           stroke="white"

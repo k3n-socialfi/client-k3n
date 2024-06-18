@@ -25,15 +25,8 @@ const OuterShape = styled.div`
   width: 40px;
   padding: 1px;
   background-image: linear-gradient(to bottom right, #82ebff, #82ebff, #82ebff);
-  -webkit-clip-path: polygon(
-    50% 0%,
-    95% 25%,
-    95% 75%,
-    50% 100%,
-    5% 75%,
-    5% 25%
-  );
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  -webkit-clippath: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  clippath: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 `;
 
 const InnerShape = styled.div<ILinkIMG>`
@@ -44,5 +37,5 @@ const InnerShape = styled.div<ILinkIMG>`
   background: url(${(props) => props.srcIMG ?? IMGPoint.src}) no-repeat center;
   background-size: cover;
   margin: auto;
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  clippath: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 `;

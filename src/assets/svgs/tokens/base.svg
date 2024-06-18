@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve">
 <style type="text/css">
-	.st0{clip-path:url(#SVGID_00000165206057370772089280000013047202933105835397_);}
+	.st0{clipPath:url(#SVGID_00000165206057370772089280000013047202933105835397_);}
 	.st1{fillRule:evenodd;clipRule:evenodd;fill:#FEFEFF;}
 	.st2{fillRule:evenodd;clipRule:evenodd;fill:#FDFEFF;}
 	.st3{fillRule:evenodd;clipRule:evenodd;fill:#FCFDFF;}
@@ -268,7 +268,7 @@
 			<clipPath id="SVGID_00000137130877621503601290000017679510272143242652_">
 				<use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
 			</clipPath>
-			<g style="clip-path:url(#SVGID_00000137130877621503601290000017679510272143242652_);">
+			<g style="clipPath:url(#SVGID_00000137130877621503601290000017679510272143242652_);">
 				<polygon class="st1" points="1250,1250 -518,1239.1 -516.4,1174.1     "></polygon>
 				<polygon id="_1" class="st2" points="1250,1250 -516.7,1184.9 -514,1130.7     "></polygon>
 				<polygon id="_2" class="st3" points="1250,1250 -514.6,1141.6 -510.6,1087.5     "></polygon>

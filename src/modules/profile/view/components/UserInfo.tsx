@@ -43,12 +43,11 @@ export const configureAndSendCurrentTransaction = async (
 };
 
 const UserInfo = ({ user }: any) => {
-  const { username } = useParams();
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const { dataPersonal } = useMyProfileContext();
   const { setVisible: setModalVisible } = useWalletModal();
   const { connection } = useConnection();
   // const { onDisconnect, onConnect } = useWalletMultiButton({
@@ -164,7 +163,8 @@ const UserInfo = ({ user }: any) => {
                 </div>
               </div>
 
-              {user?.username?.toString() !== username.toString() && (
+              {user?.username?.toString() !==
+                dataPersonal?.username?.toString() && (
                 <motion.button
                   // onClick={handleOpen}
                   onClick={() => {
@@ -176,9 +176,10 @@ const UserInfo = ({ user }: any) => {
                     }
                   }}
                   whileTap={{ scale: 0.9 }}
-                  className="py-[14px] px-[67px] bg-[#F23581] rounded-[40px]"
+                  whileHover={{ scale: 1.04 }}
+                  className=" py-2 px-6 bg-[#F23581] rounded-[40px]"
                 >
-                  <p className="text-2xl text-white text-nowrap">
+                  <p className="text-lg text-white text-nowrap">
                     Request Collaboration
                   </p>
                 </motion.button>
@@ -256,7 +257,8 @@ const UserInfo = ({ user }: any) => {
               </div>
             </div>
           </div>
-          {user?.username?.toString() !== username.toString() && (
+          {dataPersonal?.username?.toString() !==
+            user?.username?.toString() && (
             <motion.button
               onClick={handleOpen}
               whileTap={{ scale: 0.9 }}

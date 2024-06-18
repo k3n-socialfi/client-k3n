@@ -143,7 +143,7 @@ export default function useWalletCustom() {
       localStorage.removeItem("signatured");
       localStorage.removeItem("accessToken");
       sessionStorage.removeItem("isTwitter");
-      router.push("/");
+      window.location.reload();
     }
   };
 
