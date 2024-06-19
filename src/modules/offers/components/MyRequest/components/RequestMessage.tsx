@@ -57,6 +57,10 @@ export default function RequestMessage({ data, type = "order", handlePutMessage 
                 <div className="flex">
                   <input
                   onChange={(e) => setReply(e.target.value)}
+                  onKeyDown={(e) => { 
+                    if (e.key === "Enter") 
+                      handlePutMessage(reply,data?.messageId)
+                    }} 
                     type="text"
                     className="w-full  py-4 px-4 bg-[#4f4f4f] text-white rounded-s-[40px] border-none outline-none ring-0 focus:ring-0 focus:border-[#f23581] placeholder:text-white "
                     placeholder="Reply..."
