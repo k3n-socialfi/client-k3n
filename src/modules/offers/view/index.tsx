@@ -32,7 +32,7 @@ export default function ViewOffer(props: IViewOfferProps) {
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <TableDetails />
 
-      {/* <MyRequest/> */}
+      <MyRequest/>
 
 
     </div>
