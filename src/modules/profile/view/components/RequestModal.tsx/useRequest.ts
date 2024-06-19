@@ -45,9 +45,11 @@ const useRequest = () => {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  const MINT_ADDRESS = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
+
   const handlePayment = useCallback(
     async (amount: number) => {
-      const mintToken = new PublicKey(`${BONK_ADDRESS}`); // token address
+      const mintToken = new PublicKey(MINT_ADDRESS); // token address
       const recipientAddress = new PublicKey(
         "BMu2dakVLyg4Lv7qHcp7xknWpyDmL1ySH4ttJMwpceUo",
       );
@@ -94,16 +96,14 @@ const useRequest = () => {
           publicKey,
           signTransaction,
         );
-
-        if (signature) {
-          setIsTransaction(false);
-        }
       } catch (error) {
         console.log("🚀 ~ handlePayment ~ error:", error);
+        setAlertError("", "Request Collaboration faild");
+
         setIsTransaction(false);
       }
     },
-    [connection, publicKey, signTransaction],
+    [connection, publicKey, signTransaction, setAlertError],
   );
 
   const submitRequestCollaboration: SubmitHandler<RequestTypeSchema> =
@@ -115,7 +115,7 @@ const useRequest = () => {
               requestType: data.typeOfRequest,
               message: data.otherRequest,
               from: publicKey?.toString(),
-              to: `${BONK_ADDRESS}`,
+              to: MINT_ADDRESS,
               amount: Number(data.tip),
             };
 
@@ -123,6 +123,7 @@ const useRequest = () => {
               `/api/v1/message/message/create`,
               dataForm,
             );
+
             if (response) {
               setIsTransaction(false);
               reset();
