@@ -34,8 +34,8 @@ const WrapperSignUp = ({
         {showPoint && (
           <PointCustom>
             <LinePoint>
-              <Hexagon srcIMG={dataPersonal?.twitterInfo?.avatar} />
               <PointNumber>
+                <p className="text-2xl font-bold">Shill score: </p>
                 <IconThunder width={20} height={20} />
                 <Typography variant="h5" color={"#FFF"}>
                   {dataPersonal?.twitterInfo?.totalPoints ?? 0}

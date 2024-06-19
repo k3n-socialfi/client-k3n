@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import WrapperSignUp from "../WrapperSignUp";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
-import { useEffect } from "react";
+import { useMemo } from "react";
 
 type Props = {};
 
@@ -13,50 +13,52 @@ const Individual = (props: Props) => {
   const { push } = useRouter();
   const { dataPersonal } = useMyProfileContext();
 
-  useEffect(() => {
+  const component = useMemo(() => {
     if (dataPersonal?.twitterInfo?.totalPoints < 200) {
-      push("/individual/user");
-    }
+      push("/login/individual/user");
+    } else
+      return (
+        <WrapperSignUp title="Congratulation !!">
+          <Container>
+            <div className="flex flex-col items-center justify-center py-12 px-20 rounded-2xl gap-5 bg-[#191d24] shadow-xl shadow-[#82EBFF22]">
+              <Name>
+                <Typography variant="h5">Your Shill Score</Typography>
+              </Name>
+              <Score>
+                <div className=" animate-[rotateY_2s_ease-in-out_infinite]">
+                  <IconThunder width={48} height={48} />
+                </div>
+                <Typography variant="h4" color={"#FFF"}>
+                  {dataPersonal?.twitterInfo?.totalPoints ?? 0}
+                </Typography>
+              </Score>
+            </div>
+            <Typography variant="h5" color={"#FFF"}>
+              Your shill score is qualified to register as a platform KOL.{" "}
+              <br />
+              Become a KOL to receive many benefits.
+            </Typography>
+            <div className="flex w-full flex-col gap-4">
+              <button
+                onClick={() => push("/login/individual/kol")}
+                className="font-bold rounded-full w-full bg-[#F0116A] text-white p-2"
+              >
+                Register as KOL
+              </button>
+
+              <div
+                className="text-[#82EBFF] hover:underline cursor-pointer"
+                onClick={() => push("/individual/user")}
+              >
+                Skip
+              </div>
+            </div>
+          </Container>
+        </WrapperSignUp>
+      );
   }, [dataPersonal?.twitterInfo?.totalPoints, push]);
 
-  return (
-    <WrapperSignUp title="Congratulation !!">
-      <Container>
-        <div className="flex flex-col items-center justify-center py-12 px-20 rounded-2xl gap-5 bg-[#191d24] shadow-xl shadow-[#82EBFF22]">
-          <Name>
-            <Typography variant="h5">Your Shill Score</Typography>
-          </Name>
-          <Score>
-            <div className=" animate-[rotateY_2s_ease-in-out_infinite]">
-              <IconThunder width={48} height={48} />
-            </div>
-            <Typography variant="h4" color={"#FFF"}>
-              {dataPersonal?.twitterInfo?.totalPoints ?? 0}
-            </Typography>
-          </Score>
-        </div>
-        <Typography variant="h5" color={"#FFF"}>
-          Your shill score is qualified to register as a platform KOL. <br />
-          Become a KOL to receive many benefits.
-        </Typography>
-        <div className="flex w-full flex-col gap-4">
-          <button
-            onClick={() => push("/login/individual/kol")}
-            className="font-bold rounded-full w-full bg-[#F0116A] text-white p-2"
-          >
-            Register as KOL
-          </button>
-
-          <div
-            className="text-[#82EBFF] hover:underline cursor-pointer"
-            onClick={() => push("/individual/user")}
-          >
-            Skip
-          </div>
-        </div>
-      </Container>
-    </WrapperSignUp>
-  );
+  return component;
 };
 
 export default Individual;
