@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Tooltip, Typography } from "@mui/material";
 import Link from "next/link";
 import { LIST_POPUPITEM } from "@/constant/data";
 import { IconCheckCrile, IconLogout, IconThunder } from "@/assets/icons";
 import { TYPE_WALLET } from "@/constant";
+import IconCopy from "@/assets/icons/IconCopy";
 interface IPropPopupProfile {
   handleDisConnect?: any;
   base58Pubkey?: string;
@@ -13,7 +14,7 @@ interface IPropPopupProfile {
 }
 
 export const PopupProfile = (props: IPropPopupProfile) => {
-  const { setPopupProfile, handleDisConnect, myProfile } = props;
+  const { setPopupProfile, handleDisConnect, myProfile, base58Pubkey } = props;
 
   return (
     <>
@@ -27,15 +28,26 @@ export const PopupProfile = (props: IPropPopupProfile) => {
           </ProfileAvatar>
           <ProfileInfo>
             <ProfileText>
-              <ProfileName className="profile-section__info__name">
+              <ProfileName className="profile-section__info__name truncate w-full">
                 {myProfile?.fullName}
                 {myProfile?.twitterInfo?.verificationStatus && (
                   <IconCheckCrile />
                 )}
               </ProfileName>
-              {/* <ProfileDes className="profile-section__info__des">
-                {base58Pubkey?.slice(0, 4)}...{base58Pubkey?.slice(40, 44)}
-              </ProfileDes> */}
+              <div className="flex items-center gap-2">
+                <ProfileDes className="profile-section__info__des">
+                  {base58Pubkey?.slice(0, 4)}...{base58Pubkey?.slice(40, 44)}
+                </ProfileDes>
+                <Tooltip title={"Copy address"}>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(base58Pubkey as string);
+                    }}
+                  >
+                    <IconCopy />
+                  </button>
+                </Tooltip>
+              </div>
               <ProfileDes>{myProfile?.jobTittle}</ProfileDes>
             </ProfileText>
             <ProfileInfoText className="profile-section__info__text">
