@@ -15,11 +15,12 @@ import Image from "next/image";
 import RequestModal from "./RequestModal.tsx";
 import React, { Fragment, useCallback, useState } from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 
 import { SignerWalletAdapterProps } from "@solana/wallet-adapter-base";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
+import useRequest from "./RequestModal.tsx/useRequest";
 
 export const configureAndSendCurrentTransaction = async (
   transaction: web3.Transaction,
@@ -41,32 +42,46 @@ export const configureAndSendCurrentTransaction = async (
 };
 
 const UserInfo = ({ user }: any) => {
-  const { publicKey, signTransaction, sendTransaction } = useWallet();
+  const { dataPersonal } = useMyProfileContext();
   const { setVisible: setModalVisible } = useWalletModal();
+
+  const {
+    openModal,
+    handleCloseModal,
+    handleOpenModal,
+    register,
+    handleSubmit,
+    onSubmitRequest,
+    isTransaction,
+    reset,
+    setValue,
+  } = useRequest();
+  const { publicKey, signTransaction, sendTransaction } = useWallet();
 
   const [open, setOpen] = useState(false);
   const handleOpen = useCallback(() => {
     if (publicKey) {
-      setOpen(true);
+      handleOpenModal();
     } else {
       setModalVisible(true);
     }
   }, [publicKey, setModalVisible]);
-  const handleClose = useCallback(() => setOpen(false), []);
 
-  const { dataPersonal } = useMyProfileContext();
-  const { connection } = useConnection();
-  // const { onDisconnect, onConnect } = useWalletMultiButton({
-  //   onSelectWallet() {
-  //     setModalVisible(true);
-  //   },
-  // });
 
   const [copied, setCopied] = useState(false);
 
   return (
     <Fragment>
-      <RequestModal open={open} handleClose={handleClose} />
+      <RequestModal
+        register={register}
+        handleSubmit={handleSubmit}
+        onSubmitRequest={onSubmitRequest}
+        setValue={setValue}
+        isTransaction={isTransaction}
+        reset={reset}
+        open={openModal}
+        handleClose={handleCloseModal}
+      />
 
       <div className="w-full relative text-white flex flex-col gap-[140px]">
         <div className="w-full max-h-[312px] relative ">

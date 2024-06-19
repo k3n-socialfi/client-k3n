@@ -6,6 +6,7 @@ import { getJobsProfile } from "../services";
 import Services from "../components/ListServices";
 import TableDetails from "../components/TableDetails";
 import { useCallback, useEffect, useState } from "react";
+import MyRequest from "../components/MyRequest";
 
 export interface IViewOfferProps {}
 
@@ -30,6 +31,10 @@ export default function ViewOffer(props: IViewOfferProps) {
       />
       <Divider sx={{ borderColor: "#B9B9B9 " }} />
       <TableDetails />
+
+      {/* <MyRequest/> */}
+
+
     </div>
   );
 }
