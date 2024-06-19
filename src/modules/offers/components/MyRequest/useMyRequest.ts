@@ -1,55 +1,67 @@
 import axiosInstance from "@/configs/axios.config";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+export type TReplyRequest = {
+  reply: string;
+  messageId: string;
+};
 
 const useMyRequest = () => {
-  const [allRequest, setAllRequest] = useState(<any>[]);
+  const [allRequestCollab, setAllRequestCollab] = useState(<any>[]);
   const [allOrderRequest, setAllOrderRequest] = useState(<any>[]);
 
-
-  const handleGetMessage = async () => {
+  const handleGetRequestCollab = useCallback(async () => {
     try {
       const response = await axiosInstance.get("/api/v1/message/message");
-      console.log("🚀 ~ handleGetAllMessage ~ response:", response);
-    } catch (error) {
-      console.log("🚀 ~ handleGetAllMessage ~ error:", error);
-    }
-  };
-
-  const handleGetOrderMessage = async () => {
-    try {
-      const response = await axiosInstance.get("/api/v1/message/order-message");
-      if(response) {
-        setAllOrderRequest(response?.data?.data)
+      if (response) {
+        setAllRequestCollab(response?.data?.data);
       }
-      console.log("🚀 ~ handleGetOrderMessage ~ response:", response)
-     
     } catch (error) {
       console.log("🚀 ~ handleGetAllMessage ~ error:", error);
     }
-  };
-
-  const handlePutMessage = async () => {
-    try {
-      const data = {
-        reply: "string",
-        messageId: "string",
-      };
-      const response = await axiosInstance.put("/api/v1/message/message", data);
-      console.log("🚀 ~ handleGetAllMessage ~ response:", response);
-    } catch (error) {
-      console.log("🚀 ~ handleGetAllMessage ~ error:", error);
-    }
-  };
-
-  useEffect(() => {
-    // handleGetMessage();
-    handleGetOrderMessage();
-
   }, []);
 
+  const handleGetOrderRequest = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get("/api/v1/message/order-message");
+      if (response) {
+        setAllOrderRequest(response?.data?.data);
+      }
+    } catch (error) {
+      console.log("🚀 ~ handleGetAllMessage ~ error:", error);
+    }
+  }, []);
+
+  const handlePutMessage = useCallback(
+    async (reply: string, messageId: string) => {
+      try {
+        const data = {
+          reply: reply,
+          messageId: messageId,
+        };
+        const response = await axiosInstance.put(
+          "/api/v1/message/message",
+          data,
+        );
+        if (response) {
+          handleGetRequestCollab();
+        }
+      } catch (error) {
+        console.log("🚀 ~ handleGetAllMessage ~ error:", error);
+      }
+    },
+    [handleGetRequestCollab],
+  );
+
+  useEffect(() => {
+    handleGetOrderRequest();
+    handleGetRequestCollab();
+  }, [handleGetOrderRequest, handleGetRequestCollab]);
+
   return {
-    allRequest,
-    allOrderRequest
+    allRequestCollab,
+    allOrderRequest,
+    handlePutMessage,
   };
 };
 
