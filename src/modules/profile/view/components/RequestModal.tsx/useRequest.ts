@@ -22,21 +22,33 @@ import {
 } from "@solana/spl-token";
 import { configureAndSendCurrentTransaction } from "../UserInfo";
 import axiosInstance from "@/configs/axios.config";
+import { BONK_ADDRESS } from "@/configs/env.config";
+import { useAlert } from "@/contexts/AlertContext";
 const useRequest = () => {
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isDirty },
   } = useForm<RequestTypeSchema>({
     resolver: zodResolver(RequestSchema()),
   });
 
+  const { setAlertSuccess, setAlertError } = useAlert();
+
   const { provider, connection } = useProviderConnect();
   const { publicKey, signTransaction, sendTransaction } = useWallet();
   const [isTransaction, setIsTransaction] = useState(false);
 
-  const MINT_ADDRESS = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"; //You must change this value!
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
+  const mintToken = new PublicKey(`${BONK_ADDRESS}`); // token address
+  const recipientAddress = new PublicKey(
+    "BMu2dakVLyg4Lv7qHcp7xknWpyDmL1ySH4ttJMwpceUo",
+  );
 
   const handlePayment = async (amount: number) => {
     try {
@@ -44,12 +56,6 @@ const useRequest = () => {
         throw new WalletNotConnectedError();
       }
       setIsTransaction(true);
-
-      const mintToken = new PublicKey(MINT_ADDRESS); // token address
-
-      const recipientAddress = new PublicKey(
-        "BMu2dakVLyg4Lv7qHcp7xknWpyDmL1ySH4ttJMwpceUo",
-      );
 
       const transactionInstructions: web3.TransactionInstruction[] = [];
       const associatedTokenFrom = await getAssociatedTokenAddress(
@@ -107,7 +113,7 @@ const useRequest = () => {
               requestType: data.typeOfRequest,
               message: data.otherRequest,
               from: publicKey?.toString(),
-              to: MINT_ADDRESS,
+              to: `${BONK_ADDRESS}`,
               amount: Number(data.tip),
             };
 
@@ -115,11 +121,16 @@ const useRequest = () => {
               `/api/v1/message/message/create`,
               dataForm,
             );
-
-            setIsTransaction(false);
+            if (response) {
+              setIsTransaction(false);
+              reset();
+              setAlertSuccess("", "Request Collaboration success");
+              handleCloseModal();
+            }
           });
         } catch (error) {
           setIsTransaction(false);
+          setAlertSuccess("", "Request Collaboration faild");
         }
       },
       [isTransaction, setIsTransaction, handlePayment],
@@ -131,6 +142,11 @@ const useRequest = () => {
     onSubmitRequest: submitRequestCollaboration,
     handlePayment,
     isTransaction,
+    setValue,
+    reset,
+    openModal,
+    handleOpenModal,
+    handleCloseModal,
   };
 };
 

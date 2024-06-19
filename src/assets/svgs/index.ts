@@ -8,11 +8,17 @@ import chat from './chatSvg.svg'
 
 
 
+
+
+
 const svgs = {
      svg_k3n: k3n,
      svg_telegram: telegramIcon,
      svg_filter: filter,
      svg_chat: chat,
+
+
+
 
 
 

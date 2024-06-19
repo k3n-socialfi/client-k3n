@@ -126,6 +126,8 @@ export { default as Iconview } from "./Iconview";
 export { default as IconKol } from "./IconKol";
 export { default as IconClock } from "./IconClock";
 export { default as AddressIcon } from "./AddressIcon";
+export { default as IconSend } from "./IconSend";
+
 
 
 

@@ -15,13 +15,12 @@ import Image from "next/image";
 import RequestModal from "./RequestModal.tsx";
 import React, { useState } from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import {useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 
 import { SignerWalletAdapterProps } from "@solana/wallet-adapter-base";
-import { BONK_ADDRESS } from "@/configs/env.config";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
-import { useParams } from "next/navigation.js";
+import useRequest from "./RequestModal.tsx/useRequest";
 
 export const configureAndSendCurrentTransaction = async (
   transaction: web3.Transaction,
@@ -43,18 +42,20 @@ export const configureAndSendCurrentTransaction = async (
 };
 
 const UserInfo = ({ user }: any) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const { dataPersonal } = useMyProfileContext();
   const { setVisible: setModalVisible } = useWalletModal();
-  const { connection } = useConnection();
-  // const { onDisconnect, onConnect } = useWalletMultiButton({
-  //   onSelectWallet() {
-  //     setModalVisible(true);
-  //   },
-  // });
+ 
+  const {
+    openModal,
+    handleCloseModal,
+    handleOpenModal,
+    register,
+    handleSubmit,
+    onSubmitRequest,
+    isTransaction,
+    reset,
+    setValue,
+  } = useRequest();
 
   const { publicKey, signTransaction, sendTransaction } = useWallet();
 
@@ -63,7 +64,16 @@ const UserInfo = ({ user }: any) => {
   return (
     <div className="w-full relative text-white flex flex-col gap-[140px]">
       <div className="w-full max-h-[312px] relative ">
-        <RequestModal open={open} handleClose={handleClose} />
+        <RequestModal
+          register={register}
+          handleSubmit={handleSubmit}
+          onSubmitRequest={onSubmitRequest}
+          setValue={setValue}
+          isTransaction={isTransaction}
+          reset={reset}
+          open={openModal}
+          handleClose={handleCloseModal}
+        />
 
         <div className="relative w-full h-[300px]">
           <Image
@@ -169,10 +179,9 @@ const UserInfo = ({ user }: any) => {
                   // onClick={handleOpen}
                   onClick={() => {
                     if (publicKey) {
-                      handleOpen();
+                      handleOpenModal();
                     } else {
                       setModalVisible(true);
-                      setOpen(false);
                     }
                   }}
                   whileTap={{ scale: 0.9 }}
@@ -260,7 +269,7 @@ const UserInfo = ({ user }: any) => {
           {dataPersonal?.username?.toString() !==
             user?.username?.toString() && (
             <motion.button
-              onClick={handleOpen}
+              onClick={handleOpenModal}
               whileTap={{ scale: 0.9 }}
               className="py-3 max-w-[300px] text-center bg-[#F23581] rounded-[40px]"
             >
