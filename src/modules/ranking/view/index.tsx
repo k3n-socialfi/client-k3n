@@ -1,18 +1,14 @@
 "use client";
 import React from "react";
-import { Stack } from "@mui/material";
-import styled from "styled-components";
 import MyRanking from "../components/MyRanking";
 import SkeletonMyRanking from "@/components/Skeleton/MyRanking";
 import TableTopRanking from "../components/TableRanking";
-import { useHomeContext } from "@/contexts/HomeContext";
 import { useMyProfileContext } from "@/contexts/MyProfileContext";
 
 export interface IRankingProps {}
 
 export default function Ranking(props: IRankingProps) {
-  const { dataPersonal } = useMyProfileContext();
-  const { isLoading } = useHomeContext();
+  const { dataPersonal, isLoading } = useMyProfileContext();
 
   return (
     <div className="flex flex-col gap-10 w-full p-6">

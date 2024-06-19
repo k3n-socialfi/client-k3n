@@ -37,13 +37,8 @@ export const getTrendingProjects = async () => {
   });
 };
 
-export const getTrendingKols = async () => {
-  return axiosInstance.get("/api/v1/users/kols/trending", {
-    params: {
-      page: 1,
-      param: 10,
-    },
-  });
+export const getTrendingKols = async (params?: any) => {
+  return axiosInstance.get("/api/v1/users/kols/trending", { params: params });
 };
 
 export const getFeatureKolsRanking = async () => {

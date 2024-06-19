@@ -9,6 +9,7 @@ import SkeletonKOLs from "@/components/Skeleton/KOLs";
 import { useHomeContext } from "@/contexts/HomeContext";
 import { CustomTab, SkeletonKols } from "../components/Style/style";
 import TableTrending from "../components/Table/Table";
+import useKols from "../components/Table/useKols";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -34,7 +35,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
   },
 });
 
-interface StyledTabProps  extends TabProps {
+interface StyledTabProps extends TabProps {
   label: string;
 }
 
@@ -72,7 +73,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export default function TabKOLs() {
-  const { isLoading } = useHomeContext();
+  const { isLoading } = useKols();
 
   const [value, setValue] = React.useState(0);
 

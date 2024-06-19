@@ -10,44 +10,23 @@ interface IPropsHomeContextProvider {
   children: React.ReactNode;
 }
 interface IHomeContextTypes {
-  users: IUserKOL[];
   trendingKols: ITrendingKols[];
   trendingProjects: ITrendingProjects[];
   featureKols: IUserKOL[];
-  kols: IUserKOL[];
-  featureProjects: IFeatureProjects[];
-  isLoading: boolean;
-  totalItemKols: number;
-  selectedRange: string;
-  handleRangeChange:(selectedRange: string) => void
+  handleRangeChange: (selectedRange: string) => void;
 }
 
 const HomeContextTypes = {
-  users: [],
   trendingKols: [],
   trendingProjects: [],
   featureKols: [],
-  featureProjects: [],
-  kols: [],
-  isLoading: false,
-  totalItemKols: 0,
-  selectedRange: "1D",
-  handleRangeChange:() => undefined,
+  handleRangeChange: () => undefined,
 };
 
 const homeContext = createContext<IHomeContextTypes>(HomeContextTypes);
 const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
-  const {
-    users,
-    featureKols,
-    featureProjects,
-    trendingKols,
-    trendingProjects,
-    isLoading,
-    kols,
-    totalItemKols,
- 
-  } = useFetchDataHomePage();
+  const { featureKols, trendingKols, trendingProjects } =
+    useFetchDataHomePage();
 
   const [selectedRange, setSelectedRange] = React.useState("1D");
 
@@ -58,16 +37,10 @@ const AuthContextProvider = ({ children }: IPropsHomeContextProvider) => {
   return (
     <homeContext.Provider
       value={{
-        users,
         trendingKols,
         trendingProjects,
         featureKols,
-        featureProjects,
-        isLoading,
-        kols,
-        totalItemKols,
-        selectedRange,
-        handleRangeChange
+        handleRangeChange,
       }}
     >
       {children}
