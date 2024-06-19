@@ -1,6 +1,7 @@
 import { IconBitCoin } from "@/assets/icons";
 import {
   Box,
+  CircularProgress,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -62,7 +63,8 @@ const RequestModal = ({
   open: boolean;
   handleClose: () => void;
 }) => {
-  const { register, handleSubmit, onSubmitRequest } = useRequest();
+  const { register, handleSubmit, onSubmitRequest, isTransaction } =
+    useRequest();
 
   return (
     <div>
@@ -154,6 +156,7 @@ const RequestModal = ({
 
               <OutlinedInput
                 {...register("tip")}
+                type="number"
                 placeholder="Input your tips amount"
                 sx={{
                   borderRadius: "40px",
@@ -186,20 +189,21 @@ const RequestModal = ({
                 }
               />
             </Box>
+            {/* 
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <button className="text-[#009FF5]">reset</button>
 
-            <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
-              <button className="text-[#009FF5]">reset</button>
-
-              <Box display={"flex"} gap={"16px"}>
-                <button className="text-[#009FF5]">1M BONK</button>
-                <button className="text-[#009FF5]">2M BONK</button>
-                <button className="text-[#009FF5]">3M BONK</button>
-              </Box>
+            <Box display={"flex"} gap={"16px"}>
+              <button className="text-[#009FF5]">1M BONK</button>
+              <button className="text-[#009FF5]">2M BONK</button>
+              <button className="text-[#009FF5]">3M BONK</button>
             </Box>
+          </Box> */}
+            <br />
 
             <Box width={"100%"}>
               <motion.button
@@ -207,7 +211,13 @@ const RequestModal = ({
                 whileTap={{ scale: 0.9 }}
                 className="w-full py-[14px] px-[67px] bg-[#F23581] rounded-[40px]"
               >
-                <p className="text-2xl text-white text-nowrap">Submit</p>
+                {isTransaction ? (
+                  <Box height={'100%'} sx={{ display: "flex", alignItems:'center', justifyContent:'center' }}>
+                    <CircularProgress color="success" />
+                  </Box>
+                ) : (
+                  <p className="text-2xl text-white text-nowrap">Submit</p>
+                )}
               </motion.button>
             </Box>
           </Box>
