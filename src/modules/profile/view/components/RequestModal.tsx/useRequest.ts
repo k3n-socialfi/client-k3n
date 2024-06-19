@@ -45,64 +45,66 @@ const useRequest = () => {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
-  const mintToken = new PublicKey(`${BONK_ADDRESS}`); // token address
-  const recipientAddress = new PublicKey(
-    "BMu2dakVLyg4Lv7qHcp7xknWpyDmL1ySH4ttJMwpceUo",
-  );
-
-  const handlePayment = async (amount: number) => {
-    try {
-      if (!publicKey || !signTransaction) {
-        throw new WalletNotConnectedError();
-      }
-      setIsTransaction(true);
-
-      const transactionInstructions: web3.TransactionInstruction[] = [];
-      const associatedTokenFrom = await getAssociatedTokenAddress(
-        mintToken,
-        publicKey,
+  const handlePayment = useCallback(
+    async (amount: number) => {
+      const mintToken = new PublicKey(`${BONK_ADDRESS}`); // token address
+      const recipientAddress = new PublicKey(
+        "BMu2dakVLyg4Lv7qHcp7xknWpyDmL1ySH4ttJMwpceUo",
       );
+      try {
+        if (!publicKey || !signTransaction) {
+          throw new WalletNotConnectedError();
+        }
+        setIsTransaction(true);
 
-      const fromAccount = await getAccount(connection, associatedTokenFrom);
-      const associatedTokenTo = await getAssociatedTokenAddress(
-        mintToken,
-        recipientAddress,
-      );
+        const transactionInstructions: web3.TransactionInstruction[] = [];
+        const associatedTokenFrom = await getAssociatedTokenAddress(
+          mintToken,
+          publicKey,
+        );
 
-      if (!(await connection.getAccountInfo(associatedTokenTo))) {
+        const fromAccount = await getAccount(connection, associatedTokenFrom);
+        const associatedTokenTo = await getAssociatedTokenAddress(
+          mintToken,
+          recipientAddress,
+        );
+
+        if (!(await connection.getAccountInfo(associatedTokenTo))) {
+          transactionInstructions.push(
+            createAssociatedTokenAccountInstruction(
+              publicKey,
+              associatedTokenTo,
+              recipientAddress,
+              mintToken,
+            ),
+          );
+        }
         transactionInstructions.push(
-          createAssociatedTokenAccountInstruction(
+          createTransferInstruction(
+            fromAccount.address, // source
+            associatedTokenTo, // dest
             publicKey,
-            associatedTokenTo,
-            recipientAddress,
-            mintToken,
+            amount * Math.pow(10, 5),
           ),
         );
-      }
-      transactionInstructions.push(
-        createTransferInstruction(
-          fromAccount.address, // source
-          associatedTokenTo, // dest
+        const transaction = new Transaction().add(...transactionInstructions);
+        const signature = await configureAndSendCurrentTransaction(
+          transaction,
+          connection,
           publicKey,
-          amount * Math.pow(10, 5),
-        ),
-      );
-      const transaction = new Transaction().add(...transactionInstructions);
-      const signature = await configureAndSendCurrentTransaction(
-        transaction,
-        connection,
-        publicKey,
-        signTransaction,
-      );
+          signTransaction,
+        );
 
-      if (signature) {
+        if (signature) {
+          setIsTransaction(false);
+        }
+      } catch (error) {
+        console.log("🚀 ~ handlePayment ~ error:", error);
         setIsTransaction(false);
       }
-    } catch (error) {
-      console.log("🚀 ~ handlePayment ~ error:", error);
-      setIsTransaction(false);
-    }
-  };
+    },
+    [connection, publicKey, signTransaction],
+  );
 
   const submitRequestCollaboration: SubmitHandler<RequestTypeSchema> =
     useCallback(
@@ -133,7 +135,14 @@ const useRequest = () => {
           setAlertError("", "Request Collaboration faild");
         }
       },
-      [isTransaction, setIsTransaction, handlePayment],
+      [
+        setIsTransaction,
+        handlePayment,
+        publicKey,
+        reset,
+        setAlertError,
+        setAlertSuccess,
+      ],
     );
 
   return {

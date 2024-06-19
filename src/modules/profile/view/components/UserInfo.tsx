@@ -65,8 +65,7 @@ const UserInfo = ({ user }: any) => {
     } else {
       setModalVisible(true);
     }
-  }, [publicKey, setModalVisible]);
-
+  }, [publicKey, setModalVisible, handleOpenModal]);
 
   const [copied, setCopied] = useState(false);
 
