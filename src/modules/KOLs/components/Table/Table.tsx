@@ -3,10 +3,7 @@ import {
   IconDown,
   IconDownFill,
   IconFilter,
-  IconNFT,
   IconReset,
-  IconStar,
-  IconStarKols,
   IconVerify,
   IconThunder,
   IconArrowUpTop,
@@ -20,11 +17,9 @@ import {
   TYPE_OF_KOL,
 } from "@/constant/FilterData";
 import { DATA_TOP } from "@/constant/dataMockupTop";
-import { useHomeContext } from "@/contexts/HomeContext";
 import {
   Autocomplete,
   Avatar,
-  Chip,
   Paper,
   Table,
   TableBody,
@@ -39,6 +34,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import useKols from "./useKols";
 
 export interface ITableTopRankingProps {
   backgroundColor?: string;
@@ -56,7 +52,7 @@ interface IPCustomTableCell {
 }
 
 export default function TableTrending(props: ITableTopRankingProps) {
-  const { kols: dataTableKols, isLoading, totalItemKols } = useHomeContext();
+  const { data: kols, isLoading, total } = useKols();
   const { push, replace } = useRouter();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -84,7 +80,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
     replace(path, undefined);
   }, [path, replace]);
 
-  const data = dataTableKols?.map((item) => {
+  const data = kols?.map((item) => {
     return {
       name: item?.fullName,
       badge: item?.twitterInfo?.verificationStatus,
@@ -394,7 +390,7 @@ export default function TableTrending(props: ITableTopRankingProps) {
           sx={{ padding: "50px", backgroundColor: "#000", color: "#FFF" }}
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
-          count={totalItemKols}
+          count={total}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

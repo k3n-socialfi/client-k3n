@@ -5,7 +5,6 @@ import Banner from "@/assets/images/Banner.png";
 import CardTrendingKolsSkeleton from "@/components/CardTrendingKOLs/CardTrendingKolsSkeleton";
 import CardTrendingProjectsSkeleton from "@/components/CardTrendingProjects/CardTrendingProjectsSkeleton";
 import { FAKEDATA_SKELETON } from "@/constant/data";
-import { useHomeContext } from "@/contexts/HomeContext";
 import { useServicesContext } from "@/modules/services/context/ServicesContext";
 import { Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -21,23 +20,26 @@ import TredingKols from "@/components/TrendingKols";
 import RankRange from "@/components/TrendingKols/RankRange";
 import TrendingProjects from "@/components/TrendingProjects";
 import CardKols from "@/modules/MarketingServices/Components/CardKols";
+import useFetchDataHomePage from "@/hooks/useFetchDataHomePage";
+import CardServicesSkeleton from "@/components/CardServices/CardServicesSkeleton";
 
 export interface IHomeProps {}
 
 export default function Home({}: IHomeProps) {
   const router = useRouter();
 
+  const { dataServices, isLoading } = useServicesContext();
+  const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
+
   const {
     trendingKols,
     trendingProjects,
     featureKols,
-    isLoading,
-    selectedRange,
-    handleRangeChange,
-  } = useHomeContext();
-
-  const dataServices = useServicesContext();
-  const text = "YOUR #1 KOL PLATFORM IN WEB3".split(" ");
+    isTrendingKolsLoading,
+    isFeatureKolsLoading,
+    isTrendingProjectsLoading,
+    updateTrendingKolsQuery,
+  } = useFetchDataHomePage();
 
   if (isLoading) {
     return (
@@ -91,55 +93,74 @@ export default function Home({}: IHomeProps) {
             <IconArrowRight />
           </Link>
         </div>
-        <Swiper
-          breakpoints={{
-            300: {
-              slidesPerView: 1,
-            },
-            600: {
-              slidesPerView: 2,
-            },
-            900: {
-              slidesPerView: 3,
-            },
-            1200: {
-              slidesPerView: 4,
-            },
-          }}
-          freeMode={true}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          grabCursor={true}
-          modules={[FreeMode, Autoplay]}
-        >
-          {dataServices?.dataServices?.map((service: any, i: number) => (
-            <SwiperSlide key={i}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{
-                  duration: 1,
-                  delay: i / 10,
-                }}
-                viewport={{ once: true }}
-                className="flex flex-wrap px-2 justify-center lg:justify-start py-4"
-              >
-                {/* <ServiceCard service={service} /> */}
-                <CardKols
-                  image={service?.image}
-                  projectName={service?.projectName}
-                  price={`${service?.price}`}
-                  paymentMethod={service?.paymentMethod}
-                  jobId={service?.jobId}
-                  tags={service?.tags}
-                  projectDescription={service?.jobDescription}
-                  reviews={service?.review}
-                  creatorInfo={service?.creatorInfo}
-                />
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {isLoading ? (
+          FAKEDATA_SKELETON.map((_, index) => (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.25,
+                delay: index / 10,
+              }}
+              key={index}
+            >
+              <CardServicesSkeleton />
+            </motion.div>
+          ))
+        ) : (
+          <Swiper
+            breakpoints={{
+              300: {
+                slidesPerView: 1,
+              },
+              600: {
+                slidesPerView: 2,
+              },
+              900: {
+                slidesPerView: 3,
+              },
+              1200: {
+                slidesPerView: 4,
+              },
+            }}
+            freeMode={true}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            grabCursor={true}
+            modules={[FreeMode, Autoplay]}
+          >
+            {dataServices?.length > 0 &&
+              dataServices?.map((service: any, i: number) => (
+                <SwiperSlide key={i}>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{
+                      duration: 1,
+                      delay: i / 10,
+                    }}
+                    viewport={{ once: true }}
+                    className="flex flex-wrap px-2 justify-center lg:justify-start py-4"
+                  >
+                    <CardKols
+                      image={service?.image}
+                      projectName={service?.projectName}
+                      price={`${service?.price}`}
+                      paymentMethod={service?.paymentMethod}
+                      jobId={service?.jobId}
+                      tags={service?.tags}
+                      projectDescription={service?.jobDescription}
+                      reviews={service?.review}
+                      creatorInfo={service?.creatorInfo}
+                    />
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        )}
       </div>
+
+      {/* Trending Kols */}
       <StyleTrending>
         <div className="w-full">
           <div className="flex items-center justify-between mt-8 p-4">
@@ -156,8 +177,9 @@ export default function Home({}: IHomeProps) {
             </motion.h4>
             <div className="flex items-center justify-center">
               <RankRange
-                onRangeChange={handleRangeChange}
-                selectedRange={selectedRange}
+                onChange={(value) => {
+                  updateTrendingKolsQuery(value);
+                }}
               />
               <MoreTrendingKols onClick={() => router.push("/top-ranking")}>
                 <motion.p
@@ -176,8 +198,8 @@ export default function Home({}: IHomeProps) {
             </div>
           </div>
 
-          {isLoading ? (
-            FAKEDATA_SKELETON.map((item, index) => (
+          {isTrendingKolsLoading ? (
+            FAKEDATA_SKELETON.map((_, index) => (
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -188,7 +210,7 @@ export default function Home({}: IHomeProps) {
                 }}
                 key={index}
               >
-                <CardTrendingKolsSkeleton key={item} point={10} />
+                <CardTrendingKolsSkeleton key={index} point={10} />
               </motion.div>
             ))
           ) : (
@@ -199,13 +221,13 @@ export default function Home({}: IHomeProps) {
         <div className="w-full">
           <div className="flex items-center justify-between mt-8 p-4">
             <h4 className="font-bold text-secondary text-2xl md:text-3xl xl:text-4xl">
-              Projects Trending
+              Trending Projects
             </h4>
           </div>
 
-          {isLoading
-            ? FAKEDATA_SKELETON.map((item, i) => (
-                <div key={item}>
+          {isTrendingProjectsLoading
+            ? FAKEDATA_SKELETON.map((_, i) => (
+                <div key={i}>
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -216,11 +238,12 @@ export default function Home({}: IHomeProps) {
                     }}
                     key={i}
                   >
-                    <CardTrendingProjectsSkeleton key={item} />
+                    <CardTrendingProjectsSkeleton key={i} />
                   </motion.div>
                 </div>
               ))
-            : trendingProjects
+            : trendingProjects?.length > 0 &&
+              trendingProjects
                 ?.slice(0, 10)
                 .map((project, index) => (
                   <TrendingProjects project={project} key={index} />
@@ -233,6 +256,7 @@ export default function Home({}: IHomeProps) {
 
 const StyleContainer = styled.div`
   background-color: var(--background-primary);
+  padding: 16px;
 `;
 
 const StyleFeaturedKOLs = styled.div`

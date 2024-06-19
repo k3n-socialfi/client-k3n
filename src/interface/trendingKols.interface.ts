@@ -1,4 +1,3 @@
-import { TwitterInfo } from "./users.interface";
 export interface ITrendingKols {
   createdAt: number;
   updatedAt: number;
@@ -30,4 +29,14 @@ export interface ITrendingKols {
     username?: string;
     verificationStatus?: boolean;
   };
+}
+
+export interface ITrendingKolsQueryParams {
+  page: number;
+  limit: number;
+  type: string | null;
+  date: string | null;
+  change1D: number | null;
+  change7D: number | null;
+  change30D: number | null;
 }

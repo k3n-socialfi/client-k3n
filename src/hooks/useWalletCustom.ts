@@ -142,6 +142,7 @@ export default function useWalletCustom() {
       setPopupProfile(false);
       localStorage.removeItem("signatured");
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("walletName");
       sessionStorage.removeItem("isTwitter");
       window.location.reload();
     }

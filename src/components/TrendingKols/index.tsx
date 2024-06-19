@@ -5,9 +5,10 @@ function TredingKols({ data }: { data: ITrendingKols[] }) {
   return (
     <table className="w-full">
       <tbody>
-        {data?.map((item: any, index: any) => (
-          <UserData key={index} userInfo={item} index={index} />
-        ))}
+        {data?.length > 0 &&
+          data?.map((item: any, index: any) => (
+            <UserData key={index} userInfo={item} index={index} />
+          ))}
       </tbody>
     </table>
   );

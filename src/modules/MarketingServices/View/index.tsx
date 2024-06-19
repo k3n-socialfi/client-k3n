@@ -9,9 +9,10 @@ import { Key } from "react";
 import { useListOffer } from "@/modules/profile/hooks";
 import Link from "next/link";
 import { Grid } from "@mui/material";
+import useKols from "@/modules/KOLs/components/Table/useKols";
 
 export default function MarketingServicesView() {
-  const { kols: dataTableKols, isLoading } = useHomeContext();
+  const { data: dataTableKols, isLoading } = useKols();
   const { dataServices, isLoading: loadingServices } = useServicesContext();
   const { data: listOffersData, isLoading: listOffersLoading } = useListOffer();
 
@@ -60,7 +61,7 @@ export default function MarketingServicesView() {
             {loadingServices
               ? Array.from({ length: 9 }).map((_, key: Key) => (
                   <Grid item xs={12} md={6} xl={3} key={key}>
-                    <CardHotKolsSkeleton />
+                    <CardServicesSkeleton />
                   </Grid>
                 ))
               : dataServices?.slice(0, 9).map((item, index) => (

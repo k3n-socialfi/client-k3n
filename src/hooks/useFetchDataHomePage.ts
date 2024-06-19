@@ -1,102 +1,147 @@
 import { useState, useEffect, useCallback } from "react";
 import {
-  IQueryParams,
-  getFeatureKolsRanking,
-  getFeatureProject,
   getFeaturedKols,
-  getKolsFilter,
+  getFeatureKolsRanking,
   getTrendingKols,
   getTrendingProjects,
 } from "@/services";
-import { ITrendingKols } from "@/interface/trendingKols.interface";
+import {
+  ITrendingKols,
+  ITrendingKolsQueryParams,
+} from "@/interface/trendingKols.interface";
 import { ITrendingProjects } from "@/interface/trendingProjects.interface";
-import { IFeatureProjects } from "@/interface/featureProjects.interface";
 
 const useFetchDataHomePage = () => {
-  const [users, setUsers] = useState<IUserKOL[]>([]);
+  // Trending KOLs
   const [trendingKols, setTrendingKols] = useState<ITrendingKols[]>([]);
+  const [isTrendingKolsLoading, setIsTrendingKolsLoading] =
+    useState<boolean>(false);
+  const [trendingKolsQueryParams, setTrendingKolsQueryParams] =
+    useState<ITrendingKolsQueryParams>({
+      page: 0,
+      limit: 10,
+      type: null,
+      date: null,
+      change1D: -1,
+      change7D: null,
+      change30D: null,
+    });
+
+  const fetchTrendingKols = useCallback(async () => {
+    try {
+      setIsTrendingKolsLoading(true);
+      const response = await getTrendingKols(trendingKolsQueryParams);
+      if (response) {
+        const { data } = response.data;
+        if (data) {
+          setTrendingKols(data.users);
+        }
+      }
+    } catch (error) {
+      throw new Error("Fetch trending kols fail");
+    } finally {
+      setIsTrendingKolsLoading(false);
+    }
+  }, [trendingKolsQueryParams]);
+
+  const updateTrendingKolsQuery = useCallback(
+    (key: string, value?: any) => {
+      switch (key) {
+        case "1D":
+          setTrendingKolsQueryParams({
+            ...trendingKolsQueryParams,
+            change1D: -1,
+            change7D: null,
+            change30D: null,
+          });
+          break;
+        case "7D":
+          setTrendingKolsQueryParams({
+            ...trendingKolsQueryParams,
+            change1D: null,
+            change7D: -1,
+            change30D: null,
+          });
+          break;
+        case "30D":
+          setTrendingKolsQueryParams({
+            ...trendingKolsQueryParams,
+            change1D: null,
+            change7D: null,
+            change30D: -1,
+          });
+          break;
+        default:
+          setTrendingKolsQueryParams({
+            ...trendingKolsQueryParams,
+            [key]: value,
+          });
+          break;
+      }
+    },
+    [trendingKolsQueryParams],
+  );
+
+  // Trending projects
   const [trendingProjects, setTrendingProjects] = useState<ITrendingProjects[]>(
     [],
   );
-  const [featureKols, setFeatureKols] = useState<IUserKOL[]>([]);
+  const [isTrendingProjectsLoading, setIsTrendingProjectsLoading] =
+    useState<boolean>(false);
 
-  const [kols, setKols] = useState<IUserKOL[]>([]);
-  const [totalItemKols, setTotalItemKols] = useState<number>(0);
-
-  const [featureProjects, setFeatureProjects] = useState<IFeatureProjects[]>(
-    [],
-  );
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>();
-
-  const fetchKolsFilter = useCallback(async () => {
-    const queryParamsDefault: IQueryParams = {
-      page: 0,
-      limit: 10,
-      top: 100,
-      type: null,
-      verification: false,
-      tags: [],
-      review: null,
-      minFollower: 0,
-      maxFollower: undefined,
-      minShillScore: 0,
-      maxShillScore: undefined,
-      mentionedProject: null,
-      shillScoreSort: -1,
-      xFollowerSort: null,
-    };
+  const fetchTrendingProjects = useCallback(async () => {
     try {
-      setIsLoading(true);
-      const { data } = await getKolsFilter(queryParamsDefault);
-      setKols(data.data.users);
-      setTotalItemKols(data?.data?.totalItems ?? 0);
-    } catch (err) {
-      console.error(err);
+      setIsTrendingProjectsLoading(true);
+      const response = await getTrendingProjects();
+      if (response) {
+        const { data } = response.data;
+        if (data) {
+          setTrendingProjects(data);
+        }
+      }
+    } catch (error) {
+      throw new Error("Fetch trending projects fail");
     } finally {
-      setIsLoading(false);
+      setIsTrendingProjectsLoading(false);
     }
   }, []);
 
-  const fetchData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const result = await Promise.all([
-        getFeaturedKols(),
-        getTrendingKols(),
-        getTrendingProjects(),
-        getFeatureKolsRanking(),
-        getFeatureProject(),
-      ]);
+  // Feature KOLs
+  const [featureKols, setFeatureKols] = useState<IUserKOL[]>([]);
+  const [isFeatureKolsLoading, setIsFeatureKolsLoading] =
+    useState<boolean>(false);
 
-      setUsers(result[0]?.data?.data?.users);
-      setTrendingKols(result[1]?.data?.data?.users);
-      setTrendingProjects(result[2]?.data?.data);
-      setFeatureKols(result[3]?.data?.data?.users);
-      setFeatureProjects(result[4]?.data?.data?.jobs);
-    } catch (error: any) {
-      setError(error);
+  const fetchFeatureKols = useCallback(async () => {
+    try {
+      setIsFeatureKolsLoading(true);
+      const response = await getFeaturedKols();
+      if (response) {
+        const { data } = response.data;
+        if (data) {
+          setFeatureKols(data.users);
+        }
+      }
+    } catch (error) {
+      throw new Error("Fetch trending kols fail");
     } finally {
-      setIsLoading(false);
+      setIsFeatureKolsLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchKolsFilter();
-    fetchData();
-  }, [fetchKolsFilter, fetchData]);
+    fetchTrendingProjects();
+    fetchTrendingKols();
+    fetchFeatureKols();
+  }, [fetchTrendingProjects, fetchTrendingKols, fetchFeatureKols]);
 
   return {
-    users,
     trendingKols,
     trendingProjects,
     featureKols,
-    featureProjects,
-    isLoading,
-    error,
-    kols,
-    totalItemKols,
+    isTrendingKolsLoading,
+    isFeatureKolsLoading,
+    isTrendingProjectsLoading,
+    updateTrendingKolsQuery,
   };
 };
 
