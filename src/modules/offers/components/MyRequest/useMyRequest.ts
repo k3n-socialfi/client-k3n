@@ -1,19 +1,14 @@
 import axiosInstance from "@/configs/axios.config";
 import { useCallback, useEffect, useState } from "react";
 
-
 export type TReplyRequest = {
-  reply: string,
-  messageId: string,
+  reply: string;
+  messageId: string;
 };
 
 const useMyRequest = () => {
   const [allRequestCollab, setAllRequestCollab] = useState(<any>[]);
   const [allOrderRequest, setAllOrderRequest] = useState(<any>[]);
-
-
-
-
 
   const handleGetRequestCollab = useCallback(async () => {
     try {
@@ -21,7 +16,6 @@ const useMyRequest = () => {
       if (response) {
         setAllRequestCollab(response?.data?.data);
       }
-     
     } catch (error) {
       console.log("🚀 ~ handleGetAllMessage ~ error:", error);
     }
@@ -33,32 +27,31 @@ const useMyRequest = () => {
       if (response) {
         setAllOrderRequest(response?.data?.data);
       }
-     
     } catch (error) {
       console.log("🚀 ~ handleGetAllMessage ~ error:", error);
     }
   }, []);
 
-  const handlePutMessage = useCallback(async (reply: string,messageId: string) => {
-    try {
-      const data = {
-        reply: reply,
-        messageId: messageId,
-      };
-      const response = await axiosInstance.put("/api/v1/message/message", data);
-      if(response) {
-        handleGetRequestCollab()
+  const handlePutMessage = useCallback(
+    async (reply: string, messageId: string) => {
+      try {
+        const data = {
+          reply: reply,
+          messageId: messageId,
+        };
+        const response = await axiosInstance.put(
+          "/api/v1/message/message",
+          data,
+        );
+        if (response) {
+          handleGetRequestCollab();
+        }
+      } catch (error) {
+        console.log("🚀 ~ handleGetAllMessage ~ error:", error);
       }
-      
-      
-    } catch (error) {
-      console.log("🚀 ~ handleGetAllMessage ~ error:", error);
-    }
-  },[handleGetRequestCollab])
-
- 
-
-
+    },
+    [handleGetRequestCollab],
+  );
 
   useEffect(() => {
     handleGetOrderRequest();
@@ -68,7 +61,7 @@ const useMyRequest = () => {
   return {
     allRequestCollab,
     allOrderRequest,
-    handlePutMessage
+    handlePutMessage,
   };
 };
 
