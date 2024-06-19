@@ -50,9 +50,9 @@ export default function Home({}: IHomeProps) {
 
   return (
     <StyleContainer>
-      <div className="w-full h-[300px] md:h-[350px] lg:h-[600px] relative bg-darkblack-600">
+      <div className="w-full h-[300px] md:h-[350px] lg:h-[600px] relative bg-darkblack-600 flex items-center justify-center">
         <Image src={Banner} alt="banner" fill style={{ objectFit: "cover" }} />
-        <div className="max-w-[1000px] w-full flex flex-wrap gap-8 text-center justify-center items-center mx-auto absolute md:top-[4%] md:left-0 xl:top-[6%] xl:left-[3%] 2xl:top-[12%] 2xl:left-[13%] mr-8">
+        <div className="max-w-[1000px] w-full flex flex-wrap gap-4 text-center justify-center items-center mx-auto absolute">
           {text.map((el, i) => (
             <motion.h1
               initial={{ opacity: 0 }}
@@ -104,7 +104,7 @@ export default function Home({}: IHomeProps) {
             },
             1200: {
               slidesPerView: 4,
-            }
+            },
           }}
           freeMode={true}
           autoplay={{ delay: 2500, disableOnInteraction: false }}

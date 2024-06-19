@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ButtonElevated } from "../../../ButtonCustom";
-import { IconClose } from "@/assets/icons";
+import { IconClose, IconWallet } from "@/assets/icons";
 
 interface IPropPopup {
   handleLoginTwitter?: any;
@@ -13,12 +13,17 @@ const Popup = ({ handleLoginTwitter, setPopup }: IPropPopup) => {
     <WrapperPopup>
       <PopupItem>
         <PopupIconClose onClick={() => setPopup(false)}>
-          <IconClose />
+          <IconClose size={20} />
         </PopupIconClose>
         <PopupTitle>
-          Please connect to your X account before proceeding with further tasks.
+          Your account has not been assigned to this wallet address
         </PopupTitle>
-        <ButtonElevated size="large" onClick={() => handleLoginTwitter()}>Connect X account</ButtonElevated>
+        <ButtonElevated size="large" onClick={() => handleLoginTwitter()}>
+          <div className="flex items-center justify-center gap-4">
+            <IconWallet />
+            Assign Now
+          </div>
+        </ButtonElevated>
       </PopupItem>
     </WrapperPopup>
   );

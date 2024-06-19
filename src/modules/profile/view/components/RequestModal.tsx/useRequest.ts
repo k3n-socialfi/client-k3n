@@ -130,7 +130,7 @@ const useRequest = () => {
           });
         } catch (error) {
           setIsTransaction(false);
-          setAlertSuccess("", "Request Collaboration faild");
+          setAlertError("", "Request Collaboration faild");
         }
       },
       [isTransaction, setIsTransaction, handlePayment],

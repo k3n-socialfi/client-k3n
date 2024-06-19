@@ -1,5 +1,4 @@
 "use client";
-import { Tooltip } from "@mui/material";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -14,22 +13,16 @@ const CardChoose = (props: Props) => {
   const { icon, name, onClick, isDisabled } = props;
 
   return (
-    <Tooltip
-      title={
-        !isDisabled && "Shill score must be greater than 30 to create a KOL"
-      }
+    <button
+      className="w-72 h-72 bg-[#191d24] rounded-2xl flex items-center justify-center aspect-square hover:border-2 hover:shadow-[0_0_15px_rgba(130, 235, 255,0.4)] hover:border-[#82EBFF] hover:opacity-90"
+      onClick={onClick}
+      disabled={isDisabled}
     >
-      <button
-        className="w-72 h-72 bg-[#191d24] rounded-2xl flex items-center justify-center aspect-square hover:border-2 hover:shadow-[0_0_15px_rgba(130, 235, 255,0.4)] hover:border-[#82EBFF] hover:opacity-90"
-        onClick={onClick}
-        disabled={isDisabled}
-      >
-        <div className={"flex flex-col gap-[22px] items-center justify-center"}>
-          <Icon>{icon}</Icon>
-          <Name>{name}</Name>
-        </div>
-      </button>
-    </Tooltip>
+      <div className={"flex flex-col gap-[22px] items-center justify-center"}>
+        <Icon>{icon}</Icon>
+        <Name>{name}</Name>
+      </div>
+    </button>
   );
 };
 
