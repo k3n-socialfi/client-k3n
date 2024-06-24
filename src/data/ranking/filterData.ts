@@ -586,7 +586,6 @@ export const tagsList = [
   { title: "Ordinans", value: "Ordinans" },
   { title: "RWA", value: "RWA" },
   { title: "ERC404", value: "ERC404" },
-  // { title: "Unknown", value: "Unknown" },
   { title: "Other", value: "Other" },
 ];
 
