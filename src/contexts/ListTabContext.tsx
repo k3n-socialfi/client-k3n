@@ -98,7 +98,7 @@ interface IQueryParams {
 const queryParamsDefault: IQueryParams = {
   page: 0,
   limit: 100,
-  top: 100,
+  top: 10000,
   type: null,
   verification: false,
   tags: [],
