@@ -55,18 +55,6 @@ export interface ITableTopRankingProps {
   backgroundColor?: string;
 }
 
-interface IPropItemFillter {
-  color?: string;
-  arrowChange?: any;
-}
-
-interface IPCustomTableCell {
-  background?: string;
-  padding?: string;
-  borderLeftColor?: string;
-  isBorderLeft?: boolean;
-}
-
 export default function TableTopRanking(props: ITableTopRankingProps) {
   const {
     data,
@@ -77,7 +65,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
     sortRankingList,
   } = useQueryRanking();
   const [page, setPage] = useState<number>(0);
-  const pageSize = 10;
+  const pageSize = 100;
 
   const handleChangePage = (value: number) => {
     setPage(value);

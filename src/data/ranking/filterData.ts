@@ -575,7 +575,7 @@ export const tagsList = [
   { title: "DeFi", value: "DeFi" },
   { title: "NFTFi", value: "NFTFi" },
   { title: "GameFi", value: "GameFi" },
-  { title: "GamebleFi", value: "GamebleFi" },
+  { title: "GambleFi", value: "GamebleFi" },
   { title: "SocialFi", value: "SocialFi" },
   { title: "DAO", value: "DAO" },
   { title: "Infrastructure", value: "Infrastructure" },
@@ -586,7 +586,7 @@ export const tagsList = [
   { title: "Ordinans", value: "Ordinans" },
   { title: "RWA", value: "RWA" },
   { title: "ERC404", value: "ERC404" },
-  { title: "Unknown", value: "Unknown" },
+  // { title: "Unknown", value: "Unknown" },
   { title: "Other", value: "Other" },
 ];
 
