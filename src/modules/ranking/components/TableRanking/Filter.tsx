@@ -10,6 +10,7 @@ import {
   tokens,
   typeofKols,
 } from "@/data/ranking/filterData";
+import SearchFilter from "./SearchFilter";
 
 interface IFilterProps {
   resetQueryParams: () => void;
@@ -27,7 +28,7 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
 
   return (
     <div className="filter-content w-full">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-3 items-center">
         <SelectFilter
           placeHolder="Type of KOLs"
           options={typeofKols}
@@ -71,6 +72,17 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
           onUpdateValue={(value) => {
             updateQueryParams("mentionedProject", value);
           }}
+          reset={reset}
+        />
+        <SearchFilter
+        title="Search location..."
+          onUpdateValue={(value) => updateQueryParams("location", value)}
+          reset={reset}
+        />
+
+        <SearchFilter
+         title="Search username..."
+          onUpdateValue={(value) => updateQueryParams("userName", value)}
           reset={reset}
         />
         <motion.button
