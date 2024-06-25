@@ -9,6 +9,7 @@ import SkeletonTableTopRanking from "@/components/Skeleton/TableTopRanking";
 import CustomerInfo from "./CustomerInfo";
 import { IconSort } from "@/assets/icons";
 import PaginationTable from "@/components/Pagination";
+import SearchFilter from "./SearchFilter";
 
 const tableTitle: any[] = [
   {
@@ -21,6 +22,10 @@ const tableTitle: any[] = [
   },
   {
     name: "Type",
+    icon: false,
+  },
+  {
+    name: "Location",
     icon: false,
   },
   {
@@ -74,6 +79,11 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
 
   return (
     <Fragment>
+      <SearchFilter
+         title="Search username..."
+          onUpdateValue={(value) => updateQueryParams("userName", value)}
+          // reset={reset}
+        />
       <Filter
         resetQueryParams={resetQueryParams}
         updateQueryParams={updateQueryParams}
@@ -118,6 +128,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                             previousRank={user?.twitterInfo.previousRank}
                             imgKol={user?.twitterInfo.avatar}
                             typeKol={user?.type}
+                            location={user?.location}
                             nameKol={user?.twitterInfo?.fullName}
                             mentionedProject={user?.mentionedProjects}
                             followers={user?.twitterInfo.followers}
@@ -139,6 +150,7 @@ export default function TableTopRanking(props: ITableTopRankingProps) {
                             previousRank={user?.twitterInfo.previousRank}
                             imgKol={user?.twitterInfo.avatar}
                             typeKol={user?.type}
+                            location={user?.location}
                             nameKol={user?.twitterInfo?.fullName}
                             mentionedProject={user?.mentionedProjects}
                             followers={user?.twitterInfo.followers}
