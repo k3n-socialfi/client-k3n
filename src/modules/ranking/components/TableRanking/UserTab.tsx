@@ -83,10 +83,11 @@ function UserTab({ pageSize, users }: { pageSize: number; users: any[] }) {
               ? index + 1 <= pageSize && (
                   <CustomerInfo
                     key={user?.userId}
-                    rank={index}
+                    rank={index} 
                     previousRank={user?.twitterInfo.previousRank}
                     imgKol={user?.twitterInfo.avatar}
                     typeKol={user?.type}
+                    location={user?.location}
                     nameKol={user?.twitterInfo?.fullName}
                     mentionedProject={user.mentionedProjects}
                     followers={user?.twitterInfo.followers}
@@ -108,6 +109,7 @@ function UserTab({ pageSize, users }: { pageSize: number; users: any[] }) {
                     previousRank={user?.twitterInfo.previousRank}
                     imgKol={user?.twitterInfo.avatar}
                     typeKol={user?.type}
+                    location={user?.location}
                     nameKol={user?.socialProfiles?.username}
                     mentionedProject={user.mentionedProjects}
                     followers={user?.twitterInfo.followers}

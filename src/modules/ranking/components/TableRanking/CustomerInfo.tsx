@@ -60,6 +60,7 @@ function CustomerInfo({
   rank,
   imgKol,
   typeKol,
+  location,
   nameKol,
   mentionedProject,
   followers,
@@ -73,6 +74,7 @@ function CustomerInfo({
   rank: number;
   imgKol: string | null;
   typeKol: string | null;
+  location: string | null;
   nameKol: string | null;
   mentionedProject: any[];
   followers: number;
@@ -193,6 +195,14 @@ function CustomerInfo({
         >
           {typeKol}
         </div>
+      </td>
+      <td className="px-6 py-5 ">
+        
+        <p>
+        {location}
+
+        </p>
+        
       </td>
       <td className="px-6 py-5 w-[200px] ">
         <Tooltip

@@ -74,17 +74,13 @@ function Filter({ resetQueryParams, updateQueryParams }: IFilterProps) {
           }}
           reset={reset}
         />
-        <SearchFilter
-        title="Search location..."
+        <SearchFilter 
+        title="Search location"
           onUpdateValue={(value) => updateQueryParams("location", value)}
           reset={reset}
         />
 
-        <SearchFilter
-         title="Search username..."
-          onUpdateValue={(value) => updateQueryParams("userName", value)}
-          reset={reset}
-        />
+        
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

@@ -40,7 +40,7 @@ export default function RequestMessage({ data, type = "order", handlePutMessage 
               {
                 data?.reply && (
                   <div>
-                   <p className="text-sm text-success-100">Me</p>
+                   {/* <p className="text-sm text-success-100">Me</p> */}
                   <motion.div
                   className="bg-[#191D24]  rounded-xl px-4 py-3"
                   layout

@@ -32,7 +32,7 @@ const SearchFilter = ({ title, onUpdateValue, reset }: ISearchFilter) => {
       <p className="mb-2 text-base font-bold leading-[24px] text-bgray-900 dark:text-white">
       </p>
       <div className="relative h-14 w-full">
-        <div className="relative flex gap-3 h-full w-full items-center justify-between rounded-lg bg-bgray-100 px-4 dark:bg-[#121212]">
+        <div className="relative flex gap-3 h-full w-full items-center justify-between rounded-lg bg-bgray-100 px-3 dark:bg-[#121212]">
           <motion.button
             whileTap={{
               scale: 0.9,
@@ -73,6 +73,10 @@ const SearchFilter = ({ title, onUpdateValue, reset }: ISearchFilter) => {
               type="text"
               id="search"
               placeholder={title}
+              onKeyDown={(e) => { 
+                if (e.key === "Enter") 
+                  searchValue &&  onUpdateValue(searchValue)
+                }} 
               className="search-input w-full border-none bg-bgray-50 bg-none px-0 text-sm tracking-wide text-bgray-600 placeholder:text-sm placeholder:font-semibold focus:outline-none focus:ring-0 dark:bg-darkblack-500 dark:placeholder:text-bgray-500"
               onChange={onSearchInputChange}
             />
